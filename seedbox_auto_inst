@@ -50,18 +50,9 @@ enabled = no
 sudo service apache2 restart
 # http://163.172.10.239/ruTorrent/
 
-sudo nano /etc/systemd/system/rtorrent.service
-[Unit]
-Description=rtorrent (in tmux)
-[Service]
-Type=oneshot
-RemainAfterExit=yes
-User=jack
-ExecStart=/usr/bin/tmux -2 new-session -d -s rtorrent rtorrent
-ExecStop=/usr/bin/tmux kill-session -t rtorrent
-[Install]
-WantedBy=default.target
-################################################################
+sudo wget -O /etc/systemd/system/rtorrent.service https://raw.githubusercontent.com/lovewangbo/seedbox/master/templates/rtorrent.service
+sudo sed -i "s@RT_USER_HERE@$RTORRENT_USER@g" /etc/systemd/system/rtorrent.service
+
 sudo systemctl enable rtorrent
 sudo systemctl status rtorrent
 sudo systemctl start rtorrent
@@ -94,7 +85,9 @@ cd ..
 sudo mkdir -p $HOMEDIR/.config/qBittorrent/
 sudo wget -O $HOMEDIR/.config/qBittorrent/qBittorrent.conf https://raw.githubusercontent.com/lovewangbo/qbittorrent/master/qBittorrent.conf
 sudo chown "$RTORRENT_USER"."$RTORRENT_USER" $HOMEDIR/.config/qBittorrent/qBittorrent.conf
-sudo nano /etc/systemd/system/qbittorrent
+sudo wget -O /etc/systemd/system/qbittorrent.service https://raw.githubusercontent.com/lovewangbo/seedbox/master/templates/qbittorrent.service
+sudo sed -i "s@QB_USEERS_HERE@$RTORRENT_USER@g" /etc/systemd/system/qbittorrent.service
+
 sudo systemctl enable qbittorrent
 sudo systemctl status qbittorrent
 sudo systemctl start qbittorrent
