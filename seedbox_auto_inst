@@ -1,0 +1,101 @@
+#!/bin/bash
+# PLEASE DO NOT SET ANY OF THE VARIABLES, THEY WILL BE POPULATED IN THE MENU
+# Stop when errors, do not place before #!/bin/bash
+set -e
+
+sudo passwd root
+su
+apt-get install tmux
+tmux
+
+wget -qO- bench.sh | bash
+apt-get update; apt-get install smartmontools;
+# smartctl -A /dev/sda
+smartctl -a -d cciss,0 /dev/sda
+smartctl -a -d cciss,1 /dev/sda
+
+# 2. 若版本为14.04，先升级到16.04【否则安装不了BBR】
+sudo apt-get update
+sudo apt-get upgrade
+sudo apt-get dist-upgrade
+sudo apt-get install update-manager-core
+sudo do-release-upgrade
+# 然后一路y和Enter即可。
+
+wget --no-check-certificate https://github.com/teddysun/across/raw/master/bbr.sh;chmod +x bbr.sh;./bbr.sh
+mkdir -p /lib/firmware/bnx2
+wget -O /lib/firmware/bnx2/bnx2-rv2p-09ax-6.0.17.fw https://raw.githubusercontent.com/cernekee/linux-firmware/master/bnx2/bnx2-rv2p-09ax-6.0.17.fw
+wget -O /lib/firmware/bnx2/bnx2-rv2p-09-6.0.17.fw https://raw.githubusercontent.com/cernekee/linux-firmware/master/bnx2/bnx2-rv2p-09-6.0.17.fw
+wget -O /lib/firmware/bnx2/bnx2-rv2p-06-6.0.15.fw https://raw.githubusercontent.com/cernekee/linux-firmware/master/bnx2/bnx2-rv2p-06-6.0.15.fw
+wget -O /lib/firmware/bnx2/bnx2-mips-09-6.2.1b.fw https://raw.githubusercontent.com/cernekee/linux-firmware/master/bnx2/bnx2-mips-09-6.2.1b.fw
+wget -O /lib/firmware/bnx2/bnx2-mips-06-6.2.3.fw https://raw.githubusercontent.com/cernekee/linux-firmware/master/bnx2/bnx2-mips-06-6.2.3.fw
+reboot
+
+uname -r
+
+git clone https://github.com/lovewangbo/ipv6-dhclient-script.git;cd ipv6-dhclient-script;chmod +x ipv6-dhclient-script.sh
+./ipv6-dhclient-script.sh em1 2001:bc8:32d7:6b00::1 56 00:03:00:01:43:42:a8:23:1a:47
+ping6 ipv6.google.com
+
+
+sudo adduser jack
+RTORRENT_USER="jack"; HOMEDIR=$(cat /etc/passwd | grep "$RTORRENT_USER": | cut -d: -f6)
+apt-get install rtorrent; apt-get install php php7.0-cli php7.0-json php7.0-curl php7.0-cgi php7.0-mbstring libapache2-mod-php libapache2-mod-scgi apache2; apt-get install unrar unzip ffmpeg mediainfo; cd /var/www/html; apt-get install git -y && sudo git clone https://github.com/Novik/ruTorrent.git; chown -R $RTORRENT_USER:www-data ruTorrent/ && sudo chmod -R 770 ruTorrent/;
+cd $HOMEDIR; wget -O $HOMEDIR/.rtorrent.rc https://raw.githubusercontent.com/lovewangbo/rTorrent/master/.rtorrent.rc; chown "$RTORRENT_USER"."$RTORRENT_USER" $HOMEDIR/.rtorrent.rc; sed -i "s@HOMEDIRHERE@$HOMEDIR@g" $HOMEDIR/.rtorrent.rc; mkdir $HOMEDIR/.rtorrent-session; chown "$RTORRENT_USER"."$RTORRENT_USER" $HOMEDIR/.rtorrent-session; mkdir $HOMEDIR/Downloads; chown "$RTORRENT_USER"."$RTORRENT_USER" $HOMEDIR/Downloads;
+nano /var/www/html/ruTorrent/conf/plugins.ini
+[httprpc]
+enabled = yes
+[rpc]
+enabled = no
+sudo service apache2 restart
+# http://163.172.10.239/ruTorrent/
+
+sudo nano /etc/systemd/system/rtorrent.service
+[Unit]
+Description=rtorrent (in tmux)
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+User=jack
+ExecStart=/usr/bin/tmux -2 new-session -d -s rtorrent rtorrent
+ExecStop=/usr/bin/tmux kill-session -t rtorrent
+[Install]
+WantedBy=default.target
+################################################################
+sudo systemctl enable rtorrent
+sudo systemctl status rtorrent
+sudo systemctl start rtorrent
+ps -ef | grep rtorrent
+#sudo systemctl disable rtorrent
+#sudo systemctl stop rtorrent
+#sudo systemctl status rtorrent
+ps -ef | grep rtorrent
+
+apt-get install curl;
+
+
+sudo apt-get install -y build-essential pkg-config automake libtool git
+sudo apt-get install -y libboost-dev libboost-system-dev libboost-chrono-dev libboost-random-dev libssl-dev
+sudo apt-get install -y qtbase5-dev qttools5-dev-tools libqt5svg5-dev
+sudo apt-get install -y python3
+sudo apt-get install -y libtorrent-rasterbar-dev
+pkg-config --list-all | grep libtorrent
+sudo dpkg -l | grep libtorrent-rasterbar
+
+mkdir -p tmp/20180122
+cd tmp/20180122/
+git clone https://github.com/qbittorrent/qBittorrent
+wget https://sourceforge.net/projects/qbittorrent/files/qbittorrent/qbittorrent-3.3.14/qbittorrent-3.3.14.tar.gz
+tar -xvzf qbittorrent-*.tar.gz; cd qbittorrent-*;
+./configure --disable-gui;
+make clean && make -j$(nproc);
+sudo make install;
+cd ..
+sudo mkdir -p $HOMEDIR/.config/qBittorrent/
+sudo wget -O $HOMEDIR/.config/qBittorrent/qBittorrent.conf https://raw.githubusercontent.com/lovewangbo/qbittorrent/master/qBittorrent.conf
+sudo chown "$RTORRENT_USER"."$RTORRENT_USER" $HOMEDIR/.config/qBittorrent/qBittorrent.conf
+sudo nano /etc/systemd/system/qbittorrent
+sudo systemctl enable qbittorrent
+sudo systemctl status qbittorrent
+sudo systemctl start qbittorrent
+sudo systemctl status qbittorrent
