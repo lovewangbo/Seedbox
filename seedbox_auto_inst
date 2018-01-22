@@ -42,13 +42,9 @@ sudo adduser jack
 RTORRENT_USER="jack"; HOMEDIR=$(cat /etc/passwd | grep "$RTORRENT_USER": | cut -d: -f6)
 apt-get install rtorrent; apt-get install php php7.0-cli php7.0-json php7.0-curl php7.0-cgi php7.0-mbstring libapache2-mod-php libapache2-mod-scgi apache2; apt-get install unrar unzip ffmpeg mediainfo; cd /var/www/html; apt-get install git -y && sudo git clone https://github.com/Novik/ruTorrent.git; chown -R $RTORRENT_USER:www-data ruTorrent/ && sudo chmod -R 770 ruTorrent/;
 cd $HOMEDIR; wget -O $HOMEDIR/.rtorrent.rc https://raw.githubusercontent.com/lovewangbo/rTorrent/master/.rtorrent.rc; chown "$RTORRENT_USER"."$RTORRENT_USER" $HOMEDIR/.rtorrent.rc; sed -i "s@HOMEDIRHERE@$HOMEDIR@g" $HOMEDIR/.rtorrent.rc; mkdir $HOMEDIR/.rtorrent-session; chown "$RTORRENT_USER"."$RTORRENT_USER" $HOMEDIR/.rtorrent-session; mkdir $HOMEDIR/Downloads; chown "$RTORRENT_USER"."$RTORRENT_USER" $HOMEDIR/Downloads;
-nano /var/www/html/ruTorrent/conf/plugins.ini
-[httprpc]
-enabled = yes
-[rpc]
-enabled = no
+sudo echo -e "[httprpc]\nenabled = yes\n[rpc]\nenabled = no"  >> /var/www/html/ruTorrent/conf/plugins.ini
 sudo service apache2 restart
-# http://163.172.10.239/ruTorrent/
+# http://xxx.xxx.xxx.xxx/ruTorrent/
 
 sudo wget -O /etc/systemd/system/rtorrent.service https://raw.githubusercontent.com/lovewangbo/seedbox/master/templates/rtorrent.service
 sudo sed -i "s@RT_USER_HERE@$RTORRENT_USER@g" /etc/systemd/system/rtorrent.service
