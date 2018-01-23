@@ -89,11 +89,11 @@ sudo systemctl status qbittorrent
 sudo systemctl start qbittorrent
 sudo systemctl status qbittorrent
 
-my_server_ip =
-my_server_port = 
-mypassword = 
+my_server_ip=
+my_server_port=
+mypassword=
 sudo wget -O /etc/shadowsocks/config.json https://raw.githubusercontent.com/lovewangbo/seedbox/master/templates/shadowsocks/config.json
-sudo sed -i "s@my_server_ip@my_server_ip@g" /etc/shadowsocks/config.json
-sudo sed -i "s@my_server_port@my_server_port@g" /etc/shadowsocks/config.json
-sudo sed -i "s@mypassword@mypassword@g" /etc/shadowsocks/config.json
+sudo sed -i "s@my_server_ip@$my_server_ip@g" /etc/shadowsocks/config.json
+sudo sed -i "s@my_server_port@$my_server_port@g" /etc/shadowsocks/config.json
+sudo sed -i "s@mypassword@$mypassword@g" /etc/shadowsocks/config.json
 
