@@ -64,6 +64,7 @@ ps -ef | grep rtorrent
 #systemctl status rtorrent
 ps -ef | grep rtorrent
 
+
 # 安装qBittorrent
 apt-get install -y build-essential pkg-config automake libtool git
 apt-get install -y libboost-dev libboost-system-dev libboost-chrono-dev libboost-random-dev libssl-dev
@@ -96,11 +97,22 @@ systemctl status qbittorrent
 #my_server_ip=127.0.0.1
 #my_server_port=
 #mypassword=
-echo -n "Your possible IP address : "
-ifconfig | grep inet | cut -d : -f 2 | cut -d " " -f 1
+
+
+# 安装Shadowsocks
+echo "Now install shadowsocks:"
+echo -n "Your possible Ethernet: "
+DEFAULT_INTERFACE=`ip route get 8.8.8.8 | awk '{print $5; exit}'` #获取网卡名称
+# ifconfig | grep "Link encap" | awk '{print $1}' # 也可
+# read -e DEFAULT_INTERFACE
+#ifconfig | grep inet | cut -d : -f 2 | cut -d " " -f 1 # 获取ip地址
 #curl -s checkip.dyndns.com | cut -d' ' -f 6  | cut -d'<' -f 1 #也可
-echo -n "Input the proper IP address: "
-read -e my_server_ip
+#echo -n "Input the proper IP address: "
+#read -e my_server_ip
+my_server_ip=$(ifconfig $DEFAULT_INTERFACE | grep inet | cut -d : -f 2 | cut -d " " -f 1)
+echo -n "Check your IP address : "
+echo $my_server_ip
+read -p
 echo -n "Input the port to use: "
 read -e my_server_port
 echo -n "Input the password to verify: "
@@ -109,6 +121,7 @@ sudo wget -O /etc/shadowsocks/config.json https://raw.githubusercontent.com/love
 sudo sed -i "s@my_server_ip@${my_server_ip}@g" /etc/shadowsocks/config.json
 sudo sed -i "s@my_server_port@${my_server_port}@g" /etc/shadowsocks/config.json
 sudo sed -i "s@mypassword@${my_server_passwd}@g" /etc/shadowsocks/config.json
+
 
 # 测速
 # 方法1：
@@ -122,7 +135,8 @@ apt-get -y install iperf3
 iperf3 -c ping.online.net
 
 # 限速
-tc qdisc add dev enp1s0 root tbf rate 50mbit latency 70ms burst 10kb # 正确的写法	
-tc qdisc add dev enp1s0 root tbf rate 50mbit latency 50ms burst 1000 # 错误的写法
-tc qdisc del dev enp1s0 root
-tc qdisc show dev enp1s0 
+DEFAULT_INTERFACE=`ip route get 8.8.8.8 | awk '{print $5; exit}'` #获取网卡名称
+tc qdisc add dev $DEFAULT_INTERFACE root tbf rate 50mbit latency 70ms burst 10kb # 正确的写法	
+tc qdisc add dev $DEFAULT_INTERFACE root tbf rate 50mbit latency 50ms burst 1000 # 错误的写法
+tc qdisc del dev $DEFAULT_INTERFACE root
+tc qdisc show dev $DEFAULT_INTERFACE
