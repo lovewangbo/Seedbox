@@ -15,13 +15,15 @@ smartctl -a -d cciss,0 /dev/sda
 smartctl -a -d cciss,1 /dev/sda
 
 # 2. 若版本为14.04，先升级到16.04【否则安装不了BBR】
-sudo apt-get update
-sudo apt-get upgrade
-sudo apt-get dist-upgrade
-sudo apt-get install update-manager-core
-sudo do-release-upgrade
+su
+apt-get update
+apt-get upgrade
+apt-get dist-upgrade
+apt-get install update-manager-core
+do-release-upgrade
 # 然后一路y和Enter即可。
 
+su
 wget --no-check-certificate https://github.com/teddysun/across/raw/master/bbr.sh;chmod +x bbr.sh;./bbr.sh
 mkdir -p /lib/firmware/bnx2
 wget -O /lib/firmware/bnx2/bnx2-rv2p-09ax-6.0.17.fw https://raw.githubusercontent.com/cernekee/linux-firmware/master/bnx2/bnx2-rv2p-09ax-6.0.17.fw
@@ -30,48 +32,49 @@ wget -O /lib/firmware/bnx2/bnx2-rv2p-06-6.0.15.fw https://raw.githubusercontent.
 wget -O /lib/firmware/bnx2/bnx2-mips-09-6.2.1b.fw https://raw.githubusercontent.com/cernekee/linux-firmware/master/bnx2/bnx2-mips-09-6.2.1b.fw
 wget -O /lib/firmware/bnx2/bnx2-mips-06-6.2.3.fw https://raw.githubusercontent.com/cernekee/linux-firmware/master/bnx2/bnx2-mips-06-6.2.3.fw
 reboot
-
 uname -r
 
+su
+cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime; date;
+
+su
 git clone https://github.com/lovewangbo/ipv6-dhclient-script.git;cd ipv6-dhclient-script;chmod +x ipv6-dhclient-script.sh
 ./ipv6-dhclient-script.sh em1 2001:bc8:32d7:6b00::1 56 00:03:00:01:43:42:a8:23:1a:47
 ping6 ipv6.google.com
 
-
-sudo adduser jack
+# 安装rTorrent和ruTorrent
+su
+adduser jack
 RTORRENT_USER="jack"; HOMEDIR=$(cat /etc/passwd | grep "$RTORRENT_USER": | cut -d: -f6)
-sudo apt-get install rtorrent; sudo apt-get install -y php php7.0-cli php7.0-json php7.0-curl php7.0-cgi php7.0-mbstring libapache2-mod-php libapache2-mod-scgi apache2; sudo apt-get install -y unrar unzip ffmpeg mediainfo; cd /var/www/html; sudo apt-get install git -y && sudo git clone https://github.com/Novik/ruTorrent.git; sudo chown -R $RTORRENT_USER:www-data ruTorrent/ && sudo chmod -R 770 ruTorrent/;
+apt-get install -y rtorrent; apt-get install -y php php7.0-cli php7.0-json php7.0-curl php7.0-cgi php7.0-mbstring libapache2-mod-php libapache2-mod-scgi apache2; apt-get install -y unrar unzip ffmpeg mediainfo; cd /var/www/html; apt-get install -y git && git clone https://github.com/Novik/ruTorrent.git; chown -R $RTORRENT_USER:www-data ruTorrent/ && chmod -R 770 ruTorrent/;
 cd $HOMEDIR; wget -O $HOMEDIR/.rtorrent.rc https://raw.githubusercontent.com/lovewangbo/rTorrent/master/.rtorrent.rc; chown "$RTORRENT_USER"."$RTORRENT_USER" $HOMEDIR/.rtorrent.rc; sed -i "s@HOMEDIRHERE@$HOMEDIR@g" $HOMEDIR/.rtorrent.rc; mkdir $HOMEDIR/.rtorrent-session; chown "$RTORRENT_USER"."$RTORRENT_USER" $HOMEDIR/.rtorrent-session; mkdir $HOMEDIR/Downloads; chown "$RTORRENT_USER"."$RTORRENT_USER" $HOMEDIR/Downloads;
-sudo echo -e "\n\n[httprpc]\nenabled = yes\n[rpc]\nenabled = no"  >> /var/www/html/ruTorrent/conf/plugins.ini
-sudo service apache2 restart
+echo -e "\n\n[httprpc]\nenabled = yes\n[rpc]\nenabled = no"  >> /var/www/html/ruTorrent/conf/plugins.ini
+service apache2 restart
 # http://xxx.xxx.xxx.xxx/ruTorrent/
+apt-get install -y tmux
+wget -O /etc/systemd/system/rtorrent.service https://raw.githubusercontent.com/lovewangbo/seedbox/master/templates/rtorrent.service
+sed -i "s@RT_USER_HERE@$RTORRENT_USER@g" /etc/systemd/system/rtorrent.service
 
-sudo wget -O /etc/systemd/system/rtorrent.service https://raw.githubusercontent.com/lovewangbo/seedbox/master/templates/rtorrent.service
-sudo sed -i "s@RT_USER_HERE@$RTORRENT_USER@g" /etc/systemd/system/rtorrent.service
-apt-get install tmux
-
-sudo systemctl enable rtorrent
-sudo systemctl status rtorrent
-sudo systemctl start rtorrent
+systemctl enable rtorrent
+systemctl status rtorrent
+systemctl start rtorrent
 ps -ef | grep rtorrent
-#sudo systemctl disable rtorrent
-#sudo systemctl stop rtorrent
-#sudo systemctl status rtorrent
+#systemctl disable rtorrent
+#systemctl stop rtorrent
+#systemctl status rtorrent
 ps -ef | grep rtorrent
 
-apt-get install curl;
-
-
-sudo apt-get install -y build-essential pkg-config automake libtool git
-sudo apt-get install -y libboost-dev libboost-system-dev libboost-chrono-dev libboost-random-dev libssl-dev
-sudo apt-get install -y qtbase5-dev qttools5-dev-tools libqt5svg5-dev
-sudo apt-get install -y python3
-sudo apt-get install -y libtorrent-rasterbar-dev
+# 安装qBittorrent
+apt-get install -y build-essential pkg-config automake libtool git
+apt-get install -y libboost-dev libboost-system-dev libboost-chrono-dev libboost-random-dev libssl-dev
+apt-get install -y qtbase5-dev qttools5-dev-tools libqt5svg5-dev
+apt-get install -y python3
+apt-get install -y libtorrent-rasterbar-dev
 pkg-config --list-all | grep libtorrent
-sudo dpkg -l | grep libtorrent-rasterbar
+dpkg -l | grep libtorrent-rasterbar
 
-mkdir -p tmp/20180122
-cd tmp/20180122/
+TODAY=`date +%Y-%m-%d`; TODAY=$(date +%Y-%m-%d);
+mkdir -p tmp/$TODAY; cd tmp/$TODAY
 git clone https://github.com/qbittorrent/qBittorrent
 wget https://sourceforge.net/projects/qbittorrent/files/qbittorrent/qbittorrent-3.3.14/qbittorrent-3.3.14.tar.gz
 tar -xvzf qbittorrent-*.tar.gz; cd qbittorrent-*;
@@ -85,10 +88,10 @@ sudo chown "$RTORRENT_USER"."$RTORRENT_USER" $HOMEDIR/.config/qBittorrent/qBitto
 sudo wget -O /etc/systemd/system/qbittorrent.service https://raw.githubusercontent.com/lovewangbo/seedbox/master/templates/qbittorrent.service
 sudo sed -i "s@QB_USEERS_HERE@$RTORRENT_USER@g" /etc/systemd/system/qbittorrent.service
 
-sudo systemctl enable qbittorrent
-sudo systemctl status qbittorrent
-sudo systemctl start qbittorrent
-sudo systemctl status qbittorrent
+systemctl enable qbittorrent
+systemctl status qbittorrent
+systemctl start qbittorrent
+systemctl status qbittorrent
 
 #my_server_ip=127.0.0.1
 #my_server_port=
