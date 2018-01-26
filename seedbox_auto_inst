@@ -110,3 +110,19 @@ sudo sed -i "s@my_server_ip@${my_server_ip}@g" /etc/shadowsocks/config.json
 sudo sed -i "s@my_server_port@${my_server_port}@g" /etc/shadowsocks/config.json
 sudo sed -i "s@mypassword@${my_server_passwd}@g" /etc/shadowsocks/config.json
 
+# 测速
+# 方法1：
+su
+wget -O speedtest https://raw.githubusercontent.com/sivel/speedtest-cli/master/speedtest.py
+chmod +x speedtest
+./speedtest
+# 方法2：
+su
+apt-get -y install iperf3
+iperf3 -c ping.online.net
+
+# 限速
+tc qdisc add dev enp1s0 root tbf rate 50mbit latency 70ms burst 10kb # 正确的写法	
+tc qdisc add dev enp1s0 root tbf rate 50mbit latency 50ms burst 1000 # 错误的写法
+tc qdisc del dev enp1s0 root
+tc qdisc show dev enp1s0 
