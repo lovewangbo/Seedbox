@@ -4,15 +4,16 @@
 set -e
 
 sudo passwd root
-su
-apt-get install tmux
-tmux
 
+su
 wget -qO- bench.sh | bash
 apt-get update; apt-get install smartmontools;
 # smartctl -A /dev/sda
 smartctl -a -d cciss,0 /dev/sda
 smartctl -a -d cciss,1 /dev/sda
+
+su
+apt-get update
 
 # 2. 若版本为14.04，先升级到16.04【否则安装不了BBR】
 su
@@ -99,8 +100,18 @@ systemctl status qbittorrent
 #mypassword=
 
 
+   
+
+
 # 安装Shadowsocks
+su
 echo "Now install shadowsocks:"
+python --version
+echo "Python should be 2.6/2.7, and your python version is:"
+apt-get install -y python-gevent python-pip;
+pip install shadowsocks;
+apt-get install -y python-m2crypto;
+mkdir -p /etc/shadowsocks;
 echo -n "Your possible Ethernet: "
 DEFAULT_INTERFACE=`ip route get 8.8.8.8 | awk '{print $5; exit}'` #获取网卡名称
 # ifconfig | grep "Link encap" | awk '{print $1}' # 也可
@@ -121,7 +132,9 @@ sudo wget -O /etc/shadowsocks/config.json https://raw.githubusercontent.com/love
 sudo sed -i "s@my_server_ip@${my_server_ip}@g" /etc/shadowsocks/config.json
 sudo sed -i "s@my_server_port@${my_server_port}@g" /etc/shadowsocks/config.json
 sudo sed -i "s@mypassword@${my_server_passwd}@g" /etc/shadowsocks/config.json
-
+wget -O /etc/systemd/system/shadowsocks.service https://raw.githubusercontent.com/lovewangbo/seedbox/master/templates/shadowsocks/shadowsocks.service
+systemctl enable shadowsocks;
+systemctl start shadowsocks;
 
 # 测速
 # 方法1：
