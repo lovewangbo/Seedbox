@@ -40,7 +40,14 @@ cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime; date;
 
 su
 git clone https://github.com/lovewangbo/ipv6-dhclient-script.git;cd ipv6-dhclient-script;chmod +x ipv6-dhclient-script.sh
-./ipv6-dhclient-script.sh em1 2001:bc8:32d7:6b00::1 56 00:03:00:01:43:42:a8:23:1a:47
+DEFAULT_INTERFACE=`ip route get 8.8.8.8 | awk '{print $5; exit}'` #获取网卡名称
+echo -n "Input your IPV6 address:"
+read -e IPV6_ADDRESS
+echo -n "Input your IPV6 subnet:"
+read -e IPV6_SUBNET
+echo -n "Input your IPV6 DUID:"
+read -e IPV6_DUID
+./ipv6-dhclient-script.sh $DEFAULT_INTERFACE $IPV6_ADDRESS $IPV6_SUBNET $IPV6_DUID
 ping6 ipv6.google.com
 
 # 安装rTorrent和ruTorrent
