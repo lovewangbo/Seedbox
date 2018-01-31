@@ -113,7 +113,7 @@ dpkg -l | grep libtorrent-rasterbar
 
 TODAY=`date +%Y-%m-%d`; TODAY=$(date +%Y-%m-%d);
 mkdir -p tmp/$TODAY; cd tmp/$TODAY
-git clone https://github.com/qbittorrent/qBittorrent
+#git clone https://github.com/qbittorrent/qBittorrent
 wget https://sourceforge.net/projects/qbittorrent/files/qbittorrent/qbittorrent-3.3.14/qbittorrent-3.3.14.tar.gz
 tar -xvzf qbittorrent-*.tar.gz; cd qbittorrent-*;
 ./configure --disable-gui;
