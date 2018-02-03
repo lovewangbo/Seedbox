@@ -107,18 +107,38 @@ apt-get install -y build-essential pkg-config automake libtool git
 apt-get install -y libboost-dev libboost-system-dev libboost-chrono-dev libboost-random-dev libssl-dev
 apt-get install -y qtbase5-dev qttools5-dev-tools libqt5svg5-dev
 apt-get install -y python3
-apt-get install -y libtorrent-rasterbar-dev
-pkg-config --list-all | grep libtorrent
-dpkg -l | grep libtorrent-rasterbar
+####libtorrent安装开始
+####安装二进制包
+#apt-get install -y libtorrent-rasterbar-dev
+#pkg-config --list-all | grep libtorrent
+#dpkg -l | grep libtorrent-rasterbar
+####编译安装
+git clone https://github.com/arvidn/libtorrent.git
+cd libtorrent
+git checkout libtorrent-1_0_11
+./autotool.sh
+.configure -disable-debug --enable-encryption --with-libgeoip=system CXXFLAGS=-std=c++11
+make clean && make -j$(nproc);
+checkinstall
+ldconfig
+####libtorrent安装完毕
 
 TODAY=`date +%Y-%m-%d`; TODAY=$(date +%Y-%m-%d);
 mkdir -p tmp/$TODAY; cd tmp/$TODAY
-#git clone https://github.com/qbittorrent/qBittorrent
-wget https://sourceforge.net/projects/qbittorrent/files/qbittorrent/qbittorrent-3.3.14/qbittorrent-3.3.14.tar.gz
-tar -xvzf qbittorrent-*.tar.gz; cd qbittorrent-*;
+# 3.3.11不能跳过校验
+git clone https://github.com/qbittorrent/qBittorrent
+cd qBittorrent;
+git checkout release-3.3.11
+git cherry-pick db3158c
+git cherry-pick b271fa9
+# 3.3.14 mt和hdsky不支持
+#wget https://sourceforge.net/projects/qbittorrent/files/qbittorrent/qbittorrent-3.3.14/qbittorrent-3.3.14.tar.gz
+#tar -xvzf qbittorrent-*.tar.gz; cd qbittorrent-*;
+#######
 ./configure --disable-gui;
 make clean && make -j$(nproc);
-sudo make install;
+#sudo make install;
+sudo checkinstall
 cd ..
 sudo mkdir -p $HOMEDIR/.config/qBittorrent/
 sudo wget -O $HOMEDIR/.config/qBittorrent/qBittorrent.conf https://raw.githubusercontent.com/lovewangbo/qbittorrent/master/qBittorrent.conf
