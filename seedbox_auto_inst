@@ -129,8 +129,11 @@ mkdir -p tmp/$TODAY; cd tmp/$TODAY
 git clone https://github.com/qbittorrent/qBittorrent
 cd qBittorrent;
 git checkout release-3.3.11
+# 增加快速发种选项
 git cherry-pick db3158c
 git cherry-pick b271fa9
+# 显示磁盘IO状态
+git cherry-pick 1ce71fc
 # 3.3.14 mt和hdsky不支持
 #wget https://sourceforge.net/projects/qbittorrent/files/qbittorrent/qbittorrent-3.3.14/qbittorrent-3.3.14.tar.gz
 #tar -xvzf qbittorrent-*.tar.gz; cd qbittorrent-*;
