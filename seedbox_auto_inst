@@ -108,11 +108,10 @@ apt-get install -y libboost-dev libboost-system-dev libboost-chrono-dev libboost
 apt-get install -y qtbase5-dev qttools5-dev-tools libqt5svg5-dev
 apt-get install -y python3
 ####libtorrent安装开始
-####安装二进制包，v1.0.7，非C++11编译
-#apt-get install -y libtorrent-rasterbar-dev
-#pkg-config --list-all | grep libtorrent
-#dpkg -l | grep libtorrent-rasterbar
-####编译安装
+#以下二选一
+####安装二进制包，v1.0.7，非C++11编译，已知不兼容qb v4.0.3版本
+apt-get install -y libtorrent-rasterbar-dev
+####编译安装最新版本，也可指定版本
 git clone https://github.com/arvidn/libtorrent.git
 cd libtorrent
 git checkout $(git tag | grep libtorrent-1_1_ | sort -t _ -n -k 3 | tail -n 1)
@@ -122,23 +121,38 @@ make clean && make -j$(nproc);
 #checkinstall
 sudo make install
 sudo ldconfig
+#########
+pkg-config --list-all | grep libtorrent
+dpkg -l | grep libtorrent-rasterbar
 ####libtorrent安装完毕
 
 TODAY=`date +%Y-%m-%d`; TODAY=$(date +%Y-%m-%d);
 mkdir -p ~/tmp/$TODAY; cd ~/tmp/$TODAY
-# 3.3.11不能跳过校验
 git clone https://github.com/qbittorrent/qBittorrent
+#以下二选一
+#########
+# 3.3.11原版本不能跳过校验，需merge若干commits
 cd qBittorrent;
 git checkout release-3.3.11
-# 增加快速发种选项
+  # 增加快速发种选项
 git cherry-pick db3158c
 git cherry-pick b271fa9
-# 显示磁盘IO状态
+  # 显示磁盘IO状态
 git cherry-pick 1ce71fc
+#########
 # 3.3.14 mt和hdsky不支持
 #wget https://sourceforge.net/projects/qbittorrent/files/qbittorrent/qbittorrent-3.3.14/qbittorrent-3.3.14.tar.gz
 #tar -xvzf qbittorrent-*.tar.gz; cd qbittorrent-*;
-#######
+#先放弃所有本地修改
+git checkout .
+git checkout release-3.3.14
+sed -i 's@<string>3.3.14<\/string>@<string>3.3.11<\/string>@' dist/mac/Info.plist
+sed -i 's@!define PROG_VERSION "[0-9].[0-9].[0-9]\+"@!define PROG_VERSION "3.3.11"@' dist/windows/options.nsi
+sed -i 's@VER_MAJOR = [0-9]@VER_MAJOR = 3@' version.pri
+sed -i 's@VER_MINOR = [0-9]@VER_MINOR = 3@' version.pri
+sed -i 's@VER_BUGFIX = [0-9]\+@VER_BUGFIX = 11@' version.pri
+sed -i 's@USER_AGENT\[\] = "qBittorrent\/"@USER_AGENT\[\] = "qBittorrent v"@' src/base/bittorrent/session.cpp
+#########
 ./configure --disable-gui;
 make clean && make -j$(nproc);
 #sudo make install;
