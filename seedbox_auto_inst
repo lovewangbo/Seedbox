@@ -108,23 +108,24 @@ apt-get install -y libboost-dev libboost-system-dev libboost-chrono-dev libboost
 apt-get install -y qtbase5-dev qttools5-dev-tools libqt5svg5-dev
 apt-get install -y python3
 ####libtorrent安装开始
-####安装二进制包
+####安装二进制包，v1.0.7，非C++11编译
 #apt-get install -y libtorrent-rasterbar-dev
 #pkg-config --list-all | grep libtorrent
 #dpkg -l | grep libtorrent-rasterbar
 ####编译安装
 git clone https://github.com/arvidn/libtorrent.git
 cd libtorrent
-git checkout libtorrent-1_0_11
+git checkout $(git tag | grep libtorrent-1_1_ | sort -t _ -n -k 3 | tail -n 1)
 ./autotool.sh
 .configure -disable-debug --enable-encryption --with-libgeoip=system CXXFLAGS=-std=c++11
 make clean && make -j$(nproc);
-checkinstall
-ldconfig
+#checkinstall
+sudo make install
+sudo ldconfig
 ####libtorrent安装完毕
 
 TODAY=`date +%Y-%m-%d`; TODAY=$(date +%Y-%m-%d);
-mkdir -p tmp/$TODAY; cd tmp/$TODAY
+mkdir -p ~/tmp/$TODAY; cd ~/tmp/$TODAY
 # 3.3.11不能跳过校验
 git clone https://github.com/qbittorrent/qBittorrent
 cd qBittorrent;
