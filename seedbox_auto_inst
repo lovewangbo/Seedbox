@@ -109,7 +109,7 @@ apt-get install -y qtbase5-dev qttools5-dev-tools libqt5svg5-dev
 apt-get install -y python3
 ####libtorrent安装开始
 #以下二选一
-####安装二进制包，v1.0.7，非C++11编译，已知不兼容qb v4.0.3版本
+####安装二进制包，v1.0.7，非C++11编译，已知不兼容qb v4.0.3，但可兼容v3.3.14
 apt-get install -y libtorrent-rasterbar-dev
 ####编译安装最新版本，也可指定版本
 git clone https://github.com/arvidn/libtorrent.git
