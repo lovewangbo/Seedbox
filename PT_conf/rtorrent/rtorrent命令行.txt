@@ -1,0 +1,41 @@
+Tmux中运行：
+tmux -2 new-session -d -s rtorrent rtorrent
+-2            Force tmux to assume the terminal supports 256 colours.
+new-session [-AdDP] [-c start-directory] [-F format] [-n window-name] [-s session-name] [-t target-session] [-x width] [-y height] [shell-command]
+(alias: new) Create a new session with name session-name.
+  The new session is attached to the current terminal unless -d is given.  window-name and shell-command are the name of and shell command to execute in the initial window.  If -d is used, -x and -y specify the size of the initial window (80 by 24 if not given).
+
+连接会话
+tmux attach -t rtorrent
+退出
+^b d # detach
+
+回车	添加URL，添加后保持非激活状态
+上下箭头	选择 torrent
+^o	对选择的 torrent 设置新的下载目录，仅仅对还没有被激活过的 torrent
+^s	开始下载，先运行 hash ，除非已经做过
+^d	停止激活的下载，或者删除一个停止的下载
+^r	hash
+ 
+限速控制 
+a/s/d	增加上传带宽 1/5/50 KB.
+z/x/c	降低上传带宽 1/5/50 KB.
+A/S/D	增加下载带宽 1/5/50 KB.
+Z/X/C	降低下载带宽 1/5/50 KB.
+ 
+
+^q	关闭 rTorrent，再按一次，强行关闭
+ 
+主屏幕视图操作
+右	切换到下载视图
+左	回到前一个屏幕
++/-	修改优先度
+l	查看日志，空格退出
+1	显示所有下载
+2	显示所有下载，按文件名排序
+3	显示开始的下载
+4	显示停止的下载
+5	显示完成的下载
+6	显示未完成的下载
+7	显示正在 hash 的下载
+8	显示正在做种的下载

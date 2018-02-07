@@ -1,0 +1,1495 @@
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+
+
+
+  <link crossorigin="anonymous" href="https://assets-cdn.github.com/assets/frameworks-81a59bf26d881d29286674f6deefe779c444382fff322085b50ba455460ccae5.css" integrity="sha256-gaWb8m2IHSkoZnT23u/necREOC//MiCFtQukVUYMyuU=" media="all" rel="stylesheet" />
+  <link crossorigin="anonymous" href="https://assets-cdn.github.com/assets/github-8789d320be825216d799841dcb27bc201b0605572d4c8c07c30feb5bc27a66b7.css" integrity="sha256-h4nTIL6CUhbXmYQdyye8IBsGBVctTIwHww/rW8J6Zrc=" media="all" rel="stylesheet" />
+  
+  
+  
+  
+
+  <meta name="viewport" content="width=device-width">
+  
+  <title>Config · Novik/ruTorrent Wiki</title>
+  <link rel="search" type="application/opensearchdescription+xml" href="/opensearch.xml" title="GitHub">
+  <link rel="fluid-icon" href="https://github.com/fluidicon.png" title="GitHub">
+  <meta property="fb:app_id" content="1401488693436528">
+
+    
+    <meta content="https://avatars1.githubusercontent.com/u/1230409?v=3&amp;s=400" property="og:image" /><meta content="GitHub" property="og:site_name" /><meta content="object" property="og:type" /><meta content="Novik/ruTorrent" property="og:title" /><meta content="https://github.com/Novik/ruTorrent" property="og:url" /><meta content="ruTorrent - Yet another web front-end for rTorrent" property="og:description" />
+
+  <link rel="assets" href="https://assets-cdn.github.com/">
+  <link rel="web-socket" href="wss://live.github.com/_sockets/VjI6MTc0NTU4MzQyOjZiODhlMGIzN2YyMzU0YzM1YmVhYzk5ZWRkNGE2NzhiZGU5MmQyM2EzYTQ4NjFlNzc5MGZmNjg2YzA5M2MyOTM=--d58f43d7a3c5dd35739b3061fd342b6b247b5d2f">
+  <meta name="pjax-timeout" content="1000">
+  <link rel="sudo-modal" href="/sessions/sudo_modal">
+  <meta name="request-id" content="D383:26D92:5716DF:88E9BD:591FC771" data-pjax-transient>
+  
+
+  <meta name="selected-link" value="repo_wiki" data-pjax-transient>
+
+  <meta name="google-site-verification" content="KT5gs8h0wvaagLKAVWq8bbeNwnZZK1r1XQysX3xurLU">
+<meta name="google-site-verification" content="ZzhVyEFwb7w3e0-uOTltm8Jsck2F5StVihD0exw2fsA">
+    <meta name="google-analytics" content="UA-3769691-2">
+
+<meta content="collector.githubapp.com" name="octolytics-host" /><meta content="github" name="octolytics-app-id" /><meta content="https://collector.githubapp.com/github-external/browser_event" name="octolytics-event-url" /><meta content="D383:26D92:5716DF:88E9BD:591FC771" name="octolytics-dimension-request_id" /><meta content="28722281" name="octolytics-actor-id" /><meta content="lovewangbo" name="octolytics-actor-login" /><meta content="45db9b62e9a2b610fca2c6744e21f236141a897c18cb3cec9511d6b73337a495" name="octolytics-actor-hash" />
+<meta content="/&lt;user-name&gt;/&lt;repo-name&gt;/wiki/show" data-pjax-transient="true" name="analytics-location" />
+
+
+
+
+  <meta class="js-ga-set" name="dimension1" content="Logged In">
+
+
+  
+
+      <meta name="hostname" content="github.com">
+  <meta name="user-login" content="lovewangbo">
+
+      <meta name="expected-hostname" content="github.com">
+    <meta name="js-proxy-site-detection-payload" content="MDYyNDZlZWY2ZWYxNWZhMWQwMTMwNDNlMTUxNGMxMDk2ZWMwNzFjN2Q4ZWE2YTZlZjFiZjAxMzg4ZDRhNzU4NHx7InJlbW90ZV9hZGRyZXNzIjoiMTE5LjUuNzQuMjQ5IiwicmVxdWVzdF9pZCI6IkQzODM6MjZEOTI6NTcxNkRGOjg4RTlCRDo1OTFGQzc3MSIsInRpbWVzdGFtcCI6MTQ5NTI1NDg5NywiaG9zdCI6ImdpdGh1Yi5jb20ifQ==">
+
+
+  <meta name="html-safe-nonce" content="0f6b89fae986d63bb0f68eff6c24f60be9aa96ff">
+
+  <meta http-equiv="x-pjax-version" content="9f48f82d435db8e8916f273e55a94a05">
+  
+
+    
+  <meta name="description" content="ruTorrent - Yet another web front-end for rTorrent">
+  <meta name="go-import" content="github.com/Novik/ruTorrent git https://github.com/Novik/ruTorrent.git">
+
+  <meta content="1230409" name="octolytics-dimension-user_id" /><meta content="Novik" name="octolytics-dimension-user_login" /><meta content="23219767" name="octolytics-dimension-repository_id" /><meta content="Novik/ruTorrent" name="octolytics-dimension-repository_nwo" /><meta content="true" name="octolytics-dimension-repository_public" /><meta content="false" name="octolytics-dimension-repository_is_fork" /><meta content="23219767" name="octolytics-dimension-repository_network_root_id" /><meta content="Novik/ruTorrent" name="octolytics-dimension-repository_network_root_nwo" />
+  <link href="https://github.com/Novik/ruTorrent/commits/master.atom" rel="alternate" title="Recent Commits to ruTorrent:master" type="application/atom+xml">
+
+
+
+
+  <meta name="browser-stats-url" content="https://api.github.com/_private/browser/stats">
+
+  <meta name="browser-errors-url" content="https://api.github.com/_private/browser/errors">
+
+  <link rel="mask-icon" href="https://assets-cdn.github.com/pinned-octocat.svg" color="#000000">
+  <link rel="icon" type="image/x-icon" href="https://assets-cdn.github.com/favicon.ico">
+
+<meta name="theme-color" content="#1e2327">
+
+
+  <meta name="u2f-support" content="true">
+
+  </head>
+
+  <body class="logged-in env-production">
+    
+
+
+
+  <div class="position-relative js-header-wrapper ">
+    <a href="#start-of-content" tabindex="1" class="accessibility-aid js-skip-to-content">Skip to content</a>
+    <div id="js-pjax-loader-bar" class="pjax-loader-bar"><div class="progress"></div></div>
+
+    
+    
+    
+
+
+
+        
+<div class="header" role="banner">
+  <div class="container clearfix">
+    <a class="header-logo-invertocat" href="https://github.com/" data-hotkey="g d" aria-label="Homepage" data-ga-click="Header, go to dashboard, icon:logo">
+  <svg aria-hidden="true" class="octicon octicon-mark-github" height="32" version="1.1" viewBox="0 0 16 16" width="32"><path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
+</a>
+
+
+        <div class="header-search scoped-search site-scoped-search js-site-search" role="search">
+  <!-- '"` --><!-- </textarea></xmp> --></option></form><form accept-charset="UTF-8" action="/Novik/ruTorrent/search" class="js-site-search-form" data-scoped-search-url="/Novik/ruTorrent/search" data-unscoped-search-url="/search" method="get"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /></div>
+    <label class="form-control header-search-wrapper js-chromeless-input-container">
+        <a href="/Novik/ruTorrent/wiki/Config" class="header-search-scope no-underline">This repository</a>
+      <input type="text"
+        class="form-control header-search-input js-site-search-focus js-site-search-field is-clearable"
+        data-hotkey="s"
+        name="q"
+        value=""
+        placeholder="Search"
+        aria-label="Search this repository"
+        data-unscoped-placeholder="Search GitHub"
+        data-scoped-placeholder="Search"
+        autocapitalize="off">
+        <input type="hidden" class="js-site-search-type-field" name="type" >
+    </label>
+</form></div>
+
+
+      <ul class="header-nav float-left" role="navigation">
+        <li class="header-nav-item">
+          <a href="/pulls" aria-label="Pull requests you created" class="js-selected-navigation-item header-nav-link" data-ga-click="Header, click, Nav menu - item:pulls context:user" data-hotkey="g p" data-selected-links="/pulls /pulls/assigned /pulls/mentioned /pulls">
+            Pull requests
+</a>        </li>
+        <li class="header-nav-item">
+          <a href="/issues" aria-label="Issues you created" class="js-selected-navigation-item header-nav-link" data-ga-click="Header, click, Nav menu - item:issues context:user" data-hotkey="g i" data-selected-links="/issues /issues/assigned /issues/mentioned /issues">
+            Issues
+</a>        </li>
+          <li class="header-nav-item">
+            <a class="header-nav-link" href="https://gist.github.com/" data-ga-click="Header, go to gist, text:gist">Gist</a>
+          </li>
+      </ul>
+
+    
+<ul class="header-nav user-nav float-right" id="user-links">
+  <li class="header-nav-item">
+    
+
+  </li>
+
+  <li class="header-nav-item dropdown js-menu-container">
+    <a class="header-nav-link tooltipped tooltipped-s js-menu-target" href="/new"
+       aria-label="Create new…"
+       data-ga-click="Header, create new, icon:add">
+      <svg aria-hidden="true" class="octicon octicon-plus float-left" height="16" version="1.1" viewBox="0 0 12 16" width="12"><path fill-rule="evenodd" d="M12 9H7v5H5V9H0V7h5V2h2v5h5z"/></svg>
+      <span class="dropdown-caret"></span>
+    </a>
+
+    <div class="dropdown-menu-content js-menu-content">
+      <ul class="dropdown-menu dropdown-menu-sw">
+        
+<a class="dropdown-item" href="/new" data-ga-click="Header, create new repository">
+  New repository
+</a>
+
+  <a class="dropdown-item" href="/new/import" data-ga-click="Header, import a repository">
+    Import repository
+  </a>
+
+<a class="dropdown-item" href="https://gist.github.com/" data-ga-click="Header, create new gist">
+  New gist
+</a>
+
+  <a class="dropdown-item" href="/organizations/new" data-ga-click="Header, create new organization">
+    New organization
+  </a>
+
+
+
+  <div class="dropdown-divider"></div>
+  <div class="dropdown-header">
+    <span title="Novik/ruTorrent">This repository</span>
+  </div>
+    <a class="dropdown-item" href="/Novik/ruTorrent/issues/new" data-ga-click="Header, create new issue">
+      New issue
+    </a>
+
+      </ul>
+    </div>
+  </li>
+
+  <li class="header-nav-item dropdown js-menu-container">
+    <a class="header-nav-link name tooltipped tooltipped-sw js-menu-target" href="/lovewangbo"
+       aria-label="View profile and more"
+       data-ga-click="Header, show menu, icon:avatar">
+      <img alt="@lovewangbo" class="avatar" src="https://avatars2.githubusercontent.com/u/28722281?v=3&amp;s=40" height="20" width="20">
+      <span class="dropdown-caret"></span>
+    </a>
+
+    <div class="dropdown-menu-content js-menu-content">
+      <div class="dropdown-menu dropdown-menu-sw">
+        <div class="dropdown-header header-nav-current-user css-truncate">
+          Signed in as <strong class="css-truncate-target">lovewangbo</strong>
+        </div>
+
+        <div class="dropdown-divider"></div>
+
+        <a class="dropdown-item" href="/lovewangbo" data-ga-click="Header, go to profile, text:your profile">
+          Your profile
+        </a>
+        <a class="dropdown-item" href="/lovewangbo?tab=stars" data-ga-click="Header, go to starred repos, text:your stars">
+          Your stars
+        </a>
+        <a class="dropdown-item" href="/explore" data-ga-click="Header, go to explore, text:explore">
+          Explore
+        </a>
+          <a class="dropdown-item" href="/integrations" data-ga-click="Header, go to integrations, text:integrations">
+            Integrations
+          </a>
+        <a class="dropdown-item" href="https://help.github.com" data-ga-click="Header, go to help, text:help">
+          Help
+        </a>
+
+        <div class="dropdown-divider"></div>
+
+        <a class="dropdown-item" href="/settings/profile" data-ga-click="Header, go to settings, icon:settings">
+          Settings
+        </a>
+
+        <!-- '"` --><!-- </textarea></xmp> --></option></form><form accept-charset="UTF-8" action="/logout" class="logout-form" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /><input name="authenticity_token" type="hidden" value="f5lcrci81NAZPLxWPYuW+MBFMUdrv92lsUrjGj5LFwcgYwnasgso8Cu8USh5OXyZ1Fj5jnEIGTp5Odb8w3YbUg==" /></div>
+          <button type="submit" class="dropdown-item dropdown-signout" data-ga-click="Header, sign out, icon:logout">
+            Sign out
+          </button>
+</form>      </div>
+    </div>
+  </li>
+</ul>
+
+
+    <!-- '"` --><!-- </textarea></xmp> --></option></form><form accept-charset="UTF-8" action="/logout" class="sr-only right-0" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /><input name="authenticity_token" type="hidden" value="azbpdf5cnJKR6kqQ0T+kCtQiXWw2Qrl8wusx+HeAX4M0zLwChOtgsqNqp+6VjU5rwD+VpSz1feMKmAQeir1T1g==" /></div>
+      <button type="submit" class="dropdown-item dropdown-signout" data-ga-click="Header, sign out, icon:logout">
+        Sign out
+      </button>
+</form>  </div>
+</div>
+
+
+      
+
+  </div>
+
+  <div id="start-of-content" class="accessibility-aid"></div>
+
+    <div id="js-flash-container">
+</div>
+
+
+
+  <div role="main">
+        <div itemscope itemtype="http://schema.org/SoftwareSourceCode">
+    <div id="js-repo-pjax-container" data-pjax-container>
+        
+
+
+
+    <div class="pagehead repohead instapaper_ignore readability-menu experiment-repo-nav">
+      <div class="container repohead-details-container">
+
+        <ul class="pagehead-actions">
+  <li>
+        <!-- '"` --><!-- </textarea></xmp> --></option></form><form accept-charset="UTF-8" action="/notifications/subscribe" class="js-social-container" data-autosubmit="true" data-remote="true" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /><input name="authenticity_token" type="hidden" value="dFOqG1LhLlIEMepGWrAhItemifyIav4ETu1ogTkxS+i70S3AmpQFKKQDxoLeGIWnz0GL39KDJak5TtXj+c7qhQ==" /></div>      <input class="form-control" id="repository_id" name="repository_id" type="hidden" value="23219767" />
+
+        <div class="select-menu js-menu-container js-select-menu">
+          <a href="/Novik/ruTorrent/subscription"
+            class="btn btn-sm btn-with-count select-menu-button js-menu-target" role="button" tabindex="0" aria-haspopup="true"
+            data-ga-click="Repository, click Watch settings, action:wiki#show">
+            <span class="js-select-button">
+                <svg aria-hidden="true" class="octicon octicon-eye" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M8.06 2C3 2 0 8 0 8s3 6 8.06 6C13 14 16 8 16 8s-3-6-7.94-6zM8 12c-2.2 0-4-1.78-4-4 0-2.2 1.8-4 4-4 2.22 0 4 1.8 4 4 0 2.22-1.78 4-4 4zm2-4c0 1.11-.89 2-2 2-1.11 0-2-.89-2-2 0-1.11.89-2 2-2 1.11 0 2 .89 2 2z"/></svg>
+                Watch
+            </span>
+          </a>
+            <a class="social-count js-social-count"
+              href="/Novik/ruTorrent/watchers"
+              aria-label="103 users are watching this repository">
+              103
+            </a>
+
+        <div class="select-menu-modal-holder">
+          <div class="select-menu-modal subscription-menu-modal js-menu-content">
+            <div class="select-menu-header js-navigation-enable" tabindex="-1">
+              <svg aria-label="Close" class="octicon octicon-x js-menu-close" height="16" role="img" version="1.1" viewBox="0 0 12 16" width="12"><path fill-rule="evenodd" d="M7.48 8l3.75 3.75-1.48 1.48L6 9.48l-3.75 3.75-1.48-1.48L4.52 8 .77 4.25l1.48-1.48L6 6.52l3.75-3.75 1.48 1.48z"/></svg>
+              <span class="select-menu-title">Notifications</span>
+            </div>
+
+              <div class="select-menu-list js-navigation-container" role="menu">
+
+                <div class="select-menu-item js-navigation-item selected" role="menuitem" tabindex="0">
+                  <svg aria-hidden="true" class="octicon octicon-check select-menu-item-icon" height="16" version="1.1" viewBox="0 0 12 16" width="12"><path fill-rule="evenodd" d="M12 5l-8 8-4-4 1.5-1.5L4 10l6.5-6.5z"/></svg>
+                  <div class="select-menu-item-text">
+                    <input checked="checked" id="do_included" name="do" type="radio" value="included" />
+                    <span class="select-menu-item-heading">Not watching</span>
+                    <span class="description">Be notified when participating or @mentioned.</span>
+                    <span class="js-select-button-text hidden-select-button-text">
+                      <svg aria-hidden="true" class="octicon octicon-eye" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M8.06 2C3 2 0 8 0 8s3 6 8.06 6C13 14 16 8 16 8s-3-6-7.94-6zM8 12c-2.2 0-4-1.78-4-4 0-2.2 1.8-4 4-4 2.22 0 4 1.8 4 4 0 2.22-1.78 4-4 4zm2-4c0 1.11-.89 2-2 2-1.11 0-2-.89-2-2 0-1.11.89-2 2-2 1.11 0 2 .89 2 2z"/></svg>
+                      Watch
+                    </span>
+                  </div>
+                </div>
+
+                <div class="select-menu-item js-navigation-item " role="menuitem" tabindex="0">
+                  <svg aria-hidden="true" class="octicon octicon-check select-menu-item-icon" height="16" version="1.1" viewBox="0 0 12 16" width="12"><path fill-rule="evenodd" d="M12 5l-8 8-4-4 1.5-1.5L4 10l6.5-6.5z"/></svg>
+                  <div class="select-menu-item-text">
+                    <input id="do_subscribed" name="do" type="radio" value="subscribed" />
+                    <span class="select-menu-item-heading">Watching</span>
+                    <span class="description">Be notified of all conversations.</span>
+                    <span class="js-select-button-text hidden-select-button-text">
+                      <svg aria-hidden="true" class="octicon octicon-eye" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M8.06 2C3 2 0 8 0 8s3 6 8.06 6C13 14 16 8 16 8s-3-6-7.94-6zM8 12c-2.2 0-4-1.78-4-4 0-2.2 1.8-4 4-4 2.22 0 4 1.8 4 4 0 2.22-1.78 4-4 4zm2-4c0 1.11-.89 2-2 2-1.11 0-2-.89-2-2 0-1.11.89-2 2-2 1.11 0 2 .89 2 2z"/></svg>
+                        Unwatch
+                    </span>
+                  </div>
+                </div>
+
+                <div class="select-menu-item js-navigation-item " role="menuitem" tabindex="0">
+                  <svg aria-hidden="true" class="octicon octicon-check select-menu-item-icon" height="16" version="1.1" viewBox="0 0 12 16" width="12"><path fill-rule="evenodd" d="M12 5l-8 8-4-4 1.5-1.5L4 10l6.5-6.5z"/></svg>
+                  <div class="select-menu-item-text">
+                    <input id="do_ignore" name="do" type="radio" value="ignore" />
+                    <span class="select-menu-item-heading">Ignoring</span>
+                    <span class="description">Never be notified.</span>
+                    <span class="js-select-button-text hidden-select-button-text">
+                      <svg aria-hidden="true" class="octicon octicon-mute" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M8 2.81v10.38c0 .67-.81 1-1.28.53L3 10H1c-.55 0-1-.45-1-1V7c0-.55.45-1 1-1h2l3.72-3.72C7.19 1.81 8 2.14 8 2.81zm7.53 3.22l-1.06-1.06-1.97 1.97-1.97-1.97-1.06 1.06L11.44 8 9.47 9.97l1.06 1.06 1.97-1.97 1.97 1.97 1.06-1.06L13.56 8l1.97-1.97z"/></svg>
+                        Stop ignoring
+                    </span>
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
+          </div>
+        </div>
+</form>
+  </li>
+
+  <li>
+      <div class="js-toggler-container js-social-container starring-container ">
+    <!-- '"` --><!-- </textarea></xmp> --></option></form><form accept-charset="UTF-8" action="/Novik/ruTorrent/unstar" class="starred" data-remote="true" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /><input name="authenticity_token" type="hidden" value="4T3O8FabeLgeRAB91CJl8Ju1qyckvYgl9r1BYlKN2acBxnK7+wf4sCPcbstnXbukPDFitZvAi8jFdKDd+TSV9g==" /></div>
+      <button
+        type="submit"
+        class="btn btn-sm btn-with-count js-toggler-target"
+        aria-label="Unstar this repository" title="Unstar Novik/ruTorrent"
+        data-ga-click="Repository, click unstar button, action:wiki#show; text:Unstar">
+        <svg aria-hidden="true" class="octicon octicon-star" height="16" version="1.1" viewBox="0 0 14 16" width="14"><path fill-rule="evenodd" d="M14 6l-4.9-.64L7 1 4.9 5.36 0 6l3.6 3.26L2.67 14 7 11.67 11.33 14l-.93-4.74z"/></svg>
+        Unstar
+      </button>
+        <a class="social-count js-social-count" href="/Novik/ruTorrent/stargazers"
+           aria-label="821 users starred this repository">
+          821
+        </a>
+</form>
+    <!-- '"` --><!-- </textarea></xmp> --></option></form><form accept-charset="UTF-8" action="/Novik/ruTorrent/star" class="unstarred" data-remote="true" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /><input name="authenticity_token" type="hidden" value="KUhubk93pZXHXCL2rWA4NGGFDC6dTp8vZnAxnVnUO5QBKpuuusbdpP3tbX9vBYwWsUT60aljwaq2+2DykV9G2w==" /></div>
+      <button
+        type="submit"
+        class="btn btn-sm btn-with-count js-toggler-target"
+        aria-label="Star this repository" title="Star Novik/ruTorrent"
+        data-ga-click="Repository, click star button, action:wiki#show; text:Star">
+        <svg aria-hidden="true" class="octicon octicon-star" height="16" version="1.1" viewBox="0 0 14 16" width="14"><path fill-rule="evenodd" d="M14 6l-4.9-.64L7 1 4.9 5.36 0 6l3.6 3.26L2.67 14 7 11.67 11.33 14l-.93-4.74z"/></svg>
+        Star
+      </button>
+        <a class="social-count js-social-count" href="/Novik/ruTorrent/stargazers"
+           aria-label="821 users starred this repository">
+          821
+        </a>
+</form>  </div>
+
+  </li>
+
+  <li>
+          <!-- '"` --><!-- </textarea></xmp> --></option></form><form accept-charset="UTF-8" action="/Novik/ruTorrent/fork" class="btn-with-count" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /><input name="authenticity_token" type="hidden" value="JMSlXfUDUlxSIZtAP8XumSpVjj4KWYaEh/TApoyEKwL89QMv4hzkGSe9Dulforc7QOg21O3jW/nOY7ND+m0rQg==" /></div>
+            <button
+                type="submit"
+                class="btn btn-sm btn-with-count"
+                data-ga-click="Repository, show fork modal, action:wiki#show; text:Fork"
+                title="Fork your own copy of Novik/ruTorrent to your account"
+                aria-label="Fork your own copy of Novik/ruTorrent to your account">
+              <svg aria-hidden="true" class="octicon octicon-repo-forked" height="16" version="1.1" viewBox="0 0 10 16" width="10"><path fill-rule="evenodd" d="M8 1a1.993 1.993 0 0 0-1 3.72V6L5 8 3 6V4.72A1.993 1.993 0 0 0 2 1a1.993 1.993 0 0 0-1 3.72V6.5l3 3v1.78A1.993 1.993 0 0 0 5 15a1.993 1.993 0 0 0 1-3.72V9.5l3-3V4.72A1.993 1.993 0 0 0 8 1zM2 4.2C1.34 4.2.8 3.65.8 3c0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2 0 .65-.55 1.2-1.2 1.2zm3 10c-.66 0-1.2-.55-1.2-1.2 0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2 0 .65-.55 1.2-1.2 1.2zm3-10c-.66 0-1.2-.55-1.2-1.2 0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2 0 .65-.55 1.2-1.2 1.2z"/></svg>
+              Fork
+            </button>
+</form>
+    <a href="/Novik/ruTorrent/network" class="social-count"
+       aria-label="260 users forked this repository">
+      260
+    </a>
+  </li>
+</ul>
+
+        <h1 class="public ">
+  <svg aria-hidden="true" class="octicon octicon-repo" height="16" version="1.1" viewBox="0 0 12 16" width="12"><path fill-rule="evenodd" d="M4 9H3V8h1v1zm0-3H3v1h1V6zm0-2H3v1h1V4zm0-2H3v1h1V2zm8-1v12c0 .55-.45 1-1 1H6v2l-1.5-1.5L3 16v-2H1c-.55 0-1-.45-1-1V1c0-.55.45-1 1-1h10c.55 0 1 .45 1 1zm-1 10H1v2h2v-1h3v1h5v-2zm0-10H2v9h9V1z"/></svg>
+  <span class="author" itemprop="author"><a href="/Novik" class="url fn" rel="author">Novik</a></span><!--
+--><span class="path-divider">/</span><!--
+--><strong itemprop="name"><a href="/Novik/ruTorrent" data-pjax="#js-repo-pjax-container">ruTorrent</a></strong>
+
+</h1>
+
+      </div>
+      <div class="container">
+        
+<nav class="reponav js-repo-nav js-sidenav-container-pjax"
+     itemscope
+     itemtype="http://schema.org/BreadcrumbList"
+     role="navigation"
+     data-pjax="#js-repo-pjax-container">
+
+  <span itemscope itemtype="http://schema.org/ListItem" itemprop="itemListElement">
+    <a href="/Novik/ruTorrent" class="js-selected-navigation-item reponav-item" data-hotkey="g c" data-selected-links="repo_source repo_downloads repo_commits repo_releases repo_tags repo_branches /Novik/ruTorrent" itemprop="url">
+      <svg aria-hidden="true" class="octicon octicon-code" height="16" version="1.1" viewBox="0 0 14 16" width="14"><path fill-rule="evenodd" d="M9.5 3L8 4.5 11.5 8 8 11.5 9.5 13 14 8 9.5 3zm-5 0L0 8l4.5 5L6 11.5 2.5 8 6 4.5 4.5 3z"/></svg>
+      <span itemprop="name">Code</span>
+      <meta itemprop="position" content="1">
+</a>  </span>
+
+    <span itemscope itemtype="http://schema.org/ListItem" itemprop="itemListElement">
+      <a href="/Novik/ruTorrent/issues" class="js-selected-navigation-item reponav-item" data-hotkey="g i" data-selected-links="repo_issues repo_labels repo_milestones /Novik/ruTorrent/issues" itemprop="url">
+        <svg aria-hidden="true" class="octicon octicon-issue-opened" height="16" version="1.1" viewBox="0 0 14 16" width="14"><path fill-rule="evenodd" d="M7 2.3c3.14 0 5.7 2.56 5.7 5.7s-2.56 5.7-5.7 5.7A5.71 5.71 0 0 1 1.3 8c0-3.14 2.56-5.7 5.7-5.7zM7 1C3.14 1 0 4.14 0 8s3.14 7 7 7 7-3.14 7-7-3.14-7-7-7zm1 3H6v5h2V4zm0 6H6v2h2v-2z"/></svg>
+        <span itemprop="name">Issues</span>
+        <span class="Counter">110</span>
+        <meta itemprop="position" content="2">
+</a>    </span>
+
+  <span itemscope itemtype="http://schema.org/ListItem" itemprop="itemListElement">
+    <a href="/Novik/ruTorrent/pulls" class="js-selected-navigation-item reponav-item" data-hotkey="g p" data-selected-links="repo_pulls /Novik/ruTorrent/pulls" itemprop="url">
+      <svg aria-hidden="true" class="octicon octicon-git-pull-request" height="16" version="1.1" viewBox="0 0 12 16" width="12"><path fill-rule="evenodd" d="M11 11.28V5c-.03-.78-.34-1.47-.94-2.06C9.46 2.35 8.78 2.03 8 2H7V0L4 3l3 3V4h1c.27.02.48.11.69.31.21.2.3.42.31.69v6.28A1.993 1.993 0 0 0 10 15a1.993 1.993 0 0 0 1-3.72zm-1 2.92c-.66 0-1.2-.55-1.2-1.2 0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2 0 .65-.55 1.2-1.2 1.2zM4 3c0-1.11-.89-2-2-2a1.993 1.993 0 0 0-1 3.72v6.56A1.993 1.993 0 0 0 2 15a1.993 1.993 0 0 0 1-3.72V4.72c.59-.34 1-.98 1-1.72zm-.8 10c0 .66-.55 1.2-1.2 1.2-.65 0-1.2-.55-1.2-1.2 0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2zM2 4.2C1.34 4.2.8 3.65.8 3c0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2 0 .65-.55 1.2-1.2 1.2z"/></svg>
+      <span itemprop="name">Pull requests</span>
+      <span class="Counter">6</span>
+      <meta itemprop="position" content="3">
+</a>  </span>
+
+    <a href="/Novik/ruTorrent/projects" class="js-selected-navigation-item reponav-item" data-selected-links="repo_projects new_repo_project repo_project /Novik/ruTorrent/projects">
+      <svg aria-hidden="true" class="octicon octicon-project" height="16" version="1.1" viewBox="0 0 15 16" width="15"><path fill-rule="evenodd" d="M10 12h3V2h-3v10zm-4-2h3V2H6v8zm-4 4h3V2H2v12zm-1 1h13V1H1v14zM14 0H1a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h13a1 1 0 0 0 1-1V1a1 1 0 0 0-1-1z"/></svg>
+      Projects
+      <span class="Counter" >0</span>
+</a>
+    <a href="/Novik/ruTorrent/wiki" class="js-selected-navigation-item selected reponav-item" data-hotkey="g w" data-selected-links="repo_wiki /Novik/ruTorrent/wiki">
+      <svg aria-hidden="true" class="octicon octicon-book" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M3 5h4v1H3V5zm0 3h4V7H3v1zm0 2h4V9H3v1zm11-5h-4v1h4V5zm0 2h-4v1h4V7zm0 2h-4v1h4V9zm2-6v9c0 .55-.45 1-1 1H9.5l-1 1-1-1H2c-.55 0-1-.45-1-1V3c0-.55.45-1 1-1h5.5l1 1 1-1H15c.55 0 1 .45 1 1zm-8 .5L7.5 3H2v9h6V3.5zm7-.5H9.5l-.5.5V12h6V3z"/></svg>
+      Wiki
+</a>
+
+
+  <a href="/Novik/ruTorrent/pulse" class="js-selected-navigation-item reponav-item" data-selected-links="pulse /Novik/ruTorrent/pulse">
+    <svg aria-hidden="true" class="octicon octicon-pulse" height="16" version="1.1" viewBox="0 0 14 16" width="14"><path fill-rule="evenodd" d="M11.5 8L8.8 5.4 6.6 8.5 5.5 1.6 2.38 8H0v2h3.6l.9-1.8.9 5.4L9 8.5l1.6 1.5H14V8z"/></svg>
+    Pulse
+</a>
+  <a href="/Novik/ruTorrent/graphs" class="js-selected-navigation-item reponav-item" data-selected-links="repo_graphs repo_contributors /Novik/ruTorrent/graphs">
+    <svg aria-hidden="true" class="octicon octicon-graph" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M16 14v1H0V0h1v14h15zM5 13H3V8h2v5zm4 0H7V3h2v10zm4 0h-2V6h2v7z"/></svg>
+    Graphs
+</a>
+
+</nav>
+
+      </div>
+    </div>
+
+<div class="container new-discussion-timeline experiment-repo-nav">
+  <div class="repository-content">
+
+    
+          
+
+<div id="wiki-wrapper" class="wiki-wrapper page">
+<div class="gh-header">
+  <div class="gh-header-show">
+        <div class="gh-header-actions">
+          <a href="/Novik/ruTorrent/wiki/Config/_edit" class="btn btn-sm ">Edit</a>
+          <a href="/Novik/ruTorrent/wiki/_new" class="btn btn-sm btn-primary">New Page</a>
+        </div>
+    <h1 class="gh-header-title instapaper_title">Config</h1>
+      <div class="gh-header-meta">
+        root edited this page <relative-time datetime="2014-08-24T12:01:32Z">Aug 24, 2014</relative-time>
+        &middot;
+        <a href="/Novik/ruTorrent/wiki/Config/_history" class="history">
+          6 revisions
+        </a>
+      </div>
+  </div>
+</div>
+<div id="wiki-content" class="wiki-content">
+  <div class="has-rightbar">
+
+  <div id="wiki-rightbar" class="wiki-rightbar">
+    <div class="wiki-pages-box readability-sidebar boxed-group flush js-wiki-pages-box collapsed" role="navigation">
+      
+<h3 class="js-wiki-toggle-collapse wiki-auxiliary-content">
+  <svg aria-hidden="true" class="octicon octicon-triangle-down caret-expanded" height="16" version="1.1" viewBox="0 0 12 16" width="12"><path fill-rule="evenodd" d="M0 5l6 6 6-6z"/></svg>
+  <svg aria-hidden="true" class="octicon octicon-triangle-right caret-collapsed" height="16" version="1.1" viewBox="0 0 6 16" width="6"><path fill-rule="evenodd" d="M0 14l6-6-6-6z"/></svg>
+  Pages <span class="Counter">157</span>
+</h3>
+<div class="boxed-group-inner wiki-auxiliary-content wiki-auxiliary-content-no-bg">
+    <div class="filter-bar">
+      <input type="text" id="wiki-pages-filter" class="form-control input-sm input-block js-filterable-field" placeholder="Find a Page…" aria-label="Find a Page…" tabindex="2">
+    </div>
+
+  <ul class="wiki-pages" data-filterable-for="wiki-pages-filter" data-filterable-type="substring">
+    <li>
+      <strong><a href="/Novik/ruTorrent/wiki" class="wiki-page-link">Home</a></strong>
+    </li>
+    <li>
+      <strong><a href="/Novik/ruTorrent/wiki/Config" class="wiki-page-link">Config</a></strong>
+    </li>
+    <li>
+      <strong><a href="/Novik/ruTorrent/wiki/Config.fr" class="wiki-page-link">Config.fr</a></strong>
+    </li>
+    <li>
+      <strong><a href="/Novik/ruTorrent/wiki/Config.ru" class="wiki-page-link">Config.ru</a></strong>
+    </li>
+    <li>
+      <strong><a href="/Novik/ruTorrent/wiki/Downloading" class="wiki-page-link">Downloading</a></strong>
+    </li>
+    <li>
+      <strong><a href="/Novik/ruTorrent/wiki/Downloading.fr" class="wiki-page-link">Downloading.fr</a></strong>
+    </li>
+    <li>
+      <strong><a href="/Novik/ruTorrent/wiki/Downloading.ru" class="wiki-page-link">Downloading.ru</a></strong>
+    </li>
+    <li>
+      <strong><a href="/Novik/ruTorrent/wiki/ErrorMessages" class="wiki-page-link">ErrorMessages</a></strong>
+    </li>
+    <li>
+      <strong><a href="/Novik/ruTorrent/wiki/ErrorMessages.fr" class="wiki-page-link">ErrorMessages.fr</a></strong>
+    </li>
+    <li>
+      <strong><a href="/Novik/ruTorrent/wiki/ErrorMessages.ru" class="wiki-page-link">ErrorMessages.ru</a></strong>
+    </li>
+    <li>
+      <strong><a href="/Novik/ruTorrent/wiki/FuturePlans" class="wiki-page-link">FuturePlans</a></strong>
+    </li>
+    <li>
+      <strong><a href="/Novik/ruTorrent/wiki/FuturePlans.fr" class="wiki-page-link">FuturePlans.fr</a></strong>
+    </li>
+    <li>
+      <strong><a href="/Novik/ruTorrent/wiki/FuturePlans.ru" class="wiki-page-link">FuturePlans.ru</a></strong>
+    </li>
+    <li>
+      <strong><a href="/Novik/ruTorrent/wiki/GetFromSVN.fr" class="wiki-page-link">GetFromSVN.fr</a></strong>
+    </li>
+    <li>
+      <strong><a href="/Novik/ruTorrent/wiki/Home.fr" class="wiki-page-link">Home.fr</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/Novik/ruTorrent/wiki/Home.ru" class="wiki-page-link">Home.ru</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/Novik/ruTorrent/wiki/HowToCreatePlugin.fr" class="wiki-page-link">HowToCreatePlugin.fr</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/Novik/ruTorrent/wiki/Installation.fr" class="wiki-page-link">Installation.fr</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/Novik/ruTorrent/wiki/Introduction.fr" class="wiki-page-link">Introduction.fr</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/Novik/ruTorrent/wiki/MainInstall" class="wiki-page-link">MainInstall</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/Novik/ruTorrent/wiki/MainInstall.fr" class="wiki-page-link">MainInstall.fr</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/Novik/ruTorrent/wiki/NGINX---PHP-FPM---RTORRENT" class="wiki-page-link">NGINX   PHP FPM   RTORRENT</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/Novik/ruTorrent/wiki/Plugin_getdir" class="wiki-page-link">Plugin_getdir</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/Novik/ruTorrent/wiki/Plugin_getdir.fr" class="wiki-page-link">Plugin_getdir.fr</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/Novik/ruTorrent/wiki/Plugin_getdir.ru" class="wiki-page-link">Plugin_getdir.ru</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/Novik/ruTorrent/wiki/Plugin_noty" class="wiki-page-link">Plugin_noty</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/Novik/ruTorrent/wiki/Plugin_noty.ru" class="wiki-page-link">Plugin_noty.ru</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/Novik/ruTorrent/wiki/Plugin_task" class="wiki-page-link">Plugin_task</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/Novik/ruTorrent/wiki/Plugin_task.ru" class="wiki-page-link">Plugin_task.ru</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/Novik/ruTorrent/wiki/PluginAutodlirssi" class="wiki-page-link">PluginAutodlirssi</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/Novik/ruTorrent/wiki/PluginAutotools" class="wiki-page-link">PluginAutotools</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/Novik/ruTorrent/wiki/PluginAutotools.fr" class="wiki-page-link">PluginAutotools.fr</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/Novik/ruTorrent/wiki/PluginAutotools.ru" class="wiki-page-link">PluginAutotools.ru</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/Novik/ruTorrent/wiki/PluginChat" class="wiki-page-link">PluginChat</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/Novik/ruTorrent/wiki/PluginCheckPort" class="wiki-page-link">PluginCheckPort</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/Novik/ruTorrent/wiki/PluginCheckPort.ru" class="wiki-page-link">PluginCheckPort.ru</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/Novik/ruTorrent/wiki/PluginChunks" class="wiki-page-link">PluginChunks</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/Novik/ruTorrent/wiki/PluginChunks.fr" class="wiki-page-link">PluginChunks.fr</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/Novik/ruTorrent/wiki/PluginChunks.ru" class="wiki-page-link">PluginChunks.ru</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/Novik/ruTorrent/wiki/PluginCookies" class="wiki-page-link">PluginCookies</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/Novik/ruTorrent/wiki/PluginCookies.fr" class="wiki-page-link">PluginCookies.fr</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/Novik/ruTorrent/wiki/PluginCookies.ru" class="wiki-page-link">PluginCookies.ru</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/Novik/ruTorrent/wiki/PluginCpuload" class="wiki-page-link">PluginCpuload</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/Novik/ruTorrent/wiki/PluginCpuload.fr" class="wiki-page-link">PluginCpuload.fr</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/Novik/ruTorrent/wiki/PluginCpuload.ru" class="wiki-page-link">PluginCpuload.ru</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/Novik/ruTorrent/wiki/PluginCreate" class="wiki-page-link">PluginCreate</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/Novik/ruTorrent/wiki/PluginCreate.fr" class="wiki-page-link">PluginCreate.fr</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/Novik/ruTorrent/wiki/PluginCreate.ru" class="wiki-page-link">PluginCreate.ru</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/Novik/ruTorrent/wiki/PluginDarkPal.fr" class="wiki-page-link">PluginDarkPal.fr</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/Novik/ruTorrent/wiki/PluginData" class="wiki-page-link">PluginData</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/Novik/ruTorrent/wiki/PluginData.fr" class="wiki-page-link">PluginData.fr</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/Novik/ruTorrent/wiki/PluginData.ru" class="wiki-page-link">PluginData.ru</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/Novik/ruTorrent/wiki/PluginDataDir" class="wiki-page-link">PluginDataDir</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/Novik/ruTorrent/wiki/PluginDataDir.fr" class="wiki-page-link">PluginDataDir.fr</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/Novik/ruTorrent/wiki/PluginDataDir.ru" class="wiki-page-link">PluginDataDir.ru</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/Novik/ruTorrent/wiki/PluginDiskspace" class="wiki-page-link">PluginDiskspace</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/Novik/ruTorrent/wiki/PluginDiskspace.fr" class="wiki-page-link">PluginDiskspace.fr</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/Novik/ruTorrent/wiki/PluginDiskspace.ru" class="wiki-page-link">PluginDiskspace.ru</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/Novik/ruTorrent/wiki/PluginEdit" class="wiki-page-link">PluginEdit</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/Novik/ruTorrent/wiki/PluginEdit.fr" class="wiki-page-link">PluginEdit.fr</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/Novik/ruTorrent/wiki/PluginEdit.ru" class="wiki-page-link">PluginEdit.ru</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/Novik/ruTorrent/wiki/PluginErasedata" class="wiki-page-link">PluginErasedata</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/Novik/ruTorrent/wiki/PluginErasedata.fr" class="wiki-page-link">PluginErasedata.fr</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/Novik/ruTorrent/wiki/PluginErasedata.ru" class="wiki-page-link">PluginErasedata.ru</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/Novik/ruTorrent/wiki/PluginExtRatio" class="wiki-page-link">PluginExtRatio</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/Novik/ruTorrent/wiki/PluginExtRatio.ru" class="wiki-page-link">PluginExtRatio.ru</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/Novik/ruTorrent/wiki/PluginExtsearch" class="wiki-page-link">PluginExtsearch</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/Novik/ruTorrent/wiki/PluginExtsearch.fr" class="wiki-page-link">PluginExtsearch.fr</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/Novik/ruTorrent/wiki/PluginExtsearch.ru" class="wiki-page-link">PluginExtsearch.ru</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/Novik/ruTorrent/wiki/PluginFeeds" class="wiki-page-link">PluginFeeds</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/Novik/ruTorrent/wiki/PluginFeeds.ru" class="wiki-page-link">PluginFeeds.ru</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/Novik/ruTorrent/wiki/PluginFileDrop" class="wiki-page-link">PluginFileDrop</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/Novik/ruTorrent/wiki/PluginFileDrop.ru" class="wiki-page-link">PluginFileDrop.ru</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/Novik/ruTorrent/wiki/PluginGeoIP" class="wiki-page-link">PluginGeoIP</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/Novik/ruTorrent/wiki/PluginGeoIP.fr" class="wiki-page-link">PluginGeoIP.fr</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/Novik/ruTorrent/wiki/PluginGeoIP.ru" class="wiki-page-link">PluginGeoIP.ru</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/Novik/ruTorrent/wiki/PluginHistory" class="wiki-page-link">PluginHistory</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/Novik/ruTorrent/wiki/PluginHistory.ru" class="wiki-page-link">PluginHistory.ru</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/Novik/ruTorrent/wiki/PluginHostname" class="wiki-page-link">PluginHostname</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/Novik/ruTorrent/wiki/PluginHTTPRPC" class="wiki-page-link">PluginHTTPRPC</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/Novik/ruTorrent/wiki/PluginHTTPRPC.fr" class="wiki-page-link">PluginHTTPRPC.fr</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/Novik/ruTorrent/wiki/PluginHTTPRPC.ru" class="wiki-page-link">PluginHTTPRPC.ru</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/Novik/ruTorrent/wiki/PluginInstantSearch" class="wiki-page-link">PluginInstantSearch</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/Novik/ruTorrent/wiki/PluginIPad" class="wiki-page-link">PluginIPad</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/Novik/ruTorrent/wiki/PluginIPad.ru" class="wiki-page-link">PluginIPad.ru</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/Novik/ruTorrent/wiki/PluginLoginMgr" class="wiki-page-link">PluginLoginMgr</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/Novik/ruTorrent/wiki/PluginLoginMgr.fr" class="wiki-page-link">PluginLoginMgr.fr</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/Novik/ruTorrent/wiki/PluginLoginMgr.ru" class="wiki-page-link">PluginLoginMgr.ru</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/Novik/ruTorrent/wiki/PluginLogoff" class="wiki-page-link">PluginLogoff</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/Novik/ruTorrent/wiki/PluginLookAt" class="wiki-page-link">PluginLookAt</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/Novik/ruTorrent/wiki/PluginLookAt.ru" class="wiki-page-link">PluginLookAt.ru</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/Novik/ruTorrent/wiki/PluginMediainfo" class="wiki-page-link">PluginMediainfo</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/Novik/ruTorrent/wiki/PluginMediainfo.ru" class="wiki-page-link">PluginMediainfo.ru</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/Novik/ruTorrent/wiki/PluginNFO" class="wiki-page-link">PluginNFO</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/Novik/ruTorrent/wiki/PluginPause" class="wiki-page-link">PluginPause</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/Novik/ruTorrent/wiki/PluginRatio" class="wiki-page-link">PluginRatio</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/Novik/ruTorrent/wiki/PluginRatio.fr" class="wiki-page-link">PluginRatio.fr</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/Novik/ruTorrent/wiki/PluginRatio.ru" class="wiki-page-link">PluginRatio.ru</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/Novik/ruTorrent/wiki/PluginRetrackers" class="wiki-page-link">PluginRetrackers</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/Novik/ruTorrent/wiki/PluginRetrackers.fr" class="wiki-page-link">PluginRetrackers.fr</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/Novik/ruTorrent/wiki/PluginRetrackers.ru" class="wiki-page-link">PluginRetrackers.ru</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/Novik/ruTorrent/wiki/PluginRPC" class="wiki-page-link">PluginRPC</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/Novik/ruTorrent/wiki/PluginRPC.fr" class="wiki-page-link">PluginRPC.fr</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/Novik/ruTorrent/wiki/PluginRPC.ru" class="wiki-page-link">PluginRPC.ru</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/Novik/ruTorrent/wiki/PluginRSS" class="wiki-page-link">PluginRSS</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/Novik/ruTorrent/wiki/PluginRSS.fr" class="wiki-page-link">PluginRSS.fr</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/Novik/ruTorrent/wiki/PluginRSS.ru" class="wiki-page-link">PluginRSS.ru</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/Novik/ruTorrent/wiki/PluginRSSURLRewrite" class="wiki-page-link">PluginRSSURLRewrite</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/Novik/ruTorrent/wiki/PluginRSSURLRewrite.fr" class="wiki-page-link">PluginRSSURLRewrite.fr</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/Novik/ruTorrent/wiki/PluginRSSURLRewrite.ru" class="wiki-page-link">PluginRSSURLRewrite.ru</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/Novik/ruTorrent/wiki/PluginRutracker_check" class="wiki-page-link">PluginRutracker_check</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/Novik/ruTorrent/wiki/PluginRutracker_check.ru" class="wiki-page-link">PluginRutracker_check.ru</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/Novik/ruTorrent/wiki/Plugins" class="wiki-page-link">Plugins</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/Novik/ruTorrent/wiki/Plugins.fr" class="wiki-page-link">Plugins.fr</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/Novik/ruTorrent/wiki/Plugins.ru" class="wiki-page-link">Plugins.ru</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/Novik/ruTorrent/wiki/PluginScheduler" class="wiki-page-link">PluginScheduler</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/Novik/ruTorrent/wiki/PluginScheduler.fr" class="wiki-page-link">PluginScheduler.fr</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/Novik/ruTorrent/wiki/PluginScheduler.ru" class="wiki-page-link">PluginScheduler.ru</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/Novik/ruTorrent/wiki/PluginScreenshots" class="wiki-page-link">PluginScreenshots</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/Novik/ruTorrent/wiki/PluginScreenshots.ru" class="wiki-page-link">PluginScreenshots.ru</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/Novik/ruTorrent/wiki/PluginSearch.fr" class="wiki-page-link">PluginSearch.fr</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/Novik/ruTorrent/wiki/PluginSeedingtime" class="wiki-page-link">PluginSeedingtime</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/Novik/ruTorrent/wiki/PluginSeedingtime.fr" class="wiki-page-link">PluginSeedingtime.fr</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/Novik/ruTorrent/wiki/PluginSeedingtime.ru" class="wiki-page-link">PluginSeedingtime.ru</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/Novik/ruTorrent/wiki/PluginShow_peers_like_wtorrent" class="wiki-page-link">PluginShow_peers_like_wtorrent</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/Novik/ruTorrent/wiki/PluginShow_peers_like_wtorrent.fr" class="wiki-page-link">PluginShow_peers_like_wtorrent.fr</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/Novik/ruTorrent/wiki/PluginShow_peers_like_wtorrent.ru" class="wiki-page-link">PluginShow_peers_like_wtorrent.ru</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/Novik/ruTorrent/wiki/PluginSource" class="wiki-page-link">PluginSource</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/Novik/ruTorrent/wiki/PluginSource.fr" class="wiki-page-link">PluginSource.fr</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/Novik/ruTorrent/wiki/PluginSource.ru" class="wiki-page-link">PluginSource.ru</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/Novik/ruTorrent/wiki/PluginTaddLabel" class="wiki-page-link">PluginTaddLabel</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/Novik/ruTorrent/wiki/PluginTheme" class="wiki-page-link">PluginTheme</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/Novik/ruTorrent/wiki/PluginTheme.ru" class="wiki-page-link">PluginTheme.ru</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/Novik/ruTorrent/wiki/PluginThrottle" class="wiki-page-link">PluginThrottle</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/Novik/ruTorrent/wiki/PluginThrottle.fr" class="wiki-page-link">PluginThrottle.fr</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/Novik/ruTorrent/wiki/PluginThrottle.ru" class="wiki-page-link">PluginThrottle.ru</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/Novik/ruTorrent/wiki/PluginTracklabels" class="wiki-page-link">PluginTracklabels</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/Novik/ruTorrent/wiki/PluginTracklabels.fr" class="wiki-page-link">PluginTracklabels.fr</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/Novik/ruTorrent/wiki/PluginTracklabels.ru" class="wiki-page-link">PluginTracklabels.ru</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/Novik/ruTorrent/wiki/PluginTrafic" class="wiki-page-link">PluginTrafic</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/Novik/ruTorrent/wiki/PluginTrafic.fr" class="wiki-page-link">PluginTrafic.fr</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/Novik/ruTorrent/wiki/PluginTrafic.ru" class="wiki-page-link">PluginTrafic.ru</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/Novik/ruTorrent/wiki/PluginUnpack" class="wiki-page-link">PluginUnpack</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/Novik/ruTorrent/wiki/PluginUnpack.fr" class="wiki-page-link">PluginUnpack.fr</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/Novik/ruTorrent/wiki/PluginUnpack.ru" class="wiki-page-link">PluginUnpack.ru</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/Novik/ruTorrent/wiki/SpecialThanks" class="wiki-page-link">SpecialThanks</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/Novik/ruTorrent/wiki/SpecialThanks.fr" class="wiki-page-link">SpecialThanks.fr</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/Novik/ruTorrent/wiki/SpecialThanks.ru" class="wiki-page-link">SpecialThanks.ru</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/Novik/ruTorrent/wiki/Usage" class="wiki-page-link">Usage</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/Novik/ruTorrent/wiki/Usage.fr" class="wiki-page-link">Usage.fr</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/Novik/ruTorrent/wiki/Usage.ru" class="wiki-page-link">Usage.ru</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/Novik/ruTorrent/wiki/Versions" class="wiki-page-link">Versions</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/Novik/ruTorrent/wiki/Versions.fr" class="wiki-page-link">Versions.fr</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/Novik/ruTorrent/wiki/Versions.ru" class="wiki-page-link">Versions.ru</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/Novik/ruTorrent/wiki/WebSERVER" class="wiki-page-link">WebSERVER</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/Novik/ruTorrent/wiki/WebSERVER.fr" class="wiki-page-link">WebSERVER.fr</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/Novik/ruTorrent/wiki/WebSERVER.ru" class="wiki-page-link">WebSERVER.ru</a></strong>
+    </li>
+    <li class="wiki-more-pages-link">
+      <a href="#" class="js-wiki-more-pages-link">
+        Show 142 more pages…
+      </a>
+    </li>
+  </ul>
+</div>
+
+    </div>
+
+      <div class="gollum-markdown-content readability-sidebar box box-small">
+        <div class="wiki-custom-sidebar wiki-writable markdown-body">
+            <a href="/Novik/ruTorrent/wiki/_Sidebar/_edit" class="wiki-edit-link" title="Edit sidebar">
+              <svg aria-hidden="true" class="octicon octicon-pencil" height="16" version="1.1" viewBox="0 0 14 16" width="14"><path fill-rule="evenodd" d="M0 12v3h3l8-8-3-3-8 8zm3 2H1v-2h1v1h1v1zm10.3-9.3L12 6 9 3l1.3-1.3a.996.996 0 0 1 1.41 0l1.59 1.59c.39.39.39 1.02 0 1.41z"/></svg>
+            </a>
+          <ul>
+<li>
+<a href="Home">Home</a>
+<ul>
+<li><a href="Versions">Versions</a></li>
+</ul>
+</li>
+<li>Installation and configuration
+<ul>
+<li><a href="MainInstall">rtorrent</a></li>
+<li>
+<a href="WebSERVER">Web Server</a>
+<ul>
+<li><a href="WebSERVER#apache-specific-scgi-config">Apache</a></li>
+<li><a href="WebSERVER#lighttpd-specific-scgi-config">Lighttpd</a></li>
+<li><a href="WebSERVER#cherokee-specific-scgi-config">Cherokee</a></li>
+<li><a href="WebSERVER#nginx-scgi-notes">Nginx</a></li>
+</ul>
+</li>
+<li><a href="Config">ruTorrent</a></li>
+</ul>
+</li>
+<li><a href="Downloading">Downloading</a></li>
+<li>
+<a href="Plugins">Plugins</a>
+<ul>
+<li>Current plugins
+<ul>
+<li><a href="PluginRPC">RPC</a></li>
+<li><a href="PluginErasedata">Erasedata</a></li>
+<li><a href="PluginCreate">Create</a></li>
+<li><a href="PluginTrafic">Traffic</a></li>
+<li><a href="PluginRSS">RSS</a></li>
+<li><a href="PluginEdit">Edit</a></li>
+<li><a href="PluginRetrackers">Retrackers</a></li>
+<li><a href="PluginThrottle">Throttle</a></li>
+<li><a href="PluginCookies">Cookies</a></li>
+<li><a href="PluginScheduler">Scheduler</a></li>
+<li><a href="PluginAutotools">Auto Tools</a></li>
+<li><a href="PluginDataDir">DataDir</a></li>
+<li><a href="PluginTracklabels">Track Labels</a></li>
+<li><a href="PluginGeoIP">GeoIP</a></li>
+<li><a href="PluginRatio">Ratio</a></li>
+<li><a href="PluginShow_peers_like_wtorrent">Show Peers Like Wtorrent</a></li>
+<li><a href="PluginSeedingtime">Seeding Time</a></li>
+<li><a href="PluginHTTPRPC">HttpRPC</a></li>
+<li><a href="PluginDiskspace">Diskspace</a></li>
+<li><a href="PluginUnpack">Unpack</a></li>
+<li><a href="Plugin_getdir">_getdir</a></li>
+<li><a href="PluginSource">Source</a></li>
+<li><a href="PluginChunks">Chunks</a></li>
+<li><a href="PluginData">Data</a></li>
+<li><a href="PluginCpuload">Cpuload</a></li>
+<li><a href="PluginExtsearch">extsearch</a></li>
+<li><a href="PluginTheme">Theme</a></li>
+<li><a href="PluginLoginMgr"> Loginmgr</a></li>
+<li><a href="PluginRSSURLRewrite">Rssurlrewrite</a></li>
+<li><a href="PluginFeeds">Feeds</a></li>
+<li><a href="PluginRutracker_check">Rutracker_check</a></li>
+<li><a href="PluginLookAt">LookAt</a></li>
+<li><a href="PluginScreenshots">Screenshots</a></li>
+<li><a href="PluginCheckPort">Check_Port</a></li>
+<li><a href="PluginMediainfo">Mediainfo</a></li>
+<li><a href="PluginHistory">History</a></li>
+<li><a href="PluginIPad">IPad</a></li>
+<li><a href="PluginFileDrop">FileDrop</a></li>
+<li><a href="PluginExtRatio">ExtRatio</a></li>
+<li><a href="Plugin_noty">_noty</a></li>
+<li><a href="Plugin_task">_task</a></li>
+</ul>
+</li>
+<li>3rd Party Plugins
+<ul>
+<li><a href="PluginAutodlirssi">Autodl-irssi</a></li>
+<li><a href="PluginPause">Pause</a></li>
+<li><a href="PluginTaddLabel">tadd-labels</a></li>
+<li><a href="PluginNFO">NFO</a></li>
+<li><a href="PluginChat">Chat</a></li>
+<li><a href="PluginLogoff">Logoff</a></li>
+<li><a href="PluginInstantSearch">InstantSearch</a></li>
+<li><a href="https://github.com/xombiemp/rutorrentMobile">rutorrentMobile</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="Usage">Usage</a></li>
+<li><a href="ErrorMessages">Error Messages</a></li>
+<li><a href="FuturePlans">Future Plans</a></li>
+<li><a href="SpecialThanks">Special Thanks</a></li>
+</ul>
+
+        </div>
+      </div>
+
+    <div class="clone-url">
+      <h5>Clone this wiki locally</h5>
+      <div class="input-group js-zeroclipboard-container">
+        <input type="text" class="form-control input-sm text-small text-gray input-monospace js-url-field js-zeroclipboard-target" aria-label="Clone URL for this wiki"
+               value="https://github.com/Novik/ruTorrent.wiki.git" readonly="readonly">
+        <span class="input-group-button">
+          <button aria-label="Copy to clipboard" class="js-zeroclipboard btn btn-sm zeroclipboard-button tooltipped tooltipped-s" data-copied-hint="Copied!" type="button"><svg aria-hidden="true" class="octicon octicon-clippy" height="16" version="1.1" viewBox="0 0 14 16" width="14"><path fill-rule="evenodd" d="M2 13h4v1H2v-1zm5-6H2v1h5V7zm2 3V8l-3 3 3 3v-2h5v-2H9zM4.5 9H2v1h2.5V9zM2 12h2.5v-1H2v1zm9 1h1v2c-.02.28-.11.52-.3.7-.19.18-.42.28-.7.3H1c-.55 0-1-.45-1-1V4c0-.55.45-1 1-1h3c0-1.11.89-2 2-2 1.11 0 2 .89 2 2h3c.55 0 1 .45 1 1v5h-1V6H1v9h10v-2zM2 5h8c0-.55-.45-1-1-1H8c-.55 0-1-.45-1-1s-.45-1-1-1-1 .45-1 1-.45 1-1 1H3c-.55 0-1 .45-1 1z"/></svg></button>
+        </span>
+      </div>
+
+
+        <a href="https://desktop.github.com"
+           class="btn btn-sm sidebar-button"
+           title="Save this wiki to your computer and use it in GitHub Desktop."
+           aria-label="Save this wiki to your computer and use it in GitHub Desktop.">
+          <svg aria-hidden="true" class="octicon octicon-desktop-download" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 6h3V0h2v6h3l-4 4-4-4zm11-4h-4v1h4v8H1V3h4V2H1c-.55 0-1 .45-1 1v9c0 .55.45 1 1 1h5.34c-.25.61-.86 1.39-2.34 2h8c-1.48-.61-2.09-1.39-2.34-2H15c.55 0 1-.45 1-1V3c0-.55-.45-1-1-1z"/></svg>
+          Clone in Desktop
+        </a>
+    </div>
+  </div>
+
+  <div id="wiki-body" class="wiki-body gollum-markdown-content instapaper_body">
+      <div class="markdown-body">
+        <h1>
+<a id="user-content-installation-and-configuration-of-rutorrent" class="anchor" href="#installation-and-configuration-of-rutorrent" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Installation and configuration of ruTorrent</h1>
+<h2>
+<a id="user-content-installation" class="anchor" href="#installation" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Installation</h2>
+<p>Simply <a href="Downloading">download</a> and unpack archive to the web server root directory. All resulting files must be accessible for reading from web server user.
+Directory <code>ruTorrent/share</code> (with all its contents) must be accessible for reading and writing for both rtorrent and web server users.</p>
+<h2>
+<a id="user-content-configuration" class="anchor" href="#configuration" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Configuration</h2>
+<p>The base install comes with 3 config files:</p>
+<ul>
+<li><code>config.php</code></li>
+<li><code>access.ini</code></li>
+<li><code>plugins.ini</code></li>
+</ul>
+<p>Plugins may have his own configuration files, in common case, this is a file <code>conf.php</code> inside plugins directory.</p>
+<h3>
+<a id="user-content-configphp" class="anchor" href="#configphp" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>config.php</h3>
+<p>This file is the probably the most important config file in the ruTorrent base install. It controls many options. By default, it looks like this:</p>
+<pre><code>
+&lt;?php
+	// configuration parameters
+
+	// for snoopy client
+	@define('HTTP_USER_AGENT', 'Mozilla/5.0 (Windows NT 6.0; WOW64; rv:12.0) Gecko/20100101 Firefox/12.0', true);
+	@define('HTTP_TIME_OUT', 30, true);	// in seconds
+	@define('HTTP_USE_GZIP', true, true);
+	$httpIP = null;				// IP string. Or null for any.
+
+	@define('RPC_TIME_OUT', 5, true);	// in seconds
+
+	@define('LOG_RPC_CALLS', false, true);
+	@define('LOG_RPC_FAULTS', true, true);
+
+	// for php	
+	@define('PHP_USE_GZIP', false, true);
+	@define('PHP_GZIP_LEVEL', 2, true);
+
+	$schedule_rand = 10;			// rand for schedulers start, +0..X seconds
+
+	$do_diagnostic = true;
+	$log_file = '/tmp/errors.log';		// path to log file (comment or leave blank to disable logging)
+
+	$saveUploadedTorrents = true;		// Save uploaded torrents to profile/torrents directory or not
+	$overwriteUploadedTorrents = false;     // Overwrite existing uploaded torrents in profile/torrents directory or make unique name
+
+	$topDirectory = '/';			// Upper available directory. Absolute path with trail slash.
+	$forbidUserSettings = false;
+
+	$scgi_port = 5000;
+	$scgi_host = "127.0.0.1";
+
+	// For web-&gt;rtorrent link through unix domain socket 
+	// (scgi_local in rtorrent conf file), change variables 
+	// above to something like this:
+	//
+	// $scgi_port = 0;
+	// $scgi_host = "unix:///tmp/rpc.socket";
+
+	$XMLRPCMountPoint = "/RPC2";		// DO NOT DELETE THIS LINE!!! DO NOT COMMENT THIS LINE!!!
+
+	$pathToExternals = array(
+		"php" 	=&gt; '',			// Something like /usr/bin/php. If empty, will be found in PATH.
+		"curl"	=&gt; '',			// Something like /usr/bin/curl. If empty, will be found in PATH.
+		"gzip"	=&gt; '',			// Something like /usr/bin/gzip. If empty, will be found in PATH.
+		"id"	=&gt; '',			// Something like /usr/bin/id. If empty, will be found in PATH.
+		"stat"	=&gt; '',			// Something like /usr/bin/stat. If empty, will be found in PATH.
+	);
+
+	$localhosts = array( 			// list of local interfaces
+		"127.0.0.1", 
+		"localhost",
+	);
+
+	$profilePath = '../share';		// Path to user profiles
+	$profileMask = 0777;			// Mask for files and directory creation in user profiles.
+						// Both Webserver and rtorrent users must have read-write access to it.
+						// For example, if Webserver and rtorrent users are in the same group then the value may be 0770.
+
+	$tempDirectory = null;			// Temp directory. Absolute path with trail slash. If null, then autodetect will be used.
+
+</code></pre>
+<h4>
+<a id="user-content-link-to-rtorrent" class="anchor" href="#link-to-rtorrent" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Link to rtorrent</h4>
+<ul>
+<li><code>$scgi_host = "127.0.0.1";</code></li>
+</ul>
+<p>SCGI Host - This will almost always be 127.0.0.1 (unless using unix based socket, in which case it would be something like <code>$scgi_host = "unix:///tmp/rpc.socket";</code>)</p>
+<ul>
+<li><code>$scgi_port = 5000;</code></li>
+</ul>
+<p>SCGI port -  This is the scgi port.  For multi-user setups, each user would get a different port number (unless you are using unix based sockets)</p>
+<ul>
+<li><code>$XMLRPCMountPoint = "/RPC2";</code></li>
+</ul>
+<p>XMLRPC Mount Point  - This defaults to <code>/RPC2</code> but can be set to anything inside your webspace.  If you are setting up multiple users, each user would get a different setting here.  This setting is required, don't remove it.</p>
+<h4>
+<a id="user-content-diagnostic" class="anchor" href="#diagnostic" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Diagnostic</h4>
+<ul>
+<li><code>$do_diagnostic = true;</code></li>
+</ul>
+<p>If this is false, some diagnostics (permission checking, for example) will be skipped. This is true by default.</p>
+<ul>
+<li><code>$log_file = '/tmp/errors.log';</code></li>
+</ul>
+<p>Log file path for some errors messages etc. if you wish to disable this, simply change it to <code>$log_file = '';</code>.</p>
+<h4>
+<a id="user-content-others" class="anchor" href="#others" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Others</h4>
+<ul>
+<li><code>$httpIP = null;</code></li>
+</ul>
+<p>ruTorrent will use this IP address for access to the external http and https resources (for example, to the RSS feeds).</p>
+<ul>
+<li><code>$forbidUserSettings = false;</code></li>
+</ul>
+<p>If true, allows for single user style configuration, even with webauth.</p>
+<ul>
+<li><code>@define('PHP_USE_GZIP', false, true);</code></li>
+</ul>
+<p>This option enables or disables usage of the external gzip binary. If changed from false to true - all php generated pages &gt; 2K will be gzipped by the external 'gzip' binary. This</p>
+<ol>
+<li>Decreases trafic (bandwidth)</li>
+<li>Increases server load (cpu time and memory use)</li>
+<li>Can't be used if php is already being compressed (for example, if zlib.output_compression is on)</li>
+</ol>
+<ul>
+<li><code>@define('PHP_GZIP_LEVEL', 2, true);</code></li>
+</ul>
+<p>This option controls the compression level of the above 'gzip' option</p>
+<ul>
+<li><code>$saveUploadedTorrents = true;</code></li>
+</ul>
+<p>If true, all .torrent files added via webui will be saved in <code>share/torrents</code> (or <code>share/users/USERNAME/torrents</code>). If false, all .torrent files will be deleted after being added.</p>
+<ul>
+<li><code>$overwriteUploadedTorrents = false;</code></li>
+</ul>
+<p>If true, then already existing .torrent files will be overwritten. Otherwise new files will have unique names.</p>
+<ul>
+<li><code>$topDirectory = '/';</code></li>
+</ul>
+<p>Chroot directory for user. Users have no access to directories above this directory.</p>
+<ul>
+<li>External Program Paths</li>
+</ul>
+<pre><code>$pathToExternals = array(
+ "php"  =&gt; '',   // Something like /usr/bin/php. If empty, will be founded in PATH.
+ "curl" =&gt; '',   // Something like /usr/bin/curl. If empty, will be founded in PATH.
+ "gzip" =&gt; '',   // Something like /usr/bin/gzip. If empty, will be founded in PATH.
+ "id" =&gt; '',   // Something like /usr/bin/id. If empty, will be founded in PATH.
+</code></pre>
+<p>This should be pretty self explanatory.  Set each option with the proper binary path.</p>
+<ul>
+<li><code>$profilePath = '../share';</code></li>
+</ul>
+<p>Path to the directory for users data.</p>
+<ul>
+<li><code>$profileMask = 0777;</code></li>
+</ul>
+<p>Access mask for creation of users files and directories. Both rtorrent and web server users must have access for reading/writing to these files.
+As result, if, for example, these users have a same primary group, the this parameter should be changed to 0770.</p>
+<ul>
+<li><code>$tempDirectory = null;</code></li>
+</ul>
+<p>The directory for creation of temporal files. This directory must be accessible for reading/writing/execution for both rtorrent and web server users.
+By default ruTorrent will check</p>
+<ol>
+<li>
+<code>upload_tmp_dir</code> from php.ini</li>
+<li>result of php function <code>sys_get_temp_dir</code>
+</li>
+<li>/tmp</li>
+</ol>
+<p>and select first applicable directory from this list.</p>
+<h3>
+<a id="user-content-accessini" class="anchor" href="#accessini" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>access.ini</h3>
+<p>File is intended for limitation an users access to specific settings of ruTorrent. This is a simple ini file.</p>
+<pre><code>;; ruTorrent permissions.
+;; By default all flags is assumed as "yes".
+
+[settings]
+showDownloadsPage = yes
+showConnectionPage = yes
+showBittorentPage = yes
+showAdvancedPage = yes
+
+[tabs]
+showPluginsTab = yes
+
+[statusbar]
+canChangeULRate = yes
+canChangeDLRate = yes
+
+[dialogs]
+canChangeTorrentProperties = yes
+</code></pre>
+<p>These options are pretty self explanatory.</p>
+<h3>
+<a id="user-content-pluginsini" class="anchor" href="#pluginsini" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>plugins.ini</h3>
+<p>File is intended for plugins control. This is a simple ini file.</p>
+<pre><code>;; Plugins' permissions.
+;; If flag is not found in plugin section, corresponding flag from "default" section is used.
+;; If flag is not found in "default" section, it is assumed to be "yes".
+;;
+;; For setting individual plugin permissions you must write something like that:
+;;
+;; [ratio]
+;; enabled = yes ;; also may be "user-defined", in this case user can control plugin's state from UI
+;; canChangeToolbar = yes
+;; canChangeMenu = yes
+;; canChangeOptions = no
+;; canChangeTabs = yes
+;; canChangeColumns = yes
+;; canChangeStatusBar = yes
+;; canChangeCategory = yes
+;; canBeShutdowned = yes
+
+[default]
+enabled = user-defined
+canChangeToolbar = yes
+canChangeMenu = yes
+canChangeOptions = yes
+canChangeTabs = yes
+canChangeColumns = yes
+canChangeStatusBar = yes
+canChangeCategory = yes
+canBeShutdowned = yes
+</code></pre>
+<p>Every section in this file (exclude section 'default') corresponds to concrete plugin. If section with a plugins name is absent, then section 'default' will be used.</p>
+<ul>
+<li>
+<code>enabled</code> - whether the plugin will be used generally. Available values - yes, no, user-defined. The last means that the decision on loading / not to loading of a plugin is accepted by the user and is available from the ruTorrent interface (see the shortcut menu on the Plugins tab).</li>
+<li>
+<code>canChangeToolbar</code> - whether the plugin can change contents of the main toolbar.</li>
+<li>
+<code>canChangeMenu</code> - whether the plugin can change contents of the context menu.</li>
+<li>
+<code>canChangeOptions</code> - whether the plugin can change contents of the Options dialog.</li>
+<li>
+<code>canChangeTabs</code> - whether the plugin can add a new tabs.</li>
+<li>
+<code>canChangeColumns</code> - whether the plugin can change structure of tables (for example, list of torrents).</li>
+<li>
+<code>canChangeStatusBar</code> - whether the plugin can change contents of the status bar.</li>
+<li>
+<code>canChangeCategory</code> - whether the plugin can change categories.</li>
+<li>
+<code>canBeShutdowned</code> - whether the unload command is available to this plugin on the interface.</li>
+</ul>
+<p>Example:</p>
+<pre><code>[default]
+enabled = yes
+canChangeToolbar = yes
+canChangeMenu = yes
+canChangeOptions = yes
+canChangeTabs = yes
+canChangeColumns = yes
+
+[rpc]
+enabled = no
+
+[unpack]
+canChangeOptions = no
+</code></pre>
+<p>As result, plugin <a href="PluginRPC">RPC</a> will not be loaded, and for plugin <a href="PluginUnpack">Unpack</a> user can't use automatic unpacking (because corresponding option should be turned on from the Options dialog).</p>
+<h3>
+<a id="user-content-authentication" class="anchor" href="#authentication" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Authentication</h3>
+<p>Authentication -  Currently ruTorrent does not have any sort of authentication. For authentication, use whatever your webserver supports.
+You must protect root directory of ruTorrent and, if you doesn't use plugins <a href="PluginRPC">RPC</a> or <a href="PluginHTTPRPC">HTTPRPC</a>, then XMLRPC mount point (by default <code>/RPC2</code>).
+Authentication of both parts must have a same realm (or you can simply move XMLRPC mount point inside ruTorrent directory and protect only one part).
+If you have authentication, then you can configure ruTorrent for work with several users.</p>
+<p><em>Note: Every user should have a his own rtorrent instance. Otherwise some plugins will not work.</em></p>
+<h3>
+<a id="user-content-multiuser-and-singleuser-configuration" class="anchor" href="#multiuser-and-singleuser-configuration" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Multiuser and singleuser configuration</h3>
+<p>If you doesn't use authentication, or <a href="#others">turned off</a> multiuser configuration manually, then</p>
+<ul>
+<li>All users data will be stored inside <code>share/settings</code> directory.</li>
+<li>All ruTorrent configuration will be readed from <code>ruTorrent/conf</code> directory.</li>
+</ul>
+<p>Otherwise, you have a multiuser configuration. For it</p>
+<ul>
+<li>All users data will be stored inside <code>share/users/USERNAME/settings</code> directory, where <code>USERNAME</code> - his login.</li>
+<li>You can configure ruTorrent for each user separately.</li>
+</ul>
+<p>For that you should copy corresponding ruTorrent config files to the <code>conf/users/USERNAME</code> directory (you must create it manually).
+For example, if you have three users - tom, dick и harry, you should make something like:</p>
+<pre><code>mkdir /var/www/ruTorrent/conf/users/tom
+mkdir /var/www/ruTorrent/conf/users/dick
+mkdir /var/www/ruTorrent/conf/users/harry
+cp /var/www/ruTorrent/conf/* /var/www/ruTorrent/conf/users/tom/
+cp /var/www/ruTorrent/conf/* /var/www/ruTorrent/conf/users/dick/
+cp /var/www/ruTorrent/conf/* /var/www/ruTorrent/conf/users/harry/
+</code></pre>
+<p>After that don't forget to edit files <code>config.php</code>, <code>access.ini</code> and <code>plugins.ini</code> inside users directory.</p>
+<p><em>Note: In any case ruTorrent will load main file <code>conf/config.php</code>. And only after that - users config file. As result, users config file may contain only difference from the main config file. This technique is not applicable to the files <code>access.ini</code> and <code>plugins.ini</code>.</em></p>
+<p>Some plugins may have his own configuration files, and you also <a href="Plugins#configuration">can configure</a> its separately for each user.</p>
+
+      </div>
+
+      <div id="wiki-footer" class="wiki-footer gollum-markdown-content boxed-group">
+        <div class="boxed-group-inner wiki-auxiliary-content wiki-writable markdown-body">
+            <a href="/Novik/ruTorrent/wiki/_Footer/_edit" class="wiki-edit-link" title="Edit footer">
+              <svg aria-hidden="true" class="octicon octicon-pencil" height="16" version="1.1" viewBox="0 0 14 16" width="14"><path fill-rule="evenodd" d="M0 12v3h3l8-8-3-3-8 8zm3 2H1v-2h1v1h1v1zm10.3-9.3L12 6 9 3l1.3-1.3a.996.996 0 0 1 1.41 0l1.59 1.59c.39.39.39 1.02 0 1.41z"/></svg>
+            </a>
+          <p><a href="Home"><img src="https://github.com/Novik/ruTorrent/wiki/images/United-States-Flag-32.png" alt="EN" title="See wiki in English"></a> <a href="Home.ru"><img src="https://github.com/Novik/ruTorrent/wiki/images/Russia-Flag-32.png" alt="RU" title="Посмотреть вики на русском"></a> <a href="Home.fr"><img src="https://github.com/Novik/ruTorrent/wiki/images/France-Flag-32.png" alt="FR" title="Voir le wiki en Français"></a></p>
+
+        </div>
+      </div>
+  </div>
+  </div>
+</div>
+</div>
+
+
+
+  </div>
+  <div class="modal-backdrop js-touch-events"></div>
+</div>
+
+    </div>
+  </div>
+
+  </div>
+
+      
+<div class="container site-footer-container">
+  <div class="site-footer " role="contentinfo">
+    <ul class="site-footer-links float-right">
+        <li><a href="https://github.com/contact" data-ga-click="Footer, go to contact, text:contact">Contact GitHub</a></li>
+      <li><a href="https://developer.github.com" data-ga-click="Footer, go to api, text:api">API</a></li>
+      <li><a href="https://training.github.com" data-ga-click="Footer, go to training, text:training">Training</a></li>
+      <li><a href="https://shop.github.com" data-ga-click="Footer, go to shop, text:shop">Shop</a></li>
+        <li><a href="https://github.com/blog" data-ga-click="Footer, go to blog, text:blog">Blog</a></li>
+        <li><a href="https://github.com/about" data-ga-click="Footer, go to about, text:about">About</a></li>
+
+    </ul>
+
+    <a href="https://github.com" aria-label="Homepage" class="site-footer-mark" title="GitHub">
+      <svg aria-hidden="true" class="octicon octicon-mark-github" height="24" version="1.1" viewBox="0 0 16 16" width="24"><path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
+</a>
+    <ul class="site-footer-links">
+      <li>&copy; 2017 <span title="0.12541s from github-fe-3d613a9.cp1-iad.github.net">GitHub</span>, Inc.</li>
+        <li><a href="https://github.com/site/terms" data-ga-click="Footer, go to terms, text:terms">Terms</a></li>
+        <li><a href="https://github.com/site/privacy" data-ga-click="Footer, go to privacy, text:privacy">Privacy</a></li>
+        <li><a href="https://github.com/security" data-ga-click="Footer, go to security, text:security">Security</a></li>
+        <li><a href="https://status.github.com/" data-ga-click="Footer, go to status, text:status">Status</a></li>
+        <li><a href="https://help.github.com" data-ga-click="Footer, go to help, text:help">Help</a></li>
+    </ul>
+  </div>
+</div>
+
+
+
+  
+
+  <div id="ajax-error-message" class="ajax-error-message flash flash-error">
+    <svg aria-hidden="true" class="octicon octicon-alert" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M8.865 1.52c-.18-.31-.51-.5-.87-.5s-.69.19-.87.5L.275 13.5c-.18.31-.18.69 0 1 .19.31.52.5.87.5h13.7c.36 0 .69-.19.86-.5.17-.31.18-.69.01-1L8.865 1.52zM8.995 13h-2v-2h2v2zm0-3h-2V6h2v4z"/></svg>
+    <button type="button" class="flash-close js-flash-close js-ajax-error-dismiss" aria-label="Dismiss error">
+      <svg aria-hidden="true" class="octicon octicon-x" height="16" version="1.1" viewBox="0 0 12 16" width="12"><path fill-rule="evenodd" d="M7.48 8l3.75 3.75-1.48 1.48L6 9.48l-3.75 3.75-1.48-1.48L4.52 8 .77 4.25l1.48-1.48L6 6.52l3.75-3.75 1.48 1.48z"/></svg>
+    </button>
+    You can't perform that action at this time.
+  </div>
+
+
+    
+    <script crossorigin="anonymous" integrity="sha256-X+Q/xqnlEgxCczSjjpp2AUGGgqM5gcBzhRQ0p+EAUEk=" src="https://assets-cdn.github.com/assets/frameworks-5fe43fc6a9e5120c427334a38e9a7601418682a33981c073851434a7e1005049.js"></script>
+    <script async="async" crossorigin="anonymous" integrity="sha256-9f3FVxB/cYpRksFz2PYkixpq+nV44tJSLzI/gcmcC5s=" src="https://assets-cdn.github.com/assets/github-f5fdc557107f718a5192c173d8f6248b1a6afa7578e2d2522f323f81c99c0b9b.js"></script>
+    
+    
+      <script crossorigin="anonymous" integrity="sha256-Wo6qOeeAveunce/7DXxQBMo4ZNLp5YsORBUtG3rZ6YQ=" src="https://assets-cdn.github.com/assets/wiki-5a8eaa39e780bdeba771effb0d7c5004ca3864d2e9e58b0e44152d1b7ad9e984.js"></script>
+
+    
+  <div class="js-stale-session-flash stale-session-flash flash flash-warn flash-banner d-none">
+    <svg aria-hidden="true" class="octicon octicon-alert" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M8.865 1.52c-.18-.31-.51-.5-.87-.5s-.69.19-.87.5L.275 13.5c-.18.31-.18.69 0 1 .19.31.52.5.87.5h13.7c.36 0 .69-.19.86-.5.17-.31.18-.69.01-1L8.865 1.52zM8.995 13h-2v-2h2v2zm0-3h-2V6h2v4z"/></svg>
+    <span class="signed-in-tab-flash">You signed in with another tab or window. <a href="">Reload</a> to refresh your session.</span>
+    <span class="signed-out-tab-flash">You signed out in another tab or window. <a href="">Reload</a> to refresh your session.</span>
+  </div>
+  <div class="facebox" id="facebox" style="display:none;">
+  <div class="facebox-popup">
+    <div class="facebox-content" role="dialog" aria-labelledby="facebox-header" aria-describedby="facebox-description">
+    </div>
+    <button type="button" class="facebox-close js-facebox-close" aria-label="Close modal">
+      <svg aria-hidden="true" class="octicon octicon-x" height="16" version="1.1" viewBox="0 0 12 16" width="12"><path fill-rule="evenodd" d="M7.48 8l3.75 3.75-1.48 1.48L6 9.48l-3.75 3.75-1.48-1.48L4.52 8 .77 4.25l1.48-1.48L6 6.52l3.75-3.75 1.48 1.48z"/></svg>
+    </button>
+  </div>
+</div>
+
+
+  </body>
+</html>
+

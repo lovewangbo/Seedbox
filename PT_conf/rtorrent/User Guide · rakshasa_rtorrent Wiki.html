@@ -1,0 +1,1287 @@
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+
+
+
+  <link crossorigin="anonymous" href="https://assets-cdn.github.com/assets/frameworks-81a59bf26d881d29286674f6deefe779c444382fff322085b50ba455460ccae5.css" integrity="sha256-gaWb8m2IHSkoZnT23u/necREOC//MiCFtQukVUYMyuU=" media="all" rel="stylesheet" />
+  <link crossorigin="anonymous" href="https://assets-cdn.github.com/assets/github-87d822aa41a2e50fc4a176f81e161236c98e01a8a4e8258b55acdeab81d58d35.css" integrity="sha256-h9giqkGi5Q/EoXb4HhYSNsmOAaik6CWLVazeq4HVjTU=" media="all" rel="stylesheet" />
+  
+  
+  
+  
+
+  <meta name="viewport" content="width=device-width">
+  
+  <title>User Guide · rakshasa/rtorrent Wiki</title>
+  <link rel="search" type="application/opensearchdescription+xml" href="/opensearch.xml" title="GitHub">
+  <link rel="fluid-icon" href="https://github.com/fluidicon.png" title="GitHub">
+  <meta property="fb:app_id" content="1401488693436528">
+
+    
+    <meta content="https://avatars2.githubusercontent.com/u/475125?v=3&amp;s=400" property="og:image" /><meta content="GitHub" property="og:site_name" /><meta content="object" property="og:type" /><meta content="rakshasa/rtorrent" property="og:title" /><meta content="https://github.com/rakshasa/rtorrent" property="og:url" /><meta content="rtorrent - rTorrent BitTorrent client" property="og:description" />
+
+  <link rel="assets" href="https://assets-cdn.github.com/">
+  <link rel="web-socket" href="wss://live.github.com/_sockets/VjI6MTc0NTU4MzQyOmNiNzVjYjQxODljMzJkNWNkNjY3ZGY4MTY5NDNjOWE0YmViNTUxYTU0MDExNzNhMjI4NzBhM2Q1NTM0NDY1ZjQ=--fba773d58a95c4886d0a00fcf5abaf542b1433db">
+  <meta name="pjax-timeout" content="1000">
+  <link rel="sudo-modal" href="/sessions/sudo_modal">
+  <meta name="request-id" content="1571:9172:1FDDBCC:326A5C5:591C0069" data-pjax-transient>
+  
+
+  <meta name="selected-link" value="repo_wiki" data-pjax-transient>
+
+  <meta name="google-site-verification" content="KT5gs8h0wvaagLKAVWq8bbeNwnZZK1r1XQysX3xurLU">
+<meta name="google-site-verification" content="ZzhVyEFwb7w3e0-uOTltm8Jsck2F5StVihD0exw2fsA">
+    <meta name="google-analytics" content="UA-3769691-2">
+
+<meta content="collector.githubapp.com" name="octolytics-host" /><meta content="github" name="octolytics-app-id" /><meta content="https://collector.githubapp.com/github-external/browser_event" name="octolytics-event-url" /><meta content="1571:9172:1FDDBCC:326A5C5:591C0069" name="octolytics-dimension-request_id" /><meta content="28722281" name="octolytics-actor-id" /><meta content="lovewangbo" name="octolytics-actor-login" /><meta content="45db9b62e9a2b610fca2c6744e21f236141a897c18cb3cec9511d6b73337a495" name="octolytics-actor-hash" />
+<meta content="/&lt;user-name&gt;/&lt;repo-name&gt;/wiki/show" data-pjax-transient="true" name="analytics-location" />
+
+
+
+
+  <meta class="js-ga-set" name="dimension1" content="Logged In">
+
+
+  
+
+      <meta name="hostname" content="github.com">
+  <meta name="user-login" content="lovewangbo">
+
+      <meta name="expected-hostname" content="github.com">
+    <meta name="js-proxy-site-detection-payload" content="Y2YwN2JmYjA5ODMyMGE4MjNkMDI3YzlkZWNiOWVhNmI0M2M5ZWM1N2I2NjEyMjVjZmEyMTQ5ZDI0YzM0OTg1MHx7InJlbW90ZV9hZGRyZXNzIjoiMTE5LjUuNzQuMjQ5IiwicmVxdWVzdF9pZCI6IjE1NzE6OTE3MjoxRkREQkNDOjMyNkE1QzU6NTkxQzAwNjkiLCJ0aW1lc3RhbXAiOjE0OTUwMDczMzgsImhvc3QiOiJnaXRodWIuY29tIn0=">
+
+
+  <meta name="html-safe-nonce" content="0f6b89fae986d63bb0f68eff6c24f60be9aa96ff">
+
+  <meta http-equiv="x-pjax-version" content="598266a6dd8e4f61e16b355161b735cd">
+  
+
+    
+  <meta name="description" content="rtorrent - rTorrent BitTorrent client">
+  <meta name="go-import" content="github.com/rakshasa/rtorrent git https://github.com/rakshasa/rtorrent.git">
+
+  <meta content="475125" name="octolytics-dimension-user_id" /><meta content="rakshasa" name="octolytics-dimension-user_login" /><meta content="2502638" name="octolytics-dimension-repository_id" /><meta content="rakshasa/rtorrent" name="octolytics-dimension-repository_nwo" /><meta content="true" name="octolytics-dimension-repository_public" /><meta content="false" name="octolytics-dimension-repository_is_fork" /><meta content="2502638" name="octolytics-dimension-repository_network_root_id" /><meta content="rakshasa/rtorrent" name="octolytics-dimension-repository_network_root_nwo" />
+  <link href="https://github.com/rakshasa/rtorrent/commits/master.atom" rel="alternate" title="Recent Commits to rtorrent:master" type="application/atom+xml">
+
+
+
+
+  <meta name="browser-stats-url" content="https://api.github.com/_private/browser/stats">
+
+  <meta name="browser-errors-url" content="https://api.github.com/_private/browser/errors">
+
+  <link rel="mask-icon" href="https://assets-cdn.github.com/pinned-octocat.svg" color="#000000">
+  <link rel="icon" type="image/x-icon" href="https://assets-cdn.github.com/favicon.ico">
+
+<meta name="theme-color" content="#1e2327">
+
+
+  <meta name="u2f-support" content="true">
+
+  </head>
+
+  <body class="logged-in env-production">
+    
+
+
+
+  <div class="position-relative js-header-wrapper ">
+    <a href="#start-of-content" tabindex="1" class="accessibility-aid js-skip-to-content">Skip to content</a>
+    <div id="js-pjax-loader-bar" class="pjax-loader-bar"><div class="progress"></div></div>
+
+    
+    
+    
+
+
+
+        
+<div class="header" role="banner">
+  <div class="container clearfix">
+    <a class="header-logo-invertocat" href="https://github.com/" data-hotkey="g d" aria-label="Homepage" data-ga-click="Header, go to dashboard, icon:logo">
+  <svg aria-hidden="true" class="octicon octicon-mark-github" height="32" version="1.1" viewBox="0 0 16 16" width="32"><path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
+</a>
+
+
+        <div class="header-search scoped-search site-scoped-search js-site-search" role="search">
+  <!-- '"` --><!-- </textarea></xmp> --></option></form><form accept-charset="UTF-8" action="/rakshasa/rtorrent/search" class="js-site-search-form" data-scoped-search-url="/rakshasa/rtorrent/search" data-unscoped-search-url="/search" method="get"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /></div>
+    <label class="form-control header-search-wrapper js-chromeless-input-container">
+        <a href="/rakshasa/rtorrent/wiki/User-Guide" class="header-search-scope no-underline">This repository</a>
+      <input type="text"
+        class="form-control header-search-input js-site-search-focus js-site-search-field is-clearable"
+        data-hotkey="s"
+        name="q"
+        value=""
+        placeholder="Search"
+        aria-label="Search this repository"
+        data-unscoped-placeholder="Search GitHub"
+        data-scoped-placeholder="Search"
+        autocapitalize="off">
+        <input type="hidden" class="js-site-search-type-field" name="type" >
+    </label>
+</form></div>
+
+
+      <ul class="header-nav float-left" role="navigation">
+        <li class="header-nav-item">
+          <a href="/pulls" aria-label="Pull requests you created" class="js-selected-navigation-item header-nav-link" data-ga-click="Header, click, Nav menu - item:pulls context:user" data-hotkey="g p" data-selected-links="/pulls /pulls/assigned /pulls/mentioned /pulls">
+            Pull requests
+</a>        </li>
+        <li class="header-nav-item">
+          <a href="/issues" aria-label="Issues you created" class="js-selected-navigation-item header-nav-link" data-ga-click="Header, click, Nav menu - item:issues context:user" data-hotkey="g i" data-selected-links="/issues /issues/assigned /issues/mentioned /issues">
+            Issues
+</a>        </li>
+          <li class="header-nav-item">
+            <a class="header-nav-link" href="https://gist.github.com/" data-ga-click="Header, go to gist, text:gist">Gist</a>
+          </li>
+      </ul>
+
+    
+<ul class="header-nav user-nav float-right" id="user-links">
+  <li class="header-nav-item">
+    
+
+  </li>
+
+  <li class="header-nav-item dropdown js-menu-container">
+    <a class="header-nav-link tooltipped tooltipped-s js-menu-target" href="/new"
+       aria-label="Create new…"
+       data-ga-click="Header, create new, icon:add">
+      <svg aria-hidden="true" class="octicon octicon-plus float-left" height="16" version="1.1" viewBox="0 0 12 16" width="12"><path fill-rule="evenodd" d="M12 9H7v5H5V9H0V7h5V2h2v5h5z"/></svg>
+      <span class="dropdown-caret"></span>
+    </a>
+
+    <div class="dropdown-menu-content js-menu-content">
+      <ul class="dropdown-menu dropdown-menu-sw">
+        
+<a class="dropdown-item" href="/new" data-ga-click="Header, create new repository">
+  New repository
+</a>
+
+  <a class="dropdown-item" href="/new/import" data-ga-click="Header, import a repository">
+    Import repository
+  </a>
+
+<a class="dropdown-item" href="https://gist.github.com/" data-ga-click="Header, create new gist">
+  New gist
+</a>
+
+  <a class="dropdown-item" href="/organizations/new" data-ga-click="Header, create new organization">
+    New organization
+  </a>
+
+
+
+  <div class="dropdown-divider"></div>
+  <div class="dropdown-header">
+    <span title="rakshasa/rtorrent">This repository</span>
+  </div>
+    <a class="dropdown-item" href="/rakshasa/rtorrent/issues/new" data-ga-click="Header, create new issue">
+      New issue
+    </a>
+
+      </ul>
+    </div>
+  </li>
+
+  <li class="header-nav-item dropdown js-menu-container">
+    <a class="header-nav-link name tooltipped tooltipped-sw js-menu-target" href="/lovewangbo"
+       aria-label="View profile and more"
+       data-ga-click="Header, show menu, icon:avatar">
+      <img alt="@lovewangbo" class="avatar" src="https://avatars2.githubusercontent.com/u/28722281?v=3&amp;s=40" height="20" width="20">
+      <span class="dropdown-caret"></span>
+    </a>
+
+    <div class="dropdown-menu-content js-menu-content">
+      <div class="dropdown-menu dropdown-menu-sw">
+        <div class="dropdown-header header-nav-current-user css-truncate">
+          Signed in as <strong class="css-truncate-target">lovewangbo</strong>
+        </div>
+
+        <div class="dropdown-divider"></div>
+
+        <a class="dropdown-item" href="/lovewangbo" data-ga-click="Header, go to profile, text:your profile">
+          Your profile
+        </a>
+        <a class="dropdown-item" href="/lovewangbo?tab=stars" data-ga-click="Header, go to starred repos, text:your stars">
+          Your stars
+        </a>
+        <a class="dropdown-item" href="/explore" data-ga-click="Header, go to explore, text:explore">
+          Explore
+        </a>
+          <a class="dropdown-item" href="/integrations" data-ga-click="Header, go to integrations, text:integrations">
+            Integrations
+          </a>
+        <a class="dropdown-item" href="https://help.github.com" data-ga-click="Header, go to help, text:help">
+          Help
+        </a>
+
+        <div class="dropdown-divider"></div>
+
+        <a class="dropdown-item" href="/settings/profile" data-ga-click="Header, go to settings, icon:settings">
+          Settings
+        </a>
+
+        <!-- '"` --><!-- </textarea></xmp> --></option></form><form accept-charset="UTF-8" action="/logout" class="logout-form" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /><input name="authenticity_token" type="hidden" value="EEPPIiJkvaHZLcACtOdvseNpmdAEn0Fye1fic/nwgA9PuZpVWNNBgeutLXzwVYXQ93RRGR4ohe2zJNeVBM2MWg==" /></div>
+          <button type="submit" class="dropdown-item dropdown-signout" data-ga-click="Header, sign out, icon:logout">
+            Sign out
+          </button>
+</form>      </div>
+    </div>
+  </li>
+</ul>
+
+
+    <!-- '"` --><!-- </textarea></xmp> --></option></form><form accept-charset="UTF-8" action="/logout" class="sr-only right-0" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /><input name="authenticity_token" type="hidden" value="i0XZKMRZ6MMhli3FCB8n/GDAj/Pd7qGmwEuHSaru7ZvUv4xfvu4U4xMWwLtMrc2ddN1HOsdZZTkIOLKvV9Phzg==" /></div>
+      <button type="submit" class="dropdown-item dropdown-signout" data-ga-click="Header, sign out, icon:logout">
+        Sign out
+      </button>
+</form>  </div>
+</div>
+
+
+      
+
+  </div>
+
+  <div id="start-of-content" class="accessibility-aid"></div>
+
+    <div id="js-flash-container">
+</div>
+
+
+
+  <div role="main">
+        <div itemscope itemtype="http://schema.org/SoftwareSourceCode">
+    <div id="js-repo-pjax-container" data-pjax-container>
+        
+
+
+
+    <div class="pagehead repohead instapaper_ignore readability-menu experiment-repo-nav">
+      <div class="container repohead-details-container">
+
+        <ul class="pagehead-actions">
+  <li>
+        <!-- '"` --><!-- </textarea></xmp> --></option></form><form accept-charset="UTF-8" action="/notifications/subscribe" class="js-social-container" data-autosubmit="true" data-remote="true" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /><input name="authenticity_token" type="hidden" value="fX9lH1MO3vvdglkiMKVAF9iO89VL0fgknCZ1NO6348Wy/eLEm3v1gX2wdea0DeSSwGnx9hE4I4nrhchWLkhCqA==" /></div>      <input class="form-control" id="repository_id" name="repository_id" type="hidden" value="2502638" />
+
+        <div class="select-menu js-menu-container js-select-menu">
+          <a href="/rakshasa/rtorrent/subscription"
+            class="btn btn-sm btn-with-count select-menu-button js-menu-target" role="button" tabindex="0" aria-haspopup="true"
+            data-ga-click="Repository, click Watch settings, action:wiki#show">
+            <span class="js-select-button">
+                <svg aria-hidden="true" class="octicon octicon-eye" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M8.06 2C3 2 0 8 0 8s3 6 8.06 6C13 14 16 8 16 8s-3-6-7.94-6zM8 12c-2.2 0-4-1.78-4-4 0-2.2 1.8-4 4-4 2.22 0 4 1.8 4 4 0 2.22-1.78 4-4 4zm2-4c0 1.11-.89 2-2 2-1.11 0-2-.89-2-2 0-1.11.89-2 2-2 1.11 0 2 .89 2 2z"/></svg>
+                Watch
+            </span>
+          </a>
+            <a class="social-count js-social-count"
+              href="/rakshasa/rtorrent/watchers"
+              aria-label="155 users are watching this repository">
+              155
+            </a>
+
+        <div class="select-menu-modal-holder">
+          <div class="select-menu-modal subscription-menu-modal js-menu-content">
+            <div class="select-menu-header js-navigation-enable" tabindex="-1">
+              <svg aria-label="Close" class="octicon octicon-x js-menu-close" height="16" role="img" version="1.1" viewBox="0 0 12 16" width="12"><path fill-rule="evenodd" d="M7.48 8l3.75 3.75-1.48 1.48L6 9.48l-3.75 3.75-1.48-1.48L4.52 8 .77 4.25l1.48-1.48L6 6.52l3.75-3.75 1.48 1.48z"/></svg>
+              <span class="select-menu-title">Notifications</span>
+            </div>
+
+              <div class="select-menu-list js-navigation-container" role="menu">
+
+                <div class="select-menu-item js-navigation-item selected" role="menuitem" tabindex="0">
+                  <svg aria-hidden="true" class="octicon octicon-check select-menu-item-icon" height="16" version="1.1" viewBox="0 0 12 16" width="12"><path fill-rule="evenodd" d="M12 5l-8 8-4-4 1.5-1.5L4 10l6.5-6.5z"/></svg>
+                  <div class="select-menu-item-text">
+                    <input checked="checked" id="do_included" name="do" type="radio" value="included" />
+                    <span class="select-menu-item-heading">Not watching</span>
+                    <span class="description">Be notified when participating or @mentioned.</span>
+                    <span class="js-select-button-text hidden-select-button-text">
+                      <svg aria-hidden="true" class="octicon octicon-eye" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M8.06 2C3 2 0 8 0 8s3 6 8.06 6C13 14 16 8 16 8s-3-6-7.94-6zM8 12c-2.2 0-4-1.78-4-4 0-2.2 1.8-4 4-4 2.22 0 4 1.8 4 4 0 2.22-1.78 4-4 4zm2-4c0 1.11-.89 2-2 2-1.11 0-2-.89-2-2 0-1.11.89-2 2-2 1.11 0 2 .89 2 2z"/></svg>
+                      Watch
+                    </span>
+                  </div>
+                </div>
+
+                <div class="select-menu-item js-navigation-item " role="menuitem" tabindex="0">
+                  <svg aria-hidden="true" class="octicon octicon-check select-menu-item-icon" height="16" version="1.1" viewBox="0 0 12 16" width="12"><path fill-rule="evenodd" d="M12 5l-8 8-4-4 1.5-1.5L4 10l6.5-6.5z"/></svg>
+                  <div class="select-menu-item-text">
+                    <input id="do_subscribed" name="do" type="radio" value="subscribed" />
+                    <span class="select-menu-item-heading">Watching</span>
+                    <span class="description">Be notified of all conversations.</span>
+                    <span class="js-select-button-text hidden-select-button-text">
+                      <svg aria-hidden="true" class="octicon octicon-eye" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M8.06 2C3 2 0 8 0 8s3 6 8.06 6C13 14 16 8 16 8s-3-6-7.94-6zM8 12c-2.2 0-4-1.78-4-4 0-2.2 1.8-4 4-4 2.22 0 4 1.8 4 4 0 2.22-1.78 4-4 4zm2-4c0 1.11-.89 2-2 2-1.11 0-2-.89-2-2 0-1.11.89-2 2-2 1.11 0 2 .89 2 2z"/></svg>
+                        Unwatch
+                    </span>
+                  </div>
+                </div>
+
+                <div class="select-menu-item js-navigation-item " role="menuitem" tabindex="0">
+                  <svg aria-hidden="true" class="octicon octicon-check select-menu-item-icon" height="16" version="1.1" viewBox="0 0 12 16" width="12"><path fill-rule="evenodd" d="M12 5l-8 8-4-4 1.5-1.5L4 10l6.5-6.5z"/></svg>
+                  <div class="select-menu-item-text">
+                    <input id="do_ignore" name="do" type="radio" value="ignore" />
+                    <span class="select-menu-item-heading">Ignoring</span>
+                    <span class="description">Never be notified.</span>
+                    <span class="js-select-button-text hidden-select-button-text">
+                      <svg aria-hidden="true" class="octicon octicon-mute" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M8 2.81v10.38c0 .67-.81 1-1.28.53L3 10H1c-.55 0-1-.45-1-1V7c0-.55.45-1 1-1h2l3.72-3.72C7.19 1.81 8 2.14 8 2.81zm7.53 3.22l-1.06-1.06-1.97 1.97-1.97-1.97-1.06 1.06L11.44 8 9.47 9.97l1.06 1.06 1.97-1.97 1.97 1.97 1.06-1.06L13.56 8l1.97-1.97z"/></svg>
+                        Stop ignoring
+                    </span>
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
+          </div>
+        </div>
+</form>
+  </li>
+
+  <li>
+      <div class="js-toggler-container js-social-container starring-container ">
+    <!-- '"` --><!-- </textarea></xmp> --></option></form><form accept-charset="UTF-8" action="/rakshasa/rtorrent/unstar" class="starred" data-remote="true" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /><input name="authenticity_token" type="hidden" value="twFirxsA0WY7SaX4HysDusC3V/c8k9JcQtmr16xvFbGuYTi/jmPzFrHBxUVwToo2FbT/a500VncnjZDsYVNsew==" /></div>
+      <button
+        type="submit"
+        class="btn btn-sm btn-with-count js-toggler-target"
+        aria-label="Unstar this repository" title="Unstar rakshasa/rtorrent"
+        data-ga-click="Repository, click unstar button, action:wiki#show; text:Unstar">
+        <svg aria-hidden="true" class="octicon octicon-star" height="16" version="1.1" viewBox="0 0 14 16" width="14"><path fill-rule="evenodd" d="M14 6l-4.9-.64L7 1 4.9 5.36 0 6l3.6 3.26L2.67 14 7 11.67 11.33 14l-.93-4.74z"/></svg>
+        Unstar
+      </button>
+        <a class="social-count js-social-count" href="/rakshasa/rtorrent/stargazers"
+           aria-label="1685 users starred this repository">
+          1,685
+        </a>
+</form>
+    <!-- '"` --><!-- </textarea></xmp> --></option></form><form accept-charset="UTF-8" action="/rakshasa/rtorrent/star" class="unstarred" data-remote="true" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /><input name="authenticity_token" type="hidden" value="hSMEcFrXRNNfaBxQuCuHbkv6f2UeRV0aJ6bEXw0fqqYez8ISFH9DkY547ggJZQG10bhHYLZO6OgtsHrPA/yH2A==" /></div>
+      <button
+        type="submit"
+        class="btn btn-sm btn-with-count js-toggler-target"
+        aria-label="Star this repository" title="Star rakshasa/rtorrent"
+        data-ga-click="Repository, click star button, action:wiki#show; text:Star">
+        <svg aria-hidden="true" class="octicon octicon-star" height="16" version="1.1" viewBox="0 0 14 16" width="14"><path fill-rule="evenodd" d="M14 6l-4.9-.64L7 1 4.9 5.36 0 6l3.6 3.26L2.67 14 7 11.67 11.33 14l-.93-4.74z"/></svg>
+        Star
+      </button>
+        <a class="social-count js-social-count" href="/rakshasa/rtorrent/stargazers"
+           aria-label="1685 users starred this repository">
+          1,685
+        </a>
+</form>  </div>
+
+  </li>
+
+  <li>
+          <!-- '"` --><!-- </textarea></xmp> --></option></form><form accept-charset="UTF-8" action="/rakshasa/rtorrent/fork" class="btn-with-count" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /><input name="authenticity_token" type="hidden" value="IDB5O/JHt84gHHiWFTemSGYXLuojJwQ6ivrA/kbJmuk5/7Gx8jn4WImu/z+HRX34EmKmoZMIHTXDLJKUuBp+EQ==" /></div>
+            <button
+                type="submit"
+                class="btn btn-sm btn-with-count"
+                data-ga-click="Repository, show fork modal, action:wiki#show; text:Fork"
+                title="Fork your own copy of rakshasa/rtorrent to your account"
+                aria-label="Fork your own copy of rakshasa/rtorrent to your account">
+              <svg aria-hidden="true" class="octicon octicon-repo-forked" height="16" version="1.1" viewBox="0 0 10 16" width="10"><path fill-rule="evenodd" d="M8 1a1.993 1.993 0 0 0-1 3.72V6L5 8 3 6V4.72A1.993 1.993 0 0 0 2 1a1.993 1.993 0 0 0-1 3.72V6.5l3 3v1.78A1.993 1.993 0 0 0 5 15a1.993 1.993 0 0 0 1-3.72V9.5l3-3V4.72A1.993 1.993 0 0 0 8 1zM2 4.2C1.34 4.2.8 3.65.8 3c0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2 0 .65-.55 1.2-1.2 1.2zm3 10c-.66 0-1.2-.55-1.2-1.2 0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2 0 .65-.55 1.2-1.2 1.2zm3-10c-.66 0-1.2-.55-1.2-1.2 0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2 0 .65-.55 1.2-1.2 1.2z"/></svg>
+              Fork
+            </button>
+</form>
+    <a href="/rakshasa/rtorrent/network" class="social-count"
+       aria-label="215 users forked this repository">
+      215
+    </a>
+  </li>
+</ul>
+
+        <h1 class="public ">
+  <svg aria-hidden="true" class="octicon octicon-repo" height="16" version="1.1" viewBox="0 0 12 16" width="12"><path fill-rule="evenodd" d="M4 9H3V8h1v1zm0-3H3v1h1V6zm0-2H3v1h1V4zm0-2H3v1h1V2zm8-1v12c0 .55-.45 1-1 1H6v2l-1.5-1.5L3 16v-2H1c-.55 0-1-.45-1-1V1c0-.55.45-1 1-1h10c.55 0 1 .45 1 1zm-1 10H1v2h2v-1h3v1h5v-2zm0-10H2v9h9V1z"/></svg>
+  <span class="author" itemprop="author"><a href="/rakshasa" class="url fn" rel="author">rakshasa</a></span><!--
+--><span class="path-divider">/</span><!--
+--><strong itemprop="name"><a href="/rakshasa/rtorrent" data-pjax="#js-repo-pjax-container">rtorrent</a></strong>
+
+</h1>
+
+      </div>
+      <div class="container">
+        
+<nav class="reponav js-repo-nav js-sidenav-container-pjax"
+     itemscope
+     itemtype="http://schema.org/BreadcrumbList"
+     role="navigation"
+     data-pjax="#js-repo-pjax-container">
+
+  <span itemscope itemtype="http://schema.org/ListItem" itemprop="itemListElement">
+    <a href="/rakshasa/rtorrent" class="js-selected-navigation-item reponav-item" data-hotkey="g c" data-selected-links="repo_source repo_downloads repo_commits repo_releases repo_tags repo_branches /rakshasa/rtorrent" itemprop="url">
+      <svg aria-hidden="true" class="octicon octicon-code" height="16" version="1.1" viewBox="0 0 14 16" width="14"><path fill-rule="evenodd" d="M9.5 3L8 4.5 11.5 8 8 11.5 9.5 13 14 8 9.5 3zm-5 0L0 8l4.5 5L6 11.5 2.5 8 6 4.5 4.5 3z"/></svg>
+      <span itemprop="name">Code</span>
+      <meta itemprop="position" content="1">
+</a>  </span>
+
+    <span itemscope itemtype="http://schema.org/ListItem" itemprop="itemListElement">
+      <a href="/rakshasa/rtorrent/issues" class="js-selected-navigation-item reponav-item" data-hotkey="g i" data-selected-links="repo_issues repo_labels repo_milestones /rakshasa/rtorrent/issues" itemprop="url">
+        <svg aria-hidden="true" class="octicon octicon-issue-opened" height="16" version="1.1" viewBox="0 0 14 16" width="14"><path fill-rule="evenodd" d="M7 2.3c3.14 0 5.7 2.56 5.7 5.7s-2.56 5.7-5.7 5.7A5.71 5.71 0 0 1 1.3 8c0-3.14 2.56-5.7 5.7-5.7zM7 1C3.14 1 0 4.14 0 8s3.14 7 7 7 7-3.14 7-7-3.14-7-7-7zm1 3H6v5h2V4zm0 6H6v2h2v-2z"/></svg>
+        <span itemprop="name">Issues</span>
+        <span class="Counter">244</span>
+        <meta itemprop="position" content="2">
+</a>    </span>
+
+  <span itemscope itemtype="http://schema.org/ListItem" itemprop="itemListElement">
+    <a href="/rakshasa/rtorrent/pulls" class="js-selected-navigation-item reponav-item" data-hotkey="g p" data-selected-links="repo_pulls /rakshasa/rtorrent/pulls" itemprop="url">
+      <svg aria-hidden="true" class="octicon octicon-git-pull-request" height="16" version="1.1" viewBox="0 0 12 16" width="12"><path fill-rule="evenodd" d="M11 11.28V5c-.03-.78-.34-1.47-.94-2.06C9.46 2.35 8.78 2.03 8 2H7V0L4 3l3 3V4h1c.27.02.48.11.69.31.21.2.3.42.31.69v6.28A1.993 1.993 0 0 0 10 15a1.993 1.993 0 0 0 1-3.72zm-1 2.92c-.66 0-1.2-.55-1.2-1.2 0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2 0 .65-.55 1.2-1.2 1.2zM4 3c0-1.11-.89-2-2-2a1.993 1.993 0 0 0-1 3.72v6.56A1.993 1.993 0 0 0 2 15a1.993 1.993 0 0 0 1-3.72V4.72c.59-.34 1-.98 1-1.72zm-.8 10c0 .66-.55 1.2-1.2 1.2-.65 0-1.2-.55-1.2-1.2 0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2zM2 4.2C1.34 4.2.8 3.65.8 3c0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2 0 .65-.55 1.2-1.2 1.2z"/></svg>
+      <span itemprop="name">Pull requests</span>
+      <span class="Counter">12</span>
+      <meta itemprop="position" content="3">
+</a>  </span>
+
+    <a href="/rakshasa/rtorrent/projects" class="js-selected-navigation-item reponav-item" data-selected-links="repo_projects new_repo_project repo_project /rakshasa/rtorrent/projects">
+      <svg aria-hidden="true" class="octicon octicon-project" height="16" version="1.1" viewBox="0 0 15 16" width="15"><path fill-rule="evenodd" d="M10 12h3V2h-3v10zm-4-2h3V2H6v8zm-4 4h3V2H2v12zm-1 1h13V1H1v14zM14 0H1a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h13a1 1 0 0 0 1-1V1a1 1 0 0 0-1-1z"/></svg>
+      Projects
+      <span class="Counter" >0</span>
+</a>
+    <a href="/rakshasa/rtorrent/wiki" class="js-selected-navigation-item selected reponav-item" data-hotkey="g w" data-selected-links="repo_wiki /rakshasa/rtorrent/wiki">
+      <svg aria-hidden="true" class="octicon octicon-book" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M3 5h4v1H3V5zm0 3h4V7H3v1zm0 2h4V9H3v1zm11-5h-4v1h4V5zm0 2h-4v1h4V7zm0 2h-4v1h4V9zm2-6v9c0 .55-.45 1-1 1H9.5l-1 1-1-1H2c-.55 0-1-.45-1-1V3c0-.55.45-1 1-1h5.5l1 1 1-1H15c.55 0 1 .45 1 1zm-8 .5L7.5 3H2v9h6V3.5zm7-.5H9.5l-.5.5V12h6V3z"/></svg>
+      Wiki
+</a>
+
+
+  <a href="/rakshasa/rtorrent/pulse" class="js-selected-navigation-item reponav-item" data-selected-links="pulse /rakshasa/rtorrent/pulse">
+    <svg aria-hidden="true" class="octicon octicon-pulse" height="16" version="1.1" viewBox="0 0 14 16" width="14"><path fill-rule="evenodd" d="M11.5 8L8.8 5.4 6.6 8.5 5.5 1.6 2.38 8H0v2h3.6l.9-1.8.9 5.4L9 8.5l1.6 1.5H14V8z"/></svg>
+    Pulse
+</a>
+  <a href="/rakshasa/rtorrent/graphs" class="js-selected-navigation-item reponav-item" data-selected-links="repo_graphs repo_contributors /rakshasa/rtorrent/graphs">
+    <svg aria-hidden="true" class="octicon octicon-graph" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M16 14v1H0V0h1v14h15zM5 13H3V8h2v5zm4 0H7V3h2v10zm4 0h-2V6h2v7z"/></svg>
+    Graphs
+</a>
+
+</nav>
+
+      </div>
+    </div>
+
+<div class="container new-discussion-timeline experiment-repo-nav">
+  <div class="repository-content">
+
+    
+          
+
+<div id="wiki-wrapper" class="wiki-wrapper page">
+<div class="gh-header">
+  <div class="gh-header-show">
+        <div class="gh-header-actions">
+          <a href="/rakshasa/rtorrent/wiki/User-Guide/_edit" class="btn btn-sm ">Edit</a>
+          <a href="/rakshasa/rtorrent/wiki/_new" class="btn btn-sm btn-primary">New Page</a>
+        </div>
+    <h1 class="gh-header-title instapaper_title">User Guide</h1>
+      <div class="gh-header-meta">
+        chros73 edited this page <relative-time datetime="2017-02-15T10:39:55Z">Feb 15, 2017</relative-time>
+        &middot;
+        <a href="/rakshasa/rtorrent/wiki/User-Guide/_history" class="history">
+          12 revisions
+        </a>
+      </div>
+  </div>
+</div>
+<div id="wiki-content" class="wiki-content">
+  <div class="has-rightbar">
+
+  <div id="wiki-rightbar" class="wiki-rightbar">
+    <div class="wiki-pages-box readability-sidebar boxed-group flush js-wiki-pages-box " role="navigation">
+      
+<h3 class="js-wiki-toggle-collapse wiki-auxiliary-content">
+  <svg aria-hidden="true" class="octicon octicon-triangle-down caret-expanded" height="16" version="1.1" viewBox="0 0 12 16" width="12"><path fill-rule="evenodd" d="M0 5l6 6 6-6z"/></svg>
+  <svg aria-hidden="true" class="octicon octicon-triangle-right caret-collapsed" height="16" version="1.1" viewBox="0 0 6 16" width="6"><path fill-rule="evenodd" d="M0 14l6-6-6-6z"/></svg>
+  Pages <span class="Counter">34</span>
+</h3>
+<div class="boxed-group-inner wiki-auxiliary-content wiki-auxiliary-content-no-bg">
+    <div class="filter-bar">
+      <input type="text" id="wiki-pages-filter" class="form-control input-sm input-block js-filterable-field" placeholder="Find a Page…" aria-label="Find a Page…" tabindex="2">
+    </div>
+
+  <ul class="wiki-pages" data-filterable-for="wiki-pages-filter" data-filterable-type="substring">
+    <li>
+      <strong><a href="/rakshasa/rtorrent/wiki" class="wiki-page-link">Home</a></strong>
+    </li>
+    <li>
+      <strong><a href="/rakshasa/rtorrent/wiki/Auto-Scraping" class="wiki-page-link">Auto Scraping</a></strong>
+    </li>
+    <li>
+      <strong><a href="/rakshasa/rtorrent/wiki/Choke-Groups" class="wiki-page-link">Choke Groups</a></strong>
+    </li>
+    <li>
+      <strong><a href="/rakshasa/rtorrent/wiki/COMMAND-Conditional" class="wiki-page-link">COMMAND Conditional</a></strong>
+    </li>
+    <li>
+      <strong><a href="/rakshasa/rtorrent/wiki/COMMAND-Conversions" class="wiki-page-link">COMMAND Conversions</a></strong>
+    </li>
+    <li>
+      <strong><a href="/rakshasa/rtorrent/wiki/COMMAND-Execute" class="wiki-page-link">COMMAND Execute</a></strong>
+    </li>
+    <li>
+      <strong><a href="/rakshasa/rtorrent/wiki/COMMAND-Scheduling" class="wiki-page-link">COMMAND Scheduling</a></strong>
+    </li>
+    <li>
+      <strong><a href="/rakshasa/rtorrent/wiki/COMMAND-System" class="wiki-page-link">COMMAND System</a></strong>
+    </li>
+    <li>
+      <strong><a href="/rakshasa/rtorrent/wiki/COMMAND-UserInterface" class="wiki-page-link">COMMAND UserInterface</a></strong>
+    </li>
+    <li>
+      <strong><a href="/rakshasa/rtorrent/wiki/Common-Tasks-in-rTorrent" class="wiki-page-link">Common Tasks in rTorrent</a></strong>
+    </li>
+    <li>
+      <strong><a href="/rakshasa/rtorrent/wiki/Config-Guide" class="wiki-page-link">Config Guide</a></strong>
+    </li>
+    <li>
+      <strong><a href="/rakshasa/rtorrent/wiki/CONFIG-Template" class="wiki-page-link">CONFIG Template</a></strong>
+    </li>
+    <li>
+      <strong><a href="/rakshasa/rtorrent/wiki/Daemon_Mode" class="wiki-page-link">Daemon_Mode</a></strong>
+    </li>
+    <li>
+      <strong><a href="/rakshasa/rtorrent/wiki/Favoring-group-of-torrents" class="wiki-page-link">Favoring group of torrents</a></strong>
+    </li>
+    <li>
+      <strong><a href="/rakshasa/rtorrent/wiki/Installing" class="wiki-page-link">Installing</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/rakshasa/rtorrent/wiki/IP-filtering" class="wiki-page-link">IP filtering</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/rakshasa/rtorrent/wiki/Issues" class="wiki-page-link">Issues</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/rakshasa/rtorrent/wiki/LOG-Logging" class="wiki-page-link">LOG Logging</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/rakshasa/rtorrent/wiki/Performance-Tuning" class="wiki-page-link">Performance Tuning</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/rakshasa/rtorrent/wiki/RPC-Migration-0.9" class="wiki-page-link">RPC Migration 0.9</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/rakshasa/rtorrent/wiki/RPC-Option-Strings" class="wiki-page-link">RPC Option Strings</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/rakshasa/rtorrent/wiki/RPC-Setup-XMLRPC" class="wiki-page-link">RPC Setup XMLRPC</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/rakshasa/rtorrent/wiki/RPC-Utility-XMLRPC2SCGI" class="wiki-page-link">RPC Utility XMLRPC2SCGI</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/rakshasa/rtorrent/wiki/rTorrent-0.9-Comprehensive-Command-list-(WIP)" class="wiki-page-link">rTorrent 0.9 Comprehensive Command list (WIP)</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/rakshasa/rtorrent/wiki/RTorrentRatioHandling" class="wiki-page-link">RTorrentRatioHandling</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/rakshasa/rtorrent/wiki/Scripting-Guide" class="wiki-page-link">Scripting Guide</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/rakshasa/rtorrent/wiki/TODO" class="wiki-page-link">TODO</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/rakshasa/rtorrent/wiki/Tor-based-Proxying-Guide" class="wiki-page-link">Tor based Proxying Guide</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/rakshasa/rtorrent/wiki/TORRENT-Watch-directories" class="wiki-page-link">TORRENT Watch directories</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/rakshasa/rtorrent/wiki/User-Guide" class="wiki-page-link">User Guide</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/rakshasa/rtorrent/wiki/Using-DHT" class="wiki-page-link">Using DHT</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/rakshasa/rtorrent/wiki/Using-initial-seeding" class="wiki-page-link">Using initial seeding</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/rakshasa/rtorrent/wiki/Vagrant" class="wiki-page-link">Vagrant</a></strong>
+    </li>
+    <li class="wiki-more-pages">
+      <strong><a href="/rakshasa/rtorrent/wiki/WikiAbout" class="wiki-page-link">WikiAbout</a></strong>
+    </li>
+    <li class="wiki-more-pages-link">
+      <a href="#" class="js-wiki-more-pages-link">
+        Show 19 more pages…
+      </a>
+    </li>
+  </ul>
+</div>
+
+    </div>
+
+
+    <div class="clone-url">
+      <h5>Clone this wiki locally</h5>
+      <div class="input-group js-zeroclipboard-container">
+        <input type="text" class="form-control input-sm text-small text-gray input-monospace js-url-field js-zeroclipboard-target" aria-label="Clone URL for this wiki"
+               value="https://github.com/rakshasa/rtorrent.wiki.git" readonly="readonly">
+        <span class="input-group-button">
+          <button aria-label="Copy to clipboard" class="js-zeroclipboard btn btn-sm zeroclipboard-button tooltipped tooltipped-s" data-copied-hint="Copied!" type="button"><svg aria-hidden="true" class="octicon octicon-clippy" height="16" version="1.1" viewBox="0 0 14 16" width="14"><path fill-rule="evenodd" d="M2 13h4v1H2v-1zm5-6H2v1h5V7zm2 3V8l-3 3 3 3v-2h5v-2H9zM4.5 9H2v1h2.5V9zM2 12h2.5v-1H2v1zm9 1h1v2c-.02.28-.11.52-.3.7-.19.18-.42.28-.7.3H1c-.55 0-1-.45-1-1V4c0-.55.45-1 1-1h3c0-1.11.89-2 2-2 1.11 0 2 .89 2 2h3c.55 0 1 .45 1 1v5h-1V6H1v9h10v-2zM2 5h8c0-.55-.45-1-1-1H8c-.55 0-1-.45-1-1s-.45-1-1-1-1 .45-1 1-.45 1-1 1H3c-.55 0-1 .45-1 1z"/></svg></button>
+        </span>
+      </div>
+
+
+        <a href="https://desktop.github.com"
+           class="btn btn-sm sidebar-button"
+           title="Save this wiki to your computer and use it in GitHub Desktop."
+           aria-label="Save this wiki to your computer and use it in GitHub Desktop.">
+          <svg aria-hidden="true" class="octicon octicon-desktop-download" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 6h3V0h2v6h3l-4 4-4-4zm11-4h-4v1h4v8H1V3h4V2H1c-.55 0-1 .45-1 1v9c0 .55.45 1 1 1h5.34c-.25.61-.86 1.39-2.34 2h8c-1.48-.61-2.09-1.39-2.34-2H15c.55 0 1-.45 1-1V3c0-.55-.45-1-1-1z"/></svg>
+          Clone in Desktop
+        </a>
+    </div>
+  </div>
+
+  <div id="wiki-body" class="wiki-body gollum-markdown-content instapaper_body">
+      <div class="markdown-body">
+        <h1>
+<a id="user-content-rtorrent-user-guide" class="anchor" href="#rtorrent-user-guide" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>rTorrent User Guide</h1>
+<table>
+<thead>
+<tr>
+<th align="right"><img class="emoji" title=":information_source:" alt=":information_source:" src="https://camo.githubusercontent.com/df9ea065728258dab4bd630c5e1622fbd1d7884e/68747470733a2f2f6173736574732d63646e2e6769746875622e636f6d2f696d616765732f69636f6e732f656d6f6a692f756e69636f64652f323133392e706e67" height="20" width="20" align="absmiddle" data-canonical-src="https://assets-cdn.github.com/images/icons/emoji/unicode/2139.png"></th>
+<th align="left">General note about key combinations: ^ means the Ctrl-key. <code>M-x</code> means Meta-x (Usually Alt-x or Esc-x).</th>
+</tr>
+</thead>
+<tbody></tbody>
+</table>
+<p><strong>Contents</strong></p>
+<ul>
+<li><a href="#adding-and-removing-torrents">Adding and removing torrents</a></li>
+<li><a href="#throttling">Throttling</a></li>
+<li><a href="#common-error-messages">Common Error Messages</a></li>
+<li>
+<a href="#navigating">Navigating</a>
+<ul>
+<li><a href="#global-keys">Global Keys</a></li>
+<li><a href="#main-view-keys">Main View Keys</a></li>
+<li><a href="#download-view-keys">Download View Keys</a></li>
+<li><a href="#peer-list-view-keys">Peer list View Keys</a></li>
+<li><a href="#file-list-view-keys">File list View Keys</a></li>
+<li><a href="#tracker-list-view-keys">Tracker list View Keys</a></li>
+</ul>
+</li>
+<li>
+<a href="#main-view-window">Main view window.</a>
+<ul>
+<li><a href="#torrent-info-line-explanation">Torrent info line explanation</a></li>
+</ul>
+</li>
+<li>
+<a href="#bottom-line-in-gui-shows-current-info-about-a-lot-of-things">Bottom line in GUI shows current info about a lot of things.</a>
+<ul>
+<li><a href="#bottom-line-explanation">Bottom line explanation</a></li>
+</ul>
+</li>
+<li>
+<a href="#the-peers-screen">The Peers screen</a>
+<ul>
+<li><a href="#explanation">Explanation</a></li>
+<li><a href="#status">Status</a></li>
+</ul>
+</li>
+<li><a href="#the-tracker-list-screen">The Tracker list screen</a></li>
+<li><a href="#the-chunks-seen-screen">The Chunks seen screen</a></li>
+<li><a href="#signal-handlers">Signal handlers</a></li>
+</ul>
+<h2>
+<a id="user-content-adding-and-removing-torrents" class="anchor" href="#adding-and-removing-torrents" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Adding and removing torrents</h2>
+<table>
+<thead>
+<tr>
+<th>Shortcut</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>backspace</td>
+<td>Add torrent using an URL or file path. Use tab to view directory content and do auto-complete. Also, wildcards can be used. For example: <code>~/torrent/*</code>
+</td>
+</tr>
+<tr>
+<td>return</td>
+<td>Same as backspace, except the torrent remains inactive. (Use ^s to activate)</td>
+</tr>
+<tr>
+<td>^o</td>
+<td>Set new download directory for selected torrent. Only works if torrent has not yet been activated.</td>
+</tr>
+<tr>
+<td>^s</td>
+<td>Start download. Runs hash first unless already done.</td>
+</tr>
+<tr>
+<td>^d</td>
+<td>Stop an active download, or remove a stopped download.</td>
+</tr>
+<tr>
+<td>^k</td>
+<td>Stop and close the files of an active download.</td>
+</tr>
+</tbody>
+</table>
+<p>Note that ^s (and ^q for quit) is often used for terminal control to pause screen output (and ^q to resume). This may interfere with rTorrent. Type <code>stty -a</code> to see whether these have been mapped. To remove the mappings, execute the commands</p>
+<pre><code>stty stop undef
+stty start undef
+</code></pre>
+<p>before running rTorrent (or reattaching to screen) to leave them undefined. You could also replace <code>undef</code> with some other code like ^p. ^d also usually sends end-of-file but ncurses passes this through to rTorrent, <code>stty eof undef</code> if you are worried.</p>
+<p>To fix this, you may also toggle the flow control in screen with ^a ^f until screen displays "-flow" in the bottom left corner.</p>
+<h2>
+<a id="user-content-throttling" class="anchor" href="#throttling" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Throttling</h2>
+<table>
+<thead>
+<tr>
+<th>Shortcut</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>a/s/d</td>
+<td>Increase the upload throttle by 1/5/50 KB.</td>
+</tr>
+<tr>
+<td>z/x/c</td>
+<td>Decrease the upload throttle by 1/5/50 KB.</td>
+</tr>
+<tr>
+<td>A/S/D</td>
+<td>Increase the download throttle by 1/5/50 KB.</td>
+</tr>
+<tr>
+<td>Z/X/C</td>
+<td>Decrease the download throttle by 1/5/50 KB.</td>
+</tr>
+</tbody>
+</table>
+<p>Note that all throttling is applied globally and not per torrent.</p>
+<h2>
+<a id="user-content-common-error-messages" class="anchor" href="#common-error-messages" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Common Error Messages</h2>
+<p><strong>Could not parse bencoded data</strong><br>
+This message is caused by bad communication with the tracker, often caused by invalid client authentication (passkey, IP address, etc.)</p>
+<p><strong>Could not create download, the input is not a valid torrent</strong><br>
+This message is caused by a corrupted or otherwise non-valid .torrent file. You should redownload the .torrent file or possibly find a new source for it.</p>
+<p><strong>Download registered as completed, but hash check returned unfinished chunks.</strong><br>
+This message is caused by deleting/modifying the downloaded file after a torrent is marked as complete. You could set the 'create/resize queued' flags on all files of the torrent by pressing ^e in main view.</p>
+<h2>
+<a id="user-content-navigating" class="anchor" href="#navigating" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Navigating</h2>
+<h3>
+<a id="user-content-global-keys" class="anchor" href="#global-keys" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Global Keys</h3>
+<table>
+<thead>
+<tr>
+<th>Shortcut</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>^q</td>
+<td>Initiate shutdown, press again to force the shutdown and skip sending the stop signal to trackers.</td>
+</tr>
+<tr>
+<td>up/down</td>
+<td>Select item.</td>
+</tr>
+<tr>
+<td>left</td>
+<td>Go back to the previous screen.</td>
+</tr>
+</tbody>
+</table>
+<h3>
+<a id="user-content-main-view-keys" class="anchor" href="#main-view-keys" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Main View Keys</h3>
+<table>
+<thead>
+<tr>
+<th>Shortcut</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>right</td>
+<td>Switch to Download View.</td>
+</tr>
+<tr>
+<td>^x</td>
+<td>Call commands or change settings.</td>
+</tr>
+<tr>
+<td>^e</td>
+<td>Set  the 'create/resize queued' flags on all files in a torrent. This is necessary if the underlying files in a torrent have been deleted or truncated, and thus rtorrent must recreate them.</td>
+</tr>
+<tr>
+<td>^r</td>
+<td>Initiate hash check of torrent. Without starting to download/upload.</td>
+</tr>
+<tr>
+<td>+/-</td>
+<td>Change priority of torrent.</td>
+</tr>
+<tr>
+<td>l</td>
+<td>View log. Exit by pressing the space-bar.</td>
+</tr>
+<tr>
+<td>I</td>
+<td>Toggle whether torrent ignores or heeds commands.</td>
+</tr>
+<tr>
+<td>U</td>
+<td>Clear tied to file association for torrent.</td>
+</tr>
+<tr>
+<td>1</td>
+<td>Show all downloads</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Show all downloads, ordered by name</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Show started downloads</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Show stopped downloads</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Show complete downloads</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Show incomplete downloads</td>
+</tr>
+<tr>
+<td>7</td>
+<td>Show hashing downloads</td>
+</tr>
+<tr>
+<td>8</td>
+<td>Show seeding downloads</td>
+</tr>
+<tr>
+<td>9</td>
+<td>Show leeching downloads</td>
+</tr>
+<tr>
+<td>0</td>
+<td>Show active downloads</td>
+</tr>
+</tbody>
+</table>
+<h3>
+<a id="user-content-download-view-keys" class="anchor" href="#download-view-keys" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Download View Keys</h3>
+<table>
+<thead>
+<tr>
+<th>Shortcut</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>right</td>
+<td>Switch to selected view</td>
+</tr>
+<tr>
+<td>left</td>
+<td>Switch to view selection or back to main view</td>
+</tr>
+<tr>
+<td>1/2</td>
+<td>Adjust max uploads.</td>
+</tr>
+<tr>
+<td>3/4</td>
+<td>Adjust min peers.</td>
+</tr>
+<tr>
+<td>5/6</td>
+<td>Adjust max peers.</td>
+</tr>
+<tr>
+<td>p</td>
+<td>Display peer list</td>
+</tr>
+<tr>
+<td>o</td>
+<td>Display torrent info</td>
+</tr>
+<tr>
+<td>i</td>
+<td>Display file list</td>
+</tr>
+<tr>
+<td>u</td>
+<td>Display tracker list</td>
+</tr>
+<tr>
+<td>t/T</td>
+<td>Initiate tracker request. Use capital "T" to force the request, ignoring the "min interval" set by the tracker.</td>
+</tr>
+</tbody>
+</table>
+<h3>
+<a id="user-content-peer-list-view-keys" class="anchor" href="#peer-list-view-keys" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Peer list View Keys</h3>
+<table>
+<thead>
+<tr>
+<th>Shortcut</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>left</td>
+<td>Switch to view selection</td>
+</tr>
+<tr>
+<td>right</td>
+<td>Show peer details</td>
+</tr>
+<tr>
+<td>*</td>
+<td>Snub peer (stop uploading to this peer)</td>
+</tr>
+<tr>
+<td>k</td>
+<td>Kick peer (disconnect from peer)</td>
+</tr>
+<tr>
+<td>B</td>
+<td>Ban peer (No unbanning is possible. Requires rTorrent 0.8.4+)</td>
+</tr>
+</tbody>
+</table>
+<h3>
+<a id="user-content-file-list-view-keys" class="anchor" href="#file-list-view-keys" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>File list View Keys</h3>
+<table>
+<thead>
+<tr>
+<th>Shortcut</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>left</td>
+<td>Switch to view selection</td>
+</tr>
+<tr>
+<td>right</td>
+<td>Show file details</td>
+</tr>
+<tr>
+<td>space</td>
+<td>Change the file priority; applies recursively when done on a directory</td>
+</tr>
+<tr>
+<td>*</td>
+<td>Change the priority of all files</td>
+</tr>
+<tr>
+<td>/</td>
+<td>Collapse directories. While collapsed, press right to expand the selected directory.</td>
+</tr>
+</tbody>
+</table>
+<p>Priority options are <em>blank</em> (standard priority), <code>hig</code> (high priority) and <code>off</code> (not to be downloaded).</p>
+<h3>
+<a id="user-content-tracker-list-view-keys" class="anchor" href="#tracker-list-view-keys" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Tracker list View Keys</h3>
+<table>
+<thead>
+<tr>
+<th>Shortcut</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>left</td>
+<td>Switch to view selection</td>
+</tr>
+<tr>
+<td>*</td>
+<td>Enable/disable tracker</td>
+</tr>
+<tr>
+<td>space</td>
+<td>Rotate trackers in a group</td>
+</tr>
+</tbody>
+</table>
+<h2>
+<a id="user-content-main-view-window" class="anchor" href="#main-view-window" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Main view window.</h2>
+<p>The main view window lists all loaded torrents with respective status info. Example of a single torrent:</p>
+<pre><code>*  ubuntu-5.10-install-i386.iso
+* Torrent:  161.6 /  617.2 MB Rate:   1.1 /  41.3 KB Uploaded:     5.1 MB [24%]  0d  3:09 [TI R: 0.03]
+*
+</code></pre>
+<p>###Torrent info line explanation###</p>
+<p><strong>Torrent:  161.6 /  617.2 MB</strong><br>
+Amount of downloaded data / total size of torrent.</p>
+<p><strong>Rate:   1.1 /  41.3 KB</strong><br>
+Upload / download speed rates.</p>
+<p><strong>Uploaded:     5.1 MB</strong><br>
+Amount of uploaded data.</p>
+<p><strong>[24%]</strong><br>
+Download ratio. 161.6 MB downloaded makes 24% of the total 617.2 MB. Well, roughly apparently, presumably since some of the downloaded data may have been bad and discarded.</p>
+<p><strong>0d  3:09</strong><br>
+Estimated completion time. This torrent is expected to be completely downloaded in 0 days, 3 hours and 9 minutes.</p>
+<p><strong>T</strong><br>
+Present if torrent is tied to a file, blank otherwise.</p>
+<p><strong>I</strong><br>
+Present if torrent is ignoring commands (such as stop_on_ratio). Toggle with 'I'.</p>
+<p><strong>R: 0.03</strong><br>
+Share ratio. 5.1 MB uploaded makes 3% of the 161.6 MB already downloaded.</p>
+<p>Note that the estimated completion time does not take into account whether you turned off the download of individual files in the torrent. It just relies on the current download speed and total size of the torrent.</p>
+<h2>
+<a id="user-content-bottom-line-in-gui-shows-current-info-about-a-lot-of-things" class="anchor" href="#bottom-line-in-gui-shows-current-info-about-a-lot-of-things" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Bottom line in GUI shows current info about a lot of things.</h2>
+<p>Here are a few outlined.</p>
+<p>Example of the status bar:</p>
+<pre><code>Throttle U/D: 200/off  Rate: 141.6 /   0.0 KiB  Listen:&lt;default&gt;:xxxxx  Bind: xxx.xxx.xxx.xxx  [U 3/14] [D 15/0] [H 1/32] [S 6/40/768] [F 4/128]
+</code></pre>
+<p>###Bottom line explanation###</p>
+<p><strong>Throttle U/D: 200/off</strong><br>
+These are the current speed settings.<br>
+U = upload = outgoing transfer<br>
+D = download = incoming transfer<br>
+In this case the total upload speed is limited to 200 KB/s.<br>
+With the D setting to "off" there is no limit on download speed.</p>
+<p>See Throttling section for information on how to change the settings.</p>
+<p><strong>Rate: 141.6 /   0.0 KiB</strong><br>
+These numbers show the current upload/download speeds.</p>
+<p><strong>Listen::xxxxx</strong><br>
+This is the ip reported to the tracker.<br>
+It should be the same as the ip from where you are browsing the tracker.</p>
+<p><strong>Bind: xxx.xxx.xxx.xxx</strong><br>
+This is the ip on which libtorrent/rtorrent is running.<br>
+The external ip if you're behind a NAT.</p>
+<p><strong>[D 15/0]</strong><br>
+Current number of download slots in use and the maximum (0 if unlimited).</p>
+<p><strong>[H 1/32]</strong><br>
+Current number of active HTTP requests (for tracker announces and downloads of .torrent files), and the maximum.</p>
+<p><strong>[U 3/14]</strong><br>
+Current number of upload slots in use, and the maximum, which depends on the global upload rate limit.</p>
+<p><strong>[S 6/40/768]</strong><br>
+The three numbers represent handshakes/open sockets/max open sockets.</p>
+<p><strong>[F 4/128]</strong><br>
+The two numbers represent open files/max open files. The library dynamically closes the least used files as needed.</p>
+<h2>
+<a id="user-content-the-peers-screen" class="anchor" href="#the-peers-screen" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>The Peers screen</h2>
+<p>Some parts of this screen is fairly cryptic, here's an explanation of the fields.</p>
+<p>Header:</p>
+<pre><code>IP              UP     DOWN   PEER   C/RE/LO  QS    DONE  REQ   SNUB
+</code></pre>
+<p>Example entry:</p>
+<pre><code>1.1.1.1         1.1    0.0    20.5   r/ci/un  3/0   32
+</code></pre>
+<p>###Explanation###</p>
+<p><strong>IP</strong><br>
+The IP address of the peer. (Which, of course, has nothing to do with DNS)</p>
+<p><strong>UP</strong><br>
+The rate at which your client is uploading to the peer (KiB/sec).</p>
+<p><strong>DOWN</strong><br>
+The rate at which your client is downloading from the peer (KiB/sec).</p>
+<p><strong>PEER</strong><br>
+The download rate (KiB/sec) of this peer for this torrent (reported to your client by the peer client).</p>
+<p><strong>C/RE/LO</strong><br>
+C  = Connection type, can be r, l, R or L.
+    r = Started remotely, the peer initiated the connection to your client.<br>
+    l = Started locally, your client initiated the connection to the peer.<br>
+    R = Started remotely, using encrypted data transfer.<br>
+    L = Started locally, using encrypted data transfer.</p>
+<p>RE = Remote client information, has two parts; the first is u or c and the second is i or n.<br>
+    c = This peer has choked your client (which means it is not going to send you any pieces for now).<br>
+    u = Your client is not choked by this peer (unchoked).<br>
+    i = This peer is interested in downloading from your client.<br>
+    n = This peer is not interested in downloading from your client.</p>
+<p>    LO = Local client information, has two parts; the first is u or c and the second is i or n.<br>
+    c = Your client has choked this peer (which means it is not going to send this peer any pieces for now).<br>
+    u = Your client is not choking the peer (unchoked).<br>
+    i = Your client is interested in downloading from this peer.<br>
+    n = Your client is not interested in downloading from this peer.</p>
+<p><strong>QS</strong><br>
+Queues Outoing/Incoming pieces.<br>
+The first is the number of pieces that are queued to be sent to the peer.<br>
+The second is the number of pieces your client has requested and is waiting for the peer to send.</p>
+<p><strong>DONE</strong><br>
+What percent this peer has of the file.</p>
+<p><strong>REQ</strong><br>
+The number of the piece that is currently on the top of the request queue.</p>
+<p><strong>SNUB</strong><br>
+This field has a * in it when your client is snubbing this peer. When a peer agrees to send you a piece you have requested and then does not send that piece within a certain time your client will snub this peer. It is basically a way for the client to flag that this peer is unreliable and it is better to request pieces from other clients.</p>
+<p>###Status###</p>
+<p>A status line in this screen lists information such as:</p>
+<pre><code>Peers: 99(1002) Min/Max: 40/100 Uploads: 15 U/I/C/A: 3/71/5/3 Unchoked: 2/1 Failed: 0
+</code></pre>
+<p><strong>Peers</strong><br>
+The amount of peers you are connected and (not connected) to.</p>
+<p><strong>Min/Max</strong><br>
+The minimum and maximum amount of peers to try to keep connected. Can be toyed with keys 3, 4, 5 and 6.</p>
+<p><strong>Uploads</strong><br>
+Maximum number of peers to upload to at the same time (given the global upload slots are available). Can be toyed with keys 1 and 2.</p>
+<p><strong>U/I/C/A</strong><br>
+U = Number of corrently unchoked peers<br>
+I = Currently interested peers<br>
+C = Complete peers<br>
+A = Peers accounted</p>
+<p><strong>Unchoked</strong><br>
+Number of unchoked peers for upload / download.</p>
+<p><strong>Failed</strong><br>
+Number of failed chunks.</p>
+<h2>
+<a id="user-content-the-tracker-list-screen" class="anchor" href="#the-tracker-list-screen" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>The Tracker list screen</h2>
+<pre><code> Trackers: [Key: zxcvbnma] [req          ]
+0: http://tracker.publicbt.com:80/announce
+    Id:  Counters: 0f / 1s (0)  on S/L/D: 114/42/0 (0/50)
+1: udp://tracker.openbittorrent.com:80/announce
+    Id: 2527549 Counters: 0f / 705s (18)  on S/L/D: 30/1/285 (2/15)</code></pre>
+<p>Displays the available trackers for a torrent with their announce URL and different properties.</p>
+<p><strong>Possible values in the header</strong>
+req = requesting<br>
+prom = promiscuous mode<br>
+fail = failure mode</p>
+<p><strong>Properties of a tracker</strong>
+Properties from left to right, using the second (1) tracker as an example:
+Id: 2527549 = id (can be empty)<br>
+Counters: 0f / 705s (18) = failed / successful (scrape) counters<br>
+on = status , [on|off|err] , on -&gt; usable , off -&gt; disabled , err -&gt; error<br>
+S/L/D: 30/1/285 = number of seeders/leechers/downloads reported by the tracker during a scrape request<br>
+(2/15) = number of new peers received last request / total number of peers received</p>
+<h2>
+<a id="user-content-the-chunks-seen-screen" class="anchor" href="#the-chunks-seen-screen" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>The Chunks seen screen</h2>
+<pre><code> Chunks seen: [C/A/D 25/29/6.99]     X downloaded  <strong>X</strong> missing  <strong><u>X</u></strong> queued  <span>X</span> downloading
+    0 EFD<strong>FEF</strong>FDFE <strong>CEFFFFF</strong>FFF EFCFC<strong>FDDBC 9DFDBDDECF BDDB</strong>CEDDFD DEFEEDECFC
+   60 DBDFEE9<span>B</span><strong><u>EC</u> <u>FCCBECC</u>FEB FAFDDFCAAD CABCDECDFC 9BFDCDEFAA ADCEFFBBDC
+  </strong>120 <strong>FAFFCCBEAC EDFFEDDF9B EDD9DEBDDD C9BCEAFF9C F8FDCDDBFB CFCECFCEDD
+  </strong>180 <strong>FFFADCCFAE FB9F</strong>BFC<strong>CAC BE</strong>ABBB9FD<strong>D ABCECEDFAB DCF9BDDFBD BBEFAE7EED
+  </strong>240<strong> DDCEAFBCF7 EEEFBF9AAD 9FDBCDDEBB DDF79C8FCE EFF9FDFE9A EF9DCCEEBA</strong>
+</code></pre>
+<p>C/A/D stands for Complete/Accounted/Distributed copies. Only those peers whose bitfields are accounted for are included above; they do not include seeders, peers with empty bitfields, nor normal peers if there are too many.</p>
+<p>Then, you have a view of the chunks of the torrent. The chunks are shown in groups of 10. Each new line begins with the number of the first chunk on that line.</p>
+<p>Each chunk is shown by a hexadecimal number (0123456789ABCDEF) which is equal to its rarity among the non-seeders:</p>
+<ul>
+<li>a chunk shown as 0 is not available from non-seeders in the swarm (but all seeders have it of course)</li>
+<li>a chunk shown as 6 is available from 6 non-seeders</li>
+<li>and a chunk shown as F is available from 15 or more peers.</li>
+</ul>
+<p>If the chunk is in <strong>bold</strong> it means you do not have that chunk yet, if it is <u>underlined</u> then it is in the transfer list (i.e. queued to be downloaded), and if the chunk is in reverse colors, it is currently being downloaded. Otherwise, a normal font indicates that the chunk has already been downloaded and verified as correct by rTorrent.</p>
+<h2>
+<a id="user-content-signal-handlers" class="anchor" href="#signal-handlers" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Signal handlers</h2>
+<table>
+<thead>
+<tr>
+<th>Signal</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SIGINT</td>
+<td>Normal shutdown with 5 seconds to send the stopped request to trackers.</td>
+</tr>
+<tr>
+<td>SIGTERM</td>
+<td>Shut down immediately.</td>
+</tr>
+<tr>
+<td>SIGWINCH</td>
+<td>Resize and redraw.</td>
+</tr>
+</tbody>
+</table>
+
+      </div>
+
+  </div>
+  </div>
+</div>
+</div>
+
+
+
+  </div>
+  <div class="modal-backdrop js-touch-events"></div>
+</div>
+
+    </div>
+  </div>
+
+  </div>
+
+      
+<div class="container site-footer-container">
+  <div class="site-footer " role="contentinfo">
+    <ul class="site-footer-links float-right">
+        <li><a href="https://github.com/contact" data-ga-click="Footer, go to contact, text:contact">Contact GitHub</a></li>
+      <li><a href="https://developer.github.com" data-ga-click="Footer, go to api, text:api">API</a></li>
+      <li><a href="https://training.github.com" data-ga-click="Footer, go to training, text:training">Training</a></li>
+      <li><a href="https://shop.github.com" data-ga-click="Footer, go to shop, text:shop">Shop</a></li>
+        <li><a href="https://github.com/blog" data-ga-click="Footer, go to blog, text:blog">Blog</a></li>
+        <li><a href="https://github.com/about" data-ga-click="Footer, go to about, text:about">About</a></li>
+
+    </ul>
+
+    <a href="https://github.com" aria-label="Homepage" class="site-footer-mark" title="GitHub">
+      <svg aria-hidden="true" class="octicon octicon-mark-github" height="24" version="1.1" viewBox="0 0 16 16" width="24"><path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
+</a>
+    <ul class="site-footer-links">
+      <li>&copy; 2017 <span title="0.16039s from unicorn-2854526189-95bvm">GitHub</span>, Inc.</li>
+        <li><a href="https://github.com/site/terms" data-ga-click="Footer, go to terms, text:terms">Terms</a></li>
+        <li><a href="https://github.com/site/privacy" data-ga-click="Footer, go to privacy, text:privacy">Privacy</a></li>
+        <li><a href="https://github.com/security" data-ga-click="Footer, go to security, text:security">Security</a></li>
+        <li><a href="https://status.github.com/" data-ga-click="Footer, go to status, text:status">Status</a></li>
+        <li><a href="https://help.github.com" data-ga-click="Footer, go to help, text:help">Help</a></li>
+    </ul>
+  </div>
+</div>
+
+
+
+  
+
+  <div id="ajax-error-message" class="ajax-error-message flash flash-error">
+    <svg aria-hidden="true" class="octicon octicon-alert" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M8.865 1.52c-.18-.31-.51-.5-.87-.5s-.69.19-.87.5L.275 13.5c-.18.31-.18.69 0 1 .19.31.52.5.87.5h13.7c.36 0 .69-.19.86-.5.17-.31.18-.69.01-1L8.865 1.52zM8.995 13h-2v-2h2v2zm0-3h-2V6h2v4z"/></svg>
+    <button type="button" class="flash-close js-flash-close js-ajax-error-dismiss" aria-label="Dismiss error">
+      <svg aria-hidden="true" class="octicon octicon-x" height="16" version="1.1" viewBox="0 0 12 16" width="12"><path fill-rule="evenodd" d="M7.48 8l3.75 3.75-1.48 1.48L6 9.48l-3.75 3.75-1.48-1.48L4.52 8 .77 4.25l1.48-1.48L6 6.52l3.75-3.75 1.48 1.48z"/></svg>
+    </button>
+    You can't perform that action at this time.
+  </div>
+
+
+    
+    <script crossorigin="anonymous" integrity="sha256-X+Q/xqnlEgxCczSjjpp2AUGGgqM5gcBzhRQ0p+EAUEk=" src="https://assets-cdn.github.com/assets/frameworks-5fe43fc6a9e5120c427334a38e9a7601418682a33981c073851434a7e1005049.js"></script>
+    <script async="async" crossorigin="anonymous" integrity="sha256-9juSBU/6LfdytN4FT9IaLZ+xufYSqHkBZRUgHcrSaCw=" src="https://assets-cdn.github.com/assets/github-f63b92054ffa2df772b4de054fd21a2d9fb1b9f612a879016515201dcad2682c.js"></script>
+    
+    
+      <script crossorigin="anonymous" integrity="sha256-Wo6qOeeAveunce/7DXxQBMo4ZNLp5YsORBUtG3rZ6YQ=" src="https://assets-cdn.github.com/assets/wiki-5a8eaa39e780bdeba771effb0d7c5004ca3864d2e9e58b0e44152d1b7ad9e984.js"></script>
+
+    
+  <div class="js-stale-session-flash stale-session-flash flash flash-warn flash-banner d-none">
+    <svg aria-hidden="true" class="octicon octicon-alert" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M8.865 1.52c-.18-.31-.51-.5-.87-.5s-.69.19-.87.5L.275 13.5c-.18.31-.18.69 0 1 .19.31.52.5.87.5h13.7c.36 0 .69-.19.86-.5.17-.31.18-.69.01-1L8.865 1.52zM8.995 13h-2v-2h2v2zm0-3h-2V6h2v4z"/></svg>
+    <span class="signed-in-tab-flash">You signed in with another tab or window. <a href="">Reload</a> to refresh your session.</span>
+    <span class="signed-out-tab-flash">You signed out in another tab or window. <a href="">Reload</a> to refresh your session.</span>
+  </div>
+  <div class="facebox" id="facebox" style="display:none;">
+  <div class="facebox-popup">
+    <div class="facebox-content" role="dialog" aria-labelledby="facebox-header" aria-describedby="facebox-description">
+    </div>
+    <button type="button" class="facebox-close js-facebox-close" aria-label="Close modal">
+      <svg aria-hidden="true" class="octicon octicon-x" height="16" version="1.1" viewBox="0 0 12 16" width="12"><path fill-rule="evenodd" d="M7.48 8l3.75 3.75-1.48 1.48L6 9.48l-3.75 3.75-1.48-1.48L4.52 8 .77 4.25l1.48-1.48L6 6.52l3.75-3.75 1.48 1.48z"/></svg>
+    </button>
+  </div>
+</div>
+
+
+  </body>
+</html>
+

@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<!--[if IE 7]>
+<html class="ie ie7" lang="zh-CN">
+<![endif]-->
+<!--[if IE 8]>
+<html class="ie ie8" lang="zh-CN">
+<![endif]-->
+<!--[if !(IE 7) & !(IE 8)]><!-->
+<html lang="zh-CN">
+<!--<![endif]-->
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<title>ruTorrent+rTorrent+WebMin+FTP+autodl-irssi一键安装包 | 小老外的收藏夹</title>
+<link rel="profile" href="http://gmpg.org/xfn/11">
+<link rel="pingback" href="https://www.d0z.net/xmlrpc.php">
+<!--[if lt IE 9]>
+	<script src="https://www.d0z.net/wp-content/themes/twentythirteen/js/html5.js"></script>
+	<![endif]-->
+<link rel='dns-prefetch' href='//s0.wp.com'/>
+<link rel='dns-prefetch' href='//secure.gravatar.com'/>
+<link rel='dns-prefetch' href='//s.w.org'/>
+<link rel="alternate" type="application/rss+xml" title="小老外的收藏夹 &raquo; Feed" href="https://www.d0z.net/feed"/>
+<link rel="alternate" type="application/rss+xml" title="小老外的收藏夹 &raquo; 评论Feed" href="https://www.d0z.net/comments/feed"/>
+<link rel="alternate" type="application/rss+xml" title="小老外的收藏夹 &raquo; ruTorrent+rTorrent+WebMin+FTP+autodl-irssi一键安装包评论Feed" href="https://www.d0z.net/archives/5501/feed"/>
+<script type="text/javascript">
+			window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/2.2.1\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/2.2.1\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/www.d0z.net\/wp-includes\/js\/wp-emoji-release.min.js?ver=4.7.4"}};
+			!function(a,b,c){function d(a){var b,c,d,e,f=String.fromCharCode;if(!k||!k.fillText)return!1;switch(k.clearRect(0,0,j.width,j.height),k.textBaseline="top",k.font="600 32px Arial",a){case"flag":return k.fillText(f(55356,56826,55356,56819),0,0),!(j.toDataURL().length<3e3)&&(k.clearRect(0,0,j.width,j.height),k.fillText(f(55356,57331,65039,8205,55356,57096),0,0),b=j.toDataURL(),k.clearRect(0,0,j.width,j.height),k.fillText(f(55356,57331,55356,57096),0,0),c=j.toDataURL(),b!==c);case"emoji4":return k.fillText(f(55357,56425,55356,57341,8205,55357,56507),0,0),d=j.toDataURL(),k.clearRect(0,0,j.width,j.height),k.fillText(f(55357,56425,55356,57341,55357,56507),0,0),e=j.toDataURL(),d!==e}return!1}function e(a){var c=b.createElement("script");c.src=a,c.defer=c.type="text/javascript",b.getElementsByTagName("head")[0].appendChild(c)}var f,g,h,i,j=b.createElement("canvas"),k=j.getContext&&j.getContext("2d");for(i=Array("flag","emoji4"),c.supports={everything:!0,everythingExceptFlag:!0},h=0;h<i.length;h++)c.supports[i[h]]=d(i[h]),c.supports.everything=c.supports.everything&&c.supports[i[h]],"flag"!==i[h]&&(c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&c.supports[i[h]]);c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&!c.supports.flag,c.DOMReady=!1,c.readyCallback=function(){c.DOMReady=!0},c.supports.everything||(g=function(){c.readyCallback()},b.addEventListener?(b.addEventListener("DOMContentLoaded",g,!1),a.addEventListener("load",g,!1)):(a.attachEvent("onload",g),b.attachEvent("onreadystatechange",function(){"complete"===b.readyState&&c.readyCallback()})),f=c.source||{},f.concatemoji?e(f.concatemoji):f.wpemoji&&f.twemoji&&(e(f.twemoji),e(f.wpemoji)))}(window,document,window._wpemojiSettings);
+		</script>
+<style type="text/css">img.wp-smiley,img.emoji{display:inline!important;border:none!important;box-shadow:none!important;height:1em!important;width:1em!important;margin:0 .07em!important;vertical-align:-0.1em!important;background:none!important;padding:0!important;}</style>
+<link rel='stylesheet' id='crayon-css' href='https://www.d0z.net/wp-content/plugins/crayon-syntax-highlighter/css/min/crayon.min.css?ver=_2.7.2_beta' type='text/css' media='all'/>
+<link rel='stylesheet' id='dlm-frontend-css' href='https://www.d0z.net/wp-content/plugins/download-monitor/assets/css/frontend.css?ver=4.7.4' type='text/css' media='all'/>
+<link rel='stylesheet' id='genericons-css' href='https://www.d0z.net/wp-content/plugins/jetpack/_inc/genericons/genericons/genericons.css?ver=3.1' type='text/css' media='all'/>
+<link rel='stylesheet' id='twentythirteen-style-css' href='https://www.d0z.net/wp-content/themes/twentythirteen/style.css?ver=2013-07-18' type='text/css' media='all'/>
+<!--[if lt IE 9]>
+<link rel='stylesheet' id='twentythirteen-ie-css'  href='https://www.d0z.net/wp-content/themes/twentythirteen/css/ie.css?ver=2013-07-18' type='text/css' media='all' />
+<![endif]-->
+<link rel='stylesheet' id='social-logos-css' href='https://www.d0z.net/wp-content/plugins/jetpack/_inc/social-logos/social-logos.min.css?ver=1' type='text/css' media='all'/>
+<link rel='stylesheet' id='jetpack_css-css' href='https://www.d0z.net/wp-content/plugins/jetpack/css/jetpack.css?ver=4.9' type='text/css' media='all'/>
+<script type='text/javascript' src='https://www.d0z.net/wp-includes/js/jquery/jquery.js?ver=1.12.4'></script>
+<script type='text/javascript' src='https://www.d0z.net/wp-includes/js/jquery/jquery-migrate.min.js?ver=1.4.1'></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var CrayonSyntaxSettings = {"version":"_2.7.2_beta","is_admin":"0","ajaxurl":"https:\/\/www.d0z.net\/wp-admin\/admin-ajax.php","prefix":"crayon-","setting":"crayon-setting","selected":"crayon-setting-selected","changed":"crayon-setting-changed","special":"crayon-setting-special","orig_value":"data-orig-value","debug":""};
+var CrayonSyntaxStrings = {"copy":"\u4f7f\u7528 %s \u590d\u5236\uff0c\u4f7f\u7528 %s \u7c98\u8d34\u3002","minimize":"\u70b9\u51fb\u5c55\u5f00\u4ee3\u7801"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='https://www.d0z.net/wp-content/plugins/crayon-syntax-highlighter/js/min/crayon.min.js?ver=_2.7.2_beta'></script>
+<script type='text/javascript' src='https://www.d0z.net/wp-content/plugins/wp-ajaxify-comments/js/wp-ajaxify-comments.min.js?ver=1.5.0'></script>
+<script type='text/javascript' src='https://www.d0z.net/wp-content/plugins/wp-google-analytics/wp-google-analytics.js?ver=0.0.3'></script>
+<link rel='https://api.w.org/' href='https://www.d0z.net/wp-json/'/>
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://www.d0z.net/xmlrpc.php?rsd"/>
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="https://www.d0z.net/wp-includes/wlwmanifest.xml"/>
+<link rel='prev' title='Glesys' href='https://www.d0z.net/archives/5497'/>
+<link rel='next' title='Haskell趣学指南' href='https://www.d0z.net/archives/5506'/>
+<meta name="generator" content="WordPress 4.7.4"/>
+<link rel="canonical" href="https://www.d0z.net/archives/5501"/>
+<link rel='shortlink' href='https://wp.me/pWIyI-1qJ'/>
+<link rel="alternate" type="application/json+oembed" href="https://www.d0z.net/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fwww.d0z.net%2Farchives%2F5501"/>
+<link rel="alternate" type="text/xml+oembed" href="https://www.d0z.net/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fwww.d0z.net%2Farchives%2F5501&#038;format=xml"/>
+<script type="text/javascript">/* <![CDATA[ */if (!window["WPAC"]) var WPAC = {};WPAC._Options = {debug:false,selectorCommentForm:"#commentform",selectorCommentsContainer:"#comments",selectorCommentPagingLinks:"#comments [class^='nav-'] a",selectorCommentLinks:"#comments a[href*=\"/comment-page-\"]",selectorRespondContainer:"#respond",selectorErrorContainer:"p:parent",popupCornerRadius:5,popupMarginTop:10,popupWidth:30,popupPadding:5,popupFadeIn:400,popupFadeOut:400,popupTimeout:3000,popupBackgroundColorLoading:"#000",popupTextColorLoading:"#fff",popupBackgroundColorSuccess:"#008000",popupTextColorSuccess:"#fff",popupBackgroundColorError:"#f00",popupTextColorError:"#fff",popupOpacity:70,popupTextAlign:"center",popupTextFontSize:"默认字体大小",popupZindex:1000,scrollSpeed:500,autoUpdateIdleTime:0,textPosted:"您的评论已提交，非常感谢！",textPostedUnapproved:"您的评论已提交并需要等待审核，非常感谢！",textReloadPage:"<p>重载页面中，请稍候&hellip;</p>",textPostComment:"提交评论中，请稍候&hellip;",textRefreshComments:"加载评论中，请稍后&hellip;",textUnknownError:"发生未知错误，评论提交失败。",selectorPostContainer:"",commentPagesUrlRegex:"",asyncLoadTrigger:"DomReady",disableUrlUpdate:false,disableScrollToAnchor:false,disableCache:false,enableByQuery:false,commentsEnabled:true,version:"1.5.0"};WPAC._Callbacks = {"beforeSelectElements": function(dom) {},"beforeUpdateComments": function(newDom, commentUrl) {},"afterUpdateComments": function(newDom, commentUrl) {},"beforeSubmitComment": function() {},"afterPostComment": function(commentUrl, unapproved) {}};/* ]]> */</script>
+<link rel='dns-prefetch' href='//v0.wordpress.com'>
+<link rel='dns-prefetch' href='//jetpack.wordpress.com'>
+<link rel='dns-prefetch' href='//s0.wp.com'>
+<link rel='dns-prefetch' href='//s1.wp.com'>
+<link rel='dns-prefetch' href='//s2.wp.com'>
+<link rel='dns-prefetch' href='//public-api.wordpress.com'>
+<link rel='dns-prefetch' href='//0.gravatar.com'>
+<link rel='dns-prefetch' href='//1.gravatar.com'>
+<link rel='dns-prefetch' href='//2.gravatar.com'>
+<style type="text/css">.recentcomments a{display:inline!important;padding:0!important;margin:0!important;}</style>
+<style type="text/css" id="twentythirteen-header-css">.site-header{background:url(https://www.d0z.net/wp-content/themes/twentythirteen/images/headers/circle.png) no-repeat scroll top;background-size:1600px auto;}@media (max-width: 767px) {.site-header{background-size:768px auto;}}@media (max-width: 359px) {.site-header{background-size:360px auto;}}</style>
+ 
+<meta property="og:type" content="article"/>
+<meta property="og:title" content="ruTorrent+rTorrent+WebMin+FTP+autodl-irssi一键安装包"/>
+<meta property="og:url" content="https://www.d0z.net/archives/5501"/>
+<meta property="og:description" content="懂的人一看标题就明白了吧？Seedbox利器。本文全文转载，方便被墙看不到的童鞋。"/>
+<meta property="article:published_time" content="2011-10-26T11:12:46+00:00"/>
+<meta property="article:modified_time" content="2011-10-26T11:12:46+00:00"/>
+<meta property="og:site_name" content="小老外的收藏夹"/>
+<meta property="og:image" content="https://s0.wp.com/i/blank.jpg"/>
+<meta property="og:locale" content="zh_CN"/>
+<meta name="twitter:card" content="summary"/>
+</head>
+<body class="post-template-default single single-post postid-5501 single-format-standard">
+<div id="page" class="hfeed site">
+<header id="masthead" class="site-header" role="banner">
+<a class="home-link" href="https://www.d0z.net/" title="小老外的收藏夹" rel="home">
+<h1 class="site-title">小老外的收藏夹</h1>
+<h2 class="site-description">d0z.net</h2>
+</a>
+<div id="navbar" class="navbar">
+<nav id="site-navigation" class="navigation main-navigation" role="navigation">
+<button class="menu-toggle">菜单</button>
+<a class="screen-reader-text skip-link" href="#content" title="跳至内容">跳至内容</a>
+<div id="primary-menu" class="nav-menu"><ul>
+<li class="page_item page-item-19"><a href="https://www.d0z.net/guide">博客使用Guide</a></li>
+<li class="page_item page-item-2"><a href="https://www.d0z.net/about">我不是真正的d0z！</a></li>
+<li class="page_item page-item-182"><a href="https://www.d0z.net/message-board">留言板</a></li>
+</ul></div>
+<form role="search" method="get" class="search-form" action="https://www.d0z.net/">
+<label>
+<span class="screen-reader-text">搜索：</span>
+<input type="search" class="search-field" placeholder="搜索&hellip;" value="" name="s"/>
+</label>
+<input type="submit" class="search-submit" value="搜索"/>
+</form> </nav> 
+</div> 
+</header> 
+<div id="main" class="site-main">
+<div id="primary" class="content-area">
+<div id="content" class="site-content" role="main">
+<article id="post-5501" class="post-5501 post type-post status-publish format-standard hentry category-software category-coolsites tag-rtorrent tag-rutorrent tag-seedbox">
+<header class="entry-header">
+<h1 class="entry-title">ruTorrent+rTorrent+WebMin+FTP+autodl-irssi一键安装包</h1>
+<div class="entry-meta">
+<span class="date"><a href="https://www.d0z.net/archives/5501" title="链向ruTorrent+rTorrent+WebMin+FTP+autodl-irssi一键安装包的固定链接" rel="bookmark"><time class="entry-date" datetime="2011-10-26T19:12:46+00:00">2011年10月26日</time></a></span><span class="categories-links"><a href="https://www.d0z.net/archives/category/software" rel="category tag">小软心得</a>、<a href="https://www.d0z.net/archives/category/coolsites" rel="category tag">酷站推荐</a></span><span class="tags-links"><a href="https://www.d0z.net/archives/tag/rtorrent" rel="tag">rtorrent</a>、<a href="https://www.d0z.net/archives/tag/rutorrent" rel="tag">rutorrent</a>、<a href="https://www.d0z.net/archives/tag/seedbox" rel="tag">seedbox</a></span><span class="author vcard"><a class="url fn n" href="https://www.d0z.net/archives/author/hlx98007" title="查看所有由hlx98007发布的文章" rel="author">hlx98007</a></span> </div> 
+</header> 
+<div class="entry-content">
+<p>懂的人一看标题就明白了吧？Seedbox利器。本文全文转载，方便被墙看不到的童鞋。</p>
+<p><span id="more-5501"></span></p>
+<p>原文：<a href="http://forums.rutorrent.org/index.php?topic=608.0">http://forums.rutorrent.org/index.php?topic=608.0</a><br/>
+This is an easy installer for ruTorrent (multi-user support), rtorrent, plugins and other dependencies. It requires <strong>no</strong> Linux knowledge. The only requirement is that you can copy and paste three lines of code. In 5-10 mins, you should have a fully working ruTorrent.</p>
+<p>To install it, use one of the three lines of code below, depending on which OS you are using. The installation script will ask you some questions and then install everything you selected.</p>
+<p><strong>Ubuntu and Ubuntu clones</strong>:<br/>
+Code:<br/>
+<code>cd<br/>
+wget --no-check-certificate -O autodl-setup http://sourceforge.net/projects/autodl-irssi/files/autodl-setup/download<br/>
+sudo sh autodl-setup</code><br/>
+<strong>Any other OS</strong><br/>
+Log in as root:<br/>
+Code:<br/>
+<code>su -</code><br/>
+Then install it:<br/>
+Code:<br/>
+<code>wget --no-check-certificate -O autodl-setup http://sourceforge.net/projects/autodl-irssi/files/autodl-setup/download<br/>
+sh autodl-setup</code></p>
+<p>If you already have another web server installed, you may need to disable it or uninstall it. If you don&#8217;t, the web server this script installs (*) might not work.</p>
+<p>&nbsp;</p>
+<p><strong>What it will do</strong>:</p>
+<ul>
+<li>Install a web server (<strong>*</strong>)</li>
+<li>Install ruTorrent with multi-user support (http and https)</li>
+<li>Install 1st party ruTorrent plugins</li>
+<li>Install an encrypted FTP server (vsftpd)</li>
+<li>Install rtorrent with xmlrpc-c support</li>
+<li>Install the <a href="http://forums.rutorrent.org/index.php?topic=517.0" target="_blank">IRC auto downloader plugin (autodl-irssi)</a></li>
+<li>Install Webmin</li>
+<li>Install a startup script for rtorrent and Irssi</li>
+</ul>
+<p>You can disable any of the above by answering no when you run the installer.</p>
+<p><strong>*</strong> Apache, nginx, or lighttpd.</p>
+<p>I&#8217;ve tested the following OSes (<strong>clean installs</strong>):</p>
+<ul>
+<li>Arch Linux 2010.05</li>
+<li>ArchBang 2010.10</li>
+<li>CentOS 4.8</li>
+<li>CentOS 5.5</li>
+<li>ClearOS 5.2</li>
+<li>Debian 4.0r7</li>
+<li>Debian 5.0.3</li>
+<li>Debian 5.0.7</li>
+<li>Debian 6.0.0</li>
+<li>Fedora 13</li>
+<li>Fedora 14</li>
+<li>Fedora 15</li>
+<li>Frugalware 1.3</li>
+<li>Gentoo 1.12.14</li>
+<li>Linux Mint 8</li>
+<li>Linux Mint 9</li>
+<li>Linux Mint 10</li>
+<li>Mandriva Linux release 2008.0</li>
+<li>Mandriva Linux release 2010.1</li>
+<li>MEPIS 8.5</li>
+<li>openSUSE 11.1</li>
+<li>openSUSE 11.3</li>
+<li>openSUSE 11.4</li>
+<li>Pardus 2009.2</li>
+<li>Pardus 2011</li>
+<li>PCLinuxOS 2010</li>
+<li>Peppermint OS</li>
+<li>RHEL 5.5</li>
+<li>RHEL 6.0</li>
+<li>Sabayon 5</li>
+<li>Scientific Linux 5.5</li>
+<li>Scientific Linux 6.0</li>
+<li>Ubuntu Server 6.06.2 LTS</li>
+<li>Ubuntu Server 8.04.4 LTS</li>
+<li>Ubuntu Server 10.04.1 LTS</li>
+<li>Ubuntu Server 11.04</li>
+<li>Ubuntu 10.10</li>
+<li>Unity release 2010</li>
+</ul>
+<p>If your OS isn&#8217;t listed, but is derived from one of the above OSes, then the installer could still work. Eg., all Ubuntu and Debian derived OSes should work.</p>
+<p><strong>Issues</strong>:<br/>
+SELinux:</p>
+<ul>
+<li>If you have SELinux enabled, it&#8217;s possible Apache or vsftpd won&#8217;t work.</li>
+</ul>
+<p>Firewall:</p>
+<ul>
+<li>The script doesn&#8217;t open any ports in your firewall. If your firewall is enabled, you may need to open a few ports.</li>
+</ul>
+<p>Ubuntu Server 6:</p>
+<ul>
+<li>You need to enable the universe repository</li>
+</ul>
+<p>RHEL/CentOS/Scientific 4 &amp; 5:</p>
+<ul>
+<li>You may need to add and enable a 3rd party repository, eg. EPEL, and another one for PHP 5.3, eg. remi (<a href="http://blog.famillecollet.com/pages/Config-en" target="_blank">http://blog.famillecollet.com/pages/Config-en</a>)</li>
+</ul>
+<p>geoip plugin:</p>
+<ul>
+<li>Some OSes don&#8217;t have the PHP geoip module (thus disabling the ruTorrent geoip plugin).</li>
+</ul>
+<div class="sharedaddy sd-sharing-enabled"><div class="robots-nocontent sd-block sd-social sd-social-icon-text sd-sharing"><h3 class="sd-title">分享此文</h3><div class="sd-content"><ul><li class="share-twitter"><a rel="nofollow" data-shared="sharing-twitter-5501" class="share-twitter sd-button share-icon" href="https://www.d0z.net/archives/5501?share=twitter" target="_blank" title="点击以在 Twitter 上共享"><span>Twitter</span></a></li><li class="share-google-plus-1"><a rel="nofollow" data-shared="sharing-google-5501" class="share-google-plus-1 sd-button share-icon" href="https://www.d0z.net/archives/5501?share=google-plus-1" target="_blank" title="点击以在 Google+ 上共享"><span>Google</span></a></li><li class="share-custom share-custom-"><a rel="nofollow" data-shared="" class="share-custom share-custom- sd-button share-icon" href="https://www.d0z.net/archives/5501?share=custom-1337713676" target="_blank" title="单击在 饭否 上共享"><span style="background-image:url(&quot;https://www.d0z.net/wp-content/plugins/jetpack/_inc/images/fanfou_16x16.png&quot;);">饭否</span></a></li><li class="share-custom share-custom-"><a rel="nofollow" data-shared="" class="share-custom share-custom- sd-button share-icon" href="https://www.d0z.net/archives/5501?share=custom-1337714179" target="_blank" title="单击在 人人网 上共享"><span style="background-image:url(&quot;https://www.d0z.net/wp-content/plugins/jetpack/_inc/images/renren.png&quot;);">人人网</span></a></li><li class="share-end"></li></ul></div></div></div> </div> 
+<footer class="entry-meta">
+<div class="author-info">
+<div class="author-avatar">
+<img alt='' src='https://secure.gravatar.com/avatar/ec5d791f190aab28f86fdcca9a2dedf8?s=74&#038;d=retro&#038;r=x' srcset='https://secure.gravatar.com/avatar/ec5d791f190aab28f86fdcca9a2dedf8?s=148&amp;d=retro&amp;r=x 2x' class='avatar avatar-74 photo' height='74' width='74'/> </div> 
+<div class="author-description">
+<h2 class="author-title">关于hlx98007</h2>
+<p class="author-bio">
+我还需要不断地学习。 <a class="author-link" href="https://www.d0z.net/archives/author/hlx98007" rel="author">
+查看所有由hlx98007发表的文章 <span class="meta-nav">&rarr;</span> </a>
+</p>
+</div> 
+</div>  </footer> 
+</article> 
+<nav class="navigation post-navigation" role="navigation">
+<h1 class="screen-reader-text">文章导航</h1>
+<div class="nav-links">
+<a href="https://www.d0z.net/archives/5497" rel="prev"><span class="meta-nav">&larr;</span> Glesys</a> <a href="https://www.d0z.net/archives/5506" rel="next">Haskell趣学指南 <span class="meta-nav">&rarr;</span></a>
+</div> 
+</nav> 
+<div id="comments" class="comments-area">
+<h2 class="comments-title">
+《<span>ruTorrent+rTorrent+WebMin+FTP+autodl-irssi一键安装包</span>》有3个想法 </h2>
+<ol class="comment-list">
+<li id="comment-2633" class="comment byuser comment-author-hlx98007 bypostauthor even thread-even depth-1">
+<article id="div-comment-2633" class="comment-body">
+<footer class="comment-meta">
+<div class="comment-author vcard">
+<img alt='' src='https://secure.gravatar.com/avatar/ec5d791f190aab28f86fdcca9a2dedf8?s=74&#038;d=retro&#038;r=x' srcset='https://secure.gravatar.com/avatar/ec5d791f190aab28f86fdcca9a2dedf8?s=148&amp;d=retro&amp;r=x 2x' class='avatar avatar-74 photo' height='74' width='74'/> <b class="fn"><a href='http://www.d0z.net' rel='external nofollow' class='url'>hlx98007</a></b><span class="says">说道：</span> </div> 
+<div class="comment-metadata">
+<a href="https://www.d0z.net/archives/5501#comment-2633">
+<time datetime="2011-10-27T02:30:01+00:00">
+2011年10月27日 02:30 </time>
+</a>
+</div> 
+</footer> 
+<div class="comment-content">
+<p>整个安装过程视机器性能变化而变化<br/>
+我装了至少2个多钟头。</p>
+</div> 
+</article> 
+</li> 
+<li id="comment-2644" class="comment odd alt thread-odd thread-alt depth-1">
+<article id="div-comment-2644" class="comment-body">
+<footer class="comment-meta">
+<div class="comment-author vcard">
+<img alt='' src='https://secure.gravatar.com/avatar/98600650c868d78fff1397cc531dac79?s=74&#038;d=retro&#038;r=x' srcset='https://secure.gravatar.com/avatar/98600650c868d78fff1397cc531dac79?s=148&amp;d=retro&amp;r=x 2x' class='avatar avatar-74 photo' height='74' width='74'/> <b class="fn">borei</b><span class="says">说道：</span> </div> 
+<div class="comment-metadata">
+<a href="https://www.d0z.net/archives/5501#comment-2644">
+<time datetime="2011-11-17T04:08:18+00:00">
+2011年11月17日 04:08 </time>
+</a>
+</div> 
+</footer> 
+<div class="comment-content">
+<p>@hlx98007, 不会吧？我装装84一刀也就几分钟呀&#8230;</p>
+</div> 
+</article> 
+</li> 
+<li id="comment-2646" class="comment byuser comment-author-hlx98007 bypostauthor even thread-even depth-1">
+<article id="div-comment-2646" class="comment-body">
+<footer class="comment-meta">
+<div class="comment-author vcard">
+<img alt='' src='https://secure.gravatar.com/avatar/ec5d791f190aab28f86fdcca9a2dedf8?s=74&#038;d=retro&#038;r=x' srcset='https://secure.gravatar.com/avatar/ec5d791f190aab28f86fdcca9a2dedf8?s=148&amp;d=retro&amp;r=x 2x' class='avatar avatar-74 photo' height='74' width='74'/> <b class="fn"><a href='http://www.d0z.net' rel='external nofollow' class='url'>hlx98007</a></b><span class="says">说道：</span> </div> 
+<div class="comment-metadata">
+<a href="https://www.d0z.net/archives/5501#comment-2646">
+<time datetime="2011-11-17T07:58:55+00:00">
+2011年11月17日 07:58 </time>
+</a>
+</div> 
+</footer> 
+<div class="comment-content">
+<p>@borei, 84刀。。您可真有钱</p>
+</div> 
+</article> 
+</li> 
+</ol> 
+<div id="respond" class="comment-respond">
+<h3 id="reply-title" class="comment-reply-title">发表评论 <small><a rel="nofollow" id="cancel-comment-reply-link" href="/archives/5501#respond" style="display:none;">取消回复</a></small></h3>
+<form id="commentform" class="comment-form">
+<iframe src="https://jetpack.wordpress.com/jetpack-comment/?blogid=13994312&#038;postid=5501&#038;comment_registration=0&#038;require_name_email=1&#038;stc_enabled=1&#038;stb_enabled=1&#038;show_avatars=1&#038;avatar_default=retro&#038;greeting=%E5%8F%91%E8%A1%A8%E8%AF%84%E8%AE%BA&#038;greeting_reply=%E4%B8%BA+%25s+%E5%8F%91%E8%A1%A8%E8%AF%84%E8%AE%BA&#038;color_scheme=light&#038;lang=zh_CN&#038;jetpack_version=4.9&#038;sig=334b0f8038a778e09b1cd63d63292be2d46040e9#parent=https%3A%2F%2Fwww.d0z.net%2Farchives%2F5501" style="width:100%; height: 430px; border:0;" name="jetpack_remote_comment" class="jetpack_remote_comment" id="jetpack_remote_comment"></iframe>
+<!--[if !IE]><!-->
+<script>
+					document.addEventListener( 'DOMContentLoaded', function () {
+						var commentForms = document.getElementsByClassName( 'jetpack_remote_comment' );
+						for ( var i = 0; i < commentForms.length; i++ ) {
+							commentForms[i].allowTransparency = false;
+							commentForms[i].scrolling = 'no';
+						}
+					} );
+				</script>
+<!--<![endif]-->
+</form>
+</div>
+<input type="hidden" name="comment_parent" id="comment_parent" value=""/>
+</div> 
+</div> 
+</div> 
+<script type='text/javascript'>
+	var _gaq = _gaq || [];
+	_gaq.push(['_setAccount', 'UA-13243244-1']);
+_gaq.push(['_trackPageview']);
+
+	(function() {
+		var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	})();
+</script>
+</div> 
+<footer id="colophon" class="site-footer" role="contentinfo">
+<div id="secondary" class="sidebar-container" role="complementary">
+<div class="widget-area">
+<aside id="search-7" class="widget widget_search"><form role="search" method="get" class="search-form" action="https://www.d0z.net/">
+<label>
+<span class="screen-reader-text">搜索：</span>
+<input type="search" class="search-field" placeholder="搜索&hellip;" value="" name="s"/>
+</label>
+<input type="submit" class="search-submit" value="搜索"/>
+</form></aside><aside id="categories-4" class="widget widget_categories"><h3 class="widget-title">分类目录</h3> <ul>
+<li class="cat-item cat-item-314"><a href="https://www.d0z.net/archives/category/onlyformembers" title="敏感资源，违禁物品，之类的。">仅供会员</a>
+</li>
+<li class="cat-item cat-item-4"><a href="https://www.d0z.net/archives/category/translated" title="别人写的好文章，能翻译的，我尽量……">原创翻译</a>
+</li>
+<li class="cat-item cat-item-21"><a href="https://www.d0z.net/archives/category/software" title="软件的使用、心得和推荐。">小软心得</a>
+</li>
+<li class="cat-item cat-item-3"><a href="https://www.d0z.net/archives/category/lifeofmine" title="生活·点滴·感想">生活笔记</a>
+</li>
+<li class="cat-item cat-item-13"><a href="https://www.d0z.net/archives/category/netdisk" title="个人喜欢的网盘资源以及新闻教程相关。">网盘相关</a>
+</li>
+<li class="cat-item cat-item-1"><a href="https://www.d0z.net/archives/category/coolsites" title="好站、酷站、牛站推荐">酷站推荐</a>
+</li>
+</ul>
+</aside><aside id="recent-comments-11" class="widget widget_recent_comments"><h3 class="widget-title">近期评论</h3><ul id="recentcomments"><li class="recentcomments"><span class="comment-author-link"><a href='http://www.d0z.net' rel='external nofollow' class='url'>hlx98007</a></span>发表在《<a href="https://www.d0z.net/archives/7804#comment-4378">CentOS 7安装4.9内核开启BBR</a>》</li><li class="recentcomments"><span class="comment-author-link"><a href='http://www.cjzsy.com' rel='external nofollow' class='url'>曾经左手烟</a></span>发表在《<a href="https://www.d0z.net/archives/7883#comment-4375">VMLink</a>》</li><li class="recentcomments"><span class="comment-author-link">bitger</span>发表在《<a href="https://www.d0z.net/archives/7804#comment-4372">CentOS 7安装4.9内核开启BBR</a>》</li><li class="recentcomments"><span class="comment-author-link">skyfire</span>发表在《<a href="https://www.d0z.net/archives/7763#comment-4367">ShadowSocks SSR使用教程</a>》</li><li class="recentcomments"><span class="comment-author-link"><a href='http://www.d0z.net' rel='external nofollow' class='url'>hlx98007</a></span>发表在《<a href="https://www.d0z.net/archives/7804#comment-4366">CentOS 7安装4.9内核开启BBR</a>》</li></ul></aside><aside id="meta-5" class="widget widget_meta"><h3 class="widget-title">功能</h3> <ul>
+<li><a href="https://www.d0z.net/wp-login.php?action=register">注册</a></li> <li><a href="https://www.d0z.net/wp-login.php">登录</a></li>
+<li><a href="https://www.d0z.net/feed">文章<abbr title="Really Simple Syndication">RSS</abbr></a></li>
+<li><a href="https://www.d0z.net/comments/feed">评论<abbr title="Really Simple Syndication">RSS</abbr></a></li>
+<li><a href="https://cn.wordpress.org/" title="基于WordPress，一个优美、先进的个人信息发布平台。">WordPress.org</a></li> </ul>
+</aside><aside id="linkcat-2" class="widget widget_links"><h3 class="widget-title">链接表</h3>
+<ul class='xoxo blogroll'>
+<li><a href="https://twitter.com/hlx98007" rel="me" title="博客、个人动态">@hlx98007</a></li>
+<li><a href="http://bucee.net/">Bucee杂志馆</a></li>
+<li><a href="https://my.frantech.ca/aff.php?aff=539" target="_blank">BuyVM</a></li>
+<li><a href="https://m.do.co/c/c2584b6a08f9" target="_blank">DigitalOcean</a></li>
+<li><a href="http://www.hostmonster.com/track/hlx98007" target="_blank">HostMonster</a></li>
+<li><a href="http://wangbixi.com">傻子-跸西的blog</a></li>
+<li><a href="http://shony.blogbus.com/">公鸡的博客</a></li>
+<li><a href="http://kasky.5d6d.com/bbs.php">卡友天空</a></li>
+<li><a href="http://bbs.zhouyi.org">周易中国</a></li>
+<li><a href="http://db.tt/4nmm35PO">注册Dropbox</a></li>
+<li><a href="http://fanfou.com/register/aUfyZESSCKJl">注册饭否</a></li>
+<li><a href="http://wpsoso.com/">网盘搜搜</a></li>
+<li><a href="http://boysone.blogbus.com/">西瓜皮的马甲地</a></li>
+</ul>
+</aside>
+</div> 
+</div> 
+<div class="site-info">
+<a href="https://cn.wordpress.org/">自豪地采用WordPress</a>
+</div> 
+</footer> 
+</div> 
+<div style="display:none">
+<div class="grofile-hash-map-ec5d791f190aab28f86fdcca9a2dedf8">
+</div>
+<div class="grofile-hash-map-ec5d791f190aab28f86fdcca9a2dedf8">
+</div>
+<div class="grofile-hash-map-98600650c868d78fff1397cc531dac79">
+</div>
+</div>
+<script type="text/javascript">
+		window.WPCOM_sharing_counts = {"https:\/\/www.d0z.net\/archives\/5501":5501};
+	</script>
+<script type='text/javascript' src='https://www.d0z.net/wp-content/plugins/akismet/_inc/form.js?ver=3.3.1'></script>
+<script type='text/javascript' src='https://s0.wp.com/wp-content/js/devicepx-jetpack.js?ver=201719'></script>
+<script type='text/javascript' src='https://secure.gravatar.com/js/gprofiles.js?ver=2017Mayaa'></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var WPGroHo = {"my_hash":""};
+/* ]]> */
+</script>
+<script type='text/javascript' src='https://www.d0z.net/wp-content/plugins/jetpack/modules/wpgroho.js?ver=4.7.4'></script>
+<script type='text/javascript' src='https://www.d0z.net/wp-includes/js/imagesloaded.min.js?ver=3.2.0'></script>
+<script type='text/javascript' src='https://www.d0z.net/wp-includes/js/masonry.min.js?ver=3.3.2'></script>
+<script type='text/javascript' src='https://www.d0z.net/wp-includes/js/jquery/jquery.masonry.min.js?ver=3.1.2b'></script>
+<script type='text/javascript' src='https://www.d0z.net/wp-content/themes/twentythirteen/js/functions.js?ver=20160717'></script>
+<script type='text/javascript' src='https://www.d0z.net/wp-includes/js/wp-embed.min.js?ver=4.7.4'></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var sharing_js_options = {"lang":"en","counts":"1"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='https://www.d0z.net/wp-content/plugins/jetpack/modules/sharedaddy/sharing.js?ver=4.9'></script>
+<script type='text/javascript'>
+var windowOpen;
+			jQuery( document.body ).on( 'click', 'a.share-twitter', function() {
+				// If there's another sharing window open, close it.
+				if ( 'undefined' !== typeof windowOpen ) {
+					windowOpen.close();
+				}
+				windowOpen = window.open( jQuery( this ).attr( 'href' ), 'wpcomtwitter', 'menubar=1,resizable=1,width=600,height=350' );
+				return false;
+			});
+var windowOpen;
+			jQuery( document.body ).on( 'click', 'a.share-google-plus-1', function() {
+				// If there's another sharing window open, close it.
+				if ( 'undefined' !== typeof windowOpen ) {
+					windowOpen.close();
+				}
+				windowOpen = window.open( jQuery( this ).attr( 'href' ), 'wpcomgoogle-plus-1', 'menubar=1,resizable=1,width=480,height=550' );
+				return false;
+			});
+</script>
+<!--[if IE]>
+		<script type="text/javascript">
+		if ( 0 === window.location.hash.indexOf( '#comment-' ) ) {
+			// window.location.reload() doesn't respect the Hash in IE
+			window.location.hash = window.location.hash;
+		}
+		</script>
+		<![endif]-->
+<script type="text/javascript">
+			var comm_par_el = document.getElementById( 'comment_parent' ),
+			    comm_par = (comm_par_el && comm_par_el.value) ? comm_par_el.value : '',
+			    frame = document.getElementById( 'jetpack_remote_comment' ),
+			    tellFrameNewParent;
+
+			tellFrameNewParent = function() {
+				if ( comm_par ) {
+					frame.src = "https://jetpack.wordpress.com/jetpack-comment/?blogid=13994312&postid=5501&comment_registration=0&require_name_email=1&stc_enabled=1&stb_enabled=1&show_avatars=1&avatar_default=retro&greeting=%E5%8F%91%E8%A1%A8%E8%AF%84%E8%AE%BA&greeting_reply=%E4%B8%BA+%25s+%E5%8F%91%E8%A1%A8%E8%AF%84%E8%AE%BA&color_scheme=light&lang=zh_CN&jetpack_version=4.9&sig=334b0f8038a778e09b1cd63d63292be2d46040e9#parent=https%3A%2F%2Fwww.d0z.net%2Farchives%2F5501" + '&replytocom=' + parseInt( comm_par, 10 ).toString();
+				} else {
+					frame.src = "https://jetpack.wordpress.com/jetpack-comment/?blogid=13994312&postid=5501&comment_registration=0&require_name_email=1&stc_enabled=1&stb_enabled=1&show_avatars=1&avatar_default=retro&greeting=%E5%8F%91%E8%A1%A8%E8%AF%84%E8%AE%BA&greeting_reply=%E4%B8%BA+%25s+%E5%8F%91%E8%A1%A8%E8%AF%84%E8%AE%BA&color_scheme=light&lang=zh_CN&jetpack_version=4.9&sig=334b0f8038a778e09b1cd63d63292be2d46040e9#parent=https%3A%2F%2Fwww.d0z.net%2Farchives%2F5501";
+				}
+			};
+
+	
+			if ( window.postMessage ) {
+				if ( document.addEventListener ) {
+					window.addEventListener( 'message', function( event ) {
+						if ( "https:\/\/jetpack.wordpress.com" !== event.origin ) {
+							return;
+						}
+
+						jQuery( frame ).height( event.data );
+					} );
+				} else if ( document.attachEvent ) {
+					window.attachEvent( 'message', function( event ) {
+						if ( "https:\/\/jetpack.wordpress.com" !== event.origin ) {
+							return;
+						}
+
+						jQuery( frame ).height( event.data );
+					} );
+				}
+			}
+		</script>
+<script type='text/javascript' src='https://stats.wp.com/e-201719.js' async defer></script>
+<script type='text/javascript'>
+	_stq = window._stq || [];
+	_stq.push([ 'view', {v:'ext',j:'1:4.9',blog:'13994312',post:'5501',tz:'8',srv:'www.d0z.net'} ]);
+	_stq.push([ 'clickTrackerInit', '13994312', '5501' ]);
+</script>
+</body>
+</html>  

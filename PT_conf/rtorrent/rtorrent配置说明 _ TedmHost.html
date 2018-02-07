@@ -1,0 +1,500 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN">
+<head profile="http://gmpg.org/xfn/11">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>rtorrent配置说明 | TedmHost</title>
+	<link rel="stylesheet" type="text/css" media="all" href="http://www.tedmhost.com/wp-content/themes/zbench/style.css" />
+	<link rel="pingback" href="http://www.tedmhost.com/xmlrpc.php" />
+	<link rel='dns-prefetch' href='//s.w.org' />
+<link rel="alternate" type="application/rss+xml" title="TedmHost &raquo; Feed" href="https://www.tedmhost.com/feed/" />
+<link rel="alternate" type="application/rss+xml" title="TedmHost &raquo; 评论Feed" href="https://www.tedmhost.com/comments/feed/" />
+		<script type="text/javascript">
+			window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/2.2.1\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/2.2.1\/svg\/","svgExt":".svg","source":{"concatemoji":"http:\/\/www.tedmhost.com\/wp-includes\/js\/wp-emoji-release.min.js?ver=4.7.4"}};
+			!function(a,b,c){function d(a){var b,c,d,e,f=String.fromCharCode;if(!k||!k.fillText)return!1;switch(k.clearRect(0,0,j.width,j.height),k.textBaseline="top",k.font="600 32px Arial",a){case"flag":return k.fillText(f(55356,56826,55356,56819),0,0),!(j.toDataURL().length<3e3)&&(k.clearRect(0,0,j.width,j.height),k.fillText(f(55356,57331,65039,8205,55356,57096),0,0),b=j.toDataURL(),k.clearRect(0,0,j.width,j.height),k.fillText(f(55356,57331,55356,57096),0,0),c=j.toDataURL(),b!==c);case"emoji4":return k.fillText(f(55357,56425,55356,57341,8205,55357,56507),0,0),d=j.toDataURL(),k.clearRect(0,0,j.width,j.height),k.fillText(f(55357,56425,55356,57341,55357,56507),0,0),e=j.toDataURL(),d!==e}return!1}function e(a){var c=b.createElement("script");c.src=a,c.defer=c.type="text/javascript",b.getElementsByTagName("head")[0].appendChild(c)}var f,g,h,i,j=b.createElement("canvas"),k=j.getContext&&j.getContext("2d");for(i=Array("flag","emoji4"),c.supports={everything:!0,everythingExceptFlag:!0},h=0;h<i.length;h++)c.supports[i[h]]=d(i[h]),c.supports.everything=c.supports.everything&&c.supports[i[h]],"flag"!==i[h]&&(c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&c.supports[i[h]]);c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&!c.supports.flag,c.DOMReady=!1,c.readyCallback=function(){c.DOMReady=!0},c.supports.everything||(g=function(){c.readyCallback()},b.addEventListener?(b.addEventListener("DOMContentLoaded",g,!1),a.addEventListener("load",g,!1)):(a.attachEvent("onload",g),b.attachEvent("onreadystatechange",function(){"complete"===b.readyState&&c.readyCallback()})),f=c.source||{},f.concatemoji?e(f.concatemoji):f.wpemoji&&f.twemoji&&(e(f.twemoji),e(f.wpemoji)))}(window,document,window._wpemojiSettings);
+		</script>
+		<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+<link rel='https://api.w.org/' href='https://www.tedmhost.com/wp-json/' />
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://www.tedmhost.com/xmlrpc.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://www.tedmhost.com/wp-includes/wlwmanifest.xml" /> 
+<link rel='prev' title='Kloxo(LxAdmin)控制面板 使用指南' href='https://www.tedmhost.com/2010/02/kloxolxadmin%e6%8e%a7%e5%88%b6%e9%9d%a2%e6%9d%bf-%e4%bd%bf%e7%94%a8%e6%8c%87%e5%8d%97/' />
+<link rel='next' title='Seedbox使用指导(Transmission)' href='https://www.tedmhost.com/2010/04/seedbox-guide/' />
+<meta name="generator" content="WordPress 4.7.4" />
+<link rel="canonical" href="https://www.tedmhost.com/2010/03/rtorrent-config/" />
+<link rel='shortlink' href='https://www.tedmhost.com/?p=280' />
+<link rel="alternate" type="application/json+oembed" href="https://www.tedmhost.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fwww.tedmhost.com%2F2010%2F03%2Frtorrent-config%2F" />
+<link rel="alternate" type="text/xml+oembed" href="https://www.tedmhost.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fwww.tedmhost.com%2F2010%2F03%2Frtorrent-config%2F&#038;format=xml" />
+<style type="text/css" id="syntaxhighlighteranchor"></style>
+	<meta name="viewport" content="width=device-width"/><!-- for mobile -->
+</head>
+<body class="post-template-default single single-post postid-280 single-format-standard">
+<div id="nav">
+	<div class="nav-inside">
+		<div id="menus">
+			<ul id="menus-dt" class="menus-dt">
+				<li id="menu-item-505" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home menu-item-505"><a href="https://www.tedmhost.com/">首页</a></li>
+<li id="menu-item-508" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-508"><a href="https://www.tedmhost.com/hosting/">虚拟主机</a></li>
+<li id="menu-item-509" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-509"><a href="https://www.tedmhost.com/vps/">VPS</a></li>
+<li id="menu-item-517" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-517"><a href="https://www.tedmhost.com/software/">软件服务</a></li>
+<li id="menu-item-514" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-514"><a href="https://www.tedmhost.com/client/">客服中心</a></li>
+			</ul>
+			<ul id="menus-m" class="menus-m">
+				<li>菜单</li>
+			</ul>
+		</div>
+		<div id="search">
+			<form id="searchform" method="get" action="https://www.tedmhost.com/">
+<input type="text" value="站内搜索" onfocus="if (this.value == '站内搜索') {this.value = '';}" onblur="if (this.value == '') {this.value = '站内搜索';}" size="35" maxlength="50" name="s" id="s" />
+<input type="submit" id="searchsubmit" value="搜索" />
+</form>		</div>
+	</div>
+</div>
+<div id="header">
+		<div class="site_title">
+		<h1><a href="https://www.tedmhost.com/">TedmHost</a></h1>
+		<h2>高品质和稳定的VPS提供商</h2>
+		<div class="clear"></div>
+	</div>
+	</div>
+<div id="wrapper">
+<div id="content">
+		<div class="post-single post-280 post type-post status-publish format-standard hentry category-5 tag-rtorrent" id="post-280"><!-- post div -->
+		<h2 class="title">rtorrent配置说明</h2>
+		<div class="post-info-top">
+			<span class="post-info-date">
+				作者: <a href="https://www.tedmhost.com/author/admin/" title="查看 清新岚风 的所有文章" rel="author">清新岚风</a>
+				日期:				2010年03月9日							</span>
+					</div>
+		<div class="clear"></div>
+		<div class="entry">
+			<p>rtorrent是一款Linux环境下快速的BT客户端<br />
+rtorrent配置文件位于 ~/.rtorrent.rc</p>
+<h3>Linux 系统网络优化</h3>
+<p>以下几项是可以修改的网络参数的一小部分，我查资料把与下载可能有关的确定为以下参数。<br />
+#iip_forward，ip包转发(默认0），做路由器需设为1启用，MSS只是客户端关闭设0即可<br />
+echo 0 &gt; /proc/sys/net/ipv4/ip_forward<br />
+#ip_default_ttl，ip包生存时间（默认64），默认64即可<br />
+echo 64 &gt; /proc/sys/net/ipv4/ip_default_ttl<br />
+#tcp_retries2，已存在tcp连接重试次数（默认15次），普遍认为数值可调小故设7<br />
+echo 7 &gt; /proc/sys/net/ipv4/tcp_retries2<br />
+#tcp_fin_timeout，tcp会话wait2超时时间（默认180秒），普遍认为数值可调小故设60<br />
+echo 60 &gt; /proc/sys/net/ipv4/tcp_fin_timeout<br />
+#ip_local_port_range，设定本地对外连接的端口范围，默认1024-4999，适当扩大到 6999.<br />
+echo &#8220;1024 6999&#8221; &gt; /proc/sys/net/ipv4/ip_local_port_range</p>
+<h3>rTorrent普通设定优化</h3>
+<p><strong>1.功能设定</strong></p>
+<blockquote><p>#此项一定要开（如果是PT种子时，会自动将该任务peer_exchange关闭）<br />
+peer_exchange = yes<br />
+#下载会话信息<br />
+session = ~/rtorrent<br />
+#是否允许udp连接<br />
+use_udp_trackers = no<br />
+#pt不允许dht<br />
+dht = off<br />
+#下载完成后是否重新hash<br />
+check_hash = no<br />
+#文件名编码<br />
+encoding_list=UTF-8<br />
+#发送缓存<br />
+send_buffer_size = 4M<br />
+#接收缓存<br />
+receive_buffer_size = 8M<br />
+port_range = 32199-34999<br />
+hash_read_ahead = 30<br />
+hash_interval = 200<br />
+set_max_open_http = 8<br />
+#scgi<br />
+scgi_port = localhost:5000</p></blockquote>
+<p><strong>2.连接设定</strong><br />
+与下载速率有关的设定有以下几项，理论上来说越大越好，但实际上要综合性能任务等多方面考虑。<br />
+因为总peers（连接数）与网络速率（上传、下载两部分）与rTorrent的内存占用成正比。<br />
+download_rate = 0<br />
+upload_rate = 0<br />
+每个任务的最小连接数、最大连接数、做种时候最小连接数、做种时最大连接数、最大上传数。<br />
+min_peers = 40<br />
+max_peers = 200<br />
+min_peers_seed = 10<br />
+max_peers_seed = 50<br />
+max_uploads = 15<br />
+但是根据机器性能，尤其是min_peers很难取舍，因为下载中的任务(leech)，<br />
+现有连接数&lt;40时，rTorrent会持续的访问多个tracker来保证连接达到40，而此时就可能引发CPU的占用问题</p>
+<p><strong>3.细节设定</strong><br />
+Tos，Type of Service（服务类型）,分别是低延迟lowdelay，高速率throughput，高可靠度reliability,低消耗。<br />
+或者也可以自定义一个值，这里目前把它设为高速率（我昨天找到一个据说是黄金值，好像设了后速度飞快，但仍在试验阶段）<br />
+#tos = default|lowdelay|throughput|reliability|mincost, tos = hex<br />
+tos = throughput<br />
+**&#8221;set_max_open_http&#8221;是最重要的效率优化值，目前仍在试验中，外网上有老外探讨这个问题，专门把它设低，主要针对低性能多任务情况。<br />
+因为rTorrent在进行HTTP访问时，对CPU占用率极高，所以才有了MSS上经常遇到的假死现象（screen操作没有任何反应），<br />
+这时如果你用top看一下，rtorrent的CPU占用不是90%以上就是不正常的显示为0%，但Load average值会很高。<br />
+rtorrent对HTTP访问（也就是访问tracker服务器取得返回连接信息）的默认设置是32个.<br />
+当你有很多任务（假如下载10个，做种50个）同时进行，一旦开始这个过程，CPU立刻就从&lt;10%飙升到100%了。<br />
+这种情况，轻微的会导致rTorrent的screen下无法操作，<br />
+严重的会导致MSS失去响应，所有的tcp连接失效，等恢复后看到下载上传速度均为0.<br />
+而造成这种情况的关键原因是rTorrent完全遵守标准的BT下载原理所致，比如软件启动后的过程是。<br />
+载入任务（如50个种子），按次序所有的 tracker开始排队进行访问（此时CPU已经飙升），依次访问成功后，进入等待状态（CPU降到10%以下），<br />
+但每个tracker在各自等待1800秒（30分钟）会再次重复同样的过程，所以就造成rTorrent总是在大约30分钟进入严重的假死状态。<br />
+所以必须在配置文件中设定 HTTP最大值减少，强制延长HTTP同时访问数，反而可以减少或避免rTorrent假死状态提高工作效率。<br />
+#设定http最大值（用于 http tracker访问），默认32，建议MSS设为8以下，我正在测试设为2的效果（这样可以完全避免假死状况，但又会影响访问tracker取得连接的效率）。<br />
+set_max_open_http = 8</p>
+<h3>自动化应用设定</h3>
+<p>这些是积累的设定总结，已有多处更新，部分已包含在分组管理中。<br />
+（1）关于共享率的设置如下即可实现（当任务下载完成后）<br />
+ratio.enable=<br />
+ratio.min.set=10<br />
+ratio.max.set=50<br />
+ratio.upload.set=20M<br />
+是指满足下面两个条件之一就关闭(close)任务，<br />
+1.当分享率达到10%并且上传大于20M时，<br />
+2.当分享率达到50%<br />
+默认设置就是close任务了（不需要下面这句），如果加上的话是关闭+删除，也可增加其他设定<br />
+注意不要用d.erase是删除任务且如果有其他设定将删掉全部文件。<br />
+#system.method.set  = group.seeding.ratio.command, d.close=,  d.erase=<br />
+（2）完成或者删除任务时可以设为自动转移或者执行其他命令<br />
+以下为旧版本命令，目前兼容可用：<br />
+1.删除时自动删除下载目录<br />
+on_erase  = rm_complete,&#8221;d.open=  ;execute=rm,-rf,$d.get_base_path=&#8221;<br />
+2.完成时自动转移下载目录<br />
+on_finished =  move_complete,&#8221;execute=mv,-u,$d.get_base_path=,/shares/mss-hdd/Public/Downloads  ;d.set_directory=/shares/mss-hdd/Public/Downloads&#8221;<br />
+3.完成后删除T状态（tied到watch下种子）和watch下对应的.torrent文件<br />
+on_finished  =  remove_tied,&#8221;d.delete_tied=&#8221;<br />
+4.完成后执行4g脚本判断是否需要合并（详见第3条4g脚本）<br />
+on_finished  =  4g,&#8221;execute=RT4g.sh,$d.get_base_path=,$d.get_custom2=&#8221;<br />
+以上命令实测可以支持任何文件名（包括中文、字符、空格等），如果中文字符出现问题<br />
+大概的解决方法是：<br />
+ipkg  install utf8proc (安装了一个utf8相关的包)<br />
+export  LC_ALL=zh_CN.UTF-8(设置了一下语言)<br />
+（3）大于4g的文件合并修改版（感谢原脚本作者,只是做了一些功能修正）<br />
+修改的脚本解决两处bug（不含目录的单个文件被RT强制分割后无法进行合并和必须依赖建立link文件才能运行），<br />
+增加判断是否为PT种子的功能，默认如果是PT种子的话，不删除分割文件（000，001），保证下载继续做种（但需要以后自己动手删除文件）。<br />
+内容详见附件<br />
+（4）活用schedule命令可以做很多事情。<br />
+其实它的标准格式是schedule =  任务名称，执行时间，生效时间，命令<br />
+如：自动变更下载速率<br />
+schedule =  throttle_1,01:00:00,24:00:00,download_rate=0<br />
+schedule=  throttle_2,05:00:00,24:00:00,download_rate=25<br />
+自动变更加密协议（因为我的宽带是在凌晨0点解开P2P封锁）<br />
+schedule =  encryption_1a,00:00:00,24:00:00,encryption=enable_retry<br />
+schedule =  encryption_1p,00:00:05,24:00:00,&#8221;print=\&#8221;encryption:enable_retry\&#8221;&#8221;<br />
+schedule  = encryption_2a,07:00:00,24:00:00,encryption=try_outgoing<br />
+schedule =  encryption_2p,07:00:05,24:00:00,&#8221;print=\&#8221;encryption:try_outgoing\&#8221;&#8221;</p>
+<p>（5）利用screen的外部输入方法来修改rTorrent的任何设置。<br />
+比如设定upload为30的话，可是输入下面的命令<br />
+screen  -s torrent -X eval &#8216;stuff  ^Xupload_rate=30^M&#8217;<br />
+比如在screen下用命令调整上传速率。<br />
+screen -s torrent -X eval  &#8216;stuff  \&#8221;ccccssss\&#8221;&#8216;<br />
+以此来结合crontab，可以做到在任意日期时间组合下修改任何rTorrent的配置。</p>
+<p>其他辅助性设定：<br />
+(1).设定rTorrent时区以保证运行<br />
+schdule设定前提必须是时间正确，结果我发现出错误的原因是时区问题。<br />
+所以必须在rTorrent启动脚本中增加&#8221;export  TZ=CST-8&#8243;语句，<br />
+也就是说现在的S99<strong><span style="color: #ff0000;">rtorrent</span></strong>脚本开头应该是下面几句。<br />
+#!/opt/bin/sh<br />
+export  HOME=/opt/root<br />
+export LC_ALL=zh_CN.UTF-8<br />
+export TZ=CST-8<br />
+rm  /shares/mss-hdd/Public/bt/<strong><span style="color: #ff0000;">rtorrent</span></strong>/session/<strong><span style="color: #ff0000;">rtorrent</span></strong>.lock</p>
+<p>(2).增加执行记录<br />
+配置文件加入一行，可以记录<strong><span style="color: #ff0000;">rtorrent</span></strong>执行的命令，比如下载完成后mv。<br />
+才发现/var/log在mss下是随着系统启动临时的，所以把日志放到/pub/log下可以永久保存。<br />
+execute_log  = /pub/log/<strong><span style="color: #ff0000;">rtorrent</span></strong>.log</p>
+<p>(3).给rTorrent增加速度记录功能的简易脚本<br />
+1.<br />
+在/opt/bin下<br />
+vi  rtlog.sh<br />
+#!/bin/sh<br />
+time=`date +%Y&#8221;-&#8220;%m&#8221;-&#8220;%d&#8221; &#8220;%H&#8221;:&#8221;%M&#8221;:&#8221;%S`<br />
+echo &#8220;$time  Down: &#8220;$1&#8221; bps Up: &#8220;$2&#8243; bps&#8221;&gt;&gt;/pub/log/speedRT.log<br />
+wq存盘后，一定要chmod 777  rtlog.sh</p>
+<p>2.<br />
+vi .<strong><span style="color: #ff0000;">rtorrent</span></strong>.rc<br />
+增加一行配置(目前时间间隔设定为15分钟)<br />
+schedule =  speedlog,600,600,&#8221;execute=/opt/bin/rtlog.sh,$get_down_rate=,$get_up_rate=&#8221;<br />
+3.cat  /pub/log/speedRT.log<br />
+就能看到rTorrent的速度记录了</p>
+<p>(5)解决screen下直接按ctrl+s,ctrl+q无效的方法<br />
+在登陆后输入命令取消这两个的绑定即可。<br />
+stty  start undef<br />
+stty stop undef</p>
+<p>参考配置：</p>
+<blockquote><p>################################## 配置文件开始  ####################################<br />
+# This is an example resource  file for rTorrent. Copy to<br />
+# ~/.rtorrent.rc and enable/modify the  options as needed. Remember to<br />
+# uncomment the options you wish to  enable.</p>
+<p># 每个torrent文件允许连接的最大以及最小的peer的数目<br />
+min_peers = 40<br />
+max_peers  = 250</p>
+<p># Same as above but for seeding completed torrents (-1 =  same as downloading)<br />
+#min_peers_seed = 10<br />
+#max_peers_seed = 50</p>
+<p>#  Maximum number of simultanious uploads per torrent.<br />
+max_uploads = 15</p>
+<p>#  全局上传和下载速率，单位是KB. “0″ 代表无限制<br />
+download_rate = 0<br />
+upload_rate = 0</p>
+<p>#  默认下载目录，下载好的文件会放到这里<br />
+directory = /home/jelong/bt/</p>
+<p># Default  session directory. Make sure you don’t run multiple instance<br />
+# of  rtorrent using the same session directory. Perhaps using a<br />
+# relative  path?<br />
+session = /home/jelong/bt/session</p>
+<p># 下面是一个非常有用的功能：监视目录<br />
+#  放在/opt/torrent目录底下的torrent文件会自动开始下载<br />
+#  配置好监视目录以后，只要通过samba或scp往这个目录传种子，就会自动开始下载<br />
+schedule =  watch_directory,5,5,load_start=/home/jelong/torrent/*.torrent<br />
+#schedule  = untied_directory,5,5,stop_untied=</p>
+<p># Close torrents when  diskspace is low.<br />
+schedule =  low_diskspace,5,60,close_low_diskspace=100M</p>
+<p># Stop torrents when  reaching upload ratio in percent,<br />
+# when also reaching total upload  in bytes, or when<br />
+# reaching final upload ratio in percent.<br />
+#  example: stop at ratio 2.0 with at least 200 MB uploaded, or else ratio  20.0<br />
+#schedule = ratio,60,60,stop_on_ratio=200,200M,2000</p>
+<p># The  ip address reported to the tracker.<br />
+#ip = 127.0.0.1<br />
+#ip =  rakshasa.no</p>
+<p># The ip address the listening socket and outgoing  connections is<br />
+# bound to.<br />
+#bind = 127.0.0.1<br />
+#bind =  rakshasa.no</p>
+<p># Port range to use for listening.<br />
+port_range =  6890-6999</p>
+<p># Start opening ports at a random position within the  port range.<br />
+port_random = yes</p>
+<p># Check hash for finished  torrents. Might be usefull until the bug is<br />
+# fixed that causes lack  of diskspace not to be properly reported.<br />
+#check_hash = no</p>
+<p>#  是否使用UDP trackers，建议选yes<br />
+use_udp_trackers = yes</p>
+<p># Alternative  calls to bind and ip that should handle dynamic ip’s.<br />
+#schedule =  ip_tick,0,1800,ip=rakshasa<br />
+#schedule = bind_tick,0,1800,bind=rakshasa</p>
+<p>#  是否允许协议加密，建议改成allow_incoming,enable_retry,prefer_plaintext的组合体，具体原因就不解释了<br />
+#  allow_incoming, try_outgoing, require, require_RC4, enable_retry,  prefer_plaintext<br />
+#<br />
+# The example value allows incoming encrypted  connections, starts unencrypted<br />
+# outgoing connections but retries  with encryption if they fail, preferring<br />
+# plaintext to RC4  encryption after the encrypted handshake<br />
+#<br />
+encryption =  allow_incoming,enable_retry,prefer_plaintext</p>
+<p>#<br />
+# Do not modify  the following parameters unless you know what you’re doing.<br />
+#</p>
+<p>#  Hash read-ahead controls how many MB to request the kernel to read<br />
+#  ahead. If the value is too low the disk may not be fully utilized,<br />
+#  while if too high the kernel might not be able to keep the read<br />
+#  pages in memory thus end up trashing.<br />
+#hash_read_ahead = 10</p>
+<p>#  Interval between attempts to check the hash, in milliseconds.<br />
+#hash_interval  = 100</p>
+<p># Number of attempts to check the hash while using the  mincore status,<br />
+# before forcing. Overworked systems might need lower  values to get a<br />
+# decent hash checking rate.<br />
+#hash_max_tries = 10</p>
+<p>#  Max number of files to keep open simultaniously.<br />
+#max_open_files =  128</p>
+<p># Number of sockets to simultaneously keep open.<br />
+#max_open_sockets  =</p>
+<p># Example of scheduling commands: Switch between two ip’s  every 5<br />
+# seconds.<br />
+#schedule = “ip_tick1,5,10,ip=torretta”<br />
+#schedule  = “ip_tick2,10,10,ip=lampedusa”</p>
+<p># Remove a scheduled event.<br />
+#schedule_remove  = “ip_tick1″</p>
+<p>#选择utf-8可以在samba中看到中文<br />
+encoding_list = UTF-8</p>
+<p>#rtorrent 创建的文件夹(或文件)的权限，默认是0644，建议改成0000(感谢xuanwuhu)，使所有用户都能访问。<br />
+#也只有这样在samba中才 可以直接打开、拷贝、删除rtorrent创建的文件<br />
+umask = 0000</p>
+<p>#下面两个选项打开dht的功能，照做即可，另外 如果想让 rtorrent 在启动的时候就使用 DHT，可以把dht=auto改为dht=on<br />
+dht = on<br />
+dht_port =  6778</p>
+<p>#允许peer交换，当然允许了，多多益善啊<br />
+peer_exchange = yes</p>
+<p>#最后这个参数 和web配置以及远程管理有关，稍后再介绍<br />
+scgi_port = :5000</p>
+<p>##################################  配置文件结束 ####################################</p></blockquote>
+					</div><!-- END entry -->
+		
+				
+		<div class="post-info-bottom">
+			<span class="post-info-category"><a href="https://www.tedmhost.com/category/%e4%bd%bf%e7%94%a8%e6%95%99%e7%a8%8b/" rel="category tag">使用教程</a></span><span class="post-info-tags"><a href="https://www.tedmhost.com/tag/rtorrent/" rel="tag">rtorrent</a></span>
+		</div>
+		<div id="nav-below">
+			<div class="nav-previous"><a href="https://www.tedmhost.com/2010/02/kloxolxadmin%e6%8e%a7%e5%88%b6%e9%9d%a2%e6%9d%bf-%e4%bd%bf%e7%94%a8%e6%8c%87%e5%8d%97/" rel="prev"><span class="meta-nav">&larr;</span> Kloxo(LxAdmin)控制面板 使用指南</a></div>
+			<div class="nav-next"><a href="https://www.tedmhost.com/2010/04/seedbox-guide/" rel="next">Seedbox使用指导(Transmission) <span class="meta-nav">&rarr;</span></a></div>
+		</div><!-- #nav-below -->					
+	</div><!-- END post -->
+	<!-- You can start editing here. -->
+
+						<div id="comments-div"><h2 id="comments">评论关闭。</h2></div>
+			
+	<script type="text/javascript">
+	/* <![CDATA[ */
+		function grin(tag) {
+			var myField;
+			tag = ' ' + tag + ' ';
+			if (document.getElementById('comment') && document.getElementById('comment').type == 'textarea') {
+				myField = document.getElementById('comment');
+			} else {
+				return false;
+			}
+			if (document.selection) {
+				myField.focus();
+				sel = document.selection.createRange();
+				sel.text = tag;
+				myField.focus();
+			}
+			else if (myField.selectionStart || myField.selectionStart == '0') {
+				var startPos = myField.selectionStart;
+				var endPos = myField.selectionEnd;
+				var cursorPos = endPos;
+				myField.value = myField.value.substring(0, startPos)
+							  + tag
+							  + myField.value.substring(endPos, myField.value.length);
+				cursorPos += tag.length;
+				myField.focus();
+				myField.selectionStart = cursorPos;
+				myField.selectionEnd = cursorPos;
+			}
+			else {
+				myField.value += tag;
+				myField.focus();
+			}
+		}
+	/* ]]> */
+	</script>
+	</div><!--content-->
+<div id="sidebar-border">
+	<div id="rss_border">
+		<div class="rss_border">
+			<div id="rss_wrap">
+				<div class="rss_wrap">
+										<a class="rss rss_text" href="https://www.tedmhost.com/feed/" rel="bookmark" title="RSS 订阅">RSS 订阅</a>
+																													</div>
+			</div>
+		</div>
+	</div>
+	<div id="sidebar">
+
+<div id="pages-3" class="widget widget_pages"><h3 class="widgettitle">站点导航</h3>		<ul>
+			<li class="page_item page-item-7"><a href="https://www.tedmhost.com/">首页</a></li>
+<li class="page_item page-item-153"><a href="https://www.tedmhost.com/hosting/">虚拟主机</a></li>
+<li class="page_item page-item-21"><a href="https://www.tedmhost.com/vps/">VPS</a></li>
+<li class="page_item page-item-39"><a href="https://www.tedmhost.com/software/">软件服务</a></li>
+<li class="page_item page-item-37"><a href="https://www.tedmhost.com/%e7%bd%91%e7%ab%99%e8%ae%be%e8%ae%a1/">网站设计</a></li>
+<li class="page_item page-item-15"><a href="https://www.tedmhost.com/client/">客服中心</a></li>
+		</ul>
+		</div><div id="calendar-3" class="widget widget_calendar"><div id="calendar_wrap" class="calendar_wrap"><table id="wp-calendar">
+	<caption>2010年三月</caption>
+	<thead>
+	<tr>
+		<th scope="col" title="星期一">一</th>
+		<th scope="col" title="星期二">二</th>
+		<th scope="col" title="星期三">三</th>
+		<th scope="col" title="星期四">四</th>
+		<th scope="col" title="星期五">五</th>
+		<th scope="col" title="星期六">六</th>
+		<th scope="col" title="星期日">日</th>
+	</tr>
+	</thead>
+
+	<tfoot>
+	<tr>
+		<td colspan="3" id="prev"><a href="https://www.tedmhost.com/2010/02/">&laquo; 2月</a></td>
+		<td class="pad">&nbsp;</td>
+		<td colspan="3" id="next"><a href="https://www.tedmhost.com/2010/04/">4月 &raquo;</a></td>
+	</tr>
+	</tfoot>
+
+	<tbody>
+	<tr><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td><td>7</td>
+	</tr>
+	<tr>
+		<td>8</td><td><a href="https://www.tedmhost.com/2010/03/09/" aria-label="于2010年3月9日上发布的文章">9</a></td><td>10</td><td>11</td><td>12</td><td>13</td><td>14</td>
+	</tr>
+	<tr>
+		<td>15</td><td>16</td><td>17</td><td>18</td><td>19</td><td>20</td><td>21</td>
+	</tr>
+	<tr>
+		<td>22</td><td>23</td><td>24</td><td>25</td><td>26</td><td>27</td><td>28</td>
+	</tr>
+	<tr>
+		<td>29</td><td>30</td><td>31</td>
+		<td class="pad" colspan="4">&nbsp;</td>
+	</tr>
+	</tbody>
+	</table></div></div><div id="tag_cloud-3" class="widget widget_tag_cloud"><h3 class="widgettitle">标签</h3><div class="tagcloud"><a href='https://www.tedmhost.com/tag/google/' class='tag-link-6 tag-link-position-1' title='1个话题' style='font-size: 8pt;'>google</a>
+<a href='https://www.tedmhost.com/tag/hosting/' class='tag-link-13 tag-link-position-2' title='2个话题' style='font-size: 22pt;'>hosting</a>
+<a href='https://www.tedmhost.com/tag/kloxo/' class='tag-link-10 tag-link-position-3' title='2个话题' style='font-size: 22pt;'>kloxo</a>
+<a href='https://www.tedmhost.com/tag/p2pnow/' class='tag-link-12 tag-link-position-4' title='2个话题' style='font-size: 22pt;'>p2pnow</a>
+<a href='https://www.tedmhost.com/tag/pagerank/' class='tag-link-7 tag-link-position-5' title='1个话题' style='font-size: 8pt;'>pagerank</a>
+<a href='https://www.tedmhost.com/tag/rtorrent/' class='tag-link-9 tag-link-position-6' title='1个话题' style='font-size: 8pt;'>rtorrent</a>
+<a href='https://www.tedmhost.com/tag/seedbox/' class='tag-link-11 tag-link-position-7' title='1个话题' style='font-size: 8pt;'>seedbox</a>
+<a href='https://www.tedmhost.com/tag/vps/' class='tag-link-14 tag-link-position-8' title='1个话题' style='font-size: 8pt;'>vps</a>
+<a href='https://www.tedmhost.com/tag/%e6%90%9c%e7%b4%a2/' class='tag-link-8 tag-link-position-9' title='1个话题' style='font-size: 8pt;'>搜索</a></div>
+</div>
+<div id="search-4" class="widget widget_search"><form id="searchform" method="get" action="https://www.tedmhost.com/">
+<input type="text" value="站内搜索" onfocus="if (this.value == '站内搜索') {this.value = '';}" onblur="if (this.value == '') {this.value = '站内搜索';}" size="35" maxlength="50" name="s" id="s" />
+<input type="submit" id="searchsubmit" value="搜索" />
+</form></div><div id="categories-5" class="widget widget_categories"><h3 class="widgettitle">分类目录</h3>		<ul>
+	<li class="cat-item cat-item-3"><a href="https://www.tedmhost.com/category/%e4%ba%92%e8%81%94%e7%bd%91%e7%bb%9c/" >互联网络</a>
+</li>
+	<li class="cat-item cat-item-5"><a href="https://www.tedmhost.com/category/%e4%bd%bf%e7%94%a8%e6%95%99%e7%a8%8b/" >使用教程</a>
+</li>
+	<li class="cat-item cat-item-4"><a href="https://www.tedmhost.com/category/%e5%ae%98%e6%96%b9%e6%b6%88%e6%81%af/" >官方消息</a>
+</li>
+		</ul>
+</div>
+	</div><!-- end: #sidebar -->
+</div><!-- end: #sidebar-border --></div><!--wrapper-->
+<div class="clear"></div>
+<div id="footer">
+	<div id="footer-inside">
+		<p>
+			版权所有 &copy; 2017 TedmHost			| 站点由 <a href="http://zww.me">zBench</a> 和 <a href="http://wordpress.org/">WordPress</a> 驱动		</p>
+		<span id="back-to-top">&uarr; <a href="#" rel="nofollow" title="Back to top">回到顶部</a></span>
+	</div>
+</div><!--footer-->
+
+<script type="text/javascript">
+	//////// Handles toggling the navigation menu for small screens
+	( function() {
+		var nav = document.getElementById( 'menus' ), button = document.getElementById( 'menus-m' ), menu = document.getElementById( 'menus-dt' );
+		if ( ! nav ) {
+			return;
+		}
+		if ( ! button ) {
+			return;
+		}
+		// Hide button if menu is missing or empty.
+		if ( ! menu || ! menu.childNodes.length ) {
+			button.style.display = 'none';
+			return;
+		}
+		button.onclick = function() {
+			if ( -1 !== button.className.indexOf( 'b-toggled-on' ) ) {
+				button.className = button.className.replace( ' b-toggled-on', '' );
+				menu.className = menu.className.replace( ' toggled-on', '' );
+			} else {
+				button.className += ' b-toggled-on';
+				menu.className += ' toggled-on';
+			}
+		};
+	} )();
+</script>
+
+<script type='text/javascript' src='http://www.tedmhost.com/wp-includes/js/wp-embed.min.js?ver=4.7.4'></script>
+</body>
+</html>
