@@ -1,0 +1,30 @@
+2017-06-14 05:00:21 (11.2 MB/s) - ¡®linux-image-4.11.4-amd64.deb¡¯ saved [50008838/50008838]
+
+(Reading database ... 28988 files and directories currently installed.)
+Preparing to unpack linux-image-4.11.4-amd64.deb ...
+Done.
+Unpacking linux-image-4.11.4-041104-generic (4.11.4-041104.201706071003) over (4.11.4-041104.201706071003) ...
+Examining /etc/kernel/postrm.d .
+run-parts: executing /etc/kernel/postrm.d/zz-update-grub 4.11.4-041104-generic /boot/vmlinuz-4.11.4-041104-generic
+dpkg: dependency problems prevent configuration of linux-image-4.11.4-041104-generic:
+ linux-image-4.11.4-041104-generic depends on initramfs-tools | linux-initramfs-tool; however:
+  Package initramfs-tools is not installed.
+  Package linux-initramfs-tool is not installed.
+
+dpkg: error processing package linux-image-4.11.4-041104-generic (--install):
+ dependency problems - leaving unconfigured
+Errors were encountered while processing:
+ linux-image-4.11.4-041104-generic
+removed ¡®linux-image-4.11.4-amd64.deb¡¯
+Generating grub configuration file ...
+Found linux image: /boot/bzImage-3.14.32-xxxx-grs-ipv6-64
+Found linux image: /boot/vmlinuz-4.11.4-041104-generic
+  No volume groups found
+Found Debian GNU/Linux (8.8) on /dev/sda2
+done
+
+Info: The system needs to be restart. Do you want to reboot? [y/n]
+
+
+apt-get install initramfs-tools
+apt-get install linux-initramfs-tool

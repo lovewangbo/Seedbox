@@ -1,0 +1,30 @@
+   10  apt-get install git
+   11  git clone https://github.com/lovewangbo/ipv6-dhclient-script.git;cd ipv6-dhclient-script;chmod +x ipv6-dhclient-script.sh
+   12  ./ipv6-dhclient-script.sh eno1 2001:bc8:32d7:6b00::1 56 00:03:00:01:43:42:a8:23:1a:47
+   13  nano /etc/vim/vimrc.tiny
+   14  nano /etc/ssh/sshd_config
+   15  service sshd restart
+   16  RTORRENT_USER="yellow";QBITTORRENT_USER="jack";HOMEDIR=$(cat /etc/passwd | grep "$RTORRENT_USER": | cut -d: -f6)
+   17  uname -r
+   18  dpkg -l | grep qmake
+   19  sudo apt-get install libboost-dev libboost-system-dev build-essential
+   20  sudo apt-get install libboost-chrono-dev libboost-random-dev libssl-dev libgeoip-dev
+   21  sudo apt-get install git pkg-config automake libtool
+   22  sudo apt-get install qtbase5-dev qttools5-dev-tools
+   23  dpkg -l | grep qmake
+   24  sudo apt-get install python
+   25  mkdir tmp
+   26  cd tmp
+   27  clear
+   28  :amd64 (5.5.1-3build1) ...
+   29  git clone https://github.com/arvidn/libtorrent.git
+   30  cd libtorrent/
+   31  git checkout RC_1_0;
+   32  ./autotool.sh;
+   33  ./configure --disable-debug --enable-encryption --prefix=/usr/libtorrent --with-libgeoip=system
+   34  make clean && make -j4
+   35  sudo make install
+   36  pkg-config --list-all | grep libtorrent
+   37  cd ..
+
+原因：更改了默认安装路径

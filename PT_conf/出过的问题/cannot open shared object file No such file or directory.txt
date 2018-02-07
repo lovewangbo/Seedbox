@@ -1,0 +1,12 @@
+参考资料：
+https://github.com/rakshasa/rtorrent/wiki/Installing#libtorrent-so-5-cannot-open-shared-object-file-no-such-file-or-directory
+
+libtorrent.so.5: cannot open shared object file: No such file or directory
+Make sure you have $prefix/lib in either your /etc/ld.so.conf or LD_LIBRARY_PATH, where $prefix is where you installed libtorrent. To update the ld cache, run ldconfig.
+
+具体方法：
+ldd /usr/local/bin/rtorrent 
+whereis  rtorrent
+sudo nano /etc/ld.so.conf
+sudo ldconfig
+ldd /usr/local/bin/rtorrent
