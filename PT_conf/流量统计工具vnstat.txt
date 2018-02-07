@@ -1,0 +1,12 @@
+安装vnstat
+  586  sudo apt-get install vnstat
+查看网卡名称
+  587  ifconfig
+绑定要监测的网卡
+  590  sudo vnstat -u -i eno1
+概况
+  593  vnstat
+按小时显示
+  591   vnstat -h -i eno1
+自动启动
+sudo systemctl enable vnstat

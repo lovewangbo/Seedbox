@@ -1,0 +1,152 @@
+参考资料：
+https://www.techandme.se/install-rutorrent-plex-on-a-headless-ubuntu-server-16-04-part-1/
+
+Install rTorrent + ruTorrent
+
+In most guides we’ve seen the writer compiles most of the dependencies. In this guide we won’t compile anything as Ubuntu Server 16.04 have all the dependencies built in. This ensures that you always have the latest and updated dependencies, and when a new version comes out, you just update as usual with apt-get.
+
+DeepinScreenshot20160705163153
+
+INSTALL UBUNTU SERVER 16.04
+We will use Ubuntu Server as OS for this install as this will run headless. Make sure to not install anything on the server except OpenSSH as we will install everything in this guide instead. It’s easier to keep track of what are installed and what’s not. In the end you’d want a server with a minimal attack surface.
+In this example we will use “plex” as the user in our system.
+
+确定运行rutorrent和qbittorrent的账户
+$ RTORRENT_USER="yellow"
+$ QBITTORRENT_USER="jack"
+$ HOMEDIR=$(cat /etc/passwd | grep "$RTORRENT_USER": | cut -d: -f6)	#此乃运行rt的用户目录
+
+
+INSTALL RTORRENT
+Most of the previous guides we found compile Rtorrent from scratch, but why make it hard on yourself when all you need to do is:
+$~: sudo apt-get install rtorrent -y
+
+INSTALL APACHE + PHP 7
+Apache and PHP is needed later to be able to reach the Web GUI. In the following guides we will set up Apache to be able to reach it externally so that you can add torrents from anywhere in the world.
+$~: sudo apt-get install php php7.0-cli php7.0-json php7.0-curl php7.0-cgi php7.0-mbstring libapache2-mod-php libapache2-mod-scgi apache2 -y
+
+INSTALL PACKAGES FOR PLUGINS
+DeepinScreenshot20160705163303
+This is needed to be able to run certain plugins. One of them automatically extract files once they’re downloaded e.g.
+$~: sudo apt-get install unrar unzip ffmpeg mediainfo -y
+
+INSTALL RUTORRENT
+To be able to run ruTorrent with PHP 7 we have to use the latest master from Github. This is considered to be the development edition, but the latest stable release of ruTorrent was one year ago, which means that it won’t work on Ubuntu 16.04 as it only provides PHP7. Anyway, we tested this, and there are no issues. Though we can’t guarantee that it will work every time. It’s always recomended to use stable versions. Let’s just hope that 3.8 is released soon. You can get the latest stable release here.
+$~: cd /var/www/html
+$~: sudo apt-get install git -y && sudo git clone https://github.com/Novik/ruTorrent.git
+$~: sudo chown -R yellow:www-data ruTorrent/ && sudo chmod -R 770 ruTorrent/
+
+CREATE .RTORRENT.RC
+rTorrent can be configured easily by placing a config file named “.rtorrent.rc” in the home dir of the plex user. An example of such a file can be found here. Tweak the file to your needs (do NOT skip this part) and make sure it contains the following:
+scgi_port = 127.0.0.1:5000
+Create the file like this:
+$~: nano /home/yellow/.rtorrent.rc
+或者下载已配置好的模板：
+	wget -O $HOMEDIR/.rtorrent.rc https://raw.github.com/Kerwood/rtorrent.auto.install/master/Files/rtorrent.rc
+	chown "$RTORRENT_USER"."$RTORRENT_USER" $HOMEDIR/.rtorrent.rc
+	sed -i "s@HOMEDIRHERE@$HOMEDIR@g" $HOMEDIR/.rtorrent.rc
+
+CONFIGURE SOME BASIC SETTINGS
+若用已配置好的模板则不需要这一步
+Session
+$~: mkdir /home/yellow/.rtorrent-session
+This saves the session in memory. Don’t forget to remove the hash (#) in .rtorrent.rc
+session = /home/yellow/.rtorrent-session
+
+HTTPRCP
+Add the following to your ruTorrent plugins.ini file (/var/www/html/ruTorrent/conf/plugins.ini) to enable the HTTPRPC plugin and disable the RPC plugin.
+[httprpc]
+enabled = yes
+[rpc]
+enabled = no
+
+RESTART APACHE2：
+$~: sudo service apache2 restart
+
+至此已可访问web ui。如主机IP地址为163.172.10.239，则访问地址为：
+http://163.172.10.239/ruTorrent/
+
+INSTALL SCREEN
+方式一：不熟悉
+To install screen simply just type this:
+$~: sudo apt-get install screen -y
+Screen is a terminal multiplexer. Or simply said, a utility to run multiple sessions at the same time. That way you can start rTorrent as a detached session and use terminal for other things while rTorrent keeps running in the background. Here is a small list of commands to use when using rTorrent with screen. Please remember to run the following commands as the ‘plex’ user, or the user that you will run rTorrent under.
+
+Start rTorrent detached
+screen -S rtorrent -d -m rtorrent
+
+Resume detached session
+screen -S rtorrent -r
+
+Quit detached rTorrent session
+screen -S rtorrent -X xon
+
+Detach current session from this terminal
+Ctrl+a d
+
+Quit current rTorrent session
+Ctrl+a q
+
+方式二（tmux）：
+sudo apt-get install tmux
+tmux -2 new-session -d -s rtorrent rtorrent
+
+ENABLE RTORRENT AS A SERVICE
+Option 1
+Start with a init.d script (this will make ruTorrent stop if you login with the same user via ssh)
+$~: sudo wget https://raw.githubusercontent.com/mjsilva/rtorrent-screen-debian-init-script/master/rtorrent -P /etc/init.d/ && sudo chmod +x /etc/init.d/rtorrent && sudo update-rc.d rtorrent defaults 99
+If for some reason it fails to start, you have to delete the lock file in sessions before you reboot like this:
+$~: rm /home/plex/.rtorrent.session/rtorrent.lock
+
+Option 2:
+Start as a service on login
+$~: sudo nano /etc/systemd/user/rt.service
+[Unit]
+Description=rTorrent
+After=network.target
+
+[Service]
+Type=forking
+KillMode=none
+ExecStart=/usr/bin/screen -d -m -fa -S rtorrent /usr/bin/rtorrent
+ExecStop=/usr/bin/killall -w -s 2 /usr/bin/rtorrent
+WorkingDirectory=%h
+
+[Install]
+WantedBy=default.target
+Start at boot time:
+
+$~: systemctl --user enable rt
+Start manually:
+
+$~: systemctl --user start rt
+Stop:
+
+$~: systemctl --user stop rt
+NOW WE’RE ALL SET WITH THE INSTALLATION OF THE TORRENT CLIENT
+
+Option 3:
+自动脚本摘录：
+cat > "/etc/systemd/system/rtorrent.service" <<-EOF
+[Unit]
+Description=rtorrent (in tmux)
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+User=yellow
+ExecStart=/usr/bin/tmux -2 new-session -d -s rtorrent rtorrent
+ExecStop=/usr/bin/tmux kill-session -t rtorrent
+[Install]
+WantedBy=default.target
+EOF
+手动录入:
+systemctl enable rtorrent.service
+
+查看状态：
+sudo systemctl status rtorrent.service
+另外参考：
+ps -ef | grep rtorrent
+停止：
+sudo systemctl stop rtorrent.service
+启动方法：
+sudo systemctl start rtorrent.service

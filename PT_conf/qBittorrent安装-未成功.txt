@@ -1,0 +1,186 @@
+
+一、安装二进制包
+参考资料：
+https://github.com/qbittorrent/qBittorrent/wiki/Setting-up-qBittorrent-on-Ubuntu-server-as-daemon-with-Web-interface-%2815.04-and-newer%29
+$ sudo apt-get install qbittorrent-nox
+
+2.3 配置
+建立自启动：
+$ sudo nano /etc/systemd/system/qbittorrent.service
+[Unit]
+Description=qBittorrent Daemon Service
+After=network.target
+
+[Service]
+User=qbtuser
+ExecStart=/usr/bin/qbittorrent-nox --webui-port=8080
+
+[Install]
+WantedBy=multi-user.target
+里面的User和webui-port根据需要修改。
+使能自启动：
+$ sudo systemctl enable qbittorrent
+
+配置文件位置：
+/home/qbtuser/.config/qbittorrent/
+
+二、编译源码安装新版qBittorrent（含RSS支持）
+1. 先安装qt5。安装qBittorrent所需要的qmake包含在qt中。
+ttg群的大佬说：
+qmake version require=>5.5
+参考资料：
+Qt for Linux/X11 - Building from Source
+http://doc.qt.io/qt-5/linux-building.html
+
+Ubuntu下QT的安装详细教程
+http://blog.csdn.net/cddchina/article/details/50764791
+
+1.1 安装qt5依赖包：
+参考资料：Requirements for Development Host
+http://doc.qt.io/qt-5/linux.html
+$ sudo apt-get install build-essential libgl1-mesa-dev
+
+1.2.1 二进制安装qt5
+参考资料：
+https://stackoverflow.com/questions/25105269/silent-install-qt-run-installer-on-ubuntu-server
+二进制包需要x窗口。这里以非交互式安装二进制包
+$ wget http://download.qt.io/archive/qt/5.9/5.9.0/qt-opensource-linux-x64-5.9.0.run
+$ chmod +x qt-opensource-linux-x64-5.9.0.run
+$ sudo ./qt-opensource-linux-x64-5.9.0.run -platform minimal
+编写文件qt-installer-noninteractive.qs
+##文件开始
+// Emacs mode hint: -*- mode: JavaScript -*-
+function Controller() {
+    installer.autoRejectMessageBoxes();
+    installer.installationFinished.connect(function() {
+        gui.clickButton(buttons.NextButton);
+    })
+}
+
+Controller.prototype.WelcomePageCallback = function() {
+    gui.clickButton(buttons.NextButton);
+}
+
+Controller.prototype.CredentialsPageCallback = function() {
+    gui.clickButton(buttons.NextButton);
+}
+
+Controller.prototype.IntroductionPageCallback = function() {
+    gui.clickButton(buttons.NextButton);
+}
+
+Controller.prototype.TargetDirectoryPageCallback = function()
+{
+    gui.currentPageWidget().TargetDirectoryLineEdit.setText(installer.value("HomeDir") + "/Qt");
+    gui.clickButton(buttons.NextButton);
+}
+
+Controller.prototype.ComponentSelectionPageCallback = function() {
+    var widget = gui.currentPageWidget();
+
+    widget.deselectAll();
+    widget.selectComponent("qt.55.gcc_64");
+    widget.selectComponent("qt.55.qtquickcontrols");
+
+    // widget.deselectComponent("qt.tools.qtcreator");
+    // widget.deselectComponent("qt.55.qt3d");
+    // widget.deselectComponent("qt.55.qtcanvas3d");
+    // widget.deselectComponent("qt.55.qtlocation");
+    // widget.deselectComponent("qt.55.qtquick1");
+    // widget.deselectComponent("qt.55.qtscript");
+    // widget.deselectComponent("qt.55.qtwebengine");
+    // widget.deselectComponent("qt.extras");
+    // widget.deselectComponent("qt.tools.doc");
+    // widget.deselectComponent("qt.tools.examples");
+
+    gui.clickButton(buttons.NextButton);
+}
+
+Controller.prototype.LicenseAgreementPageCallback = function() {
+    gui.currentPageWidget().AcceptLicenseRadioButton.setChecked(true);
+    gui.clickButton(buttons.NextButton);
+}
+
+Controller.prototype.StartMenuDirectoryPageCallback = function() {
+    gui.clickButton(buttons.NextButton);
+}
+
+Controller.prototype.ReadyForInstallationPageCallback = function()
+{
+    gui.clickButton(buttons.NextButton);
+}
+
+Controller.prototype.FinishedPageCallback = function() {
+var checkBoxForm = gui.currentPageWidget().LaunchQtCreatorCheckBoxForm
+if (checkBoxForm && checkBoxForm.launchQtCreatorCheckBox) {
+    checkBoxForm.launchQtCreatorCheckBox.checked = false;
+}
+    gui.clickButton(buttons.FinishButton);
+}
+##文件结束
+$ qt-opensource-linux-x64-5.5.1.run --script qt-installer-noninteractive.qs
+debian上无效！仍然报告找不到x窗口
+
+1.2.2 编译安装qt5
+$ wget http://download.qt.io/archive/qt/5.9/5.9.0/single/qt-everywhere-opensource-src-5.9.0.tar.xz
+$ tar -Jxf  qt-everywhere-opensource-src-*.tar.xz
+解压的时候时间较长。如果不放心可以加v参数显示过程tar -Jxvf  qt-everywhere-opensource-src-*.tar.xz
+$ cd qt-everywhere-opensource-src-5.9.0
+$ ./configure
+$ make
+源码有500多M，make的时间太长，放弃。
+注：供参考
+QT玩转在linux的x86平台或者ARM平台上 - （1）x86下安装配置及使用Qt-4.8.5
+http://blog.csdn.net/qq_22122811/article/details/52738202
+
+2.编译源码安装qbittorrent
+参考资料：
+Compiling qBittorrent on Debian and Ubuntu
+https://github.com/qbittorrent/qBittorrent/wiki/Compiling-qBittorrent-on-Debian-and-Ubuntu
+
+Running qBittorrent without X server
+https://github.com/qbittorrent/qBittorrent/wiki/Running-qBittorrent-without-X-server
+
+Setting up qBittorrent on Ubuntu server as daemon with Web interface (15.04 and newer)
+https://github.com/qbittorrent/qBittorrent/wiki/Setting-up-qBittorrent-on-Ubuntu-server-as-daemon-with-Web-interface-%2815.04-and-newer%29
+
+2.1 安装依赖包
+2.1.1
+General required dependencies
+$ sudo apt-get install libboost-dev libboost-system-dev build-essential
+Qt4 libraries (optional and only if it exists in your distro's repo)
+$ sudo apt-get install libqt4-dev
+Qt5 libraries
+$ sudo apt-get install qtbase5-dev qttools5-dev-tools
+Python (Run time only dependency, for the search engine)
+$ sudo apt-get install python
+里面的qt5搞不定
+
+2.1.2 libtorrent
+First you'll need some extra dependencies to be installed:
+$ sudo apt-get install libboost-system-dev libboost-chrono-dev libboost-random-dev libssl-dev libgeoip-dev
+And tools:
+$ sudo apt-get install git pkg-config automake libtool
+Clone from the repo.
+$ git clone https://github.com/arvidn/libtorrent.git
+$ cd libtorrent
+If you want to use libtorrent 1.0.*. (recommended)
+$ git checkout RC_1_0
+$ ./autotool.sh
+$ ./configure --disable-debug --enable-encryption --prefix=/usr --with-libgeoip=system
+If you want to use libtorrent 1.1.*. (Note 1.1.x series are not officially supported yet and have several issues.)
+$ git checkout RC_1_1; ./autotool.sh; ./configure --disable-debug --enable-encryption --prefix=/usr --with-libgeoip=system CXXFLAGS=-std=c++11
+If you get a "configure: error: Boost.System library not found.", check if you installed all the above dependencies. 
+If yes, add --with-boost-libdir=/usr/lib/i386-linux-gnu
+Now you're ready to compile:
+$ make clean && make; sudo make install
+
+2.2 编译安装qBittorrent without the GUI
+$ git clone https://github.com/qbittorrent/qBittorrent
+$ cd qBittorrent/
+$ ./configure --prefix=/usr --disable-gui
+$ make
+$ sudo make install
+运行
+$ qbittorrent-nox
+

@@ -1,0 +1,145 @@
+0. 系统信息
+$ lsb_release -a
+No LSB modules are available.
+Distributor ID: Debian
+Description:    Debian GNU/Linux 8.8 (jessie)
+Release:        8.8
+Codename:       jessie
+
+
+1. deluge是GUI，远程应用只需要选择(headless/server)类别下的安装包
+$ sudo apt-get update
+$ sudo apt-get install deluged deluge-web
+注意不要误安装deluge（后面没有d），这是图形用户界面。
+会额外安装依赖包The following extra packages will be installed:
+  deluge-common deluge-console
+
+
+2. 确定Deluge daemon: deluged和Web UI: deluge-web安装成功：
+$ which deluged
+$ which deluge-web
+
+
+3. 作为系统服务
+3.1 For security it is best to run a service with a specific user and group. You can create one using the following command:
+$ sudo adduser --system  --gecos "Deluge Service" --disabled-password --group --home /var/lib/deluge deluge
+This creates a new system user and group named deluge with no login access and home directory: /var/lib/deluge
+Add to the deluge group any users you wish to be able to easily manage or access files downloaded through Deluge, for example:
+$ sudo adduser <username> deluge
+
+3.2.1 确认用户：
+$ cat /etc/passwd | grep "deluge*"
+debian-deluged:x:112:121::/var/lib/deluged:/bin/false
+deluge:x:113:122:Deluge Service,,,:/var/lib/deluge:/bin/false
+3.2.2 确认组：
+$ cat /etc/group | grep "deluge*"
+debian-deluged:x:121:
+deluge:x:122:yellow
+3.2.3 确认本用户所在组：
+$ groups
+yellow deluge
+或者：
+$ groups yellow
+yellow : yellow deluge
+
+3.3 Create Deluge Daemon (deluged) Service
+Create the file /etc/systemd/system/deluged.service containing the following:
+## 代码开始
+[Unit]
+Description=Deluge Bittorrent Client Daemon
+After=network-online.target
+[Service]
+Type=simple
+User=deluge
+Group=deluge
+UMask=007
+ExecStart=/usr/bin/deluged -d
+Restart=on-failure
+# Configures the time to wait before service is stopped forcefully.
+TimeoutStopSec=300
+[Install]
+WantedBy=multi-user.target
+## 代码结束
+You may wish to modify the above umask as it applies to any files downloaded by deluged.
+007 grants full access to the user and members of the group deluged is running as (in this case deluge) and prevents access from all other accounts.
+022 grants full access to the user deluged is running as and only read access to other accounts.
+000 grants full access to all accounts.
+
+3.3 Now enable it to start up on boot, start the service and verify it is running:
+sudo systemctl enable /etc/systemd/system/deluged.service
+sudo systemctl start deluged
+sudo systemctl status deluged
+应当显示如下：
+olptfourthree@sd-44534:~$ sudo systemctl status deluged
+● deluged.service - Deluge Bittorrent Client Daemon
+   Loaded: loaded (/etc/systemd/system/deluged.service; enabled)
+   Active: active (running) since Fri 2017-05-19 12:59:26 CEST; 4s ago
+ Main PID: 16105 (deluged)
+   CGroup: /system.slice/deluged.service
+           └─16105 /usr/bin/python /usr/bin/deluged -d
+
+
+4. Deluge Web UI (deluge-web) Service
+4.1 Create the file /etc/systemd/system/deluge-web.service containing the following:
+## 代码开始
+[Unit]
+Description=Deluge Bittorrent Client Web Interface
+After=network-online.target
+[Service]
+Type=simple
+User=deluge
+Group=deluge
+UMask=027
+ExecStart=/usr/bin/deluge-web
+Restart=on-failure
+[Install]
+WantedBy=multi-user.target
+## 代码结束
+
+4.2 Now enable it to start up on boot, start the service and verify it is running:
+sudo systemctl enable /etc/systemd/system/deluge-web.service
+sudo systemctl start deluge-web
+sudo systemctl status deluge-web
+olptfourthree@sd-44534:~$ sudo systemctl status deluge-web
+应当显示如下：
+● deluge-web.service - Deluge Bittorrent Client Web Interface
+   Loaded: loaded (/etc/systemd/system/deluge-web.service; enabled)
+   Active: active (running) since Fri 2017-05-19 12:59:58 CEST; 4s ago
+ Main PID: 16141 (deluge-web)
+   CGroup: /system.slice/deluge-web.service
+           └─16141 /usr/bin/python /usr/bin/deluge-web
+
+
+5. 检验：
+ps -aux | grep "deluge"
+应当是3个结果：
+yellow@localhost:~$ ps -aux | grep "deluge"
+deluge     271  0.0  8.2  87640 43276 ?        Ss   05:46   0:02 /usr/bin/python /usr/bin/deluge-web
+deluge     272  0.4  8.7 339316 46004 ?        Ssl  05:46   0:21 /usr/bin/python /usr/bin/deluged -d
+yellow     373  0.0  0.1  11072   808 pts/1    S+   06:57   0:00 grep deluge
+现在访问http://host:8112应当可以访问了。默认密码是deluge。
+
+
+6. 安装结果
+6.1 程序版本
+
+$ dpkg -l | grep deluge*
+ii  deluge                        1.3.10-3                          all          bittorrent client written in Python/                                                                                                                        ii  deluge-common                 1.3.10-3                          all          bittorrent client written in Python/                                                                                                                        
+ii  deluge-gtk                    1.3.10-3                          all          bittorrent client written in Python/                                                                                                                        
+ii  deluge-web                    1.3.10-3                          all          bittorrent client written in Python/                                                                                                                        
+ii  deluged                       1.3.10-3                          all          bittorrent client written in Python/                                                                                                                        
+
+$ sudo find / -name "core.conf"
+/var/lib/deluge/.config/deluge/core.conf
+$ sudo find / -name "auth"
+/var/lib/deluge/.config/deluge/auth
+
+                                                                                                                                                                                               PyGTK (daemon)
+二、编译源码安装（未进行）
+1. 看libtorrent库版本
+$ dpkg -l | grep libtorrent
+ii  libtorrent-rasterbar7         0.16.18-1                         amd64        C++ bittorrent library by Rasterbar Software
+ii  python-libtorrent             0.16.18-1                         amd64        Python bindings for libtorrent-rasterbar
+这个版本的libtorrent是支持IPv6的。
+
+

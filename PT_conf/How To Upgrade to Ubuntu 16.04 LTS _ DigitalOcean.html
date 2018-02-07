@@ -1,0 +1,984 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>How To Upgrade to Ubuntu 16.04 LTS | DigitalOcean</title>
+
+<meta name="description" content="Ubuntu&#39;s next Long Term Support release, version 16.04 (Xenial Xerus), is due to be released on April 21, 2016. This guide explains the upgrade process for systems including (but not limited to) DigitalOcean Droplets running Ubuntu 15.10.">
+<meta name="keywords" content="System Tools DigitalOcean">
+
+<meta name="og:title" content="How To Upgrade to Ubuntu 16.04 LTS | DigitalOcean">
+<meta name="og:description" content="Ubuntu&#39;s next Long Term Support release, version 16.04 (Xenial Xerus), is due to be released on April 21, 2016. This guide explains the upgrade process for systems including (but not limited to) DigitalOcean Droplets running Ubuntu 15.10.">
+<meta name="og:site_name" content="DigitalOcean">
+<meta name="og:type" content="article">
+
+<meta name="twitter:site" content="DigitalOcean">
+<meta name="twitter:title" content="How To Upgrade to Ubuntu 16.04 LTS | DigitalOcean">
+<meta name="twitter:description" content="Ubuntu&#39;s next Long Term Support release, version 16.04 (Xenial Xerus), is due to be released on April 21, 2016. This guide explains the upgrade process for systems including (but not limited to) DigitalOcean Droplets running Ubuntu 15.10.">
+<meta name="twitter:creator" content="DigitalOcean">
+<meta name="twitter:card" content="photo" />
+<meta name="twitter:url" content="https://www.digitalocean.com/community/tutorials/how-to-upgrade-to-ubuntu-16-04-lts"/>
+
+<meta property='og:image' content="https://community-cdn-digitalocean-com.global.ssl.fastly.net/assets/tutorials/images/large/ubuntu16.04_Blog.png?1461274596">
+<meta name="twitter:image" content="https://community-cdn-digitalocean-com.global.ssl.fastly.net/assets/tutorials/images/large/ubuntu16.04_Blog.png?1461274596">
+
+  <link rel='canonical' href='https://www.digitalocean.com/community/tutorials/how-to-upgrade-to-ubuntu-16-04-lts'>
+
+        <link rel="alternate" hreflang="en" href="https://www.digitalocean.com/community/tutorials/how-to-upgrade-to-ubuntu-16-04-lts" />
+      <link rel="alternate" hreflang="es" href="https://www.digitalocean.com/community/tutorials/como-actualizar-a-ubuntu-16-04-es" />
+      <link rel="alternate" hreflang="es" href="https://www.digitalocean.com/community/tutorials/como-actualizar-a-ubuntu-16-04-1-es" />
+      <link rel="alternate" hreflang="pt" href="https://www.digitalocean.com/community/tutorials/como-atualizar-para-o-ubuntu-16-04-lts-pt" />
+      <link rel="alternate" hreflang="ru" href="https://www.digitalocean.com/community/tutorials/ubuntu-16-04-lts-ru" />
+
+
+    <link rel="stylesheet" media="all" href="/assets/community/application-ccb19293f77f19cebf2ec058e4015515.css" />
+
+    
+    <meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="JKHEQkC3kO+SXylYPoPQ56mZFu5xdnhWTbvYlklp0wj4AefkRO0Vd+xU7ed0CNXSwxpJeFzEeCMabX9rLnoCbw==" />
+      <script src="https://use.typekit.net/izu1uqu.js"></script>
+      <script>try{Typekit.load({ async: true });}catch(e){}</script>
+      <script src="https://cdn.polyfill.io/v2/polyfill.min.js"></script>
+    <script
+      src="https://d2wy8f7a9ursnm.cloudfront.net/bugsnag-2.min.js"
+      data-apikey="9ffc01bc3e1fa7891bfd20909d1bfb0e">
+    </script>
+    <script type="text/javascript">
+      if(window.analytics=window.analytics||[],window.analytics.included)window.console&&console.error&&console.error("analytics.js included twice");else{window.analytics.included=!0,window.analytics.methods=["identify","group","track","page","pageview","alias","ready","on","once","off","trackLink","trackForm","trackClick","trackSubmit"],window.analytics.factory=function(a){return function(){var n=Array.prototype.slice.call(arguments);return n.unshift(a),window.analytics.push(n),window.analytics}};for(var i=0;i<window.analytics.methods.length;i++){var key=window.analytics.methods[i];window.analytics[key]=window.analytics.factory(key)}window.analytics.load=function(a){var n=document.createElement("script");n.type="text/javascript",n.async=!0,n.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+a+"/analytics.min.js";var t=document.getElementsByTagName("script")[0];t.parentNode.insertBefore(n,t)},window.analytics.SNIPPET_VERSION="2.0.9",
+      window.analytics.load("puo3uv968t")}
+      window.analytics.page();
+    </script>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/community/tutorials/feed">
+    <script>
+      window.comApp = {
+        prefix: '/community',
+        svgIconPath: 'https://www.digitalocean.com/assets/community/icon-sprite-d76eb75d70ccf8ffb4c0b47b7dbc88ca.svg',
+        railsEnv: 'production',
+        rootUrl: 'https://www.digitalocean.com/community'
+      };
+    </script>
+      <script src="https://go.digitalocean.com/js/forms2/js/forms2.min.js"></script>
+
+    <script src="/assets/community/application-ed83ed45704e8c3619c0698b180fdc77.js"></script>
+  </head>
+  <body class="feature-filter-bar feature-upvotes tutorials-controller tutorial-single" data-env="production" data-prefix="/community" data-user-id="" data-facebook-app-id="694818843983011"   data-completed-tutorial-id="" data-tutorial-id="1921" data-js="tutorial"
+>
+    <script>
+//<![CDATA[
+
+//]]>
+</script>
+<!-- Google Tag Manager -->
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-KHWBBT"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-KHWBBT');</script>
+<!-- End Google Tag Manager -->
+
+    
+
+    <div class='outside_viewport'>
+        <div id="contents-modal" class="modal fade mini-modal" style="display: none;">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1>Contents</h1>
+          <button class="close-button icon icon-close-light" data-dismiss="modal" aria-label="close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="table-of-contents-modal"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id='translation-modal' class='modal fade mini-modal' style="display: none;">
+    <div class='modal-dialog'>
+      <div class='modal-content'>
+        <div class='modal-header'>
+          <h1>Language</h1>
+          <a class='close-button' data-dismiss='modal' aria-label="close" href=''><span class='icon icon-close-light'></span></a>
+        </div>
+        <div class='modal-body'>
+
+          <div class='content-translations'>
+            <div class='current-language'>
+              <ul class='languages large'>
+                <li class="current">
+                  <span class='language '></span>
+                  <span class='icon icon-check-light'></span>
+                  English
+                </li>
+
+
+                    <li>
+                      <a class="edit" title="Spanish" href="/community/tutorials/como-actualizar-a-ubuntu-16-04-es">
+                        <span class='language es'></span>
+                        Spanish
+</a>                    </li>
+                    <li>
+                      <a class="edit" title="Spanish" href="/community/tutorials/como-actualizar-a-ubuntu-16-04-1-es">
+                        <span class='language es'></span>
+                        Spanish
+</a>                    </li>
+                    <li>
+                      <a class="edit" title="Portuguese" href="/community/tutorials/como-atualizar-para-o-ubuntu-16-04-lts-pt">
+                        <span class='language pt'></span>
+                        Portuguese
+</a>                    </li>
+                    <li>
+                      <a class="edit" title="Russian" href="/community/tutorials/ubuntu-16-04-lts-ru">
+                        <span class='language ru'></span>
+                        Russian
+</a>                    </li>
+              </ul>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="share-modal" class="modal fade mini-modal" style="display: none;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1>Share</h1>
+        <button type="button" class="close-button icon icon-close-light" aria-label="close" data-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <div class="social-sharing social-sharing-container">
+          <ul class="top ">
+            <li class="shareBtn" id="sbTwitter">
+              <a href="http://twitter.com/share?text=How To Upgrade to Ubuntu 16.04 LTS&amp;url=https://www.digitalocean.com/community/tutorials/how-to-upgrade-to-ubuntu-16-04-lts?utm_content=how-to-upgrade-to-ubuntu-16-04-lts&amp;utm_medium=community&amp;utm_source=twshare" class="share-icon share-popup" title="Share on Twitter" >
+                <span class="sIcon icon-bird"></span>
+              </a>
+              <a href="http://twitter.com/share?text=How To Upgrade to Ubuntu 16.04 LTS&amp;url=https://www.digitalocean.com/community/tutorials/how-to-upgrade-to-ubuntu-16-04-lts?utm_content=how-to-upgrade-to-ubuntu-16-04-lts&amp;utm_medium=community&amp;utm_source=twshare" class="share-link share-popup" title="Share on Twitter" >
+                Twitter
+              </a>
+            </li>
+            <li class="shareBtn" id="sbFacebook">
+              <a class="share-icon facebook-share" href="https://www.digitalocean.com/community/tutorials/how-to-upgrade-to-ubuntu-16-04-lts?utm_content=how-to-upgrade-to-ubuntu-16-04-lts&amp;utm_medium=community&amp;utm_source=fbshare" onclick="" title="Share on Facebook">
+                <span class="sIcon icon-facebook-B"></span>
+              </a>
+
+              <a class="share-link facebook-share" href="https://www.digitalocean.com/community/tutorials/how-to-upgrade-to-ubuntu-16-04-lts?utm_content=how-to-upgrade-to-ubuntu-16-04-lts&amp;utm_medium=community&amp;utm_source=fbshare" onclick="" title="Share on Facebook">
+                Facebook
+              </a>
+            </li>
+            <li class="shareBtn" id="sbGoogle">
+              <a href="https://plus.google.com/share?url=https://www.digitalocean.com/community/tutorials/how-to-upgrade-to-ubuntu-16-04-lts?utm_content=how-to-upgrade-to-ubuntu-16-04-lts&amp;utm_medium=community&amp;utm_source=gpshare" class="share-icon share-popup" title="Share on Google+">
+                <span class="sIcon icon-google-plus-B"></span>
+              </a>
+              <a href="https://plus.google.com/share?url=https://www.digitalocean.com/community/tutorials/how-to-upgrade-to-ubuntu-16-04-lts?utm_content=how-to-upgrade-to-ubuntu-16-04-lts&amp;utm_medium=community&amp;utm_source=gpshare" class="share-link share-popup" title="Share on Google+">
+                Google+
+              </a>
+            </li>
+            <li class="shareBtn" id="sbYC">
+              <a href="https://news.ycombinator.com/submitlink?t=How To Upgrade to Ubuntu 16.04 LTS&amp;u=https://www.digitalocean.com/community/tutorials/how-to-upgrade-to-ubuntu-16-04-lts?utm_content=how-to-upgrade-to-ubuntu-16-04-lts&amp;utm_medium=community&amp;utm_source=hnshare" class="share-icon share-popup" target="_blank" title="Submit to Hacker News">
+                <span class="sIcon icon-hacker-news"></span>
+              </a>
+              <a href="https://news.ycombinator.com/submitlink?t=How To Upgrade to Ubuntu 16.04 LTS&amp;u=https://www.digitalocean.com/community/tutorials/how-to-upgrade-to-ubuntu-16-04-lts?utm_content=how-to-upgrade-to-ubuntu-16-04-lts&amp;utm_medium=community&amp;utm_source=hnshare" class="share-link share-popup" target="_blank" title="Submit to Hacker News">
+                Hacker News
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <div class="table-of-contents">
+    <div data-js="tableOfContentsDesktop"></div>
+    <button type="button" class="Button--reset Tutorial-button " data-js="markAsComplete" data-tutorialInteraction data-tutorialSingle><svg class='svg-icon svg-icon-completed'><use xlink:href='https://www.digitalocean.com/assets/community/icon-sprite-d76eb75d70ccf8ffb4c0b47b7dbc88ca.svg#icon-completed'></use></svg><span>Mark as Complete</span></button>
+  </div>
+  
+  <div id="share-modal" class="modal fade mini-modal" style="display: none;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1>Share</h1>
+        <button type="button" class="close-button icon icon-close-light" aria-label="close" data-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <div class="social-sharing social-sharing-container">
+          <ul class="bottom ">
+            <li class="shareBtn" id="sbTwitter">
+              <a href="http://twitter.com/share?text=How To Upgrade to Ubuntu 16.04 LTS&amp;url=https://www.digitalocean.com/community/tutorials/how-to-upgrade-to-ubuntu-16-04-lts?utm_content=how-to-upgrade-to-ubuntu-16-04-lts&amp;utm_medium=community&amp;utm_source=twshare" class="share-icon share-popup" title="Share on Twitter" >
+                <span class="sIcon icon-bird"></span>
+              </a>
+              <a href="http://twitter.com/share?text=How To Upgrade to Ubuntu 16.04 LTS&amp;url=https://www.digitalocean.com/community/tutorials/how-to-upgrade-to-ubuntu-16-04-lts?utm_content=how-to-upgrade-to-ubuntu-16-04-lts&amp;utm_medium=community&amp;utm_source=twshare" class="share-link share-popup" title="Share on Twitter" >
+                Twitter
+              </a>
+            </li>
+            <li class="shareBtn" id="sbFacebook">
+              <a class="share-icon facebook-share" href="https://www.digitalocean.com/community/tutorials/how-to-upgrade-to-ubuntu-16-04-lts?utm_content=how-to-upgrade-to-ubuntu-16-04-lts&amp;utm_medium=community&amp;utm_source=fbshare" onclick="" title="Share on Facebook">
+                <span class="sIcon icon-facebook-B"></span>
+              </a>
+
+              <a class="share-link facebook-share" href="https://www.digitalocean.com/community/tutorials/how-to-upgrade-to-ubuntu-16-04-lts?utm_content=how-to-upgrade-to-ubuntu-16-04-lts&amp;utm_medium=community&amp;utm_source=fbshare" onclick="" title="Share on Facebook">
+                Facebook
+              </a>
+            </li>
+            <li class="shareBtn" id="sbGoogle">
+              <a href="https://plus.google.com/share?url=https://www.digitalocean.com/community/tutorials/how-to-upgrade-to-ubuntu-16-04-lts?utm_content=how-to-upgrade-to-ubuntu-16-04-lts&amp;utm_medium=community&amp;utm_source=gpshare" class="share-icon share-popup" title="Share on Google+">
+                <span class="sIcon icon-google-plus-B"></span>
+              </a>
+              <a href="https://plus.google.com/share?url=https://www.digitalocean.com/community/tutorials/how-to-upgrade-to-ubuntu-16-04-lts?utm_content=how-to-upgrade-to-ubuntu-16-04-lts&amp;utm_medium=community&amp;utm_source=gpshare" class="share-link share-popup" title="Share on Google+">
+                Google+
+              </a>
+            </li>
+            <li class="shareBtn" id="sbYC">
+              <a href="https://news.ycombinator.com/submitlink?t=How To Upgrade to Ubuntu 16.04 LTS&amp;u=https://www.digitalocean.com/community/tutorials/how-to-upgrade-to-ubuntu-16-04-lts?utm_content=how-to-upgrade-to-ubuntu-16-04-lts&amp;utm_medium=community&amp;utm_source=hnshare" class="share-icon share-popup" target="_blank" title="Submit to Hacker News">
+                <span class="sIcon icon-hacker-news"></span>
+              </a>
+              <a href="https://news.ycombinator.com/submitlink?t=How To Upgrade to Ubuntu 16.04 LTS&amp;u=https://www.digitalocean.com/community/tutorials/how-to-upgrade-to-ubuntu-16-04-lts?utm_content=how-to-upgrade-to-ubuntu-16-04-lts&amp;utm_medium=community&amp;utm_source=hnshare" class="share-link share-popup" target="_blank" title="Submit to Hacker News">
+                Hacker News
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <div id="newsletter-signup-dialog" class="newsletter-signups-dialog" data-newsletter-signup-dialog data-article-target=".content-body">
+  <div class="form-message">
+  <div class="pull-right">
+    <a href="javascript:;" class="newsletter-signups-dialog-dismiss" data-newsletter-signup-dismiss>&times;</a>
+
+  </div>
+  <h4 class="newsletter-signups-dialog-title">
+    Sign up for our newsletter.
+  </h4>
+  <p class="newsletter-signups-dialog-description">
+    Get the latest tutorials on SysAdmin and open source topics.
+  </p>
+  <form class="newsletter-signup" id="new_newsletter_signup" data-newsletter-signup="true" action="/community/newsletter" accept-charset="UTF-8" data-remote="true" method="post"><input name="utf8" type="hidden" value="&#x2713;" />
+
+  <input data-newsletter-signup-field="url" type="hidden" name="newsletter_signup[url]" id="newsletter_signup_url" />
+  <input data-newsletter-signup-field="title" type="hidden" name="newsletter_signup[title]" id="newsletter_signup_title" />
+
+  <div class="newsletter-signup-ajax-error" data-newsletter-signup-ajax-error></div>
+
+
+  <div class="form-group">
+    <input placeholder="Enter your email address" required="required" class="field" type="email" name="newsletter_signup[email]" id="newsletter_signup_email" />
+  </div>
+
+  <button data-disable-with="Sign Up" class="button blue-button">
+    Sign Up
+  </button>
+
+</form>
+
+</div>
+
+<div class="thanks-message hidden" data-newsletter-signup-successful> 
+  <div class='pull-right'> 
+    <a href='javascript:;' class='newsletter-signups-dialog-dismiss icon icon-close-light' data-newsletter-signup-dismiss></a> 
+  </div> 
+
+  <span class='newsletter-signups-dialog-success'> 
+    Thanks for signing up! 
+  </span> 
+</div>
+
+</div>
+
+
+      
+    </div>
+
+      <div class="mobile-nav">
+  
+<div class="account-buttons">
+    <div id="entrance">
+      <a id="sign-up" class="button" href="/community/auth/digitalocean?display=sessionless+register">Sign Up</a>
+      <a id="log-in" class="button" href="/community/auth/digitalocean">Log In</a>
+    </div>
+</div>
+
+  <button type="button" aria-label="close" class="close-panel icon-close"></button>
+
+  <form class="mobile-search" role="search" action="/community/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+    <span class='icon icon-search-thin'></span>
+    <input type="text" name="q" id="q" title="Search" placeholder="Search" />
+    <button name="button" type="submit" class="icon-btn">submit</button>
+</form>
+  
+<nav>
+
+  <ul>
+    <li><a class="active" href="/community/tutorials">Tutorials</a></li>
+    <li><a href="/community/questions">Questions</a></li>
+    <li><a href="/community/projects">Projects</a></li>
+    <li><a href="https://www.meetup.com/pro/digitalocean/?utm_source=do_community" target="_blank">Meetups</a></li>
+    <li class="mobile-nav-only"><a href="https://www.digitalocean.com/">Main Site</a></li>
+  </ul>
+</nav>
+
+  
+</div>
+
+      
+      <header>
+  <div class="flash-container"></div>
+
+  <div class='main-menu-container'>
+    <div class='wrapper'>
+      <div class='logo'>
+        <a class="logo-icon" href="https://www.digitalocean.com/">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 190 32" class="do-icon">
+<title>DigitalOcean</title>
+<path class="path1" d="M16.016 32v-6.204c6.584 0 11.648-6.52 9.147-13.42-0.95-2.564-2.975-4.59-5.539-5.539-6.9-2.501-13.42 2.564-13.42 9.147 0 0 0 0 0 0l-6.204 0.032c0-10.477 10.129-18.643 21.112-15.225 4.811 1.488 8.609 5.317 10.097 10.097 3.418 10.983-4.716 21.112-15.193 21.112z"></path>
+<path class="path2" d="M16.016 25.828h-6.172v-6.172h6.172z"></path>
+<path class="path3" d="M9.844 30.576h-4.748v-4.748h4.748v4.748z"></path>
+<path class="path4" d="M5.096 25.828h-3.988v-3.988h3.988z"></path>
+<path class="path5" d="M56.973 9.242c-1.836-1.266-4.115-1.931-6.773-1.931h-5.792v18.39h5.792c2.659 0 4.938-0.665 6.773-2.026 1.013-0.696 1.804-1.709 2.342-2.944s0.823-2.69 0.823-4.336c0-1.614-0.285-3.070-0.823-4.305-0.538-1.203-1.329-2.152-2.342-2.849zM47.794 10.445h1.836c2.026 0 3.703 0.411 4.969 1.171 1.393 0.855 2.121 2.469 2.121 4.779 0 2.406-0.728 4.083-2.121 5.001v0c-1.203 0.791-2.88 1.203-4.938 1.203h-1.867v-12.154z"></path>
+<path class="path6" d="M64.19 7.122c-0.57 0-1.044 0.19-1.424 0.57s-0.601 0.855-0.601 1.393c0 0.57 0.19 1.044 0.601 1.424 0.38 0.38 0.855 0.601 1.424 0.601s1.044-0.19 1.424-0.601c0.38-0.38 0.601-0.886 0.601-1.424 0-0.57-0.19-1.044-0.601-1.393-0.38-0.38-0.886-0.57-1.424-0.57z"></path>
+<path class="path7" d="M62.512 12.787h3.26v12.977h-3.26v-12.977z"></path>
+<path class="path8" d="M77.642 13.864c-0.981-0.886-2.089-1.393-3.26-1.393-1.804 0-3.292 0.633-4.463 1.836s-1.741 2.785-1.741 4.653c0 1.836 0.57 3.387 1.741 4.653 1.171 1.203 2.659 1.836 4.463 1.836 1.266 0 2.342-0.348 3.228-1.044v0.285c0 1.076-0.285 1.899-0.855 2.5-0.57 0.57-1.361 0.855-2.342 0.855-1.519 0-2.437-0.601-3.608-2.152l-2.216 2.121 0.063 0.095c0.475 0.665 1.203 1.329 2.184 1.962s2.184 0.95 3.64 0.95c1.931 0 3.513-0.601 4.653-1.773 1.171-1.171 1.741-2.754 1.741-4.716v-11.743h-3.197v1.076zM76.787 21.523c-0.57 0.633-1.298 0.95-2.247 0.95s-1.678-0.317-2.216-0.95c-0.57-0.633-0.855-1.488-0.855-2.532s0.285-1.931 0.855-2.564c0.57-0.633 1.298-0.981 2.216-0.981 0.95 0 1.678 0.317 2.247 0.981 0.57 0.633 0.855 1.519 0.855 2.564s-0.317 1.899-0.855 2.532z"></path>
+<path class="path9" d="M83.624 12.787h3.26v12.977h-3.26v-12.977z"></path>
+<path class="path10" d="M85.302 7.122c-0.57 0-1.044 0.19-1.424 0.57s-0.601 0.855-0.601 1.393c0 0.57 0.19 1.044 0.601 1.424 0.38 0.38 0.855 0.601 1.424 0.601s1.044-0.19 1.424-0.601c0.38-0.38 0.601-0.886 0.601-1.424 0-0.57-0.19-1.044-0.601-1.393-0.38-0.38-0.886-0.57-1.424-0.57z"></path>
+<path class="path11" d="M94.038 9.274h-3.197v3.513h-1.867v2.975h1.867v5.381c0 1.678 0.348 2.88 1.013 3.577s1.836 1.044 3.513 1.044c0.538 0 1.076-0.032 1.583-0.063h0.158v-2.975l-1.108 0.063c-0.791 0-1.298-0.127-1.551-0.411s-0.38-0.855-0.38-1.709v-4.906h3.039v-2.975h-3.039v-3.513z"></path>
+<path class="path12" d="M112.364 7.343h3.26v18.39h-3.26v-18.39z"></path>
+<path class="path13" d="M148.574 21.112c-0.57 0.665-1.171 1.234-1.646 1.519v0c-0.443 0.285-1.013 0.443-1.678 0.443-0.95 0-1.741-0.348-2.374-1.076s-0.95-1.646-0.95-2.754 0.317-2.026 0.918-2.722c0.633-0.728 1.393-1.076 2.342-1.076 1.044 0 2.152 0.665 3.102 1.773l2.152-2.057c-1.393-1.836-3.197-2.69-5.349-2.69-1.804 0-3.355 0.665-4.621 1.931s-1.899 2.912-1.899 4.843 0.633 3.545 1.899 4.843c1.266 1.298 2.817 1.931 4.621 1.931 2.374 0 4.273-1.013 5.539-2.88l-2.057-2.026z"></path>
+<path class="path14" d="M161.962 14.591c-0.475-0.633-1.108-1.171-1.867-1.551-0.791-0.38-1.678-0.57-2.69-0.57-1.836 0-3.323 0.665-4.431 1.994-1.076 1.329-1.646 2.944-1.646 4.874 0 1.962 0.601 3.577 1.804 4.843 1.171 1.234 2.785 1.867 4.716 1.867 2.184 0 4.020-0.886 5.349-2.659l0.063-0.095-2.121-2.057c-0.19 0.253-0.475 0.506-0.728 0.76-0.317 0.317-0.633 0.538-0.95 0.696-0.475 0.253-1.044 0.348-1.646 0.348-0.918 0-1.646-0.253-2.216-0.791-0.538-0.475-0.855-1.139-0.918-1.962h8.641l0.032-1.203c0-0.855-0.127-1.646-0.348-2.406-0.222-0.728-0.57-1.456-1.044-2.089zM154.841 17.63c0.158-0.633 0.443-1.139 0.855-1.551 0.443-0.443 1.013-0.665 1.709-0.665 0.791 0 1.393 0.222 1.804 0.665 0.38 0.411 0.601 0.918 0.665 1.519h-5.033z"></path>
+<path class="path15" d="M174.497 13.737v0c-0.981-0.855-2.342-1.266-4.051-1.266-1.076 0-2.089 0.253-3.007 0.696-0.855 0.443-1.678 1.139-2.216 2.089l0.032 0.032 2.089 1.994c0.855-1.361 1.804-1.836 3.070-1.836 0.696 0 1.234 0.19 1.678 0.538s0.633 0.823 0.633 1.393v0.633c-0.823-0.253-1.614-0.38-2.406-0.38-1.614 0-2.944 0.38-3.925 1.139s-1.488 1.867-1.488 3.229c0 1.203 0.411 2.216 1.266 2.944 0.855 0.696 1.899 1.076 3.134 1.076s2.406-0.506 3.45-1.361v1.076h3.197v-8.324c0.063-1.583-0.443-2.817-1.456-3.672zM168.704 20.795c0.38-0.253 0.886-0.38 1.551-0.38 0.791 0 1.614 0.158 2.469 0.475v1.266c-0.696 0.665-1.646 0.981-2.817 0.981-0.57 0-1.013-0.127-1.298-0.38s-0.443-0.538-0.443-0.95c0-0.443 0.19-0.76 0.538-1.013z"></path>
+<path class="path16" d="M188.55 13.99c-0.918-1.013-2.184-1.519-3.798-1.519-1.298 0-2.342 0.38-3.134 1.108v-0.791h-3.197v12.977h3.26v-7.185c0-0.981 0.222-1.773 0.696-2.311 0.475-0.57 1.076-0.823 1.931-0.823 0.728 0 1.298 0.253 1.709 0.728 0.411 0.506 0.633 1.171 0.633 2.026v7.501h3.26v-7.47c0-1.804-0.443-3.229-1.361-4.241z"></path>
+<path class="path17" d="M108.281 13.737v0c-0.981-0.855-2.342-1.266-4.051-1.266-1.076 0-2.089 0.253-3.007 0.696-0.855 0.443-1.678 1.139-2.216 2.089l0.032 0.032 2.089 1.994c0.855-1.361 1.804-1.836 3.070-1.836 0.696 0 1.234 0.19 1.678 0.538s0.633 0.823 0.633 1.393v0.633c-0.823-0.253-1.614-0.38-2.406-0.38-1.614 0-2.944 0.38-3.925 1.139s-1.488 1.867-1.488 3.229c0 1.203 0.411 2.216 1.266 2.944 0.855 0.696 1.899 1.076 3.134 1.076s2.406-0.506 3.45-1.361v1.076h3.197v-8.324c0.032-1.583-0.475-2.817-1.456-3.672zM102.489 20.795c0.38-0.253 0.886-0.38 1.551-0.38 0.791 0 1.614 0.158 2.469 0.475v1.266c-0.696 0.665-1.646 0.981-2.817 0.981-0.57 0-1.013-0.127-1.298-0.38s-0.443-0.538-0.443-0.95c0-0.443 0.158-0.76 0.538-1.013z"></path>
+<path class="path18" d="M127.462 26.018c-5.223 0-9.496-4.241-9.496-9.496s4.241-9.496 9.496-9.496 9.496 4.241 9.496 9.496-4.273 9.496-9.496 9.496zM127.462 10.382c-3.387 0-6.14 2.754-6.14 6.14s2.754 6.14 6.14 6.14 6.14-2.754 6.14-6.14-2.754-6.14-6.14-6.14z"></path>
+</svg>
+
+          <span class="sr-only">DigitalOcean</span>
+</a>
+        <span class="logo-separator"></span>
+
+        <a class="home-link" href="/community">
+          <span class='logo-community-text'>Community</span>
+</a>      </div>
+
+      <a class="mobile-nav-toggle icon-menu-thin" data-role="left">
+        <span>Menu</span>
+      </a>
+
+      
+<nav>
+
+  <ul>
+    <li><a class="active" href="/community/tutorials">Tutorials</a></li>
+    <li><a href="/community/questions">Questions</a></li>
+    <li><a href="/community/projects">Projects</a></li>
+    <li><a href="https://www.meetup.com/pro/digitalocean/?utm_source=do_community" target="_blank">Meetups</a></li>
+    <li class="mobile-nav-only"><a href="https://www.digitalocean.com/">Main Site</a></li>
+  </ul>
+</nav>
+
+
+      
+<div class="account-buttons">
+    <div id="entrance">
+      <a id="sign-up" class="button" href="/community/auth/digitalocean?display=sessionless+register">Sign Up</a>
+      <a id="log-in" class="button" href="/community/auth/digitalocean">Log In</a>
+    </div>
+</div>
+      <div class='header-search open'>
+  <form action="/community/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" />
+    <span class='icon icon-search-thin'></span>
+    <input type="text" name="q" id="q" title="Search" placeholder="Search" autocomplete="off" spellcheck="false" class="header-search__input" data-algolia-application-id="6ZHEUVKJ88" data-algolia-api-key="c5470567eae7fa1177d43222e18ba086" />
+    <button name="button" type="submit" class="icon-btn">submit</button>
+</form></div>
+
+<div class="search-results-dropdown dropdown" data-root-path="https://www.digitalocean.com/community">
+  <div class="container">
+    <div class='header-search-results-list'></div>
+
+    <div id="btn-wrap">
+      <a class="more-search-results" data-search-path="/community/search" href="/community/search">
+        <span class='icon-mag'></span>
+        View All Results
+</a>    </div>
+  </div>
+</div>
+
+<script type='text/template' id='autocomplete-hits-template'>
+  <div class="inner-search">
+    <ul>
+        {{#hits}}
+          <li>
+            <span class='icon icon-{{type}}'></span>
+            <a href='{{url}}'>{{title}}</a>
+          </li>
+        {{/hits}}
+    </ul>
+  </div>
+</script>
+
+
+      <div class='clearfix'></div>
+    </div>
+  </div>
+
+  <div class='wrapper'>
+    
+  </div>
+</header>
+
+
+      
+
+      <div class='wrapper layout-wrapper'>
+
+        
+
+
+
+
+
+
+
+
+
+<div class="section-content section-content-growable content Tutorial-content content-has-mobile-image">
+  <div class='postable-info-bar-container'>
+  <div class='postable-info-bar'>
+    <div class='left-section'>
+        <div class='tutorial-author-avatar'>
+    <a href="/community/users/bpb"><img class="avatar avatar-small" src="https://community-cdn-digitalocean-com.global.ssl.fastly.net/assets/users/avatars/small/d3f0273e4e4eb87e1002b3653f30eb5ba32eedf8.jpg?1449535798" alt="D3f0273e4e4eb87e1002b3653f30eb5ba32eedf8" /></a>
+  </div>
+  <div class='author-and-date'>
+    <div class='tutorial-author'>
+      <div class='by'>By: </div>
+      <a href="/community/users/bpb">Brennen Bearnes</a>
+    </div>
+  </div>
+
+      
+    </div>
+
+    <div class='right-section'>
+      
+
+        <div class='section-item section-item-translations'>
+          <div class='content-translations'>
+  <div class='current-language'>
+    <a href="#" title=English data-toggle="modal" data-target="#translation-modal">
+      <span class='language '></span>
+      <span class='icon icon-arrow-up'></span>
+      <span class='icon icon-arrow-down'></span>
+    </a>
+  </div>
+</div>
+
+
+
+        </div>
+
+      <div class="section-item section-item-subscribe">
+  <span class="opt-in-switch off signed-out-subscribe">
+    <span class="subscribe-label">
+      <span class="icon icon-subscribe"></span>
+      <span class="subscription-label subscribe">Subscribe</span>
+      <span class="icon icon-subscribed"></span>
+      <span class="subscription-label subscribed">Subscribed</span>
+    </span>
+    <a data-toggle="modal" data-target="#sign-in-modal" class="mini-switch-container" href="javascript:void(0);"><div class="mini-switch off signed-out-subscribe"><div class="switch-handle"></div></div></a>
+  </span>
+</div>
+
+<div class='section-item social-sharing-item'>
+  <div class="sharing">
+  <a class="share-button" href="#" data-toggle="modal" data-target="#share-modal">
+    <span class="icon icon-share-square"></span>
+    <span class="share-button-text">Share</span>
+  </a>
+</div>
+
+</div>
+
+        <div class='section-item table-of-contents-triggers'><div class="toc-trigger-mobile" data-toggle="modal" data-target="#contents-modal">
+  <a href="javascript:void(0);">
+    <span class="icon icon-contents"></span>
+    <span class="title">Contents</span>
+    <span class="icon icon-arrow-down"></span>
+  </a>
+</div>
+
+</div>
+
+    </div>
+  </div>
+</div>
+
+
+    <img alt="How To Upgrade to Ubuntu 16.04 LTS" title="How To Upgrade to Ubuntu 16.04 LTS" class="tutorial-image-mobile" src="https://community-cdn-digitalocean-com.global.ssl.fastly.net/assets/tutorials/images/large/ubuntu16.04_Blog.png?1461274596" />
+
+  <div class="container tutorial-header">
+      <img alt="How To Upgrade to Ubuntu 16.04 LTS" title="How To Upgrade to Ubuntu 16.04 LTS" class="tutorial-image" src="https://community-cdn-digitalocean-com.global.ssl.fastly.net/assets/tutorials/images/large/ubuntu16.04_Blog.png?1461274596" />
+
+      <div class='info-cta'>
+    <a class="icon-close-light" href="javascript:void();"></a>
+    We hope you find this tutorial helpful. In addition to guides like this one, we provide simple cloud infrastructure for developers. <a href="https://www.digitalocean.com/?utm_medium=community&amp;utm_source=community_gencta&amp;utm_campaign=needaserver&amp;utm_content=how-to-upgrade-to-ubuntu-16-04-lts">
+        Learn more &rarr;
+</a>  </div>
+
+
+    <button name="button" type="button" class="new-upvote-button" data-include-caret="true" data-upvotable-id="1921" data-upvotable-type="Tutorial"><span class="icon new-upvote-icon"><svg class='svg-icon svg-icon-upvote-empty'><use xlink:href='https://www.digitalocean.com/assets/community/icon-sprite-d76eb75d70ccf8ffb4c0b47b7dbc88ca.svg#icon-upvote-empty'></use></svg></span><span class="new-upvote-count">39</span></button>
+
+    <h1 class="content-title Tutorial-header">
+      <button type="button" class="Button--reset Tutorial-headerButton " data-toggle="tooltip" title="Mark as Complete" data-js="markAsComplete" data-tutorialInteraction data-tutorialSingle>
+        <svg class='svg-icon svg-icon-completed'><use xlink:href='https://www.digitalocean.com/assets/community/icon-sprite-d76eb75d70ccf8ffb4c0b47b7dbc88ca.svg#icon-completed'></use></svg>
+      </button> How To Upgrade to Ubuntu 16.04 LTS
+    </h1>
+
+    <span class="meta-section timestamp"><span class="tutorial-date-text">Posted</span><span class="tutorial-date">April  8, 2016</span></span>
+
+    <span class="meta-section pageviews"><span class="icon icon-eye v-mid"></span><span class="views-count v-mid">717.8k</span><span class="sr-only"> views</span></span>
+
+    <span class="meta-section tags">
+      <a class="tag" href="/community/tags/system-tools?type=tutorials">System Tools</a> <a class="tag" href="/community/tags/digitalocean?type=tutorials">DigitalOcean</a>
+      <a class="tag" href="/community/tags/ubuntu?type=tutorials">Ubuntu</a>
+    </span>
+  </div>
+
+    <div class="content-body tutorial-content" data-growable-markdown>
+      <h3 id="introduction">Introduction</h3>
+
+<span class='warning'><p>
+<strong>Warning:</strong> As with almost any upgrade between major releases of an operating system, this process carries an inherent risk of failure, data loss, or broken software configuration.  Comprehensive backups and extensive testing are strongly advised.</p>
+
+<p>To avoid these problems, when possible, we recommend migrating to a fresh Ubuntu 16.04 server rather than upgrading in-place.  You may still need to review differences in software configuration when upgrading, but the core system will likely have greater stability.  You can follow our series on <a href="https://www.digitalocean.com/community/tutorial_series/how-to-migrate-to-a-new-linux-server">how to migrate to a new Linux server</a> to learn how to migrate between servers.<br></p></span>
+
+<p>The Ubuntu operating system's next Long Term Support release, version 16.04 (Xenial Xerus), is due to be released on April 21, 2016.</p>
+
+<p>Although it hasn't yet been released at the time of this writing, it's already possible to upgrade a 15.10 system to the development version of 16.04.  This may be useful for testing both the upgrade process and the features of 16.04 itself in advance of the official release date.</p>
+
+<p>This guide will explain the process for systems including (but not limited to) DigitalOcean Droplets running Ubuntu 15.10.</p>
+
+<h2 id="prerequisites">Prerequisites</h2>
+
+<p>This guide assumes that you have a system running Ubuntu 15.10, configured with a non-root user with <code>sudo</code> privileges for administrative tasks.</p>
+
+<h2 id="potential-pitfalls">Potential Pitfalls</h2>
+
+<p>Although many systems can be upgraded in place without incident, it is often safer and more predictable to migrate to a major new release by installing the distribution from scratch, configuring services with careful testing along the way, and migrating application or user data as a separate step.</p>
+
+<p>You should never upgrade a production system without first testing all of your deployed software and services against the upgrade in a staging environment.  Keep in mind that libraries, languages, and system services may have changed substantially.  In Ubuntu 16.04, important changes since the preceding LTS release include a transition to the systemd init system in place of Upstart, an emphasis on Python 3 support, and PHP 7 in place of PHP 5.</p>
+
+<p>Before upgrading, consider reading the <a href="https://wiki.ubuntu.com/XenialXerus/ReleaseNotes">Xenial Xerus Release Notes</a>.</p>
+
+<h2 id="step-1-–-back-up-your-system">Step 1 – Back Up Your System</h2>
+
+<p>Before attempting a major upgrade on any system, you should make sure you won't lose data if the upgrade goes awry.  The best way to accomplish this is to make a backup of your entire filesystem.  Failing that, ensure that you have copies of user home directories, any custom configuration files, and data stored by services such as relational databases.</p>
+
+<p>On a DigitalOcean Droplet, the easiest approach is to power down the system and take a snapshot (powering down ensures that the filesystem will be more consistent).  See <a href="https://www.digitalocean.com/community/tutorials/how-to-use-digitalocean-snapshots-to-automatically-backup-your-droplets">How To Use DigitalOcean Snapshots to Automatically Backup your Droplets</a> for more details on the snapshot process.  When you have verified that the update was successful, you can delete the snapshot so that you will no longer be charged for it.</p>
+
+<p>For backup methods which will work on most Ubuntu systems, see <a href="https://www.digitalocean.com/community/tutorials/how-to-choose-an-effective-backup-strategy-for-your-vps">How To Choose an Effective Backup Strategy for your VPS</a>.</p>
+
+<h2 id="step-2-–-upgrade-currently-installed-packages">Step 2 – Upgrade Currently Installed Packages</h2>
+
+<p>Before beginning the release upgrade, it's safest to install the latest versions of all packages <em>for the current release</em>.  Begin by updating the package list:</p>
+<pre class="code-pre command"><code langs=""><ul class="prefixed"><li class="line" prefix="$">sudo apt-get update
+</li></ul></code></pre>
+<p>Next, upgrade installed packages to their latest available versions:</p>
+<pre class="code-pre command"><code langs=""><ul class="prefixed"><li class="line" prefix="$">sudo apt-get upgrade
+</li></ul></code></pre>
+<p>You will be shown a list of upgrades, and prompted to continue.  Answer <strong>y</strong> for yes and press <strong>Enter</strong>.</p>
+
+<p>This process may take some time.  Once it finishes, use the <code>dist-upgrade</code> command, which will perform upgrades involving changing dependencies, adding or removing new packages as necessary.  This will handle a set of upgrades which may have been held back by <code>apt-get upgrade</code>:</p>
+<pre class="code-pre command"><code langs=""><ul class="prefixed"><li class="line" prefix="$">sudo apt-get dist-upgrade
+</li></ul></code></pre>
+<p>Again, answer <strong>y</strong> when prompted to continue, and wait for upgrades to finish.</p>
+
+<p>Now that you have an up-to-date installation of Ubuntu 15.10, you can use <code>do-release-upgrade</code> to upgrade to the 16.04 release.</p>
+
+<h2 id="step-3-–-use-ubuntu-39-s-do-release-upgrade-tool-to-perform-upgrade">Step 3 – Use Ubuntu's do-release-upgrade Tool to Perform Upgrade</h2>
+
+<p>First, make sure you have the <code>update-manager-core</code> package installed:</p>
+<pre class="code-pre command"><code langs=""><ul class="prefixed"><li class="line" prefix="$">sudo apt-get install update-manager-core
+</li></ul></code></pre>
+<p>Traditionally, Debian releases have been upgradeable by changing Apt's <code>/etc/apt/sources.list</code>, which specifies package repositories, and using <code>apt-get dist-upgrade</code> to perform the upgrade itself.  Ubuntu is still a Debian-derived distribution, so this process would likely still work.  Instead, however, we'll use <code>do-release-upgrade</code>, a tool provided by the Ubuntu project, which handles checking for a new release, updating <code>sources.list</code>, and a range of other tasks.  This is the officially recommended upgrade path for server upgrades which must be performed over a remote connection.</p>
+
+<p>Start by running <code>do-release-upgrade</code> with no options:</p>
+<pre class="code-pre command"><code langs=""><ul class="prefixed"><li class="line" prefix="$">sudo do-release-upgrade
+</li></ul></code></pre>
+<p>If Ubuntu 16.04 has not been released yet, you should see the following:</p>
+<div class="code-label " title="Sample Output">Sample Output</div><pre class="code-pre "><code langs="">Checking for a new Ubuntu release
+No new release found
+</code></pre>
+<p>In order to upgrade to 16.04 before its official release, specify the <code>-d</code> option in order to use the <em>development</em> release:</p>
+<pre class="code-pre command"><code langs=""><ul class="prefixed"><li class="line" prefix="$">sudo do-release-upgrade -d
+</li></ul></code></pre>
+<p>If you're connected to your system over SSH, as is likely with a DigitalOcean Droplet, you'll be asked whether you wish to continue.</p>
+
+<p>On a Droplet, it's safe to upgrade over SSH.  Although <code>do-upgrade-release</code> has not informed us of this, you can use the console available from the DigitalOcean Control Panel to connect to your Droplet without running SSH.</p>
+
+<p>For virtual machines or managed servers hosted by other providers, you should keep in mind that losing SSH connectivity is a risk, particularly if you don't have another means of remotely connecting to the system's console.  For other systems under your control, remember that it's safest to perform major operating system upgrades only when you have direct physical access to the machine.</p>
+
+<p>At the prompt, type <strong>y</strong> and press <strong>Enter</strong> to continue:</p>
+<pre class="code-pre "><code langs="">Reading cache
+
+Checking package manager
+
+Continue running under SSH?
+
+This session appears to be running under ssh. It is not recommended
+to perform a upgrade over ssh currently because in case of failure it
+is harder to recover.
+
+If you continue, an additional ssh daemon will be started at port
+'1022'.
+Do you want to continue?
+
+Continue [yN] <span class="highlight">y</span>
+</code></pre>
+<p>Next, you'll be informed that <code>do-release-upgrade</code> is starting a new instance of <code>sshd</code> on port 1022:</p>
+<pre class="code-pre "><code langs="">Starting additional sshd 
+
+To make recovery in case of failure easier, an additional sshd will 
+be started on port '1022'. If anything goes wrong with the running 
+ssh you can still connect to the additional one. 
+If you run a firewall, you may need to temporarily open this port. As 
+this is potentially dangerous it's not done automatically. You can 
+open the port with e.g.: 
+'iptables -I INPUT -p tcp --dport 1022 -j ACCEPT' 
+
+To continue please press [ENTER]
+</code></pre>
+<p>Press <strong>Enter</strong>.  Next, you may be warned that a mirror entry was not found.  On DigitalOcean systems, it is safe to ignore this warning and proceed with the upgrade, since a local mirror for 16.04 is in fact available.  Enter <strong>y</strong>:</p>
+<pre class="code-pre "><code langs="">Updating repository information
+
+No valid mirror found 
+
+While scanning your repository information no mirror entry for the 
+upgrade was found. This can happen if you run an internal mirror or 
+if the mirror information is out of date. 
+
+Do you want to rewrite your 'sources.list' file anyway? If you choose 
+'Yes' here it will update all 'trusty' to 'xenial' entries. 
+If you select 'No' the upgrade will cancel. 
+
+Continue [yN] <span class="highlight">y</span>
+</code></pre>
+<p>Once new package lists have been downloaded and changes calculated, you'll be asked if you want to start the upgrade.  Again, enter <strong>y</strong> to continue:</p>
+<pre class="code-pre "><code langs="">Do you want to start the upgrade?
+
+
+6 installed packages are no longer supported by Canonical. You can
+still get support from the community.
+
+9 packages are going to be removed. 104 new packages are going to be
+installed. 399 packages are going to be upgraded.
+
+You have to download a total of 232 M. This download will take about
+46 seconds with your connection.
+
+Installing the upgrade can take several hours. Once the download has
+finished, the process cannot be canceled.
+
+ Continue [yN]  Details [d]<span class="highlight">y</span>
+</code></pre>
+<p>New packages will now be retrieved, then unpacked and installed.  Even if your system is on a fast connection, this will take a while.</p>
+
+<p>During the installation, you may be presented with interactive dialogs for various questions.  For example, you may be asked if you want to automatically restart services when required:</p>
+
+<p><img src="http://assets.digitalocean.com/articles/how-to-upgrade-to-ubuntu-1604/0.png" alt="Service Restart Dialog"></p>
+
+<p>In this case, it is safe to answer "Yes".  In other cases, you may be asked if you wish to replace a configuration file that you have modified with the default version from the package that is being installed.  This is often a judgment call, and is likely to require knowledge about specific software that is outside the scope of this tutorial.</p>
+
+<p>Once new packages have finished installing, you'll be asked whether you're ready to remove obsolete packages.  On a stock system with no custom configuration, it should be safe to enter <strong>y</strong> here.  On a system you have modified heavily, you may wish to enter <strong>d</strong> and inspect the list of packages to be removed, in case it includes anything you'll need to reinstall later.</p>
+<pre class="code-pre "><code langs="">Remove obsolete packages? 
+
+
+53 packages are going to be removed. 
+
+ Continue [yN]  Details [d]<span class="highlight">y</span>
+</code></pre>
+<p>Finally, assuming all has gone well, you'll be informed that the upgrade is complete and a restart is required.  Enter <strong>y</strong> to continue:</p>
+<pre class="code-pre "><code langs="">System upgrade is complete.
+
+Restart required 
+
+To finish the upgrade, a restart is required. 
+If you select 'y' the system will be restarted. 
+
+Continue [yN] <span class="highlight">y</span>
+</code></pre>
+<p>On an SSH session, you'll likely see something like the following:</p>
+<pre class="code-pre "><code langs="">=== Command detached from window (Thu Apr  7 13:13:33 2016) ===
+=== Command terminated normally (Thu Apr  7 13:13:43 2016) ===
+</code></pre>
+<p>You may need to press a key here to exit to your local prompt, since your SSH session will have terminated on the server end.  Wait a moment for your system to reboot, and reconnect.  On login, you should be greeted by a message confirming that you're now on Xenial Xerus:</p>
+<pre class="code-pre "><code langs="">Welcome to Ubuntu Xenial Xerus (development branch) (GNU/Linux 4.4.0-17-generic x86_64)
+</code></pre>
+<h2 id="conclusion">Conclusion</h2>
+
+<p>You should now have a working Ubuntu 16.04 installation.  From here, you likely need to investigate necessary configuration changes to services and deployed applications.  In the coming weeks, we'll begin posting DigitalOcean guides specific to Ubuntu 16.04 on a wide range of topics.</p>
+
+    </div>
+</div>
+
+<div class="tutorial-footer">
+  <div class='tutorial-footer-details'>
+
+  <div class='postable-info-bar-container'>
+  <div class='postable-info-bar'>
+    <div class='left-section'>
+        <div class='tutorial-author-avatar'>
+    <a href="/community/users/bpb"><img class="avatar avatar-small" src="https://community-cdn-digitalocean-com.global.ssl.fastly.net/assets/users/avatars/small/d3f0273e4e4eb87e1002b3653f30eb5ba32eedf8.jpg?1449535798" alt="D3f0273e4e4eb87e1002b3653f30eb5ba32eedf8" /></a>
+  </div>
+  <div class='author-and-date'>
+    <div class='tutorial-author'>
+      <div class='by'>By: </div>
+      <a href="/community/users/bpb">Brennen Bearnes</a>
+    </div>
+  </div>
+
+    </div>
+    <div class='right-section'>
+      <div class="upvote-container">
+        <button name="button" type="button" class="new-upvote-button" data-include-caret="false" data-upvotable-id="1921" data-upvotable-type="Tutorial"><span class="icon new-upvote-icon"><svg class='svg-icon svg-icon-heart'><use xlink:href='https://www.digitalocean.com/assets/community/icon-sprite-d76eb75d70ccf8ffb4c0b47b7dbc88ca.svg#icon-heart'></use></svg></span><span class="new-upvote-text">Upvote</span><span class="new-upvote-count">39</span></button>
+      </div>
+      <div class="section-item section-item-subscribe">
+  <span class="opt-in-switch off signed-out-subscribe">
+    <span class="subscribe-label">
+      <span class="icon icon-subscribe"></span>
+      <span class="subscription-label subscribe">Subscribe</span>
+      <span class="icon icon-subscribed"></span>
+      <span class="subscription-label subscribed">Subscribed</span>
+    </span>
+    <a data-toggle="modal" data-target="#sign-in-modal" class="mini-switch-container" href="javascript:void(0);"><div class="mini-switch off signed-out-subscribe"><div class="switch-handle"></div></div></a>
+  </span>
+</div>
+
+<div class='section-item social-sharing-item'>
+  <div class="sharing">
+  <a class="share-button" href="#" data-toggle="modal" data-target="#share-modal">
+    <span class="icon icon-share-square"></span>
+    <span class="share-button-text">Share</span>
+  </a>
+</div>
+
+</div>
+
+    </div>
+  </div>
+</div>
+
+
+  <div class='section-content tutorial-contributors one'>
+
+
+  </div>
+</div>
+
+
+  
+  <div class='tutorial-ctas'>
+  <div class='section-content'>
+    <div class='cta-description'>
+      <h2>Spin up an SSD cloud server in under a minute.</h2>
+
+      <p>Simple setup. Full root access. Straightforward pricing.</p>
+
+      <a class="cloud-tutorial-cta" href="https://www.digitalocean.com/?utm_medium=community&amp;utm_source=community_gencta&amp;utm_campaign=needaserver&amp;utm_content=how-to-upgrade-to-ubuntu-16-04-lts">Deploy Server</a>
+    </div>
+  </div>
+</div>
+    <div class='related-tutorials'>
+    <div class='section-content'>
+      <h2>Related Tutorials</h2>
+
+      <ul>
+        <li><a class="related-link" href="/community/tutorials/how-to-configure-openldap-and-perform-administrative-ldap-tasks">How To Configure OpenLDAP and Perform Administrative LDAP Tasks</a></li>
+<li><a class="related-link" href="/community/tutorials/how-to-change-account-passwords-on-an-openldap-server">How To Change Account Passwords on an OpenLDAP Server</a></li>
+<li><a class="related-link" href="/community/tutorials/how-to-use-ldif-files-to-make-changes-to-an-openldap-system">How To Use LDIF Files to Make Changes to an OpenLDAP System</a></li>
+<li><a class="related-link" href="/community/tutorials/how-to-manage-and-use-ldap-servers-with-openldap-utilities">How To Manage and Use LDAP Servers with OpenLDAP Utilities</a></li>
+<li><a class="related-link" href="/community/tutorials/how-to-use-systemctl-to-manage-systemd-services-and-units">How To Use Systemctl to Manage Systemd Services and Units</a></li>
+
+      </ul>
+    </div>
+  </div>
+
+</div>
+
+<div class="content-comments">
+  <div class="section-content">
+    <div class="tutorial commentable" id="tutorial_1921">
+
+  <div class="comments-header">
+    <h4 class="comments-count"><span>43 Comments</span></h4>
+  </div>
+
+  <div class="response response-form no-avatar">
+  <div class="js-display-on-error flash error hidden"></div>
+
+
+  <form class="content-form disabled-form" id="new_comment" action="/community/tutorials/how-to-upgrade-to-ubuntu-16-04-lts/comments" accept-charset="UTF-8" data-remote="true" method="post"><input name="utf8" type="hidden" value="&#x2713;" />
+
+    <textarea name="comment[content]" id="comment_content" placeholder="Leave a comment..." class="js-comment-content tutorial-comment-field" data-markdown="true">
+</textarea>
+
+      <div class="log-in-notice "><a href="/community/auth/digitalocean">Log In to Comment</a></div>
+
+    <div class='clearfix'></div>
+</form>
+</div>
+
+
+  <div class="comments">
+    <ul class="response-list">
+          <a class="js-click-on-load hidden" rel="nofollow" data-remote="true" href="/community/tutorials/how-to-upgrade-to-ubuntu-16-04-lts/comments">Load</a>
+    </ul>
+
+      <div class='comments-spinner'><div class="spinner spinner-large">
+  <div class="bounce1"></div>
+  <div class="bounce2"></div>
+  <div class="bounce3"></div>
+  
+</div>
+</div>
+  </div>
+
+  <div class='load-more-container'></div>
+</div>
+
+
+  </div>
+</div>
+
+<div class="creative-commons">
+  <a class="creative-commons-image" href="https://creativecommons.org/licenses/by-nc-sa/4.0/"><img rel="license" alt="Creative Commons License" src="/assets/community/creativecommons-08b32a9279fcd47fcd78ac6a26331389.png" /></a>
+    <div class="license-text">This work is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.</div>
+</div>
+
+
+
+
+
+        <div class="clearfix"></div>
+      </div>
+
+
+      <footer class='Footer'>
+  <span class="Footer-logo icon-sammy"></span>
+
+  <div>Copyright &copy; 2018 DigitalOcean&trade; Inc.</div>
+
+  <ul class="Footer-nav">
+    <li><a href="/community">Community</a></li>
+    <li><a href="/community/tutorials">Tutorials</a></li>
+    <li><a href="/community/questions">Questions</a></li>
+    <li><a href="/community/projects">Projects</a></li>
+    <li><a href="/community/tags">Tags</a></li>
+    <li><a href="/community/newsletter">Newsletter</a></li>
+    <li>
+      <a href="/community/tutorials/feed">
+        RSS <span class="icon-rss"></span>
+</a>    </li>
+  </ul>
+
+  <br />
+
+  <ul class="Footer-nav Footer-nav--secondary">
+    <li><a href="https://www.digitalocean.com/features/one-click-apps/">Distros &amp; One-Click Apps</a></li>
+    <li><a href="https://www.digitalocean.com/legal/terms/">Terms, Privacy, &amp; Copyright</a></li>
+    <li><a href="https://www.digitalocean.com/security/">Security</a></li>
+      <li><a data-toggle="modal" data-target="#sign-in-modal" href="#">Report a Bug</a></li>
+    <li><a href="/community/write-for-digitalocean">Write for DigitalOcean</a></li>
+    <li><a href="http://store.digitalocean.com/">Shop</a></li>
+  </ul>
+</footer>
+
+
+
+
+
+      <div id='sign-in-modal' class='modal fade mini-modal' style="display: none;">
+  <div class='modal-dialog'>
+    <div class='modal-content'>
+      <div class='modal-header'>
+        <h1>Almost there!</h1>
+        <a class='close-button' data-dismiss='modal' aria-label="close"  href=''><span class='icon icon-close-light'></span></a>
+      </div>
+      <div class='modal-body'>
+        <div class='sign-in-message'>Sign into your account, or create a new one, to start interacting.</div>
+
+        <div class='sign-in-modal-actions'>
+          <a class="sign-in-link button blue-button" data-default-url="/community/auth/digitalocean" href="/community/auth/digitalocean">Log In</a>
+          <a class="sign-up-link button green-button" data-default-url="/community/auth/digitalocean?display=sessionless+register" href="/community/auth/digitalocean?display=sessionless+register">Sign Up</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+    
+  <script>
+    $(function() {
+      if (!!window.init_sharing) {
+        window.init_sharing();
+      }
+      new window.NewsletterSignup();
+      new window.GrowableMarkdown({ target: '[data-growable-markdown]' });
+
+      window.Bugsnag.beforeNotify = function(payload, metaData) {
+        // custom logic to determine groupingHash
+        metaData.groupingHash = "tutorialShow";
+      }
+    });
+  </script>
+  <script type="application/ld+json">
+    {"@context":"http://schema.org","@type":"Article","name":"How To Upgrade to Ubuntu 16.04 LTS","headline":"How To Upgrade to Ubuntu 16.04 LTS","alternativeHeadline":"How To Upgrade to Ubuntu 16.04 LTS","description":"Ubuntu's next Long Term Support release, version 16.04 (Xenial Xerus), is due to be released on April 21, 2016. This guide explains the upgrade process for systems including (but not limited to) DigitalOcean Droplets running Ubuntu 15.10.","keywords":"System Tools,DigitalOcean","url":"https://www.digitalocean.com/community/tutorials/how-to-upgrade-to-ubuntu-16-04-lts","mainEntityOfPage":{"@type":"WebPage","@id":"https://www.digitalocean.com/community/tutorials/how-to-upgrade-to-ubuntu-16-04-lts"},"dateModified":"2017-09-25T14:59:37Z","inLanguage":"en","accessMode":"textual","accessModeSufficient":"textual","isAccessibleForFree":true,"license":"https://creativecommons.org/licenses/by-nc-sa/4.0/","publishingPrinciples":"https://www.digitalocean.com/community/tutorials/technical-recommendations-and-best-practices-for-digitalocean-s-tutorials","author":{"@type":"Person","name":"Brennen Bearnes","@id":"https://www.digitalocean.com/community/users/bpb"},"datePublished":"2016-04-08T15:02:17Z","image":{"@type":"ImageObject","url":"https://community-cdn-digitalocean-com.global.ssl.fastly.net/assets/tutorials/images/large/ubuntu16.04_Blog.png?1461274596","height":375,"width":750},"interactionStatistic":[{"@type":"InteractionCounter","interactionType":"http://schema.org/LikeAction","userInteractionCount":"40"},{"@type":"InteractionCounter","interactionType":"http://schema.org/CommentAction","userInteractionCount":"21"}],"sourceOrganization":{"@type":"Organization","name":"DigitalOcean Community","url":"https://www.digitalocean.com/community"},"publisher":{"@type":"Organization","name":"DigitalOcean","url":"https://www.digitalocean.com","logo":{"@type":"ImageObject","url":"https://assets.digitalocean.com/logos/DO_Logo_horizontal_blue.png","width":351,"height":60}}}
+  </script>
+
+  <div id='report-a-bug-modal' class='modal fade mini-modal' style="display: none;">
+    <div class='modal-dialog'>
+      <div class='modal-content'>
+        <div class='modal-header'>
+          <h1>Report a Bug</h1>
+          <a class='close-button' data-dismiss='modal' aria-label="close" href=''><span class='icon icon-close-light'></span></a>
+        </div>
+        <div class='modal-body'>
+          <div class='report-a-bug-message text-center'>Use this form to report bugs related to the Community</div>
+          <div class='report-a-bug-actions do-form'>
+            <div class='form-wrap'>
+              <form class="new_bug_report" id="new_bug_report" action="/community/bug_reports" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="&#x2713;" /><input type="hidden" name="authenticity_token" value="76eoAPDbpxm8Ogb55g8DZ8XItYwy5NTox7K1FGGLUFAzB4um9IEigcIxwkashAZSr0vqGh9W1J2QZBLpBpiBNw==" />
+                <fieldset name="report-a-bug-info">
+                <legend class="sr-only">Report a bug:</legend>
+                  <div class="field">
+                    <label for="bug_reporter_name" class="sr-only">Name</label>
+                    <input placeholder="Name" id="bug_reporter_name" type="text" name="bug_report[name]" />
+                  </div>
+                  <div class="field">
+                    <label for="bug_reporter_email" class="sr-only">Email</label>
+                    <input name="Email" placeholder="Email" id="bug_reporter_email" required="required" type="text" />
+                  </div>
+                  <div class="field">
+                    <label for="bug_reporter_message" class="sr-only">Message</label>
+                    <textarea name="Message" placeholder="Message" id="bug_reporter_message" required="required">
+</textarea>
+                  </div>
+
+                  <div class="field actions">
+                    <input type="submit" name="commit" value="Submit" class="button" />
+                  </div>
+                </fieldset>
+</form>            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+    
+  </body>
+</html>

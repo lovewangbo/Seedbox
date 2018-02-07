@@ -1,0 +1,437 @@
+一、安装步骤
+0.0 安装系统
+注意，对于Kimsufi服务器若需要安装BBR，需要在安装时候选择custom install然后选择distribution kernel。默认的OVH内核需要更高级的调整才能成功安装BBR。对于OneProvider，可能没有16.04选项，需要先安装14.04再手动升级。
+
+0.1 设置root密码
+sudo passwd root
+su
+apt-get install tmux
+tmux
+
+1. 测试硬盘好坏
+1.1测试硬盘IO是否正常
+# wget -qO- bench.sh | bash
+
+1.2 确认硬盘使用时间
+apt-get update; apt-get install smartmontools;
+smartctl -A /dev/sda
+对于raid硬盘则是
+# smartctl -a -d cciss,0 /dev/sda
+# smartctl -a -d cciss,1 /dev/sda
+重点关注以下3个数值：
+5	Reallocated_Sector_Ct
+196	Reallocated_Event_Count
+197	Current_Pending_Sector
+另硬盘时间在第9行。
+
+2. 若版本为14.04，先升级到16.04【否则安装不了BBR】
+sudo apt-get update
+sudo apt-get upgrade
+sudo apt-get dist-upgrade
+sudo apt-get install update-manager-core
+sudo do-release-upgrade
+然后一路y和Enter即可。
+
+3. 安装BBR
+使用root用户登录，运行以下命令：
+wget --no-check-certificate https://github.com/teddysun/across/raw/master/bbr.sh;chmod +x bbr.sh;./bbr.sh
+安装完成后，脚本会提示需要重启 VPS，输入 y 并回车后重启。
+对于Oneprovider的10o特价机器，遇到过重启后不能SSH连接的问题。原因是网卡驱动文件丢失了。如遇到下面的提示【处理好之前不可重启】：
+W: Possible missing firmware /lib/firmware/bnx2/bnx2-mips-09-6.2.1b.fw for module bnx2
+W: Possible missing firmware /lib/firmware/bnx2/bnx2-mips-06-6.2.3.fw for module bnx2
+解决办法：到https://github.com/cernekee/linux-firmware/tree/master/bnx2下载缺少的驱动文件。
+ls -al /lib/firmware/bnx2
+mkdir /lib/firmware/bnx2
+wget -O /lib/firmware/bnx2/bnx2-mips-09-6.2.1b.fw https://raw.githubusercontent.com/cernekee/linux-firmware/master/bnx2/bnx2-mips-09-6.2.1b.fw
+wget -O /lib/firmware/bnx2/bnx2-mips-06-6.2.3.fw https://raw.githubusercontent.com/cernekee/linux-firmware/master/bnx2/bnx2-mips-06-6.2.3.fw
+ls -al /lib/firmware/bnx2
+root@10o2T-2:/home/yellow# ls -al /lib/firmware/bnx2
+total 220
+drwxr-xr-x  2 root root   4096 Aug 22 02:57 .
+drwxr-xr-x 74 root root  20480 Aug 22 02:57 ..
+-rw-r--r--  1 root root  92824 Aug 22 02:57 bnx2-mips-06-6.2.3.fw
+-rw-r--r--  1 root root 103904 Aug 22 02:57 bnx2-mips-09-6.2.1b.fw
+查看文件大小无误，此后【方可重启】
+2018/1/22更新：5个警告
+W: Possible missing firmware /lib/firmware/bnx2/bnx2-rv2p-09ax-6.0.17.fw for module bnx2
+W: Possible missing firmware /lib/firmware/bnx2/bnx2-rv2p-09-6.0.17.fw for module bnx2
+W: Possible missing firmware /lib/firmware/bnx2/bnx2-rv2p-06-6.0.15.fw for module bnx2
+W: Possible missing firmware /lib/firmware/bnx2/bnx2-mips-09-6.2.1b.fw for module bnx2
+W: Possible missing firmware /lib/firmware/bnx2/bnx2-mips-06-6.2.3.fw for module bnx2
+相应地，文件命令为：
+wget -O /lib/firmware/bnx2/bnx2-rv2p-09ax-6.0.17.fw https://raw.githubusercontent.com/cernekee/linux-firmware/master/bnx2/bnx2-rv2p-09ax-6.0.17.fw
+wget -O /lib/firmware/bnx2/bnx2-rv2p-09-6.0.17.fw https://raw.githubusercontent.com/cernekee/linux-firmware/master/bnx2/bnx2-rv2p-09-6.0.17.fw
+wget -O /lib/firmware/bnx2/bnx2-rv2p-06-6.0.15.fw https://raw.githubusercontent.com/cernekee/linux-firmware/master/bnx2/bnx2-rv2p-06-6.0.15.fw
+wget -O /lib/firmware/bnx2/bnx2-mips-09-6.2.1b.fw https://raw.githubusercontent.com/cernekee/linux-firmware/master/bnx2/bnx2-mips-09-6.2.1b.fw
+wget -O /lib/firmware/bnx2/bnx2-mips-06-6.2.3.fw https://raw.githubusercontent.com/cernekee/linux-firmware/master/bnx2/bnx2-mips-06-6.2.3.fw
+
+重启完成后，进入 VPS，验证一下是否成功安装最新内核并开启 TCP BBR，输入以下命令：
+uname -r
+查看内核版本，含有 4.11 就表示 OK 了
+
+
+3. 配置IPV6
+kimsufi 2e是服务商在安装完系统后自动配置的。online的需要手动配置。
+3.1 一键安装脚本（自行修改版）：
+依次执行：
+su
+apt-get install git
+#######wget http://www.sonicboxes.com/scripts/online_net_ipv6_dhclient_Jan17.tar.gz;tar -xf online_net_ipv6_dhclient_Jan17.tar.gz;cd ipv6-dhclient-script;chmod 755 ipv6-dhclient-script.sh
+【注意】脚本不可在tmux中运行，原因未知
+【注意】上面的脚本有问题，将转发位forwarding=1导致网关掉线。应当使用自行修改版：
+git clone https://github.com/lovewangbo/ipv6-dhclient-script.git;cd ipv6-dhclient-script;chmod +x ipv6-dhclient-script.sh
+./ipv6-dhclient-script.sh eno1 2001:0bc8:3b34::1 48 00:03:00:01:63:87:bc:66:1a:fb
+自购10o2T-1:
+./ipv6-dhclient-script.sh enp2s0 2001:bc8:32d7:9300::1 56 00:03:00:01:27:b0:4a:76:27:df
+自购10o2T-2:
+./ipv6-dhclient-script.sh eno1 2001:bc8:32d7:6b00::1 56 00:03:00:01:43:42:a8:23:1a:47
+./ipv6-dhclient-script.sh em1 2001:bc8:32d7:6b00::1 56 00:03:00:01:43:42:a8:23:1a:47
+
+
+以以下信息为例，说明安装过程：
+IP	2001:0bc8:3c94:: /48
+DNS	Same settings as 2001:0bc8:27ef:: /48
+DUID	00:03:00:01:68:ca:d3:87:66:cc
+安装过程中提示输入ipv6 block address时输入
+2001:0bc8:3c94::1
+提示Subnet for your block时输入对应的48。
+过程如下：
+WARNING: Network will restart at the end of this script so any existing connections will be dropped!
+Interface where IPv6 will be enabled: eth0
+You have the following IPv6 addreses configured for eth0:
+fe80::208:a2ff:fe0b:4408
+Continue? [Y/n]: Y
+Your IPv6 block address (e.g. 2001:bb8:3e23:200::): 2001:bc8:27ef:100::
+Subnet for your block (e.g. if it's /56, input 56): 56
+Associated DUID (e.g. 00:03:00:00:34:b0:0c:47:4a:0e): 00:03:00:01:10:37:18:d3:56:da
+Working...
+
+5.2.手动配置：
+ifocnfig命令查网卡名，eno1,enp2s0之类。以下内容需要作相应修改
+【1】nano /etc/dhcp/dhclient6.conf，添加如下内容
+interface "enp2s0" {
+send dhcp6.client-id 00:03:00:01:3f:68:bb:53:14:6c;
+request;
+}
+【2】nano /etc/network/interfaces，在最底下添加如下内容
+iface eth0 inet6 static
+address 2001:0bc8:2aab::1
+netmask 48
+accept_ra 1
+pre-up dhclient -cf /etc/dhcp/dhclient6.conf -pf /run/dhclient6.eth0.pid -6 -P eth0
+pre-down dhclient -x -pf /run/dhclient6.eth0.pid
+【3】如连接有些服务器卡住，设置ipv4优先（否则apt-get连接debian服务器有时会超时）
+在/etc/gai.conf文件中取消注释或加入如下这一行： 
+precedence ::ffff:0:0/96 100 
+
+【4】ifdown eth0 && ifup eth0
+ifdown enp2s0 && ifup enp2s0
+经测试必须在root账户下运行，sudo会导致断线。
+如果报告错误ifdown: interface eth0 not configured可以换用：
+# service networking restart
+但这样SSH连接会中断，需要重新连接
+或者尝试：
+shell> systemctl daemon-reload
+shell> systemctl restart ipv6-dhclient
+
+配置完成后，可测试：
+ping6 ipv6.google.com
+确认不会断线可运行：
+ip -6 route
+看expires后面的倒计时会不会在减到0之前刷新回到1800s
+
+
+6. 系统配置
+6.1 使方向键和End,backspace正常使用
+su
+nano /etc/vim/vimrc.tiny
+ 找到set compatible改为set nocompatible
+ 小窍门：先不要进入编辑模式，把光标移动到compatible的前面，然后修改，添加no保存退出即可
+ 退格键不能使用的话，在刚才的下面再加一句
+set backspace=2
+
+6.2 修改SSH超时时间：
+nano /etc/ssh/sshd_config
+ 修改或添加以下两行：
+ClientAliveInterval 300
+ClientAliveCountMax 5
+ 这组参数允许超时 1500秒 =25分钟
+ 最后重启SSH服务：
+service sshd restart
+
+6.3 用户
+6.3.1 添加非root用户，指定用户home文件夹，并把所有者和组指定为该用户
+# useradd -d /home/yellow -m yellow
+设定密码：
+# passwd yellow
+Enter new UNIX password:
+Retype new UNIX password:
+passwd: password updated successfully
+
+6.3.2 把用户加进sudo组以赋予root权限：
+修改 /etc/sudoers 文件，找到下面一行，在root下面添加一行，用带检查功能的visudo命令，如下所示：
+# visudo -f /etc/sudoers
+## Allow root to run any commands anywhere
+# User privilege specification
+root	ALL=(ALL)     ALL
+yellow	ALL=(ALL)     ALL
+如果visudo not found则
+# apt-get install sudo
+
+6.3.3 改shell，否则不能使用tab自动补全：
+确认账户的配置：
+# grep yellow /etc/passwd
+yellow:x:1000:1000::/home/yellow:/bin/sh
+修改为：
+# nano /etc/passwd
+# grep yellow /etc/passwd
+yellow:x:1000:1000::/home/yellow:/bin/bash
+
+
+7. 安装rtorrent，配置rss(不能仅安装rutorrent，这样无法配置rss)
+7.1 确定运行rutorrent和qbittorrent的账户
+假设运行qbitorrent的专门账户为jack
+8.1 添加用户jack
+只需要一条命令：
+sudo adduser jack
+Adding user `jack' ...
+Adding new group `jack' (1001) ...
+Adding new user `jack' (1001) with group `jack' ...
+Creating home directory `/home/jack' ...
+Copying files from `/etc/skel' ...
+
+RTORRENT_USER="jack"; HOMEDIR=$(cat /etc/passwd | grep "$RTORRENT_USER": | cut -d: -f6)
+其中RTORRENT_USER是运行rt的用户
+
+7.2 
+apt-get install rtorrent; apt-get install php php7.0-cli php7.0-json php7.0-curl php7.0-cgi php7.0-mbstring libapache2-mod-php libapache2-mod-scgi apache2; apt-get install curl; unrar unzip ffmpeg mediainfo; cd /var/www/html; apt-get install git -y && sudo git clone https://github.com/Novik/ruTorrent.git; chown -R $RTORRENT_USER:www-data ruTorrent/ && sudo chmod -R 770 ruTorrent/;
+
+7.3 配置
+7.3.1 下载配置模板并建立默认文件夹：
+sudo cd $HOMEDIR; 
+sudo wget -O $HOMEDIR/.rtorrent.rc https://raw.githubusercontent.com/lovewangbo/rTorrent/master/.rtorrent.rc; 
+sudo chown "$RTORRENT_USER"."$RTORRENT_USER" $HOMEDIR/.rtorrent.rc; 
+sudo sed -i "s@HOMEDIRHERE@$HOMEDIR@g" $HOMEDIR/.rtorrent.rc; 
+sudo mkdir $HOMEDIR/.rtorrent-session; 
+sudo chown "$RTORRENT_USER"."$RTORRENT_USER" $HOMEDIR/.rtorrent-session; 
+sudo mkdir $HOMEDIR/Downloads; 
+sudo chown "$RTORRENT_USER"."$RTORRENT_USER" $HOMEDIR/Downloads;
+
+7.3.2 Add the following to your ruTorrent plugins.ini file (/var/www/html/ruTorrent/conf/plugins.ini) to enable the HTTPRPC plugin and disable the RPC plugin.
+nano /var/www/html/ruTorrent/conf/plugins.ini
+[httprpc]
+enabled = yes
+[rpc]
+enabled = no
+
+7.3.3 RESTART APACHE2：
+sudo service apache2 restart
+ 至此已可访问web ui（但不能连接上rtorrent，因还未安装）。如主机IP地址为163.172.10.239，则访问地址为：
+http://163.172.10.239/ruTorrent/
+
+
+7.4
+apt-get install 
+
+7.5 创建自启动服务
+sudo nano /etc/systemd/system/rtorrent.service
+[Unit]
+Description=rtorrent (in tmux)
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+User=jack
+ExecStart=/usr/bin/tmux -2 new-session -d -s rtorrent rtorrent
+ExecStop=/usr/bin/tmux kill-session -t rtorrent
+[Install]
+WantedBy=default.target
+################################################################
+sudo systemctl enable rtorrent
+sudo systemctl status rtorrent
+启动方法：
+sudo systemctl start rtorrent
+ps -ef | grep rtorrent
+若有问题，可尝试用tmux直接运行rtorrent:
+tmux -2 new-session -d -s rtorrent rtorrent
+另外参考：
+sudo systemctl disable rtorrent
+sudo systemctl stop rtorrent
+
+7.6 配置文件修改（下载的模板中已修改）
+7.6.1 关于客户端限速
+Plugin Throttle
+https://github.com/Novik/ruTorrent/wiki/PluginThrottle
+Speed limits in regard to groups of torrents only works when there are global speed limits for whole system (it is the feature of rtorrent). To get over this disadvantage, ruTorrent, during it's loading, checks if parameters upload_rate and download_rate are set to zero. If it is so, ruTorrent change "0" to a very_big_number.
+大意：只有全局限速不为0时限速通道才有作用。因此：
+$ nano .rtorrent.rc
+将全局限速的限制打开：
+throttle.global_down.max_rate.set_kb = 102400
+throttle.global_up.max_rate.set_kb = 102400
+注：在WEB UI中修改的全局限速值不能保存，重启后即恢复原值。
+
+The channel of torrent can be changed only when the torrent is stopped. If the torrent is active, the plugin will stop it, change the channel and start again.
+大意：改变通道时，插件会停止种子再重新开始。
+
+7.6.2 禁止完成时hash
+取消注释：
+#pieces.hash.on_completion.set = no
+
+7.6.3 
+https://github.com/Novik/ruTorrent/wiki/Plugins#starting-plugins-with-rtorrent
+含限速插件在内的部分插件仅当rutorrent启动后（即登录web ui一次）才能生效。为了在登录web UI启动rutorrent之前就使这些插件跟随rtorrent启动，需要在.rtorrent.rc中添加一行：
+# vi ~/.rtorrent.rc
+execute = {sh,-c,/usr/bin/php /var/www/html/rutorrent/php/initplugins.php rtrrent &}
+其中php路径、插件目录需要根据实际情况调整；rtorrent是web界面验证用户名，如果不需要验证可留空。如果不修改，则在重启服务器后登录一次web ui即可。
+
+7.6.4
+如果显示空间不正常
+sudo nano /var/www/html/rutorrent/conf/config.php
+找到:$topDirectory = ‘/’;把这一句话修改为：$topDirectory = ‘/home’;其实也就是在“/”后面添加：home
+
+
+8. 
+假设运行qbitorrent的专门账户为jack
+8.1 添加用户jack
+只需要一条命令：
+sudo adduser jack
+Adding user `jack' ...
+Adding new group `jack' (1001) ...
+Adding new user `jack' (1001) with group `jack' ...
+Creating home directory `/home/jack' ...
+Copying files from `/etc/skel' ...
+运行一次qB后再禁止此账户的shell
+
+8.2.1 PPA二进制安装qbittorrent（【注意！！】本方法安装的只能是最新版本）
+apt install software-properties-common; add-apt-repository -y ppa:qbittorrent-team/qbittorrent-stable; apt-get update; apt-get install qbittorrent-nox; 
+
+8.2.2 编译安装qbittorrent老版本(目前天空最高只支持v3.3.11)
+参考单独的笔记：
+qBittorrent编译安装方法（测试通过）.txt
+
+8.3 配置服务
+sudo nano /etc/systemd/system/qbittorrent.service
+[Unit]
+Description=qBittorrent Daemon Service
+After=network.target
+
+[Service]
+User=jack
+ExecStart=/usr/local/bin/qbittorrent-nox --webui-port=7788
+
+[Install]
+WantedBy=multi-user.target
+################################################################
+其中User和port根据需要修改。然后使能自动启动：
+sudo systemctl enable qbittorrent
+sudo systemctl disable qbittorrent
+
+
+8.4 qb配置文件
+8.4.1 生成配置文件【两种方法】
+8.4.1.1 直接下载
+su jack
+mkdir -p /home/jack/.config/qBittorrent/
+wget -O /home/jack/.config/qBittorrent/qBittorrent.conf https://raw.githubusercontent.com/lovewangbo/qbittorrent/master/qBittorrent.conf
+
+8.4.1.2 运行一次以生成配置文件
+sudo su jack
+qbittorrent-nox
+Press y key
+Without doing anything further, you should be able to point a web browser (on the same network) to the IP of your server: http://ip-of-server:8080 and log in with:
+User: admin
+Password: adminadmin
+ctrl+c退出
+
+8.4.2
+禁止用户登录shell：
+su root
+usermod -s /bin/false jack
+This can be reversed if necessary with the command:
+$ sudo usermod -s /bin/bash jack
+或直接编辑/etc/passwd文件，将用户shell从false改成bash
+
+8.4.3 启用服务
+Now start the service,
+$ sudo systemctl start qbittorrent
+Verify it is running:
+$ sudo systemctl status qbittorrent
+Quit out of the above screen by pressing q
+Enable it to start up on boot:
+$ sudo systemctl enable qbittorrent
+Normally after editing services we'd issue a reload command but since it will also invoke qbittorrent before we initialized the configuration, we'll give it a skip for now. If you ever make changes to the services file, update systemctl with:
+$ sudo systemctl daemon-reload
+
+8.4.3 运行
+ Starting qBittorrent
+sudo systemctl start qbittorrent
+ Stopping qBittorrent:
+sudo systemctl stop qbittorrent
+ Check status:
+sudo systemctl status qbittorrent
+
+9. 修改最大同时打开文件数量
+nano /etc/security/limits.conf
+添加下面两行：
+*       soft    nofile  12000
+*       hard    nofile  12000
+注意：需要重新登录shell才会生效。是否已成功，可用以下命令查看：
+ulimit -n
+
+
+10. 限速
+tc qdisc del dev eth0 root
+tc qdisc add dev eth0 root handle 1: htb
+tc class add dev eth0 parent 1: classid 1:1 htb rate 1000mbit ceil 1000mbit
+tc class add dev eth0 parent 1:1 classid 1:10 htb rate 300mbit ceil 300mbit
+tc filter add dev eth0 protocol ip parent 1: prio 2 u32 match ip dst 115.156.174.0/24 flowid 1:
+# 上面这台,让 220.181.xxx.xx/32 这台跑默认的,主要是为了让这个 ip 连接进来不被控制
+tc filter add dev eth0 protocol ip parent 1: prio 50 u32 match ip dst 0.0.0.0/0  flowid 1:1
+# 让其他ipvv4所有的流量都从这个通过
+另外，尝试限制IPV6流量：
+tc filter add dev eth0 protocol ipv6 parent 1: prio 48 u32 match ip6 src 2001::/16 flowid 1:1
+
+eno1
+enp1s0 
+
+11. 上货监控
+sudo yellow;
+需要安装sendmail，否则mail命令不能正常使用：
+sudo apt-get install mailutils sendmail; mkdir ~/Watch;
+安装之后测试发送邮件是否正常：
+echo "title" | mail -s "test" 277418068@qq.com
+nano op10o_watch.php;
+nano ol7o_watch.php;
+确定php的安装位置：
+which php
+假设得到的位置是/usr/bin/php，脚本所在目录是/home/yellow/Watch/op10o_watch.php，
+然后就可以使能监控了，每5分钟扫描一次:
+crontab -e，在最后面加入一行：
+*/5     *       *       *       *       /usr/bin/php /home/yellow/Watch/op10o_watch.php
+*/5     *       *       *       *       /usr/bin/php /home/yellow/Watch/ol7o_watch.php
+
+12. 更改rt用户
+以从用户yellow改为jack为例
+12.1
+sudo systemctl stop rtorrent
+sudo systemctl disable rtorrent
+sudo systemctl status rtorrent
+
+12.2
+su
+RTORRENT_USER="jack"; HOMEDIR=$(cat /etc/passwd | grep "$RTORRENT_USER": | cut -d: -f6)
+cd /var/www/html; chown -R $RTORRENT_USER:www-data ruTorrent/ && sudo chmod -R 770 ruTorrent/ 
+cd $HOMEDIR; wget -O $HOMEDIR/.rtorrent.rc https://raw.githubusercontent.com/lovewangbo/rTorrent/master/.rtorrent.rc; chown "$RTORRENT_USER"."$RTORRENT_USER" $HOMEDIR/.rtorrent.rc; sed -i "s@HOMEDIRHERE@$HOMEDIR@g" $HOMEDIR/.rtorrent.rc; mkdir $HOMEDIR/.rtorrent-session; chown -R "$RTORRENT_USER"."$RTORRENT_USER" $HOMEDIR/.rtorrent-session; mkdir $HOMEDIR/Downloads; chown -R "$RTORRENT_USER"."$RTORRENT_USER" $HOMEDIR/Downloads;
+
+12.3 修改service文件中的启动用户
+sudo nano /etc/systemd/system/rtorrent
+
+12.4 测试：
+sudo systemctl enable rtorrent
+sudo systemctl start rtorrent
+sudo systemctl status rtorrent
+ps -ef | grep rtorrent
+若有问题，可尝试用tmux直接运行rtorrent:
+tmux -2 new-session -d -s rtorrent rtorrent
+
+12.5 更改qb监视文件夹
+

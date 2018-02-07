@@ -1,0 +1,111 @@
+add-apt-repository -y ppa:deluge-team/ppa;apt-get update;apt-get install -y deluged deluge-web;
+mkdir -p /var/www/downloads/deluge/;
+deluged;deluge-web -f;sleep 5;eval $(ps x|grep deluge |awk '{print "kill -9 "$1";"}');
+wget -O /root/.config/deluge/core.conf http://file.wilywx.com/deluge_config_core_ubuntu.conf;
+wget -O /root/.config/deluge/core.conf~ http://file.wilywx.com/deluge_config_core_ubuntu.conf;
+cd /usr/lib/python2.7/dist-packages/deluge/ui/web/;wget http://file.wilywx.com/deluge_web_ha.zip;unzip -o deluge_web_ha.zip;
+sed -i "1 a\\/usr\/bin\/sudo deluge-web -f" /etc/rc.local;
+sed -i "1 a\\/usr\/bin\/sudo deluged" /etc/rc.local;
+deluged;deluge-web -f;
+
+
+
+add-apt-repository -y ppa:deluge-team/ppa;apt-get update;apt-get install -y deluged deluge-web;
+【注：安装以后，会自动添加用户：
+cat /etc/passwd
+#debian-deluged:x:111:119::/var/lib/deluged:/bin/false
+】
+
+【如需确定Deluge daemon: deluged和Web UI: deluge-web安装成功：
+which deluged
+which deluge-web
+】
+	添加用户：For security it is best to run a service with a specific user and group. You can create one using the following command:
+sudo adduser --system  --gecos "Deluge Service" --disabled-password --group --home /home/deluge deluge
+	This creates a new system user and group named deluge with no login access and home directory: /home/deluge
+	Add to the deluge group any users you wish to be able to easily manage or access files downloaded through Deluge, for example:
+sudo adduser yellow deluge
+
+【可选步骤
+	确认用户
+cat /etc/passwd | grep "deluge*"
+debian-deluged:x:112:121::/var/lib/deluged:/bin/false
+deluge:x:113:122:Deluge Service,,,:/var/lib/deluge:/bin/false
+	确认组
+$ cat /etc/group | grep "deluge*"
+debian-deluged:x:121:
+deluge:x:122:yellow
+	确认本用户所在组
+$ groups
+yellow deluge
+	或者：
+$ groups yellow
+yellow : yellow deluge
+】
+
+	添加自启动项：
+nano /etc/systemd/system/deluged.service
+## 代码开始
+[Unit]
+Description=Deluge Bittorrent Client Daemon
+After=network-online.target
+[Service]
+Type=simple
+User=deluge
+Group=deluge
+UMask=007
+ExecStart=/usr/bin/deluged -d
+Restart=on-failure
+# Configures the time to wait before service is stopped forcefully.
+TimeoutStopSec=300
+[Install]
+WantedBy=multi-user.target
+## 代码结束
+【You may wish to modify the above umask as it applies to any files downloaded by deluged.
+007 grants full access to the user and members of the group deluged is running as (in this case deluge) and prevents access from all other accounts.
+022 grants full access to the user deluged is running as and only read access to other accounts.
+000 grants full access to all accounts.
+】
+
+nano /etc/systemd/system/deluge-web.service
+## 代码开始
+[Unit]
+Description=Deluge Bittorrent Client Web Interface
+After=network-online.target
+[Service]
+Type=simple
+User=deluge
+Group=deluge
+UMask=027
+ExecStart=/usr/bin/deluge-web
+Restart=on-failure
+[Install]
+WantedBy=multi-user.target
+## 代码结束
+
+	Now enable it to start up on boot, start the service and verify it is running:
+sudo systemctl enable /etc/systemd/system/deluge-web.service; sudo systemctl start deluge-web; sudo systemctl status deluge-web
+	应当显示如下：
+● deluge-web.service - Deluge Bittorrent Client Web Interface
+   Loaded: loaded (/etc/systemd/system/deluge-web.service; enabled)
+   Active: active (running) since Fri 2017-05-19 12:59:58 CEST; 4s ago
+ Main PID: 16141 (deluge-web)
+   CGroup: /system.slice/deluge-web.service
+           └─16141 /usr/bin/python /usr/bin/deluge-web
+	如状态不正常，可重新启动
+sudo systemctl stop deluge-web; sudo systemctl start deluge-web; sudo systemctl status deluge-web
+
+现在访问http://host:8112应当可以访问了。默认密码是deluge。
+
+【检验：
+ps -aux | grep "deluge"
+应当是3个结果：
+yellow@localhost:~$ ps -aux | grep "deluge"
+deluge     271  0.0  8.2  87640 43276 ?        Ss   05:46   0:02 /usr/bin/python /usr/bin/deluge-web
+deluge     272  0.4  8.7 339316 46004 ?        Ssl  05:46   0:21 /usr/bin/python /usr/bin/deluged -d
+yellow     373  0.0  0.1  11072   808 pts/1    S+   06:57   0:00 grep deluge
+】
+
+为添加监视，设置目标文件夹对deluge用户可读：
+chmod -R 777 /home/yellow/.rtorrent-session/
+注意：若监视同一文件夹，此监视与qBittorrent存在冲突，需要将qBittorrent中的监视删除后方可正常工作。监视不同文件夹未作测试。另外，qBittorrent删除监视文件后需要重启方可生效。

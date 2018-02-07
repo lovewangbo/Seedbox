@@ -1,0 +1,7 @@
+https://www.digitalocean.com/community/tutorials/how-to-upgrade-to-ubuntu-16-04-lts
+sudo apt-get update
+sudo apt-get upgrade
+sudo apt-get dist-upgrade
+sudo apt-get install update-manager-core
+sudo do-release-upgrade
+然后一路y和Enter即可。

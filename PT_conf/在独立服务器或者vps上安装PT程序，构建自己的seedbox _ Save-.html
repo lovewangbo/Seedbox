@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<!--[if IE 7]>
+<html class="ie ie7" lang="zh-CN">
+<![endif]-->
+<!--[if IE 8]>
+<html class="ie ie8" lang="zh-CN">
+<![endif]-->
+<!--[if !(IE 7) & !(IE 8)]><!-->
+<html lang="zh-CN">
+<!--<![endif]-->
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width">
+	<title>在独立服务器或者vps上安装PT程序，构建自己的seedbox | Save</title>
+	<link rel="profile" href="http://gmpg.org/xfn/11">
+	<link rel="pingback" href="http://cherry.url.ph/xmlrpc.php">
+	<!--[if lt IE 9]>
+	<script src="http://cherry.url.ph/wp-content/themes/twentythirteen/js/html5.js"></script>
+	<![endif]-->
+	<link rel="alternate" type="application/rss+xml" title="Save &raquo; Feed" href="http://cherry.url.ph/feed/" />
+<link rel="alternate" type="application/rss+xml" title="Save &raquo; 评论Feed" href="http://cherry.url.ph/comments/feed/" />
+<link rel="alternate" type="application/rss+xml" title="Save &raquo; 在独立服务器或者vps上安装PT程序，构建自己的seedbox评论Feed" href="http://cherry.url.ph/uncategorized/%e5%9c%a8%e7%8b%ac%e7%ab%8b%e6%9c%8d%e5%8a%a1%e5%99%a8%e6%88%96%e8%80%85vps%e4%b8%8a%e5%ae%89%e8%a3%85pt%e7%a8%8b%e5%ba%8f%ef%bc%8c%e6%9e%84%e5%bb%ba%e8%87%aa%e5%b7%b1%e7%9a%84seedbox/feed/" />
+<link rel='stylesheet' id='genericons-css'  href='http://cherry.url.ph/wp-content/themes/twentythirteen/genericons/genericons.css?ver=3.03' type='text/css' media='all' />
+<link rel='stylesheet' id='twentythirteen-style-css'  href='http://cherry.url.ph/wp-content/themes/twentythirteen/style.css?ver=2013-07-18' type='text/css' media='all' />
+<!--[if lt IE 9]>
+<link rel='stylesheet' id='twentythirteen-ie-css'  href='http://cherry.url.ph/wp-content/themes/twentythirteen/css/ie.css?ver=2013-07-18' type='text/css' media='all' />
+<![endif]-->
+<script type='text/javascript' src='http://cherry.url.ph/wp-includes/js/jquery/jquery.js?ver=1.11.1'></script>
+<script type='text/javascript' src='http://cherry.url.ph/wp-includes/js/jquery/jquery-migrate.min.js?ver=1.2.1'></script>
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://cherry.url.ph/xmlrpc.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://cherry.url.ph/wp-includes/wlwmanifest.xml" /> 
+<link rel='prev' title='Online.net 独立服务器通过维护模式安装Windows' href='http://cherry.url.ph/uncategorized/online-net-%e7%8b%ac%e7%ab%8b%e6%9c%8d%e5%8a%a1%e5%99%a8%e9%80%9a%e8%bf%87%e7%bb%b4%e6%8a%a4%e6%a8%a1%e5%bc%8f%e5%ae%89%e8%a3%85windows/' />
+<link rel='next' title='flexget “深度”设置玩转PT站RSS美剧订阅自动下载' href='http://cherry.url.ph/uncategorized/flexget/' />
+<meta name="generator" content="WordPress 4.0" />
+<link rel='canonical' href='http://cherry.url.ph/uncategorized/%e5%9c%a8%e7%8b%ac%e7%ab%8b%e6%9c%8d%e5%8a%a1%e5%99%a8%e6%88%96%e8%80%85vps%e4%b8%8a%e5%ae%89%e8%a3%85pt%e7%a8%8b%e5%ba%8f%ef%bc%8c%e6%9e%84%e5%bb%ba%e8%87%aa%e5%b7%b1%e7%9a%84seedbox/' />
+<link rel='shortlink' href='http://cherry.url.ph/?p=95' />
+	<style type="text/css">.recentcomments a{display:inline !important;padding:0 !important;margin:0 !important;}</style>
+	<style type="text/css" id="twentythirteen-header-css">
+			.site-header {
+			background: url(http://cherry.url.ph/wp-content/themes/twentythirteen/images/headers/circle.png) no-repeat scroll top;
+			background-size: 1600px auto;
+		}
+		@media (max-width: 767px) {
+			.site-header {
+				background-size: 768px auto;
+			}
+		}
+		@media (max-width: 359px) {
+			.site-header {
+				background-size: 360px auto;
+			}
+		}
+		</style>
+	</head>
+
+<body class="single single-post postid-95 single-format-standard single-author">
+	<div id="page" class="hfeed site">
+		<header id="masthead" class="site-header" role="banner">
+			<a class="home-link" href="http://cherry.url.ph/" title="Save" rel="home">
+				<h1 class="site-title">Save</h1>
+				<h2 class="site-description">Save</h2>
+			</a>
+
+			<div id="navbar" class="navbar">
+				<nav id="site-navigation" class="navigation main-navigation" role="navigation">
+					<button class="menu-toggle">菜单</button>
+					<a class="screen-reader-text skip-link" href="#content" title="跳至内容">跳至内容</a>
+					<div class="nav-menu"><ul><li class="page_item page-item-2"><a href="http://cherry.url.ph/about/">About</a></li></ul></div>
+					<form role="search" method="get" class="search-form" action="http://cherry.url.ph/">
+				<label>
+					<span class="screen-reader-text">搜索：</span>
+					<input type="search" class="search-field" placeholder="搜索&hellip;" value="" name="s" title="搜索：" />
+				</label>
+				<input type="submit" class="search-submit" value="搜索" />
+			</form>				</nav><!-- #site-navigation -->
+			</div><!-- #navbar -->
+		</header><!-- #masthead -->
+
+		<div id="main" class="site-main">
+
+	<div id="primary" class="content-area">
+		<div id="content" class="site-content" role="main">
+
+						
+				
+<article id="post-95" class="post-95 post type-post status-publish format-standard hentry category-uncategorized">
+	<header class="entry-header">
+		
+				<h1 class="entry-title">在独立服务器或者vps上安装PT程序，构建自己的seedbox</h1>
+		
+		<div class="entry-meta">
+			<span class="date"><a href="http://cherry.url.ph/uncategorized/%e5%9c%a8%e7%8b%ac%e7%ab%8b%e6%9c%8d%e5%8a%a1%e5%99%a8%e6%88%96%e8%80%85vps%e4%b8%8a%e5%ae%89%e8%a3%85pt%e7%a8%8b%e5%ba%8f%ef%bc%8c%e6%9e%84%e5%bb%ba%e8%87%aa%e5%b7%b1%e7%9a%84seedbox/" title="链向在独立服务器或者vps上安装PT程序，构建自己的seedbox的固定链接" rel="bookmark"><time class="entry-date" datetime="2014-09-28T08:36:47+00:00">九月 28, 2014</time></a></span><span class="categories-links"><a href="http://cherry.url.ph/category/uncategorized/" rel="category tag">Uncategorized</a></span><span class="author vcard"><a class="url fn n" href="http://cherry.url.ph/author/admin/" title="查看所有由admin发布的文章" rel="author">admin</a></span>					</div><!-- .entry-meta -->
+	</header><!-- .entry-header -->
+
+		<div class="entry-content">
+		<div class="title">
+<h2>在独立服务器或者vps上安装PT程序，构建自己的seedbox</h2>
+<div class="fixed"></div>
+</div>
+<div class="info">2012年2月24日 | 分类: <a href="http://www.ptvps.com/category/vpsxiazai" rel="category tag">VPS下载技术</a> <span class="views">共 11,541 次阅读</span> | 标签: <a href="http://www.ptvps.com/tag/deluge" rel="tag">deluge</a>, <a href="http://www.ptvps.com/tag/ovh%e6%9c%8d%e5%8a%a1%e5%99%a8" rel="tag">ovh服务器</a>, <a href="http://www.ptvps.com/tag/rss%e8%87%aa%e5%8a%a8%e4%b8%8b%e8%bd%bd" rel="tag">rss自动下载</a>, <a href="http://www.ptvps.com/tag/seedbox" rel="tag">seedbox</a></p>
+<div class="fixed"></div>
+</div>
+<div class="content">
+<div></div>
+<p>最近又开始对PT感兴趣，购买了法国OVH kimsufi 2G独立服务器，硬盘1T，内存2G，法国主站购买的流量无限，速率100Mbps，冲着这个流量无限，马上安装了PT程序，构建了自己的一台 seedbox RSS自动下载，总体来说无论上传下载都挺不错的。下载不说，说一下上传的速度，在种子足够的情况下，上传基本能达到要求，基本上能达到7M/s左右，有 些时候在9M，10M以上，当然，在种子不够的情况下，或者网络不好的情况下，速度也会掉到4M，5M左右。当然，总体，能维持在7M左右。这几天测算了 一下，利用RSS自动下载，一天的上传量基本上能达到500G到600G之间。两天大概有1T，还是挺不错的。下面主要是对我搭建seedbox的过程进 行一个记录。感谢网上的教程，及hehec对我的指导。<br />
+本篇文章搭建seedbox的思路：因为flexget配置烦琐，一不小心配置就会出错。所以这里转换思路：借助于rutorrent从PT网站上抓下种子在其目录生成session文件，然后deluge去读取这个目录，然后在deluge中自动下载。<br />
+下面的安装教程是建立在：<br />
+1、服务器的系统我选择的是ubuntu11.04 64位，在另外一台上也使用了ubuntu 10.04 64位。<span id="more-162"></span><br />
+2、在下面复制命令后，在putty中，粘贴只需要鼠标右键点击一下，就可以把命令复制到putty，然后回车，就可以运行命令。<br />
+3、对于nano命令，在操作完后要退出，使用ctrl+x退出，然后输入y回车进行保存。<br />
+在网上seedbox PT程序主要有transmission,rtorrent,deluge等。在本博客已经介绍了transmission及rtorrent的安装。今 天要在这里介绍的是rtorrent+rutorrent与deluge配合起来自动RSS下载的方法，省去了网上借助于flexget烦琐的命令操作。<br />
+4、如果服务器或者vps不能下载的时候，可能要更改nameserver:</p>
+<div class="wp_syntax">
+<table>
+<tbody>
+<tr>
+<td class="line_numbers">
+<pre>1
+2
+</pre>
+</td>
+<td class="code">
+<pre class="bash">echo "nameserver 8.8.8.8" &gt;&gt; /etc/resolv.conf
+echo "nameserver 8.8.4.4" &gt;&gt; /etc/resolv.conf</pre>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>写在前面：请在安装下面PT程序前先运行下面命令：</p>
+<div class="wp_syntax">
+<table>
+<tbody>
+<tr>
+<td class="line_numbers">
+<pre>1
+</pre>
+</td>
+<td class="code">
+<pre class="bash">chmod 777 /var/run/screen</pre>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>一、一键安装rtorrent+rutorrent盒子教程<br />
+1、一键安装rtorrent+rutorrent盒子命令：</p>
+<div class="wp_syntax">
+<table>
+<tbody>
+<tr>
+<td class="line_numbers">
+<pre>1
+2
+3
+</pre>
+</td>
+<td class="code">
+<pre class="bash">apt-get install wget
+wget http://www.ptvps.com/files/sh/ubunturt.sh
+sh ubunturt.sh</pre>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>在安装的过程中，请参考下面的图片。注意：在第二张图出现：Enter name of user时，请直接回车，因为前面我已经建立了一个用户了，不要再建立用户了。同时对于最后一个图生成的材料信息要记录，或者说只要记录Session dir这一条，留来下面备用。（注：ptvps为我下面安装rtorrent时输入的用户名）</p>
+<div class="wp_syntax">
+<table>
+<tbody>
+<tr>
+<td class="line_numbers">
+<pre>1
+2
+3
+4
+</pre>
+</td>
+<td class="code">
+<pre class="bash">Downloads    : /home/ptvps/downloads
+Watch dir    : /home/ptvps/rtorrent/watch
+Session dir  : /home/ptvps/rtorrent/session
+rtorrent port: 23877</pre>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><a href="http://cherry.url.ph/wp-content/uploads/2014/09/yj1.png"><img class="attachment-medium" src="http://cherry.url.ph/wp-content/uploads/2014/09/yj1-295x300.png" alt="yj1" width="295" height="300" /></a></p>
+<p><a href="http://cherry.url.ph/wp-content/uploads/2014/09/yj2.png"><img class="attachment-medium" src="http://cherry.url.ph/wp-content/uploads/2014/09/yj2-300x300.png" alt="yj2" width="300" height="300" /></a></p>
+<p><a href="http://cherry.url.ph/wp-content/uploads/2014/09/yj3.png"><img class="attachment-medium" src="http://cherry.url.ph/wp-content/uploads/2014/09/yj3-300x264.png" alt="yj3" width="300" height="264" /></a></p>
+<p>2、至此，rtorrne+rutorrent已经安装完毕，接下来是对rutorrent进行简单的配置。<br />
+1)、rtorrent的RSS订阅时间修改</p>
+<div class="wp_syntax">
+<table>
+<tbody>
+<tr>
+<td class="line_numbers">
+<pre>1
+</pre>
+</td>
+<td class="code">
+<pre class="bash">nano /var/rutorrent/rutorrent/plugins/rss/conf.php</pre>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>将 $updateInterval = 30; 这句话里的30改为你想要的值，一般用5，单位是分钟。表示rutorrent每隔5分钟跟踪你定制的RSS一次。<br />
+2)、如果rutorrent的左下角显示磁盘可用空间不正常，比如说你的1T的服务器，只有显示10G之类的，当然如果显示900多G等都是属于正常的。需要修改如下设置：</p>
+<div class="wp_syntax">
+<table>
+<tbody>
+<tr>
+<td class="line_numbers">
+<pre>1
+</pre>
+</td>
+<td class="code">
+<pre class="bash">nano /var/rutorrent/rutorrent/conf/config.php</pre>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>找到:$topDirectory = ‘/';把这一句话修改为：$topDirectory = ‘/home';其实也就是在“/”后面添加：home，表示把主目录定位在/home目录下。当然这只是一般情况下，有一些服务器，可能要修改为其它 的，具体情况具体分析。<br />
+3)、rtorrent的配置文件优化，注：用户名为你在上面安装rtorrent时的用户名</p>
+<div class="wp_syntax">
+<table>
+<tbody>
+<tr>
+<td class="line_numbers">
+<pre>1
+</pre>
+</td>
+<td class="code">
+<pre class="bash"> nano /home/你的RT用户名/.rtorrent.rc</pre>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>我们需要增加或修改下面这几句（你的配置文件里没有的就增加，有#号的去掉，无#号的加上），最大内存使用，一般为你服务器内存的三分之二（最好留2G给其它程序），注意前面的#号，加#号的语句为注释，即为不使用此句的意思。</p>
+<div class="wp_syntax">
+<table>
+<tbody>
+<tr>
+<td class="line_numbers">
+<pre>1
+2
+3
+4
+</pre>
+</td>
+<td class="code">
+<pre class="bash">max_memory_usage = 1024M
+dht = disable
+#dht_port = 6881
+max_uploads = 500</pre>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>然后运行下面的命令重新启动你的RT以使配置生效：</p>
+<div class="wp_syntax">
+<table>
+<tbody>
+<tr>
+<td class="line_numbers">
+<pre>1
+</pre>
+</td>
+<td class="code">
+<pre class="bash">sudo /etc/init.d/autodl_你的RT用户名 restart</pre>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>4)、rtorrent的RSS订阅设置：<br />
+首先在网页左边点击增加订阅，加入你从PT网站取得的RSS订阅链接，然后要它自动下载，必须要添加一个过滤器,过滤器填写格式如下 ：<br />
+全部下载就填 /.*/<br />
+hdchina 我们一般用 /-LU9998|-HDCTV/<br />
+chdbits 我们一般用/-CHDPAD|-CHDTV/<br />
+当然，个人建议在具体操作的时候，建议：每一类生成一个链接，比如在CHD，我是这样操作的：电视综艺节目一类，电视连续剧一类，movie ipad一类，纪录片一类等，这样比较好。<br />
+具体的操作看下面的图片步骤，强调一点，对于最后一张图，切记要先点击左边的添加按妞，里面比如说输入：chd chd movie，然后在右边的RSS框中选择chd chc movie。对于下面的目录，是自动侦测的，只要点击那个省略号就成了，会自动生成。强调：第四个图几个小红框处，必须这样设置。尤其是最后一个小红框必 须为不要自动开始下载。<br />
+<a href="http://cherry.url.ph/wp-content/uploads/2014/09/1.jpg"><img class="attachment-medium" src="http://cherry.url.ph/wp-content/uploads/2014/09/1-233x300.jpg" alt="1" width="233" height="300" /></a></p>
+<p><a href="http://cherry.url.ph/wp-content/uploads/2014/09/2.jpg"><img class="attachment-medium" src="http://cherry.url.ph/wp-content/uploads/2014/09/2-300x120.jpg" alt="2" width="300" height="120" /></a></p>
+<p><a href="http://cherry.url.ph/wp-content/uploads/2014/09/3.jpg"><img class="attachment-medium" src="http://cherry.url.ph/wp-content/uploads/2014/09/3-233x300.jpg" alt="3" width="233" height="300" /></a></p>
+<p><a href="http://cherry.url.ph/wp-content/uploads/2014/09/pt4.jpg"><img class="attachment-medium" src="http://cherry.url.ph/wp-content/uploads/2014/09/pt4-300x164.jpg" alt="pt4" width="300" height="164" /></a></p>
+<p>二、一键安装Deluge Daemon+WebUI盒子教程<br />
+1)、用putty登录后把下面的代码按粘贴进去：</p>
+<div class="wp_syntax">
+<table>
+<tbody>
+<tr>
+<td class="line_numbers">
+<pre>1
+2
+3
+4
+</pre>
+</td>
+<td class="code">
+<pre class="bash">apt-get install wget
+chmod 777 /var/run/screen
+wget http://www.ptvps.com/files/desetup.sh
+sh desetup.sh</pre>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>安装后SSH方式重启DE命令：</p>
+<div class="wp_syntax">
+<table>
+<tbody>
+<tr>
+<td class="line_numbers">
+<pre>1
+</pre>
+</td>
+<td class="code">
+<pre class="bash">sudo /etc/init.d/deluge-daemon restart</pre>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>（不建议，比较容易崩溃）或者也可以使用下面的命令进行一键安装Deluge Daemon+WebUI盒子:</p>
+<div class="wp_syntax">
+<table>
+<tbody>
+<tr>
+<td class="line_numbers">
+<pre>1
+2
+3
+</pre>
+</td>
+<td class="code">
+<pre class="bash">apt-get install wget
+wget http://www.ptvps.com/files/sh/ubuntude.sh
+sh ubuntude.sh</pre>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>2)、Deluge的配置。注意：安装后的默认密码是:deluge，端口为8112。访问形式 为：http://192.168.1.1:8112 形式。几个重要的先强调：在下面的第一张图中输入上面第一步中所中所记录的Session dir，对于第二张图，是修改密码，和修改连接webui在线时间，及下面是修改端口。切记：要修改默认密码和默认的端口。<br />
+修改完毕后，记得要重启deluge，命令在上面，或者说重启服务器，命令为：</p>
+<div class="wp_syntax">
+<table>
+<tbody>
+<tr>
+<td class="line_numbers">
+<pre>1
+</pre>
+</td>
+<td class="code">
+<pre class="bash">reboot</pre>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>其余的按下面的配置就行了，当然对于其中的一些项目，可以适当的放大。比如说<a href="http://www.ptvps.com" target="_blank">queue</a>（队列）这一选项中的，可以输入：1000 ，300 ，700 等，表示总活动的种子允许1000个，下载的300个，做种的700个，当然，要你的服务器硬盘和CPU内存等要跟得上，否则没有什么意义，具体可以自己尝试这些数据。<br />
+<a href="http://cherry.url.ph/wp-content/uploads/2014/09/de1.png"><img class="attachment-medium" src="http://cherry.url.ph/wp-content/uploads/2014/09/de1-287x300.png" alt="de1" width="287" height="300" /></a></p>
+<p><a href="http://cherry.url.ph/wp-content/uploads/2014/09/xg.png"><img class="attachment-medium" src="http://cherry.url.ph/wp-content/uploads/2014/09/xg-295x300.png" alt="xg" width="295" height="300" /></a></p>
+<p><a href="http://cherry.url.ph/wp-content/uploads/2014/09/deluge.png"><img class="attachment-medium" src="http://cherry.url.ph/wp-content/uploads/2014/09/deluge-300x271.png" alt="deluge" width="300" height="271" /></a><br />
+较低配置的服务器如84一刀特价机建议配置如下：<br />
+<a href="http://cherry.url.ph/wp-content/uploads/2014/09/de11.jpg"><img class="attachment-medium" src="http://cherry.url.ph/wp-content/uploads/2014/09/de11-290x300.jpg" alt="de11" width="290" height="300" /></a></p>
+<p><a href="http://cherry.url.ph/wp-content/uploads/2014/09/de2.jpg"><img class="attachment-medium" src="http://cherry.url.ph/wp-content/uploads/2014/09/de2-294x300.jpg" alt="de2" width="294" height="300" /></a></p>
+<p><a href="http://cherry.url.ph/wp-content/uploads/2014/09/de3.jpg"><img class="attachment-medium" src="http://cherry.url.ph/wp-content/uploads/2014/09/de3-289x300.jpg" alt="de3" width="289" height="300" /></a></p>
+<p><a href="http://cherry.url.ph/wp-content/uploads/2014/09/de6.jpg"><img class="attachment-medium" src="http://cherry.url.ph/wp-content/uploads/2014/09/de6-291x300.jpg" alt="de6" width="291" height="300" /></a></p>
+<p><a href="http://cherry.url.ph/wp-content/uploads/2014/09/de8.jpg"><img class="attachment-medium" src="http://cherry.url.ph/wp-content/uploads/2014/09/de8-292x300.jpg" alt="de8" width="292" height="300" /></a></p>
+<p>较高配置的服务器如OVH的KS24G建议配置如下,另三个设置界面参照上面低配置机器设置,使用如下设置需要将LINUX并发连接数由1024提高到至少3096才不会导致出错，方法参考本文最后面介绍：<br />
+<a href="http://cherry.url.ph/wp-content/uploads/2014/09/de5.jpg"><img class="attachment-medium" src="http://cherry.url.ph/wp-content/uploads/2014/09/de5-295x300.jpg" alt="de5" width="295" height="300" /></a></p>
+<p><a href="http://cherry.url.ph/wp-content/uploads/2014/09/de51.jpg"><img class="attachment-medium" src="http://cherry.url.ph/wp-content/uploads/2014/09/de51-295x300.jpg" alt="de51" width="295" height="300" /></a></p>
+<p>三、至此，我们已经安装的rotrrent+rutorrent和deluge。我们可以回到rutorrent的界面，点击刚才配置的rss，更 新RSS。如果一切正常的话，那么将在界面上显示10个种子的名字（如果你订阅的是一组10个种子的话），并且注意，后面的状态必须是已停止才是正确安装 了。如果不是显示已停止，请返回前面的步骤，检查哪里不一致。这时你再到deluge界面，应当会出现10个种子在下载。请开心的享受自己构建的<a href="http://www.ptvps.com" target="_blank">seedbox</a>刷流量吧。<br />
+<a href="http://cherry.url.ph/wp-content/uploads/2014/09/pt.png"><img class="attachment-medium" src="http://cherry.url.ph/wp-content/uploads/2014/09/pt-300x66.png" alt="pt" width="300" height="66" /></a><br />
+四、补充几点：<br />
+1)、RT对服务器配置的要求较高，同等配置的机器下，DE的速度明显要快一些，同时开任务的数量明显要多一些。所以建议独立服务器用户选 择Deluge加flexget这个黄金组合。另使用RT时，任务开得较多时（10个以上），会出现很多红种的现象，这是因为LINUX操作系统有个默认 的限制，即同时打开的网络连接和文件数量之和不能超过1024，如果超过就会出现不能连接tracker服务器及写入数据到文件的问题而出现红种，解决的 方法是提高些限制到10240个。DE也会受此影响，其表现在会不自动从指定的watch目录加载新种子。另前几天得知由于目前LINUX下的PT软件都 没有象WINDOWS下的PT软件UT一样的预先分配磁盘空间的功能，所以磁盘碎片非常之多，最新的ext4磁盘格式比ext3磁盘格式在这个方面改进很 多，所以一定要将/home分区格式化成ext4格式，这样在多开任务的时候会有较大的磁盘性能提升。查看磁盘格式使用命令： df -T -h<br />
+2)、高级设置<br />
+以下内容仅针对有一定LINUX知识的人参考使用，新手就不要试了，以免把你服务器搞到不能启动要重新安装系统。<br />
+A：提高LINUX同时打开的网络连接和文件数量之和，从1024提高到10240<br />
+(1) nano /etc/security/limits.conf<br />
+在文件最后增加如下2行<br />
+* soft nofile 10240<br />
+* hard nofile 10240<br />
+(2) nano /etc/pam.d/login<br />
+确保此文件有如下一句<br />
+session required /lib/security/pam_limits.so<br />
+或者 session required pam_limits.so<br />
+(3) nano /etc/profile 在文件最后增加一行 ulimit -n 10240<br />
+(4)只有 使用rutorrent软件的需要这一步，必须是使用上面的一键安装脚本安装的RT才有下面这个启动脚本<br />
+nano /etc/init.d/autodl_XXX 在文件第一行加入 ulimit -n 10240，文件名里的XXX请换成你自己的rutorrent用户名。<br />
+(5) 只有 使用Deluge软件的需要这一步，必须是使用上面的一键安装脚本安装的DE才有下面这个启动脚本<br />
+nano /etc/rc.local 在文件第一行加入 ulimit -n 10240<br />
+(6) 运行 reboot now 重新启动计算机。<br />
+(7) 重新登陆计算机执行命令 ulimit -n 此时应该显示10240而不是1024，并且打开RT的设置界面，看最大打开sockets数会自动变成9728，修改之前是768.<br />
+<a href="http://cherry.url.ph/wp-content/uploads/2014/09/7.jpg"><img class="attachment-medium" src="http://cherry.url.ph/wp-content/uploads/2014/09/7-300x114.jpg" alt="7" width="300" height="114" /></a><br />
+(8)万一如果是de崩溃，可以执行下列命令：</p>
+<div class="wp_syntax">
+<table>
+<tbody>
+<tr>
+<td class="line_numbers">
+<pre>1
+2
+3
+4
+</pre>
+</td>
+<td class="code">
+<pre class="bash">reboot
+deluged
+chmod 777 /var/run/screen
+screen -fa -d -m -S deluge-web deluge-web</pre>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>解释为：<br />
+reboot 重启系统,重启之后 再登陆<br />
+deluged 守护进程<br />
+chmod 777 /var/run/screen 这个是权限 因为为下个命令需要权限<br />
+screen -fa -d -m -S deluge-web deluge-web 开启网页界面<br />
+如果是rt崩溃，可以执行下列命令：</p>
+<div class="wp_syntax">
+<table>
+<tbody>
+<tr>
+<td class="line_numbers">
+<pre>1
+</pre>
+</td>
+<td class="code">
+<pre class="bash">sudo /etc/init.d/autodl_你的RT用户名 restart</pre>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>(9)如果出现deluge界面start daemon无法连接崩溃时：<br />
+<a href="http://cherry.url.ph/wp-content/uploads/2014/09/517090a3c54d0.jpg"><img class="attachment-medium" src="http://cherry.url.ph/wp-content/uploads/2014/09/517090a3c54d0-300x141.jpg" alt="517090a3c54d0" width="300" height="141" /></a><br />
+进入putty，输入如下命令：</p>
+<div class="wp_syntax">
+<table>
+<tbody>
+<tr>
+<td class="line_numbers">
+<pre>1
+2
+</pre>
+</td>
+<td class="code">
+<pre class="bash">killall deluge-web
+deluge-web --fork</pre>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>五、最后说几个：<br />
+1、网上的资料显示说，deluge下载上传等比较稳定，建议大家能够安装deluge的，去尝试着安装一下。非常棒。<br />
+2、一般来说，一天要去清理一次deluge下载的文件，不然你的服务器的硬盘没有这么大的话，会放不下下载的文件的。<br />
+3、本篇关于构建seedbox的教程，参考了seedbox1.com的文章，cn518.com的文章及hehec的指导，在这里对前辈们的辛勤付出致以诚挚的感谢。</p>
+</div>
+			</div><!-- .entry-content -->
+	
+	<footer class="entry-meta">
+		
+			</footer><!-- .entry-meta -->
+</article><!-- #post -->
+					<nav class="navigation post-navigation" role="navigation">
+		<h1 class="screen-reader-text">文章导航</h1>
+		<div class="nav-links">
+
+			<a href="http://cherry.url.ph/uncategorized/online-net-%e7%8b%ac%e7%ab%8b%e6%9c%8d%e5%8a%a1%e5%99%a8%e9%80%9a%e8%bf%87%e7%bb%b4%e6%8a%a4%e6%a8%a1%e5%bc%8f%e5%ae%89%e8%a3%85windows/" rel="prev"><span class="meta-nav">&larr;</span> Online.net 独立服务器通过维护模式安装Windows</a>			<a href="http://cherry.url.ph/uncategorized/flexget/" rel="next">flexget “深度”设置玩转PT站RSS美剧订阅自动下载 <span class="meta-nav">&rarr;</span></a>
+		</div><!-- .nav-links -->
+	</nav><!-- .navigation -->
+					
+<div id="comments" class="comments-area">
+
+	
+									<div id="respond" class="comment-respond">
+				<h3 id="reply-title" class="comment-reply-title">发表评论 <small><a rel="nofollow" id="cancel-comment-reply-link" href="/uncategorized/%E5%9C%A8%E7%8B%AC%E7%AB%8B%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%88%96%E8%80%85vps%E4%B8%8A%E5%AE%89%E8%A3%85pt%E7%A8%8B%E5%BA%8F%EF%BC%8C%E6%9E%84%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84seedbox/#respond" style="display:none;">取消回复</a></small></h3>
+									<form action="http://cherry.url.ph/wp-comments-post.php" method="post" id="commentform" class="comment-form" novalidate>
+																			<p class="comment-notes">电子邮件地址不会被公开。 必填项已用<span class="required">*</span>标注</p>							<p class="comment-form-author"><label for="author">姓名 <span class="required">*</span></label> <input id="author" name="author" type="text" value="" size="30" aria-required='true' /></p>
+<p class="comment-form-email"><label for="email">电子邮件 <span class="required">*</span></label> <input id="email" name="email" type="email" value="" size="30" aria-required='true' /></p>
+<p class="comment-form-url"><label for="url">站点</label> <input id="url" name="url" type="url" value="" size="30" /></p>
+												<p class="comment-form-comment"><label for="comment">评论</label> <textarea id="comment" name="comment" cols="45" rows="8" aria-required="true"></textarea></p>						<p class="form-allowed-tags">您可以使用这些<abbr title="HyperText Markup Language">HTML</abbr>标签和属性： <code>&lt;a href=&quot;&quot; title=&quot;&quot;&gt; &lt;abbr title=&quot;&quot;&gt; &lt;acronym title=&quot;&quot;&gt; &lt;b&gt; &lt;blockquote cite=&quot;&quot;&gt; &lt;cite&gt; &lt;code&gt; &lt;del datetime=&quot;&quot;&gt; &lt;em&gt; &lt;i&gt; &lt;q cite=&quot;&quot;&gt; &lt;strike&gt; &lt;strong&gt; </code></p>						<p class="form-submit">
+							<input name="submit" type="submit" id="submit" value="发表评论" />
+							<input type='hidden' name='comment_post_ID' value='95' id='comment_post_ID' />
+<input type='hidden' name='comment_parent' id='comment_parent' value='0' />
+						</p>
+											</form>
+							</div><!-- #respond -->
+			
+</div><!-- #comments -->
+			
+		</div><!-- #content -->
+	</div><!-- #primary -->
+
+
+		</div><!-- #main -->
+		<footer id="colophon" class="site-footer" role="contentinfo">
+				<div id="secondary" class="sidebar-container" role="complementary">
+		<div class="widget-area">
+			<aside id="search-2" class="widget widget_search"><form role="search" method="get" class="search-form" action="http://cherry.url.ph/">
+				<label>
+					<span class="screen-reader-text">搜索：</span>
+					<input type="search" class="search-field" placeholder="搜索&hellip;" value="" name="s" title="搜索：" />
+				</label>
+				<input type="submit" class="search-submit" value="搜索" />
+			</form></aside>		<aside id="recent-posts-2" class="widget widget_recent_entries">		<h3 class="widget-title">近期文章</h3>		<ul>
+					<li>
+				<a href="http://cherry.url.ph/uncategorized/%e7%9c%8b%e4%b8%8d%e6%87%82%e3%80%8a%e4%b8%80%e6%ad%a5%e4%b9%8b%e9%81%a5%e3%80%8b%e5%b0%b1%e5%af%b9%e4%ba%86%ef%bd%9c%e5%9b%a0%e4%b8%ba%e4%bd%a0%e4%b8%8d%e7%9f%a5%e9%81%93%e8%bf%99%e5%8d%81%e4%bb%b6/">看不懂《一步之遥》就对了｜因为你不知道这十件事</a>
+						</li>
+					<li>
+				<a href="http://cherry.url.ph/uncategorized/%e6%88%91%e7%9a%84%e7%a7%91%e5%ad%a6%e4%b8%8a%e7%bd%91%e6%96%b9%e6%b3%95/">我的科学上网方法</a>
+						</li>
+					<li>
+				<a href="http://cherry.url.ph/uncategorized/%e4%ba%ba%e5%ae%b6%e6%98%af%e7%89%9b%e9%80%bc%ef%bc%8c%e4%bd%86%e5%92%8c%e4%bd%a0%e6%9c%89%e5%95%a5%e5%85%b3%e7%b3%bb/">人家是牛逼，但和你有啥关系?</a>
+						</li>
+					<li>
+				<a href="http://cherry.url.ph/uncategorized/%e4%b8%80%e5%91%a8%e5%85%ad%e7%ba%a7%e7%a0%b4600%e5%8e%9f%e6%9d%a5%e6%98%af%e8%bf%99%e4%b9%88%e7%a0%b4%e7%9a%84%ef%bc%81%ef%bc%81%ef%bc%81/">一周六级破600原来是这么破的！！！</a>
+						</li>
+					<li>
+				<a href="http://cherry.url.ph/uncategorized/windows%e6%93%8d%e4%bd%9c%e7%b3%bb%e7%bb%9f%e6%b7%bb%e5%8a%a0virtio%e9%a9%b1%e5%8a%a8%e5%9b%be%e6%96%87%e6%95%99%e7%a8%8b/">Windows操作系统添加VirtIO驱动图文教程</a>
+						</li>
+				</ul>
+		</aside><aside id="recent-comments-2" class="widget widget_recent_comments"><h3 class="widget-title">近期评论</h3><ul id="recentcomments"><li class="recentcomments"><span class="comment-author-link"><a href='http://wordpress.org/' rel='external nofollow' class='url'>Mr WordPress</a></span>发表在《<a href="http://cherry.url.ph/uncategorized/hello-world/#comment-1">Hello world!</a>》</li></ul></aside><aside id="archives-2" class="widget widget_archive"><h3 class="widget-title">文章归档</h3>		<ul>
+	<li><a href='http://cherry.url.ph/2014/12/'>2014年十二月</a></li>
+	<li><a href='http://cherry.url.ph/2014/11/'>2014年十一月</a></li>
+	<li><a href='http://cherry.url.ph/2014/10/'>2014年十月</a></li>
+	<li><a href='http://cherry.url.ph/2014/09/'>2014年九月</a></li>
+		</ul>
+</aside><aside id="categories-2" class="widget widget_categories"><h3 class="widget-title">分类目录</h3>		<ul>
+	<li class="cat-item cat-item-1"><a href="http://cherry.url.ph/category/uncategorized/" >Uncategorized</a>
+</li>
+		</ul>
+</aside><aside id="meta-2" class="widget widget_meta"><h3 class="widget-title">功能</h3>			<ul>
+						<li><a href="http://cherry.url.ph/wp-login.php">登录</a></li>
+			<li><a href="http://cherry.url.ph/feed/">文章<abbr title="Really Simple Syndication">RSS</abbr></a></li>
+			<li><a href="http://cherry.url.ph/comments/feed/">评论<abbr title="Really Simple Syndication">RSS</abbr></a></li>
+<li><a href="https://cn.wordpress.org/" title="基于WordPress，一个优美、先进的个人信息发布平台。">WordPress.org</a></li>			</ul>
+</aside>		</div><!-- .widget-area -->
+	</div><!-- #secondary -->
+
+			<div class="site-info">
+								<a href="http://cn.wordpress.org/" title="优雅的个人发布平台">自豪地采用WordPress</a>
+			</div><!-- .site-info -->
+		</footer><!-- #colophon -->
+	</div><!-- #page -->
+
+	<script type='text/javascript' src='http://cherry.url.ph/wp-includes/js/comment-reply.min.js?ver=4.0'></script>
+<script type='text/javascript' src='http://cherry.url.ph/wp-includes/js/masonry.min.js?ver=3.1.2'></script>
+<script type='text/javascript' src='http://cherry.url.ph/wp-includes/js/jquery/jquery.masonry.min.js?ver=3.1.2'></script>
+<script type='text/javascript' src='http://cherry.url.ph/wp-content/themes/twentythirteen/js/functions.js?ver=2014-06-08'></script>
+</body>
+</html>

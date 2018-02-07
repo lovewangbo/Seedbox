@@ -1,0 +1,32 @@
+debian 8编译安装的qB 3.3.13限速功能无效，可以跑满G管
+
+参考资料：
+http://blog.csdn.net/daniel117/article/details/17350243
+
+tc qdisc del dev eth0 root
+tc qdisc add dev eth0 root handle 1: htb
+tc class add dev eth0 parent 1: classid 1:1 htb rate 1000mbit ceil 1000mbit
+tc class add dev eth0 parent 1:1 classid 1:10 htb rate 300mbit ceil 300mbit
+tc qdisc add dev eth0 parent 1:10 sfq perturb 10
+tc filter add dev eth0 protocol ip parent 1: prio 2 u32 match ip dst 115.156.174.0/24 flowid 1:1
+# 上面这台,让 220.181.xxx.xx/32 这台跑默认的,主要是为了让这个 ip 连接进来不被控制
+tc filter add dev eth0 protocol ip parent 1: prio 50 u32 match ip dst 0.0.0.0/0  flowid 1:10
+# 让其他ipvv4所有的流量都从这个通过
+另外，尝试限制IPV6流量：
+tc filter add dev eth0 protocol ipv6 parent 1: prio 48 u32 match ip6 src 2001::/16 flowid 1:10
+或
+tc filter add dev eth0 protocol all parent 1: prio 49 handle 1 fw flowid 1:10
+或
+tc filter add dev eth0 protocol ipv6 parent 1: prio 49 handle 1 fw flowid 1:10
+似乎没有效果
+
+正确的删除tc的filter过滤器
+http://cache.baiducontent.com/c?m=9f65cb4a8c8507ed4fece7631046893b4c438014678d8b5722968448e43f07151a7be3b924210d06d7d87c6104ac5e5c9daa702d691765eadb9e871486e7d56238885672210b8630468847e99c0632c151cb18adab&p=9360c64ad49811a05bec94265f50c9&newp=882a9644d69957b71fb7d52d021488231610db2151d7d7106b82c825d7331b001c3bbfb423241101d0c47a6c06a84d5fe9fb307735012ba3dda5c91d9fb4c57479d2312c3746c7&user=baidu&fm=sc&query=linux+tc+filter+ipv6&qid=bb798cc50002515e&p1=5
+
+
+
+tc qdisc add dev eth0 root handle 1: htb default 30
+tc class add dev eth0 parent 1: classid 1:1 htb rate 256kbit
+tc class add dev eth0 parent 1: classid 1:2 htb rate 256kbit
+tc filter add dev eth0 protocol ipv6 parent 1:0 prio 1 u32 match ip6 dst 2001:a:b:c::2/64 flowid 1:1
+tc filter add dev eth0 protocol ipv6 parent 1:0 prio 1 u32 match ip6 src 2001:a:b:c::2/64 flowid 1:2

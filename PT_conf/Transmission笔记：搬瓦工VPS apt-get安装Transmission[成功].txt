@@ -1,0 +1,102 @@
+一、安装
+0. 系统信息
+$ lsb_release -a
+No LSB modules are available.
+Distributor ID: Debian
+Description:    Debian GNU/Linux 8.8 (jessie)
+Release:        8.8
+Codename:       jessie
+
+1. 安装包：
+Transmission-daemon内建web ui，只需要安装daemon就可以了：
+# apt-get install transmission-daemon
+
+2. 服务状态
+2.1 安装程序会自动创建一个服务：
+$ systemctl | grep "transmission"
+  transmission-daemon.service             loaded active running   Transmission BitTorrent Daemon
+这个服务已经配置为以用户debian-transmission运行：
+通过start,stop,status管理：
+sudo systemctl start transmission-daemon
+sudo systemctl stop transmission-daemon
+sudo systemctl status transmission-daemon
+
+2.2 若工作正常，服务状态会显示：
+$ sudo find / -name "transmission*.service"
+/etc/systemd/system/multi-user.target.wants/transmission-daemon.service
+/lib/systemd/system/transmission-daemon.service		#未知以哪个为主
+$ yellow@localhost:~$ sudo systemctl status transmission-daemon
+● transmission-daemon.service - Transmission BitTorrent Daemon
+   Loaded: loaded (/lib/systemd/system/transmission-daemon.service; enabled)
+   Active: active (running) since Thu 2017-05-18 23:11:38 EDT; 24min ago
+ Main PID: 1918 (transmission-da)
+   Status: "Idle."
+   CGroup: /system.slice/transmission-daemon.service
+           └─1918 /usr/bin/transmission-daemon -f --log-error
+Hint: Some lines were ellipsized, use -l to show in full.
+
+3. 配置网络服务
+默认只能从本地IP访问，因此需要允许远程访问：
+3.1 停止服务
+sudo systemctl stop transmission-daemon
+否则改动将被覆盖不能生效。
+
+3.2 配置文件位置
+$ sudo find / -name "settings.json"
+/etc/transmission-daemon/settings.json
+/var/lib/transmission-daemon/.config/transmission-daemon/settings.json
+
+3.3 允许远程访问并设置密码
+# sudo vi /etc/transmission-daemon/settings.json
+修改以下内容：
+    "rpc-password": "password",
+    "rpc-username": "transmission",
+    "rpc-whitelist-enabled": true, #允许任何地址连入进行远程下载设置为false
+密码修改后再次进入查看会变成密文。
+此时在Web界面应当可以添加种子并下载。
+
+3.4 重新启用服务
+sudo systemctl start transmission-daemon
+
+4. 安装结果
+4.1 正常情况下的进程：
+$ ps aux | grep "transmission-daemon"
+debian-+  1918  0.0  2.1 323476 11244 ?        Ssl  May18   0:17 /usr/bin/transmission-daemon -f --log-error
+yellow    2157  0.0  0.1  11072   820 pts/1    S+   04:11   0:00 grep transmission-daemon
+加上u参数可以显示用户，显示为debian-transmission才是正常的。
+
+4.2 程序版本
+yellow@localhost:~$ dpkg -l | grep "transmission"
+ii  transmission                  2.84-0.2                          all          lightweight BitTorrent client
+ii  transmission-cli              2.84-0.2                          amd64        lightweight BitTorrent client (command line programs)
+ii  transmission-common           2.84-0.2                          all          lightweight BitTorrent client (common files)
+ii  transmission-daemon           2.84-0.2                          amd64        lightweight BitTorrent client (daemon)
+ii  transmission-gtk              2.84-0.2                          amd64        lightweight BitTorrent client (GTK+ interface)
+
+4.3 服务状态
+4.3.1 安装程序自动添加的服务项：
+##代码开始
+[Unit]
+Description=Transmission BitTorrent Daemon
+After=network.target
+
+[Service]
+User=debian-transmission
+Type=notify
+ExecStart=/usr/bin/transmission-daemon -f --log-error
+ExecReload=/bin/kill -s HUP $MAINPID
+
+[Install]
+WantedBy=multi-user.target
+##代码结束
+
+4.4 文档
+帮助文档：
+https://trac.transmissionbt.com/
+settings.json 配置文件属性说明：
+https://trac.transmissionbt.com/wiki/EditConfigFiles
+https://trac.transmissionbt.com/wiki/MovedToGitHub/ConfigurationParameters
+
+5. 文件夹权限
+transmission仅对默认下载目录设置了读写权限。若另行指定下载位置，可能遇到写入权限denied问题。简单解决方案是对该下载目录及所有子文件夹指定777权限
+chmod -R 777 DOWNLOAD_LOCATION

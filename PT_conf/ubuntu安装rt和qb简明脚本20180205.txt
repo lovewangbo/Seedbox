@@ -1,0 +1,202 @@
+#!/bin/bash
+# PLEASE DO NOT SET ANY OF THE VARIABLES, THEY WILL BE POPULATED IN THE MENU
+# Stop when errors, do not place before #!/bin/bash
+set -e
+
+sudo passwd root
+
+su
+wget -qO- bench.sh | bash
+apt-get update; apt-get install smartmontools;
+# smartctl -A /dev/sda
+smartctl -a -d cciss,0 /dev/sda
+smartctl -a -d cciss,1 /dev/sda
+
+# 测速
+# 方法1：
+su
+wget -O speedtest https://raw.githubusercontent.com/sivel/speedtest-cli/master/speedtest.py
+chmod +x speedtest
+./speedtest
+# 方法2：
+su
+apt-get -y install iperf3
+iperf3 -c ping.online.net
+
+su
+apt-get update
+
+# 2. 若版本为14.04，先升级到16.04【否则安装不了BBR】
+su
+apt-get update
+apt-get upgrade
+apt-get dist-upgrade
+apt-get install update-manager-core
+do-release-upgrade
+# 然后一路y和Enter即可。
+
+su
+wget --no-check-certificate https://github.com/teddysun/across/raw/master/bbr.sh;chmod +x bbr.sh;./bbr.sh
+mkdir -p /lib/firmware/bnx2
+wget -O /lib/firmware/bnx2/bnx2-rv2p-09ax-6.0.17.fw https://raw.githubusercontent.com/cernekee/linux-firmware/master/bnx2/bnx2-rv2p-09ax-6.0.17.fw
+wget -O /lib/firmware/bnx2/bnx2-rv2p-09-6.0.17.fw https://raw.githubusercontent.com/cernekee/linux-firmware/master/bnx2/bnx2-rv2p-09-6.0.17.fw
+wget -O /lib/firmware/bnx2/bnx2-rv2p-06-6.0.15.fw https://raw.githubusercontent.com/cernekee/linux-firmware/master/bnx2/bnx2-rv2p-06-6.0.15.fw
+wget -O /lib/firmware/bnx2/bnx2-mips-09-6.2.1b.fw https://raw.githubusercontent.com/cernekee/linux-firmware/master/bnx2/bnx2-mips-09-6.2.1b.fw
+wget -O /lib/firmware/bnx2/bnx2-mips-06-6.2.3.fw https://raw.githubusercontent.com/cernekee/linux-firmware/master/bnx2/bnx2-mips-06-6.2.3.fw
+reboot
+uname -r
+
+su
+cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime; date;
+
+su
+git clone https://github.com/lovewangbo/ipv6-dhclient-script.git;cd ipv6-dhclient-script;chmod +x ipv6-dhclient-script.sh
+DEFAULT_INTERFACE=`ip route get 8.8.8.8 | awk '{print $5; exit}'` #获取网卡名称
+echo -n "Input your IPV6 address:"
+read -e IPV6_ADDRESS
+echo -n "Input your IPV6 subnet:"
+read -e IPV6_SUBNET
+echo -n "Input your IPV6 DUID:"
+read -e IPV6_DUID
+./ipv6-dhclient-script.sh $DEFAULT_INTERFACE $IPV6_ADDRESS $IPV6_SUBNET $IPV6_DUID
+ping6 ipv6.google.com
+
+# 安装rTorrent和ruTorrent
+su
+
+RTORRENT_USER="jack"; 
+adduser $RTORRENT_USER;
+HOMEDIR=$(cat /etc/passwd | grep "$RTORRENT_USER": | cut -d: -f6)
+
+apt-get install rtorrent;
+# 也可自行编译安装支持IPv6的版本
+cd ~/tmp
+wget https://raw.githubusercontent.com/lovewangbo/rTorrent/master/rtorrent_ipv6_v3.0
+chmod +x rtorrent_ipv6_*
+sudo ./rtorrent_ipv6_*
+cd ~
+
+apt-get install -y php php7.0-cli php7.0-json php7.0-curl php7.0-cgi php7.0-mbstring libapache2-mod-php libapache2-mod-scgi apache2; apt-get install -y unrar unzip ffmpeg mediainfo; cd /var/www/html;
+apt-get install git && git clone https://github.com/Novik/ruTorrent.git; 
+chown -R $RTORRENT_USER:www-data ruTorrent/ && chmod -R 770 ruTorrent/;
+cd $HOMEDIR; wget -O $HOMEDIR/.rtorrent.rc https://raw.githubusercontent.com/lovewangbo/rTorrent/master/.rtorrent.rc; chown "$RTORRENT_USER"."$RTORRENT_USER" $HOMEDIR/.rtorrent.rc; sed -i "s@HOMEDIRHERE@$HOMEDIR@g" $HOMEDIR/.rtorrent.rc; 
+mkdir $HOMEDIR/.rtorrent-session; chown "$RTORRENT_USER"."$RTORRENT_USER" $HOMEDIR/.rtorrent-session; 
+mkdir $HOMEDIR/Downloads; chown "$RTORRENT_USER"."$RTORRENT_USER" $HOMEDIR/Downloads;
+echo -e "\n\n[httprpc]\nenabled = yes\n[rpc]\nenabled = no"  >> /var/www/html/ruTorrent/conf/plugins.ini
+RUT_WEB_USER="jack";
+htpasswd -c /etc/apache2/.htpasswd $RUT_WEB_USER;
+sed -i '/^<\/VirtualHost>$/i\\n\t<Directory "/var/www/html/ruTorrent">\n\t\tAuthType Basic\n\t\tAuthName "Restricted Content"\n\t\tAuthUserFile /etc/apache2/.htpasswd\n\t\tRequire valid-user\n\t</Directory>\n' /etc/apache2/sites-enabled/000-default.conf
+service apache2 restart
+# http://xxx.xxx.xxx.xxx/ruTorrent/
+apt-get install -y tmux
+wget -O /etc/systemd/system/rtorrent.service https://raw.githubusercontent.com/lovewangbo/seedbox/master/templates/rtorrent.service
+sed -i "s@RT_USER_HERE@$RTORRENT_USER@g" /etc/systemd/system/rtorrent.service
+
+systemctl enable rtorrent
+systemctl status rtorrent
+systemctl start rtorrent
+ps -ef | grep rtorrent
+#systemctl disable rtorrent
+#systemctl stop rtorrent
+#systemctl status rtorrent
+ps -ef | grep rtorrent
+
+
+# 安装qBittorrent
+apt-get install -y build-essential pkg-config automake libtool git
+apt-get install -y libboost-dev libboost-system-dev libboost-chrono-dev libboost-random-dev libssl-dev
+apt-get install -y qtbase5-dev qttools5-dev-tools libqt5svg5-dev
+apt-get install -y python3
+####libtorrent安装开始
+####安装二进制包
+#apt-get install -y libtorrent-rasterbar-dev
+#pkg-config --list-all | grep libtorrent
+#dpkg -l | grep libtorrent-rasterbar
+####编译安装
+git clone https://github.com/arvidn/libtorrent.git
+cd libtorrent
+git checkout libtorrent-1_0_11
+./autotool.sh
+.configure -disable-debug --enable-encryption --with-libgeoip=system CXXFLAGS=-std=c++11
+make clean && make -j$(nproc);
+checkinstall
+ldconfig
+####libtorrent安装完毕
+
+TODAY=`date +%Y-%m-%d`; TODAY=$(date +%Y-%m-%d);
+mkdir -p tmp/$TODAY; cd tmp/$TODAY
+# 3.3.11不能跳过校验
+git clone https://github.com/qbittorrent/qBittorrent
+cd qBittorrent;
+git checkout release-3.3.11
+# 增加快速发种选项
+git cherry-pick db3158c
+git cherry-pick b271fa9
+# 显示磁盘IO状态
+git cherry-pick 1ce71fc
+# 3.3.14 mt和hdsky不支持
+#wget https://sourceforge.net/projects/qbittorrent/files/qbittorrent/qbittorrent-3.3.14/qbittorrent-3.3.14.tar.gz
+#tar -xvzf qbittorrent-*.tar.gz; cd qbittorrent-*;
+#######
+./configure --disable-gui;
+make clean && make -j$(nproc);
+#sudo make install;
+sudo checkinstall
+cd ..
+sudo mkdir -p $HOMEDIR/.config/qBittorrent/
+sudo wget -O $HOMEDIR/.config/qBittorrent/qBittorrent.conf https://raw.githubusercontent.com/lovewangbo/qbittorrent/master/qBittorrent.conf
+sudo chown "$RTORRENT_USER"."$RTORRENT_USER" $HOMEDIR/.config/qBittorrent/qBittorrent.conf
+sudo wget -O /etc/systemd/system/qbittorrent.service https://raw.githubusercontent.com/lovewangbo/seedbox/master/templates/qbittorrent.service
+sudo sed -i "s@QB_USEERS_HERE@$RTORRENT_USER@g" /etc/systemd/system/qbittorrent.service
+
+systemctl enable qbittorrent
+systemctl status qbittorrent
+systemctl start qbittorrent
+systemctl status qbittorrent
+
+#my_server_ip=127.0.0.1
+#my_server_port=
+#mypassword=
+
+
+# 安装Shadowsocks
+su
+echo "Now install shadowsocks:"
+python --version
+echo "Python should be 2.6/2.7, and your python version is:"
+apt-get install -y python-gevent python-pip;
+pip install shadowsocks;
+apt-get install -y python-m2crypto;
+mkdir -p /etc/shadowsocks;
+read -p
+echo -n "Input the port to use: "
+read -e my_server_port
+echo -n "Input the password to verify: "
+read -e my_server_passwd
+sudo wget -O /etc/shadowsocks/config.json https://raw.githubusercontent.com/lovewangbo/seedbox/master/templates/shadowsocks/config.json
+sudo sed -i "s@my_server_ip@${my_server_ip}@g" /etc/shadowsocks/config.json
+sudo sed -i "s@my_server_port@${my_server_port}@g" /etc/shadowsocks/config.json
+sudo sed -i "s@mypassword@${my_server_passwd}@g" /etc/shadowsocks/config.json
+wget -O /etc/systemd/system/shadowsocks.service https://raw.githubusercontent.com/lovewangbo/seedbox/master/templates/shadowsocks/shadowsocks.service
+systemctl enable shadowsocks;
+systemctl start shadowsocks;
+
+# 限速
+DEFAULT_INTERFACE=`ip route get 8.8.8.8 | awk '{print $5; exit}'` #获取网卡名称
+tc qdisc add dev $DEFAULT_INTERFACE root tbf rate 50mbit latency 70ms burst 10kb # 正确的写法	
+tc qdisc add dev $DEFAULT_INTERFACE root tbf rate 50mbit latency 50ms burst 1000 # 错误的写法
+tc qdisc del dev $DEFAULT_INTERFACE root
+tc qdisc show dev $DEFAULT_INTERFACE
+
+#如有需要，获取网卡名称和IP地址
+echo -n "Your possible Ethernet: "
+DEFAULT_INTERFACE=`ip route get 8.8.8.8 | awk '{print $5; exit}'` #获取网卡名称
+# ifconfig | grep "Link encap" | awk '{print $1}' # 也可
+# read -e DEFAULT_INTERFACE
+#ifconfig | grep inet | cut -d : -f 2 | cut -d " " -f 1 # 获取ip地址
+#curl -s checkip.dyndns.com | cut -d' ' -f 6  | cut -d'<' -f 1 #也可
+#echo -n "Input the proper IP address: "
+#read -e my_server_ip
+my_server_ip=$(ifconfig $DEFAULT_INTERFACE | grep inet | cut -d : -f 2 | cut -d " " -f 1)
+echo -n "Check your IP address : "
+echo $my_server_ip

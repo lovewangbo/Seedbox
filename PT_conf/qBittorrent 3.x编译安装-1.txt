@@ -1,0 +1,176 @@
+参考资料：
+https://github.com/qbittorrent/qBittorrent/wiki/Compiling-qBittorrent-on-Debian-and-Ubuntu
+几个大站的最高版本[20170923测试]：
+hdsky, m-team: 3.3.11
+hdchina, chdbits: 3.3.14
+ttg, cmct, ourbits: 3.3.15
+
+1.以下操作最好在tmux窗口中进行，以免网络中断时操作也中断。
+2. qbittorrent-nox无RSS功能
+
+0.
+apt-get install tmux
+tmux
+
+1. 安装前检查qmake版本，需要>5.5：
+$ sudo apt-cache show qt5-qmake
+如果版本不满足此要求，需要添加源：修改/etc/apt/sources.list，在文件中添加一行：
+nano /etc/apt/sources.list
+deb http://ftp.de.debian.org/debian stretch main 
+$ sudo apt-get update
+$ sudo apt-get install qt5-qmake
+然后确认版本：
+$ sudo apt-cache show qt5-qmake
+一开始就换源比安装一些软件后再换源好。
+2017/7/3：online 20o机器必须改源才能安装qbittorrent
+2017/8/11:oneprovider 10o机器安装的ubuntu16.04无需在这里单独安装，也无需改源
+
+2.
+Required dependencies
+General required dependencies
+ sudo apt-get install aptitude
+ sudo aptitude install libboost-dev libboost-system-dev build-essential; 
+ sudo aptitude install libboost-chrono-dev libboost-random-dev libssl-dev libgeoip-dev; 
+ sudo aptitude install git pkg-config automake libtool;
+【注意】用aptitude安装的原因是因为它可以解决某些依赖包的版本过高问题，apt-get不能
+#####
+#####Qt4 libraries (optional and only if it exists in your distro's repo)
+#####$ sudo apt-get install libqt4-dev
+#####
+Qt5 libraries
+ sudo apt-get install qtbase5-dev qttools5-dev-tools libqt5svg5-dev
+#Ubuntu 16.04LTS在这一步会安装qt5-qmake。用以下命令可以检查：
+dpkg -l | grep qmake
+ii  qt5-qmake:amd64                      5.5.1+dfsg-16ubuntu7.5                     amd64        Qt 5 qmake Makefile generator tool
+Python (Run time only dependency, for the search engine)
+sudo apt-get install python;
+
+3.Libtorrent
+3.1.1 Clone from the repo【推荐，qb与这个版本兼容性最好，其他版本可能导致闪退】.
+git clone https://github.com/arvidn/libtorrent.git
+cd libtorrent
+ If you want to use libtorrent 1.0.*. (recommended)
+git checkout RC_1_0;
+./autotool.sh;
+./configure --disable-debug --enable-encryption --prefix=/usr --with-libgeoip=system
+ If you want to use libtorrent 1.1.*. (Note 1.1.x series are not officially supported yet and have several issues.)
+git checkout RC_1_1
+./autotool.sh
+./configure --disable-debug --enable-encryption --prefix=/usr --with-libgeoip=system CXXFLAGS=-std=c++11
+3.1.2 从官方网站下载
+wget https://github.com/arvidn/libtorrent/releases/download/libtorrent-1_0_11/libtorrent-rasterbar-1.0.11.tar.gz
+tar -xvzf libtorrent-*.tar.gz
+cd libtorrent-*
+./configure --disable-debug --enable-encryption --prefix=/usr --with-libgeoip=system
+3.1.3 【最新方式】
+git clone https://github.com/arvidn/libtorrent.git
+cd libtorrent
+git checkout $(git tag | grep libtorrent-1_1_ | sort -t _ -n -k 3 | tail -n 1)
+./autotool.sh
+./configure --disable-debug --enable-encryption --with-libgeoip=system CXXFLAGS=-std=c++11
+
+3.2 Now you're ready to compile:
+make clean && make -j$(nproc)
+sudo make install; 
+cd ..
+ 若安装完成，用以下命令应当可以查询到库已经安装：
+pkg-config --list-all | grep libtorrent
+>> libtorrent-rasterbar    libtorrent-rasterbar - Bittorrent library.
+sudo dpkg -l | grep libtorrent-rasterbar
+ii  libtorrent-rasterbar8                1.0.11.1+git20170907.c074e87885-1ppa1~xenial1 amd64        C++ bittorrent library by Rasterbar Software
+ii  python-libtorrent                    1.0.11.1+git20170907.c074e87885-1ppa1~xenial1 amd64        Python bindings for libtorrent-rasterbar
+
+
+4.
+Compiling qBittorrent (without the GUI; aka qBittorrent-nox aka headless)
+######$ git clone https://github.com/qbittorrent/qBittorrent
+如需安装老版本：
+#### wget https://sourceforge.net/projects/qbittorrent/files/qbittorrent/qbittorrent-3.3.7/qbittorrent-3.3.7.tar.gz
+#### wget https://sourceforge.net/projects/qbittorrent/files/qbittorrent/qbittorrent-3.3.11/qbittorrent-3.3.11.tar.gz
+#### wget https://sourceforge.net/projects/qbittorrent/files/qbittorrent/qbittorrent-3.3.14/qbittorrent-3.3.14.tar.gz
+#### wget https://sourceforge.net/projects/qbittorrent/files/qbittorrent/qbittorrent-4.0.2/qbittorrent-4.0.2.tar.gz
+ 2017/8/20：hdsky/m-team最高支持3.3.11,chdbits/hdchina最高支持3.3.14
+tar -xvzf qbittorrent-*.tar.gz; cd qbittorrent-*; 
+###
+./configure --prefix=/usr --disable-gui;  
+或者：
+./configure --disable-gui
+###
+make clean && make -j$(nproc)
+sudo make install
+
+
+5. 配置
+sudo nano /etc/systemd/system/qbittorrent.service
+[Unit]
+Description=qBittorrent Daemon Service
+After=network.target
+
+[Service]
+User=jack
+#ExecStart=/usr/bin/qbittorrent-nox --webui-port=7788
+ExecStart=/usr/local/bin/qbittorrent-nox --webui-port=7788
+
+[Install]
+WantedBy=multi-user.target
+################################################################
+里面的User和webui-port根据需要修改。
+使能自启动：
+sudo systemctl enable qbittorrent
+sudo systemctl disable qbittorrent
+
+
+配置文件位置：
+/home/jack/.config/qBittorrent/
+
+6. 遇到过的问题：
+6.1 在Compiling qBittorrent时报错：
+configure: Running qmake to generate the makefile...
+./configure: line 8015: -r: command not found
+这是因为已安装的qmake版本太低。要求qmake > 5.5
+yellow@ks2e:~/tmp/qBittorrent$ dpkg -l | grep qmake
+ii  qt5-qmake:amd64                       5.3.2+dfsg-4+deb8u2              amd64 
+$ sudo apt-cache search qmake
+$ sudo apt-cache show qt5-qmake
+这时到debian官网查询qmake稳定版的最新版本：
+https://www.debian.org/distrib/packages
+查得：软件包 qt5-qmake
+stretch (stable) (devel): Qt 5 qmake Makefile generator tool 
+5.7.1+dfsg-3+b1: amd64 arm64 armel armhf i386 mips mips64el mipsel ppc64el s390x
+在页面最下部的平台列表中选择amd64点击，新页面中有明确提示：
+如果您正在运行 Debian，请尽量使用像 aptitude 或者 synaptic 一样的软件包管理器，代替人工手动操作的方式从这个网页下载并安装软件包。
+您可以使用以下列表中的任何一个源镜像只要往您的 /etc/apt/sources.list 文件中像下面这样添加一行:
+deb http://ftp.de.debian.org/debian stretch main 
+选择修改升级源的方式而非手动下载单个软件包的方式后，
+$ sudo apt-get update
+$ sudo apt-cache show qt5-qmake
+将同时显示两个版本：
+Package: qt5-qmake
+Source: qtbase-opensource-src (5.7.1+dfsg-3)
+Version: 5.7.1+dfsg-3+b1
+……
+Package: qt5-qmake
+Source: qtbase-opensource-src
+Version: 5.3.2+dfsg-4+deb8u2
+……
+升级qmake即可：
+$ sudo apt-get install qt5-qmake
+测试发现单独升级仍然会报错。尝试屏蔽其他升级源，从头开始重新运行一遍所有命令才可以。因此，应当在一开始就这样做。
+
+6.2 在编译qbittorrent时找不到libtorrent库
+pkg-config --list-all | grep libtorrent返回为空
+这是因为更改了默认安装路径。解决办法：
+nano /etc/ld.so.conf
+加入一行：
+/usr/libtorrent/lib/pkgconfig
+然后运行
+/sbin/ldconfig 
+以更新。
+export PKG_CONFIG_PATH=/usr/libtorrent/lib/pkgconfig:$PKG_CONFIG_PATH
+这样应该可以查询到安装信息了。
+该方法仅在当前session有效，在同一台机器的其他远程putty终端中无效，或者 reconnect 当前连接之后，也会失效。
+http://blog.csdn.net/ubuntulover/article/details/6978305
+但是，这个方法只能确保可以继续安装qbittorrent，运行时仍找不到libtorrent。
+
+6.3 安装依赖库的时候报依赖关系错误
+原因：某些库版本过高，用aptitude install，然后否决第一选项，同意第二选项即可降级并顺利安装。

@@ -1,0 +1,77 @@
+    1  su; adduser jack; passwd jack
+    3  vi /etc/fstab;cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime;date;
+    4  wget --no-check-certificate https://github.com/teddysun/across/raw/master/bbr.sh; chmod +x bbr.sh; ./bbr.sh
+    5  RTORRENT_USER="yellow"; HOMEDIR=$(cat /etc/passwd | grep "$RTORRENT_USER": | cut -d: -f6); 
+    6  apt-get install -y tmux curl; apt-get install rtorrent; apt-get install php php7.0-cli php7.0-json php7.0-curl php7.0-cgi php7.0-mbstring libapache2-mod-php libapache2-mod-scgi apache2; apt-get install unrar unzip ffmpeg mediainfo; cd /var/www/html; apt-get install git -y && sudo git clone https://github.com/Novik/ruTorrent.git; chown -R $RTORRENT_USER:www-data ruTorrent/ && sudo chmod -R 770 ruTorrent/; 
+    7  cd $HOMEDIR; wget -O $HOMEDIR/.rtorrent.rc https://raw.githubusercontent.com/lovewangbo/rTorrent/master/.rtorrent.rc; chown "$RTORRENT_USER"."$RTORRENT_USER" $HOMEDIR/.rtorrent.rc; sed -i "s@HOMEDIRHERE@$HOMEDIR@g" $HOMEDIR/.rtorrent.rc; mkdir $HOMEDIR/.rtorrent-session; chown "$RTORRENT_USER"."$RTORRENT_USER" $HOMEDIR/.rtorrent-session; mkdir $HOMEDIR/Downloads; chown "$RTORRENT_USER"."$RTORRENT_USER" $HOMEDIR/Downloads;
+
+nano /var/www/html/ruTorrent/conf/plugins.ini
+[httprpc]
+enabled = yes
+[rpc]
+enabled = no
+
+sudo service apache2 restart
+
+sudo nano /etc/systemd/system/rtorrent.service
+[Unit]
+Description=rtorrent (in tmux)
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+User=yellow
+ExecStart=/usr/bin/tmux -2 new-session -d -s rtorrent rtorrent
+ExecStop=/usr/bin/tmux kill-session -t rtorrent
+[Install]
+WantedBy=default.target
+
+sudo systemctl enable rtorrent
+sudo systemctl status rtorrent
+sudo systemctl start rtorrent
+
+    5  bash -c "$(wget --no-check-certificate -qO - https://raw.githubusercontent.com/arakasi72/rtinst/master/rtsetup)";sed -i "s/rtorrentrel=''/rtorrentrel='0.9.4'/g" /usr/local/bin/rtinst;sed -i 's/ask_user && return 0/return 0/g' /usr/local/bin/rtinst;sed -i 's/webpass=$(set_pass)/webpass="wilywx.com"/g' /usr/local/bin/rtinst;echo "1. Now install rTorrent.......................";rtinst;sed -i '/Port/c Port 1013' /etc/ssh/sshd_config;service ssh restart;/etc/init.d/vsftpd stop;sed -i 's/ssl_enable=YES/ssl_enable=NO/g' /etc/vsftpd.conf;sed -i '/listen_port/c listen_port=21' /etc/vsftpd.conf;sed -i '/listen_port=21/a\local_root=\/var\/www\/downloads' /etc/vsftpd.conf;echo "pasv_min_port=20000" >> /etc/vsftpd.conf;echo "pasv_max_port=20010" >> /etc/vsftpd.conf;sleep 1;/etc/init.d/vsftpd start;sed -i '/location \/ {/a\               include \/etc\/nginx\/conf.d\/cache\;' /etc/nginx/sites-enabled/default;sed -i '/location \/ {/a\               include \/etc\/nginx\/conf.d\/php\;' /etc/nginx/sites-enabled/default;sed -i 's/index index.html index.php index.htm/index index.html index.php index.htm \/_h5ai\/public\/index.php/g' /etc/nginx/sites-enabled/default;service nginx restart;apt-get install -y unrar vim;mkdir -p /var/www/downloads/rutorrent;chown -R jack:jack /var/www/downloads/rutorrent;chmod -R 777 /var/www/downloads/rutorrent;rm -rf /home/jack/.rtorrent.rc;wget -O /home/jack/.rtorrent.rc http://file.wilywx.com/rtorrent.ubuntu.config;sed -i "s/\/home\/jack/\/var\/www\/downloads\/rutorrent/g" /var/www/rutorrent/conf/users/jack/config.php;cd /var/www/;wget http://file.wilywx.com/jack_web_ubuntu.zip;unzip -o jack_web_ubuntu.zip;rm -rf jack_web_ubuntu.zip;rm -rf index.html;sed -i "s/ens18/eno1/g" /var/www/index.php;mkdir -p /var/www/downloads/;chown -R www-data:www-data /var/www;chmod 755 /var/www/;chmod -R 777 /var/www/downloads/;echo "* * * * * root chmod -R 777 /var/www/downloads/" >> /etc/crontab;cat /etc/crontab;echo "2. Now install transmission.......................";apt-get install transmission-daemon unzip -y;/etc/init.d/transmission-daemon stop;rm -rf settings.json;rm -rf /var/lib/transmission-daemon/info/settings.json;wget -O /var/lib/transmission-daemon/info/settings.json http://file.wilywx.com/settings.transmission.ubuntu.json;sed -i "/rpc-username/c \ \ \ \ \"rpc-username\": \"jack\"," /var/lib/transmission-daemon/info/settings.json;mkdir -p /var/www/downloads/transmission/;chmod g+w /var/www/downloads/transmission/;chmod -R 777 /var/www/downloads/transmission/;cd /usr/share/transmission/;rm -rf transmission_web_cn.zip;wget http://file.wilywx.com/transmission_web_cn.zip;unzip -o transmission_web_cn.zip;rm -rf transmission_web_cn.zip;rm -rf transmission_web_cn.html;wget -c http://file.wilywx.com/transmission_web_cn.html;rm -rf /usr/share/transmission/web/index.original.html;mv -f transmission_web_cn.html /usr/share/transmission/web/index.original.html;/etc/init.d/transmission-daemon start;"3. Now install flexget.......................";apt install -y python-pip;pip install flexget transmissionrpc;"4. Now install Deluge.......................";add-apt-repository -y ppa:deluge-team/ppa;apt-get update;apt-get install -y deluged deluge-web;mkdir -p /var/www/downloads/deluge/;deluged;deluge-web -f;sleep 5;eval $(ps x|grep deluge |awk '{print "kill -9 "$1";"}');wget -O /root/.config/deluge/core.conf http://file.wilywx.com/deluge_config_core_ubuntu.conf;wget -O /root/.config/deluge/core.conf~ http://file.wilywx.com/deluge_config_core_ubuntu.conf;cd /usr/lib/python2.7/dist-packages/deluge/ui/web/;wget http://file.wilywx.com/deluge_web_ha.zip;unzip -o deluge_web_ha.zip;sed -i "1 a\\/usr\/bin\/sudo deluge-web -f" /etc/rc.local;sed -i "1 a\\/usr\/bin\/sudo deluged" /etc/rc.local;deluged;deluge-web -f;"5. Now install qBittorrent.......................";add-apt-repository -y ppa:qbittorrent-team/qbittorrent-stable;apt-get update;apt-get -y install screen qbittorrent-nox;rm -rf /etc/init.d/qbittorrent;wget -O /etc/init.d/qbittorrent http://file.wilywx.com/qbittorrent-nox_init.txt;chmod 755 /etc/init.d/qbittorrent;chown root:root /etc/init.d/qbittorrent;update-rc.d qbittorrent defaults;mkdir -p /var/www/downloads/qbittorrent/;mkdir -p /var/www/downloads/qbittorrent/torrent_files/;chmod -R 777 /var/www/downloads/qbittorrent/;wget -O /home/jack/.config/qBittorrent/qBittorrent.conf http://file.wilywx.com/qBittorrent.conf;reboot;
+    6  eval $(ps x|grep qbittorrent |awk '{print "kill -9 "$1";"}');wget -O /home/jack/.config/qBittorrent/qBittorrent.conf http://file.wilywx.com/qBittorrent.conf;screen -A -m -d -S qb qbittorrent-nox;ps aux | grep qbittorrent;
+    7  kill -9 682
+    8  kill -9 680
+    9  kill -9 1552
+   10  kill -9 1554
+   11  kill -9 1555
+   12  account="jack";passwd="love654321";
+   13  htpasswd -b -c /etc/nginx/.htpasswd jack ${passwd};chmod 640 /etc/nginx/.htpasswd;
+   14  service transmission-daemon stop;sed -i "/rpc-username/c \ \ \ \ \"rpc-username\": \"${account}\"," /var/lib/transmission-daemon/info/settings.json;sed -i "/rpc-password/c \ \ \ \ \"rpc-password\": \"${passwd}\"," /var/lib/transmission-daemon/info/settings.json;sleep 3;service transmission-daemon start;
+   15  ls
+   16  echo "*/8 * * * * jack /usr/local/bin/flexget execute --tasks pt-qb-rss-ttg" >> /etc/crontab;
+   17  echo "0 2 * * * root rm -rf /home/jack/.flexget/flexget.log" >> /etc/crontab;
+   18  cat /etc/crontab;
+   19  ifconfig
+   20  cd /var/www/;rm -rf check_jack_ubuntu_tr.sh;rm -rf check_jack_ubuntu_qb.sh;wget http://file.wilywx.com/check_jack_ubuntu_tr.sh;wget http://file.wilywx.com/check_jack_ubuntu_qb.sh;chmod +x check_jack_ubuntu_tr.sh;chmod +x check_jack_ubuntu_qb.sh;echo "* * * * * root /bin/bash /var/www/check_jack_ubuntu_tr.sh" >> /etc/crontab;echo "* * * * * jack /bin/bash /var/www/check_jack_ubuntu_qb.sh" >> /etc/crontab;cat /etc/crontab;
+   21  echo "0 * * * * root rm -rf /home/jack/.flexget/.config-lock" >> /etc/crontab;
+   22  rm -rf /home/jack/.flexget/.config-lock
+   23  cat /etc/crontab;
+   24  vi /etc/crontab;
+   25  echo "*/8 * * * * jack /usr/local/bin/flexget execute --tasks pt-hdc-qb-rss" >> /etc/crontab;
+   26  echo "0 2 * * * root rm -rf /home/jack/.flexget/flexget.log" >> /etc/crontab;
+   27  echo "0 * * * * root rm -rf /home/jack/.flexget/.config-lock" >> /etc/crontab;
+   28  cat /etc/crontab;
+   29  vi /etc/crontab;
+   30  passwd jack
+   31  cat /etc/crontab;
+   32  vi /etc/crontab;
+   33  account="jack";passwd="wilywx.com";
+   34  htpasswd -b -c /etc/nginx/.htpasswd jack ${passwd};chmod 640 /etc/nginx/.htpasswd;
+   35  service transmission-daemon stop;sed -i "/rpc-username/c \ \ \ \ \"rpc-username\": \"${account}\"," /var/lib/transmission-daemon/info/settings.json;sed -i "/rpc-password/c \ \ \ \ \"rpc-password\": \"${passwd}\"," /var/lib/transmission-daemon/info/settings.json;sleep 3;service transmission-daemon start;
+   36  cd /var/www
+   37  ls
+   38  cd downloads
+   39  ls
+   40  cd rutorrent
+   41  screen -S sd2
+   42  top
+   43  vi /etc/ssh/sshd_config;
+   44  service ssh restart;
+   45  cat /etc/passwd
+   46  clear
+   47  wget -qO- bench.sh | bash
+   49  apt-get update
+   50  apt-get install smartmontools
+   51  smartctl -A /dev/sda

@@ -1,0 +1,617 @@
+rtorrent下载的官网是
+http://rtorrent.net/downloads/
+很原始的页面。最近的正式版是2015/08/08发布的。其最新更新和改进由作者在github.com上发布：
+https://github.com/rakshasa/rtorrent
+
+一、安装步骤
+0. 安装系统
+注意，对于Kimsufi服务器若需要安装BBR，需要在安装时候选择custom install然后选择distribution kernel。默认的OVH内核需要更高级的调整才能成功安装BBR。
+
+1. 测试硬盘好坏
+1.1测试硬盘IO是否正常
+# wget -qO- bench.sh | bash
+
+1.2 确认硬盘使用时间
+# apt-get update
+# apt-get install smartmontools
+# smartctl -A /dev/sda
+对于raid硬盘则是
+# smartctl -a -d cciss,0 /dev/sda
+# smartctl -a -d cciss,1 /dev/sda
+硬盘时间在第9行：
+yellow@my9o:~$ sudo smartctl -A /dev/sda
+smartctl 6.4 2014-10-07 r4002 [x86_64-linux-4.11.3-041103-generic] (local build)
+Copyright (C) 2002-14, Bruce Allen, Christian Franke, www.smartmontools.org
+
+=== START OF READ SMART DATA SECTION ===
+SMART Attributes Data Structure revision number: 16
+Vendor Specific SMART Attributes with Thresholds:
+ID# ATTRIBUTE_NAME          FLAG     VALUE WORST THRESH TYPE      UPDATED  WHEN_FAILED RAW_VALUE
+  1 Raw_Read_Error_Rate     0x000b   100   100   062    Pre-fail  Always       -       0
+  2 Throughput_Performance  0x0005   100   100   040    Pre-fail  Offline      -       0
+  3 Spin_Up_Time            0x0007   157   157   033    Pre-fail  Always       -       1
+  4 Start_Stop_Count        0x0012   100   100   000    Old_age   Always       -       19
+  5 Reallocated_Sector_Ct   0x0033   056   056   005    Pre-fail  Always       -       0
+  7 Seek_Error_Rate         0x000b   100   100   067    Pre-fail  Always       -       0
+  8 Seek_Time_Performance   0x0005   100   100   040    Pre-fail  Offline      -       0
+  9 Power_On_Hours          0x0012   081   081   000    Old_age   Always       -       8490
+ 10 Spin_Retry_Count        0x0013   100   100   060    Pre-fail  Always       -       0
+ 12 Power_Cycle_Count       0x0032   100   100   000    Old_age   Always       -       4
+191 G-Sense_Error_Rate      0x000a   100   100   000    Old_age   Always       -       0
+192 Power-Off_Retract_Count 0x0032   100   100   000    Old_age   Always       -       3
+193 Load_Cycle_Count        0x0012   100   100   000    Old_age   Always       -       47
+194 Temperature_Celsius     0x0002   206   206   000    Old_age   Always       -       29 (Min/Max 19/30)
+196 Reallocated_Event_Count 0x0032   055   055   000    Old_age   Always       -       1235
+197 Current_Pending_Sector  0x0022   100   100   000    Old_age   Always       -       0
+198 Offline_Uncorrectable   0x0008   100   100   000    Old_age   Offline      -       0
+199 UDMA_CRC_Error_Count    0x000a   200   200   000    Old_age   Always       -       0
+223 Load_Retry_Count        0x000a   100   100   000    Old_age   Always       -       0
+重映射区相当多，不会是传说中的残废机吧？
+
+1.3 坏道检查
+badblocks -v /dev/sda > badsectors.txt
+
+2. 使方向键和End,backspace正常使用
+# su
+# nano /etc/vim/vimrc.tiny
+找到set compatible改为set nocompatible
+小窍门：先不要进入编辑模式，把光标移动到compatible的前面，然后修改，添加no保存退出即可
+退格键不能使用的话，在刚才的下面再加一句
+set backspace=2
+
+3. 修改SSH超时时间：
+# nano /etc/ssh/sshd_config
+修改或添加以下两行：
+ClientAliveInterval 300
+ClientAliveCountMax 5
+这组参数允许超时 1500秒 =25分钟
+最后重启SSH服务：
+# service sshd restart
+
+4. 必需组件
+# apt-get update
+//# apt-get upgrade #升级已安装的所有软件包(升级之后的版本就是本地索引里的，因此，在执行 upgrade 之前一定要执行 update, 这样才能是最新的)
+# apt-get install sudo
+
+5. 配置IPv6
+kimsufi 2e是服务商在安装完系统后自动配置的。online的需要手动配置。
+5.1 一键安装脚本：
+https://github.com/outime/ipv6-dhclient-script
+注意此脚本有问题，将转发位forwarding=1导致网关掉线。必须用自行修改版：
+依次执行：
+$ git clone https://github.com/lovewangbo/ipv6-dhclient-script.git
+$ cd ipv6-dhclient-script/
+$ chmod +x ipv6-dhclient-script.sh
+$ sudo ./ipv6-dhclient-script.sh
+如有需要
+apt-get install git
+
+IP	2001:0bc8:3c94:: /48
+DNS	Same settings as 2001:0bc8:27ef:: /48
+DUID	00:03:00:01:68:ca:d3:87:66:cc
+安装过程中提示输入ipv6 block address时输入
+2001:0bc8:3c94::1
+提示Subnet for your block时输入对应的48。
+过程如下：
+WARNING: Network will restart at the end of this script so any existing connections will be dropped!
+Interface where IPv6 will be enabled: eth0
+You have the following IPv6 addreses configured for eth0:
+fe80::208:a2ff:fe0b:4408
+Continue? [Y/n]: Y
+Your IPv6 block address (e.g. 2001:bb8:3e23:200::): 2001:bc8:27ef:100::
+Subnet for your block (e.g. if it's /56, input 56): 56
+Associated DUID (e.g. 00:03:00:00:34:b0:0c:47:4a:0e): 00:03:00:01:10:37:18:d3:56:da
+Working...
+
+也可手动配置：
+5.2.手动配置：
+【配置IPV6】
+红色部分是网卡名，绿色部分是IPV6的DUID和地址，根据实际情况修改（TXT没法显示颜色= =），以下为20o4T机器：
+【1】nano /etc/dhcp/dhclient6.conf，添加如下内容
+interface "enp2s0" {
+send dhcp6.client-id 00:03:00:01:3f:68:bb:53:14:6c;
+request;
+}
+【2】nano /etc/network/interfaces，在最底下添加如下内容
+iface eth0 inet6 static
+address 2001:0bc8:2aab::1
+netmask 48
+accept_ra 1
+pre-up dhclient -cf /etc/dhcp/dhclient6.conf -pf /run/dhclient6.eth0.pid -6 -P eth0
+pre-down dhclient -x -pf /run/dhclient6.eth0.pid
+#【3】nano /etc/modprobe.d/local.conf
+在options ipv6 disable=1前加#将其注释掉。
+已配置正常的6O1T服务器未用这条，可尝试不采用。
+——————————————————
+【4】设置ipv4优先（否则apt-get连接debian服务器有时会超时）
+在/etc/gai.conf文件中取消注释或加入如下这一行： 
+precedence ::ffff:0:0/96 100 
+
+【5】ifdown eth0 && ifup eth0
+enp2s0
+经测试必须在root账户下运行，sudo会导致断线。
+如果报告错误ifdown: interface eth0 not configured可以换用：
+# service networking restart
+但这样SSH连接会中断，需要重新连接
+或者尝试：
+shell> systemctl daemon-reload
+shell> systemctl restart ipv6-dhclient
+
+配置完成后，可测试：
+ping6 ipv6.google.com
+确认不会断线可运行：
+ip -6 route
+看expires后面的倒计时会不会在减到0之前刷新回到1800s
+
+6. 确认系统版本：
+$ lsb_release -a
+No LSB modules are available.
+Distributor ID: Debian
+Description:    Debian GNU/Linux 8.1 (jessie)
+Release:        8.1
+Codename:       jessie
+对于ubantu也可：
+yellow@localhost:~$ lsb_release -a
+No LSB modules are available.
+Distributor ID: Ubuntu
+Description:    Ubuntu 15.10
+Release:        15.10
+Codename:       wily
+若有必要，
+# apt-get install lsb-release
+
+7. 检查卸载/tmp挂载点，防止/tmp因空间用尽导致安装出错。
+# df -h
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/simfs       10G  567M  9.5G   6% /
+devtmpfs        256M     0  256M   0% /dev
+tmpfs           256M     0  256M   0% /dev/shm
+tmpfs           256M  4.2M  252M   2% /run
+tmpfs           5.0M     0  5.0M   0% /run/lock
+tmpfs           256M     0  256M   0% /sys/fs/cgroup
+tmpfs           256M     0  256M   0% /tmp
+none            256M     0  256M   0% /run/shm
+出现在此列表中的均为系统挂载点，受配额限制。
+# cat /etc/fstab | grep "/tmp"
+确认/tmp未列入“硬”挂载点。再：
+# cat /etc/mtab | grep "/tmp"
+确认/tmp列入“软”挂载点。于是用：
+# umount -l /tmp
+卸载。这样就可以了。/tmp从#df -h中消失：
+# df -h
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/simfs       10G  567M  9.5G   6% /
+devtmpfs        256M     0  256M   0% /dev
+tmpfs           256M     0  256M   0% /dev/shm
+tmpfs           256M  4.2M  252M   2% /run
+tmpfs           5.0M     0  5.0M   0% /run/lock
+tmpfs           256M     0  256M   0% /sys/fs/cgroup
+none            256M     0  256M   0% /run/shm
+
+tmpfs /tmp      tmpfs nodev,nosuid,size=256M          0 0
+
+8.1 添加非root用户，指定用户home文件夹，并把所有者和组指定为该用户
+# useradd -d /home/yellow -m yellow
+设定密码：
+# passwd yellow
+Enter new UNIX password:
+Retype new UNIX password:
+passwd: password updated successfully
+
+8.2 把用户加进sudo组以赋予root权限：
+修改 /etc/sudoers 文件，找到下面一行，在root下面添加一行，用带检查功能的visudo命令，如下所示：
+# visudo -f /etc/sudoers
+## Allow root to run any commands anywhere
+# User privilege specification
+root	ALL=(ALL)     ALL
+yellow	ALL=(ALL)     ALL
+如果visudo not found则
+# apt-get install sudo
+
+8.3 debian需改shell，否则不能使用tab自动补全：
+确认账户的配置：
+# grep yellow /etc/passwd
+yellow:x:1000:1000::/home/yellow:/bin/sh
+修改为：
+# nano /etc/passwd
+# grep yellow /etc/passwd
+yellow:x:1000:1000::/home/yellow:/bin/bash
+
+9. 安装BBR
+注意Kimsufi服务器在安装系统的时候选择custom install和distritution kernel才能使用一键脚本安装成功。
+使用root用户登录，运行以下命令：
+wget --no-check-certificate https://github.com/teddysun/across/raw/master/bbr.sh
+chmod +x bbr.sh
+./bbr.sh
+安装完成后，脚本会提示需要重启 VPS，输入 y 并回车后重启。
+重启完成后，进入 VPS，验证一下是否成功安装最新内核并开启 TCP BBR，输入以下命令：
+uname -r
+查看内核版本，含有 4.11 就表示 OK 了
+
+10.1 切换到普通账户：
+# su - yellow
+建立临时文件夹
+$ mkdir tmp
+$ cd tmp
+
+10.2 进
+https://github.com/yjcn/Rtorrent-Auto-Install_IPv6_Support
+点对应版本号，点Raw取得最新安装脚本的原始URL：
+IPv6：
+https://raw.githubusercontent.com/yjcn/Rtorrent-Auto-Install_IPv6_Support/master/Rtorrent-Auto-Install-4.0.0-Debian-Jessie	原始脚本：配合ruTorrent 3.6。安装过程若有错误不会报告
+https://raw.githubusercontent.com/lovewangbo/rTorrent/master/rtorrent-Auto-Install-4.0.0-Debian-Jessie.enable.IPv6-v2.1
+	自行修改版：配合ruTorrent 3.7.安装若有错误会报告；chrome web ui不能显示种子列表(但可添加种子); fixfox可显示
+https://raw.githubusercontent.com/lovewangbo/rTorrent/master/rutorrent3.7-Auto-Install.v2.2	自行修改版：仅安装rutorrent 3.7；和从rutorrent.net下载的3.6、3.7表现完全一样。
+或无IPv6：
+ruTorrent 3.6	https://raw.githubusercontent.com/Kerwood/Rtorrent-Auto-Install/master/Rtorrent-Auto-Install-4.0.0-Debian-Jessie	原始脚本：安装过程若有错误不会报告
+ruTorrent 3.6	https://raw.githubusercontent.com/lovewangbo/rTorrent/master/Rtorrent-Auto-Install-4.0.0-Debian-Jessie.no.IPv6.my	自行修改版：后台及UI均工作正常
+ruTorrent 3.7	https://raw.githubusercontent.com/lovewangbo/rTorrent/master/Rtorrent-Auto-Install-4.0.0-Debian-Jessie.no.IPv6.my + https://raw.githubusercontent.com/lovewangbo/rTorrent/master/rutorrent3.7-Auto-Install	后台可启动；安装若有错误会报告；web Ui可工作，有少数几个插件报不能加载
+运行
+wget URL
+或另一个。
+chmod +x rtorrent-Auto-Install-4.0.0-Debian-Jessie
+sudo ./rtorrent-Auto-Install-4.0.0-Debian-Jessie
+
+另外一个 debian 7版本：
+root@localhost:~# lsb_release -a
+No LSB modules are available.
+Distributor ID: Debian
+Description:    Debian GNU/Linux 7.7 (wheezy)
+Release:        7.7
+Codename:       wheezy
+方法也一样，只是要注意选择另一个针对wheezy的安装脚本即可。
+
+若报告错误The certificate of ‘raw.githubusercontent.com’ hasn't got a known issuer，则：
+sudo apt-get install ca-certificates
+
+11.安装完成以后如无问题应该就已可在网页端登录。
+查看状态：
+sudo systemctl status rtorrent.service
+另外参考：
+ps -ef | grep rtorrent
+停止：
+sudo systemctl stop rtorrent.service
+启动方法：
+sudo systemctl start rtorrent.service
+有时候rtorrent崩溃后systemctl方法启动不了，可改用直接启动
+tmux -2 new-session -d -s rtorrent rtorrent
+
+12. 配置文件修改
+12.1 关于客户端限速
+Plugin Throttle
+https://github.com/Novik/ruTorrent/wiki/PluginThrottle
+Speed limits in regard to groups of torrents only works when there are global speed limits for whole system (it is the feature of rtorrent). To get over this disadvantage, ruTorrent, during it's loading, checks if parameters upload_rate and download_rate are set to zero. If it is so, ruTorrent change "0" to a very_big_number.
+大意：只有全局限速不为0时限速通道才有作用。因此：
+$ nano ~/.rtorrent.rc
+将全局限速的限制打开：
+throttle.global_down.max_rate.set_kb = 102400
+throttle.global_up.max_rate.set_kb = 102400
+注：在WEB UI中修改的全局限速值不能保存，重启后即恢复原值。
+
+The channel of torrent can be changed only when the torrent is stopped. If the torrent is active, the plugin will stop it, change the channel and start again.
+大意：改变通道时，插件会停止种子再重新开始。
+
+12.2 禁止完成时hash
+取消注释：
+#pieces.hash.on_completion.set = no
+
+12.3 
+https://github.com/Novik/ruTorrent/wiki/Plugins#starting-plugins-with-rtorrent
+含限速插件在内的部分插件仅当rutorrent启动后（即登录web ui一次）才能生效。为了在登录web UI启动rutorrent之前就使这些插件跟随rtorrent启动，需要在.rtorrent.rc中添加一行：
+# vi ~/.rtorrent.rc
+execute = {sh,-c,/usr/bin/php /var/www/html/rutorrent/php/initplugins.php rtrrent &}
+其中php路径、插件目录需要根据实际情况调整；rtorrent是web界面验证用户名，如果不需要验证可留空。如果不修改，则在重启服务器后登录一次web ui即可。
+
+12.4
+如果显示空间不正常
+sudo nano /var/www/html/rutorrent/conf/config.php
+找到:$topDirectory = ‘/’;把这一句话修改为：$topDirectory = ‘/home’;其实也就是在“/”后面添加：home
+
+13. 安装vsftpd
+见单独笔记
+
+14. rtorrent通过web ui提交大种子会失败。只能通过本地提交，但这样不能使用快速恢复模式。通过使用脚本可以使本地提交的种子也能快速恢复。
+14.1 先安装Bencode_XS:
+cd ~/src
+wget http://search.cpan.org/CPAN/authors/id/I/IW/IWADE/Convert-Bencode_XS-0.06.tar.gz
+wget https://rt.cpan.org/Ticket/Attachment/1433449/761974/patch-t_001_tests_t
+tar zxf Convert-Bencode_XS-0.06.tar.gz
+cd Convert-Bencode_XS-0.06
+patch -uNp0 -i ../patch-t_001_tests_t
+perl Makefile.PL
+make
+make test
+make install
+
+14.2 下载快速恢复脚本
+cd /bin
+wget https://raw.githubusercontent.com/rakshasa/rtorrent/master/doc/rtorrent_fast_resume.pl
+chmod 755 rtorrent_fast_resume.pl
+
+14.3 使用
+rtorrent_fast_resume 种子文件名.torrent
+
+
+15. 几次安装的总结：
+在搬瓦工VPS上的安装测试最终结果：
+OS        	Script          	Result
+debian 8	yjcn(ipv6)      	后台可运行，且可连接tracker。rutorrent 3.6 web ui仅可弹出登录框，但随后一直显示“加载中”；rutorrent 3.7 web ui可以添加种子，但不能显示，且报告很多插件和方法错误。
+debian 8 mini	yjcn(ipv6)      	不能安装（无sudo命令）
+debian 8	Kerwood(No ipv6)	安装rutorrent 3.6能弹出登录框，但输入登录密码后一直显示“加载中”；rutorrent 3.7正常（几个插件报告无法加载）
+ubuntu 15.10	Kerwood(No ipv6)	正常
+ubuntu 15.10	yjcn(ipv6)      	
+ubuntu 16.04	yjcn(ipv6)      	rtorrent.service未正常启动（rtorrent根本就没装上）
+
+仅在ubuntu 15.10上运行无IPV6的安装脚本成功：
+root@localhost:~# lsb_release -a
+No LSB modules are available.
+Distributor ID: Ubuntu
+Description:    Ubuntu 15.10
+Release:        15.10
+Codename:       wily
+Ubuntu 15.10 LTS需要手动安装tmux和curl:
+# apt-get install tmux curl
+
+ubuntu 16.04自带php7，因此不允许再安装php5，会报告以下错误
+E: Package 'php5' has no installation candidate^M
+E: Unable to locate package php5-curl^M
+E: Package 'php5-cli' has no installation candidate^M
+E: Package 'libapache2-mod-php5' has no installation candidate^M
+此libtorrent和rtorrent无法在该版本上运行。
+
+其他系统上失败的原因猜测：脚本工作不可靠，有错误信息返回时未予理会而继续。因此在脚本开头加上set -e即可。
+
+11. 查得yjcn相对Kerwood不同的地方在于:
+Kerwood	curl -L http://rtorrent.net/downloads/rtorrent-0.9.6.tar.gz -o rtorrent.tar.gz
+Kerwood	curl -L http://rtorrent.net/downloads/libtorrent-0.13.6.tar.gz -o libtorrent.tar.gz
+yjcn	git clone https://github.com/rakshasa/libtorrent.git
+yjcn	git clone https://github.com/rakshasa/rtorrent.git
+官方安装包：
+http://rtorrent.net/downloads/libtorrent-0.13.6.tar.gz
+http://rtorrent.net/downloads/rtorrent-0.9.6.tar.gz
+经比较rakshasa与官方安装包，文件有很多改动（但幅度不大，绝大部分是命名空间），不便于找出关键修改点。
+
+二。
+检查步骤：
+1. 检查运行状态：
+1.1 正常状态：
+$ sudo systemctl status rtorrent
+[sudo] password for yellow:
+● rtorrent.service - rtorrent (in tmux)
+   Loaded: loaded (/etc/systemd/system/rtorrent.service; enabled; vendor preset: enabled)
+   Active: active (exited) since Wed 2017-05-17 03:44:30 MSK; 13min ago
+  Process: 31111 ExecStart=/usr/bin/tmux -2 new-session -d -s rtorrent rtorrent (code=exited, status=0/SUCCESS)
+ Main PID: 31111 (code=exited, status=0/SUCCESS)
+   CGroup: /system.slice/rtorrent.service
+           ├─31113 /usr/bin/tmux -2 new-session -d -s rtorrent rtorrent
+           ├─31114 sh -c rtorrent
+           └─31117 rtorrent
+
+May 17 03:44:30 localhost systemd[1]: Starting rtorrent (in tmux)...
+May 17 03:44:30 localhost systemd[1]: Started rtorrent (in tmux).
+
+进程显示：
+$ ps -ef | grep rtorrent
+yellow   31113     1  0 03:44 ?        00:00:00 /usr/bin/tmux -2 new-session -d -s rtorrent rtorrent
+yellow   31114 31113  0 03:44 pts/1    00:00:00 sh -c rtorrent
+yellow   31117 31114  0 03:44 pts/1    00:00:00 rtorrent
+yellow   31139  1658  0 03:57 pts/0    00:00:00 grep --color=auto rtorrent
+
+1.2 异常状态：
+$ sudo systemctl status rtorrent
+[sudo] password for yellow:
+● rtorrent.service - rtorrent (in tmux)
+   Loaded: loaded (/etc/systemd/system/rtorrent.service; enabled)
+   Active: active (exited) since Wed 2017-05-17 07:07:41 EDT; 1h 31min ago
+  Process: 29945 ExecStop=/usr/bin/tmux kill-session -t rtorrent (code=exited, status=1/FAILURE)
+  Process: 29968 ExecStart=/usr/bin/tmux -2 new-session -d -s rtorrent rtorrent (code=exited, status=0/SUCCESS)
+ Main PID: 29968 (code=exited, status=0/SUCCESS)
+
+May 17 07:07:41 localhost systemd[1]: Started rtorrent (in tmux).
+多了一个kill-session，少了一个CGroup和一条Starting rtorrent (in tmux)...
+
+2. 检查tmux会话，以确定torrent是否在运行：
+2.1 正常状态
+$ tmux ls
+rtorrent: 1 windows (created Wed May 17 05:41:55 2017) [237x62]
+# ps -ef | grep tmux
+yellow   11073     1  0 05:41 ?        00:00:07 /usr/bin/tmux -2 new-session -d -s rtorrent rtorrent
+root     11473 11457  0 11:00 pts/0    00:00:00 grep --color=auto tmux
+以上结果表明安装完成后rtorrent已经创建了tmux会话在运行。
+2.2 异常状态：找不到任何会话并报告
+$ tmux ls
+failed to connect to server: Connection refused
+或
+# tmux ls
+failed to connect to server: No such file or directory
+# ps -ef | grep tmux
+结果为空
+
+3. 若会话存在，可attach该会话以观察情况：
+tmux attach -t rtorrent
+注意要以# ps -ef | grep tmux显示的用户名执行。
+
+4.若会话不存在（即torrent未成功启动），直接在终端运行rtorrent看有无反应以检查是否安装正确
+
+5.相关文件：
+成功：
+yellow@localhost:~/tmp$ sudo find / -name "rtorrent*"
+/home/yellow/.rtorrent-session/rtorrent.lock
+/home/yellow/.rtorrent-session/rtorrent.dht_cache
+/etc/systemd/system/rtorrent.service
+/etc/systemd/system/default.target.wants/rtorrent.service
+/var/www/html/rutorrent/js/rtorrent.js
+/var/www/html/rutorrent/php/rtorrent.php
+/var/www/html/rutorrent/share/users/test/settings/rtorrent.dat
+/sys/fs/cgroup/systemd/system.slice/rtorrent.service
+/usr/local/bin/rtorrent
+有问题：
+# find / -name "rtorrent*"
+/etc/systemd/system/rtorrent.service
+/etc/systemd/system/default.target.wants/rtorrent.service
+/var/www/html/rutorrent/js/rtorrent.js
+/var/www/html/rutorrent/php/rtorrent.php
+
+# find / -name "rutorrent*"
+/var/www/html/rutorrent
+/var/log/apache2/rutorrent.log
+/var/log/apache2/rutorrent_error.log
+
+6.新版模板地址：
+https://github.com/rakshasa/rtorrent/wiki/CONFIG-Template
+rTorrent Configuration Template
+$ curl -Ls "https://raw.githubusercontent.com/wiki/rakshasa/rtorrent/CONFIG-Template.md" \
+    | grep -A9999 '^######' | grep -B9999 '^### END' \
+    | sed -re "s:/home/USERNAME:$HOME:" >~/.rtorrent.rc
+$ mkdir ~/rtorrent
+
+
+7.寻找错误时采用的方法：
+
+7.1 下面的语句使得正确信息输入到log，屏幕上只显示错误信息：【未验证】
+log_file="HOME"/log."$TODAY"
+exec 1>>$log_file
+
+7.2 在脚本中加上set -e，使返回错误信息时即停止(不加时会忽略错误继续)
+7.2.1 加上以上报错：
+ar cru libsub_ui.a download.o download_list.o element_base.o element_chunks_seen.o element_download_list.o element_file_list.o element_log_complete.o element_menu.o element_peer_list.o element_string_list.o element_text.o element_tracker_list.o element_transfer_list.o root.o
+ar: libsub_ui.a: No space left on device
+Makefile:406: recipe for target 'libsub_ui.a' failed
+make[3]: *** [libsub_ui.a] Error 1
+make[3]: Leaving directory '/tmp/rtorrent/rtorrent-0.9.6/src/ui'
+Makefile:602: recipe for target 'all-recursive' failed
+make[2]: *** [all-recursive] Error 1
+make[2]: Leaving directory '/tmp/rtorrent/rtorrent-0.9.6/src'
+Makefile:438: recipe for target 'all-recursive' failed
+make[1]: *** [all-recursive] Error 1
+make[1]: Leaving directory '/tmp/rtorrent/rtorrent-0.9.6'
+Makefile:369: recipe for target 'all' failed
+make: *** [all] Error 2
+
+7.2.2 查看空间：
+p$ df -h
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/simfs       10G  994M  9.1G  10% /
+devtmpfs        256M     0  256M   0% /dev
+tmpfs           256M     0  256M   0% /dev/shm
+tmpfs           256M  4.2M  252M   2% /run
+tmpfs           5.0M     0  5.0M   0% /run/lock
+tmpfs           256M     0  256M   0% /sys/fs/cgroup
+tmpfs           256M  248M  8.4M  97% /tmp
+none            256M     0  256M   0% /run/shm
+/tmp空间用尽导致rtorrent未能安装成功，而脚本没有提示就往下走。
+
+7.2.3.1 单独执行
+$ export TMPDIR=/home/yellow/tmp
+无效！
+
+7.2.3.4 修改挂载点
+#vi /etc/fatab
+确认/tmp未列入“硬”挂载点。再：
+#vi /etc/mtab
+确认/tmp列入“软”挂载点。于是用：
+#umount -l /tmp
+卸载。这样就可以了。
+
+8. 脚本中禁止了默认站点：
+a2dissite 000-default.conf
+但不知为何直接访问host ip仍可显示默认主页。
+
+9.配置文件位置：
+$ sudo find / -name "*rtorrent.rc"
+/home/yellow/.rtorrent.rc
+
+10. 
+10.1.1 IPv6安装脚本的不正常结果：
+yellow@localhost:~$ sudo netstat -tulnp | grep rtorrent
+tcp6       0      0 :::6914                 :::*                    LISTEN      24343/rtorrent
+tcp6       0      0 127.0.0.1:5000          :::*                    LISTEN      24343/rtorrent
+yellow@localhost:~$ xmlrpc 127.0.0.1:5000 system.listMethods
+-bash: xmlrpc: command not found
+yellow@localhost:~$ xmlrpc 127.0.0.1 system.listMethods
+-bash: xmlrpc: command not found
+yellow@localhost:~/tmp$ python
+Python 2.7.9 (default, Mar  1 2015, 12:57:24)
+[GCC 4.9.2] on linux2
+
+10.1.2 IPv4安装脚本的正常结果：
+yellow@localhost:~/tmp$ sudo netstat -tulnp | grep rtorrent
+tcp        0      0 0.0.0.0:6982            0.0.0.0:*               LISTEN      31165/rtorrent
+tcp        0      0 127.0.0.1:5000          0.0.0.0:*               LISTEN      31165/rtorrent
+yellow@localhost:~/tmp$ xmlrpc 127.0.0.1:5000 system.listMethods
+-su: xmlrpc: command not found
+yellow@localhost:~/tmp$ sudo xmlrpc 127.0.0.1:5000 system.listMethods
+sudo: xmlrpc: command not found
+
+10.2 IPv6安装脚本的不正常结果和仅IPv4的正常结果比对，完全相同：
+yellow@localhost:~$ sudo find / -name "*xmlrpc*"
+/var/www/html/rutorrent/php/xmlrpc.php
+/usr/local/bin/xmlrpc-c-config
+/usr/local/lib/libxmlrpc_abyss.a
+/usr/local/lib/libxmlrpc_xmltok.so.3
+/usr/local/lib/libxmlrpc_xmltok.a
+/usr/local/lib/libxmlrpc_server_cgi.so
+/usr/local/lib/libxmlrpc_util.a
+/usr/local/lib/libxmlrpc_server.a
+/usr/local/lib/libxmlrpc_server_cgi.a
+/usr/local/lib/libxmlrpc_xmltok.so
+/usr/local/lib/libxmlrpc_server_abyss.a
+/usr/local/lib/libxmlrpc_util.so.3
+/usr/local/lib/libxmlrpc_server.so.3
+/usr/local/lib/libxmlrpc_server.so
+/usr/local/lib/libxmlrpc_server_cgi.so.3
+/usr/local/lib/libxmlrpc_client.so.3
+/usr/local/lib/libxmlrpc_server_abyss.so.3.33
+/usr/local/lib/libxmlrpc.so.3.33
+/usr/local/lib/libxmlrpc_util.so
+/usr/local/lib/libxmlrpc_xmlparse.so.3.33
+/usr/local/lib/libxmlrpc_xmlparse.a
+/usr/local/lib/libxmlrpc_client.a
+/usr/local/lib/libxmlrpc.so
+/usr/local/lib/libxmlrpc.a
+/usr/local/lib/libxmlrpc_client.so
+/usr/local/lib/libxmlrpc_server.so.3.33
+/usr/local/lib/libxmlrpc_xmlparse.so
+/usr/local/lib/libxmlrpc_util.so.3.33
+/usr/local/lib/libxmlrpc_xmltok.so.3.33
+/usr/local/lib/libxmlrpc_server_abyss.so
+/usr/local/lib/libxmlrpc_abyss.so
+/usr/local/lib/libxmlrpc_abyss.so.3
+/usr/local/lib/libxmlrpc_abyss.so.3.33
+/usr/local/lib/libxmlrpc_xmlparse.so.3
+/usr/local/lib/libxmlrpc_server_abyss.so.3
+/usr/local/lib/libxmlrpc_server_cgi.so.3.33
+/usr/local/lib/libxmlrpc_client.so.3.33
+/usr/local/lib/libxmlrpc.so.3
+/usr/local/include/xmlrpc_abyss.h
+/usr/local/include/xmlrpc_server.h
+/usr/local/include/xmlrpc_client.h
+/usr/local/include/xmlrpc.h
+/usr/local/include/xmlrpc-c
+/usr/local/include/xmlrpc-c/oldxmlrpc.h
+/usr/local/include/xmlrpc_cgi.h
+/usr/local/include/xmlrpc_server_w32httpsys.h
+/usr/lib/python2.7/xmlrpclib.py
+/usr/lib/python2.7/xmlrpclib.pyc
+/usr/lib/python3.4/xmlrpc
+
+10.3 web ui 日志：
+发现web标题显示rutorrent为v3.6，于是手动重装rutorrent 3.7。装完以后仍显示v3.6，且报错：
+[20.05.2017 11:18:17] WebUI started.
+[20.05.2017 11:18:18] screenshots: Plugin will not work. rTorrent user can't access external program (ffmpeg).
+[20.05.2017 11:18:18] mediainfo: Plugin will not work. rTorrent user can't access external program (mediainfo).
+[20.05.2017 11:18:19] Bad response from server: (500 [error,list]) Warning: XMLRPC call is failed.
+[20.05.2017 11:18:19] Unpack plugin: rTorrent user can't access 'unrar' program.
+
+yellow@localhost:~/tmp$ ls -al /var/www/html/
+total 28
+drwxr-xr-x  4 root     root      4096 May 19 23:18 .
+drwxr-xr-x  3 root     root      4096 Jul  2  2015 ..
+-rw-r--r--  1 root     root     10701 May 19 21:24 index.html
+drwxrwxr-x 10 www-data www-data  4096 May 19 23:18 rutorrent
+yellow@localhost:/var/www/html$ ls -al /var/www/html/rutorrent/share/users/test/
+total 16
+drwxrwxrwx 4 www-data www-data 4096 May 19 23:18 .
+drwxrwxr-x 3 www-data www-data 4096 May 19 23:18 ..
+drwxrwxrwx 5 www-data www-data 4096 May 19 23:18 settings
+drwxrwxrwx 2 www-data www-data 4096 May 19 23:24 torrents

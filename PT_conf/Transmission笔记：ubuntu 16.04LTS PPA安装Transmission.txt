@@ -1,0 +1,42 @@
+﻿sudo add-apt-repository ppa:transmissionbt/ppa
+sudo apt-get update
+sudo apt-cache show transmission-daemon
+sudo apt-get install transmission-daemon
+ #安装完成以后，自启动由/etc/init.d/transmission-daemon实现
+ #改变运行tr的用户，未知重启后自动启动时是否有效
+sudo systemctl stop transmission-daemon
+sudo systemctl edit transmission-daemon
+#############
+[Service]
+User=jack
+#############
+sudo systemctl daemon-reload
+sudo systemctl start transmission-daemon
+ps aux | grep 'transmission-daemon'
+sudo systemctl stop transmission-daemon
+
+ #修改配置文件
+sudo rm -rf /home/jack/.config/transmission-daemon/settings.json;
+sudo rm -rf /var/lib/transmission-daemon/info/settings.json;
+sudo wget -O /var/lib/transmission-daemon/info/settings.json https://raw.githubusercontent.com/lovewangbo/transmission/master/settings.json;
+sed -i "/rpc-username/c \ \ \ \ \"rpc-username\": \"jack\"," /var/lib/transmission-daemon/info/settings.json;
+ #运行后会自动将白名单开关打开，必须手动修改一次，将其改成false以关闭
+sudo nano /home/jack/.config/transmission-daemon/settings.json
+
+sudo systemctl start transmission-daemon.service
+sudo systemctl status transmission-daemon.service
+
+ #以下测试中未用到
+#mkdir -p /var/www/downloads/transmission/;
+ #修改用户所在组的成员对该文件也有可修改的权限:
+#chmod g+w /var/www/downloads/transmission/;
+#chmod -R 777 /var/www/downloads/transmission/;
+cd /usr/share/transmission/;
+rm -rf transmission_web_cn.zip;
+wget http://file.wilywx.com/transmission_web_cn.zip;
+unzip -o transmission_web_cn.zip;rm -rf transmission_web_cn.zip;
+rm -rf transmission_web_cn.html;
+wget -c http://file.wilywx.com/transmission_web_cn.html;
+rm -rf /usr/share/transmission/web/index.original.html;
+mv -f transmission_web_cn.html /usr/share/transmission/web/index.original.html;
+/etc/init.d/transmission-daemon start;"

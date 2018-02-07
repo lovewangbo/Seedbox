@@ -1,0 +1,138 @@
+Ubuntu 16.04LTS 64bit
+1. 默认未设置root密码。
+$ sudo passwd root
+$ su
+
+2.添加盒子专用账户jack
+只需要一条命令：
+~$ sudo adduser jack
+Adding user `jack' ...
+Adding new group `jack' (1001) ...
+Adding new user `jack' (1001) with group `jack' ...
+Creating home directory `/home/jack' ...
+Copying files from `/etc/skel' ...
+运行一次qB后再禁止此账户的shell
+
+3.安装qBittorrent
+apt install software-properties-common
+add-apt-repository -y ppa:qbittorrent-team/qbittorrent-stable
+apt-get update
+apt-get -y install screen qbittorrent-nox
+
+4.配置
+4.1 配置服务
+方式一（不推荐）：
+# rm -rf /etc/init.d/qbittorrent
+# wget -O /etc/init.d/qbittorrent http://file.wilywx.com/qbittorrent-nox_init.txt
+# chmod 755 /etc/init.d/qbittorrent
+# chown root:root /etc/init.d/qbittorrent
+# update-rc.d qbittorrent defaults
+# mkdir -p /var/www/downloads/qbittorrent/
+# mkdir -p /var/www/downloads/qbittorrent/torrent_files/
+# chmod -R 777 /var/www/downloads/qbittorrent/
+参考资料：
+https://github.com/qbittorrent/qBittorrent/wiki/Setting-up-qBittorrent-on-Ubuntu-server-as-daemon-with-Web-interface-%2815.04-and-newer%29
+
+方式二：推荐用systemctl管理：
+create a file: 
+nano /etc/systemd/system/qbittorrent.service
+[Unit]
+Description=qBittorrent Daemon Service
+After=network.target
+
+[Service]
+User=jack
+ExecStart=/usr/bin/qbittorrent-nox --webui-port=7788
+
+[Install]
+WantedBy=multi-user.target
+################################################################
+其中User和port根据需要修改。然后使能自动启动：
+systemctl enable qbittorrent
+
+4.2
+4.2.1 运行一次以生成配置文件
+$ sudo su jack
+$ qbittorrent-nox
+Press y key
+Without doing anything further, you should be able to point a web browser (on the same network) to the IP of your server: http://ip-of-server:8080 and log in with:
+User: admin
+Password: adminadmin
+$ exit
+禁止用户登录shell：
+$ su $OTHER_USER
+$ sudo usermod -s /bin/false jack
+This can be reversed if necessary with the command:
+$ sudo usermod -s /bin/bash qbtuser
+或直接编辑/etc/passwd文件，将用户shell从false改成bash
+
+4.2.2 启用服务
+Now start the service,
+$ sudo systemctl start qbittorrent
+Verify it is running:
+$ sudo systemctl status qbittorrent
+Quit out of the above screen by pressing q
+Enable it to start up on boot:
+$ sudo systemctl enable qbittorrent
+Normally after editing services we'd issue a reload command but since it will also invoke qbittorrent before we initialized the configuration, we'll give it a skip for now. If you ever make changes to the services file, update systemctl with:
+$ sudo systemctl daemon-reload
+
+4.2.3 QB配置文件更新 (下载目录/var/www/downloads/qbittorrent/ 扩展名 端口51416 总链接数5000  限速  关闭DHT 排队5 2995 3000 中文 帐号密码 seedbox )
+这一步也可以运行qB后在Web UI中操作。
+#eval $(ps x|grep qbittorrent |awk '{print "kill -9 "$1";"}')
+$ sudo systemctl stop qbittorrent
+#wget -O /home/jack/.config/qBittorrent/qBittorrent.conf http://file.wilywx.com/qBittorrent.conf
+#screen -A -m -d -S qb qbittorrent-nox
+#ps aux | grep qbittorrent
+
+
+5.运行
+Starting qBittorrent
+$ sudo systemctl start qbittorrent
+Stopping qBittorrent:
+$ sudo systemctl stop qbittorrent
+Check status:
+$ sudo systemctl status qbittorrent
+
+6. 注
+6.1 查看logs
+You can also view output of qbittorrent with journalctl:
+This will show the entire log in a pager that can be scrolled through:
+$ sudo journalctl -u qbittorrent.service
+This will show the live version of the log file as things are happening:
+$ sudo journalctl -f -u qbittorrent.service
+但是，logs不是完全的：
+With the advent of systemd replacing upstart, logging also changed. qbittorrent doesn't have a straightforward logging facility. When it runs it outputs to syslog, but when it doesn't run, like if the disclaimer hasn't been answered yet, you won't see anything in the log files. The best way to see this is to impersonate the qbtuser and run qbittorent-nox to see if the disclaimer comes up again.
+Another way of working around how qbittorrent logs/doesn't log is to modify the init script as a 'oneshot' command execution and pipe the output to a file such as /var/log/qbittorrent.log, but I haven't tried this yet. Possibly the process identifier will need to be specified as well as the stop command so that status and stop commands also work. This is still a work in progress and I'll update this guide when I have it working.
+
+
+7. 安装rt和rutorrent
+原始参考资料：
+https://www.techandme.se/install-rutorrent-plex-on-a-headless-ubuntu-server-16-04-part-1/
+注意不要用debian上的安装脚本。那个脚本是针对php5配置的，但是ubuntu 16.04上已经自带php7，就会安装不上。
+自行安装的笔记（已正常使用）：
+Ubuntu16.04安装rutorrent.txt
+
+不完全命令：
+  137  sudo apt-get install rtorrent
+  142  dpkg -l | grep rtorrent
+  143  sudo apt-get install php php7.0-cli php7.0-json php7.0-curl php7.0-cgi ph                                p7.0-mbstring libapache2-mod-php libapache2-mod-scgi apache2
+  144  sudo apt-get install unrar unzip ffmpeg mediainfo
+  145  sudo apt-get install unzip ffmpeg mediainfo
+  146  cd /var/www/html
+  147  sudo apt-get install git -y && sudo git clone https://github.com/Novik/ru                                Torrent.git && sudo apt-get purge git -y
+  150  sudo chown -R yellow:www-data ruTorrent/ && sudo chmod -R 770 ruTorrent/
+wget -O .rtorrent.rc https://raw.github.com/Kerwood/rtorrent.auto.install/master/Files/rtorrent.rc
+  152  nano /home/yellow/.rtorrent.rc
+  153  cd ~
+  154  mkdir .rtorrent-session
+  197  mkdir Downloads
+  156  sudo nano /var/www/html/ruTorrent/conf/plugins.ini
+  157  sudo service apache2 restart
+  158  sudo apt-get install tmux
+  159  sudo nano /etc/systemd/system/rtorrent.service
+  161  sudo systemctl enable rtorrent.service
+  167  sudo systemctl stop rtorrent
+  193  tmux -2 new-session -d -s rtorrent rtorrent
+  169  sudo systemctl start rtorrent
+  170  sudo systemctl status rtorrent

@@ -1,0 +1,25 @@
+1. QuickBox虽然简便，但安装速度慢。不含qBittorret。仅含rtorrent和deluge。
+
+2. qBttorrent windows版本会根据上传速度来决定下载速度，即使已有很多种子，在上传达到最大前不会满速下载。
+rt则是下载优先，一直满速下载，这期间上传可能很少，并且IO被占用
+
+3. 11o IO能力实测最大只有110M/s。如果下载速度较快，上传速度一定大受影响。
+
+4. 尝试用linux版qb和windows版qb
+
+5.测速
+方法1：
+wget -O speedtest https://raw.githubusercontent.com/sivel/speedtest-cli/master/speedtest.py
+chmod +x speedtest
+./speedtest
+
+方法2：
+su
+apt-get -y install iperf3
+iperf3 -c ping.online.net
+
+6.限速【测试未正确工作】
+正确的写法	tc qdisc add dev enp1s0 root tbf rate 50mbit latency 70ms burst 10kb
+错误的写法	tc qdisc add dev enp1s0 root tbf rate 50mbit latency 50ms burst 1000
+tc qdisc del dev enp1s0 root
+tc qdisc show dev enp1s0 

@@ -1,0 +1,11 @@
+mkdir rssbackup/ks2e;
+
+USERNAME=yellow;
+HOST=37.187.127.190:
+DEST_DIR=~/rssbackup/ks2e/
+rsync -vzrtopg --progress -e ssh $USERNAME@$HOST/var/www/html/rutorrent/share/users/rtorrent/settings/rss/ $DEST_DIR
+
+USERNAME=yellow;
+HOST=62.210.181.62:
+DEST_DIR=~/rssbackup/20o4T/
+rsync -vzrtopg --progress -e ssh $USERNAME@$HOST/var/www/html/ruTorrent/share/settings/rss/ $DEST_DIR

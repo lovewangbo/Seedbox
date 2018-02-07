@@ -1,0 +1,1124 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en-US">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Install ruTorrent + Plex on a headless Ubuntu Server 16.04 (Part 1) &#8211; Tech and Me</title>
+<script>document.documentElement.className = document.documentElement.className.replace("no-js","js");</script>
+<link rel='dns-prefetch' href='//s.w.org'/>
+<link rel="alternate" type="application/rss+xml" title="Tech and Me &raquo; Feed" href="https://www.techandme.se/feed/"/>
+<link rel="alternate" type="application/rss+xml" title="Tech and Me &raquo; Comments Feed" href="https://www.techandme.se/comments/feed/"/>
+<link rel="alternate" type="application/rss+xml" title="Tech and Me &raquo; Install ruTorrent + Plex on a headless Ubuntu Server 16.04 (Part 1) Comments Feed" href="https://www.techandme.se/install-rutorrent-plex-on-a-headless-ubuntu-server-16-04-part-1/feed/"/>
+<script type="text/javascript">
+			window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/2.3\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/2.3\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/www.techandme.se\/wp-includes\/js\/wp-emoji-release.min.js?ver=4.8"}};
+			!function(a,b,c){function d(a){var b,c,d,e,f=String.fromCharCode;if(!k||!k.fillText)return!1;switch(k.clearRect(0,0,j.width,j.height),k.textBaseline="top",k.font="600 32px Arial",a){case"flag":return k.fillText(f(55356,56826,55356,56819),0,0),b=j.toDataURL(),k.clearRect(0,0,j.width,j.height),k.fillText(f(55356,56826,8203,55356,56819),0,0),c=j.toDataURL(),b===c&&(k.clearRect(0,0,j.width,j.height),k.fillText(f(55356,57332,56128,56423,56128,56418,56128,56421,56128,56430,56128,56423,56128,56447),0,0),b=j.toDataURL(),k.clearRect(0,0,j.width,j.height),k.fillText(f(55356,57332,8203,56128,56423,8203,56128,56418,8203,56128,56421,8203,56128,56430,8203,56128,56423,8203,56128,56447),0,0),c=j.toDataURL(),b!==c);case"emoji4":return k.fillText(f(55358,56794,8205,9794,65039),0,0),d=j.toDataURL(),k.clearRect(0,0,j.width,j.height),k.fillText(f(55358,56794,8203,9794,65039),0,0),e=j.toDataURL(),d!==e}return!1}function e(a){var c=b.createElement("script");c.src=a,c.defer=c.type="text/javascript",b.getElementsByTagName("head")[0].appendChild(c)}var f,g,h,i,j=b.createElement("canvas"),k=j.getContext&&j.getContext("2d");for(i=Array("flag","emoji4"),c.supports={everything:!0,everythingExceptFlag:!0},h=0;h<i.length;h++)c.supports[i[h]]=d(i[h]),c.supports.everything=c.supports.everything&&c.supports[i[h]],"flag"!==i[h]&&(c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&c.supports[i[h]]);c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&!c.supports.flag,c.DOMReady=!1,c.readyCallback=function(){c.DOMReady=!0},c.supports.everything||(g=function(){c.readyCallback()},b.addEventListener?(b.addEventListener("DOMContentLoaded",g,!1),a.addEventListener("load",g,!1)):(a.attachEvent("onload",g),b.attachEvent("onreadystatechange",function(){"complete"===b.readyState&&c.readyCallback()})),f=c.source||{},f.concatemoji?e(f.concatemoji):f.wpemoji&&f.twemoji&&(e(f.twemoji),e(f.wpemoji)))}(window,document,window._wpemojiSettings);
+		</script>
+<style type="text/css">img.wp-smiley,img.emoji{display:inline!important;border:none!important;box-shadow:none!important;height:1em!important;width:1em!important;margin:0 .07em!important;vertical-align:-0.1em!important;background:none!important;padding:0!important;}</style>
+<link rel='stylesheet' id='cookielawinfo-style-css' href='https://www.techandme.se/wp-content/plugins/cookie-law-info/css/cli-style.css?ver=1.5.3' type='text/css' media='all'/>
+<link rel='stylesheet' id='gglcptch-css' href='https://www.techandme.se/wp-content/plugins/google-captcha-pro/css/gglcptch.css?ver=1.30' type='text/css' media='all'/>
+<link rel='stylesheet' id='gp-bttp-style-css' href='https://www.techandme.se/wp-content/plugins/gp-back-to-top/css/gp-bttp.css?ver=2.0' type='text/css' media='all'/>
+<link rel='stylesheet' id='dpsp-frontend-style-css' href='https://www.techandme.se/wp-content/plugins/social-pug/assets/css/style-frontend.css?ver=4.8' type='text/css' media='all'/>
+<link rel='stylesheet' id='sbscrbr_style-css' href='https://www.techandme.se/wp-content/plugins/subscriber/css/frontend_style.css?ver=4.8' type='text/css' media='all'/>
+<link rel='stylesheet' id='garfunkel_googleFonts-css' href='//fonts.googleapis.com/css?family=Fira+Sans%3A400%2C500%2C700%2C400italic%2C700italic%7CPlayfair+Display%3A400%2C900%7CCrimson+Text%3A700%2C400italic%2C700italic%2C400&#038;ver=4.8' type='text/css' media='all'/>
+<link rel='stylesheet' id='garfunkel_genericons-css' href='https://www.techandme.se/wp-content/themes/garfunkel/genericons/genericons.css?ver=4.8' type='text/css' media='all'/>
+<link rel='stylesheet' id='garfunkel_style-css' href='https://www.techandme.se/wp-content/themes/garfunkel/style.css?ver=4.8' type='text/css' media='all'/>
+<script type='text/javascript' src='https://www.techandme.se/wp-includes/js/jquery/jquery.js?ver=1.12.4'></script>
+<script type='text/javascript' src='https://www.techandme.se/wp-includes/js/jquery/jquery-migrate.min.js?ver=1.4.1'></script>
+<script type='text/javascript' src='https://www.techandme.se/wp-content/plugins/cookie-law-info/js/cookielawinfo.js?ver=1.5.3'></script>
+<script type='text/javascript' src='https://www.techandme.se/wp-content/plugins/social-pug/assets/js/front-end.js?ver=4.8'></script>
+<link rel='https://api.w.org/' href='https://www.techandme.se/wp-json/'/>
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://www.techandme.se/xmlrpc.php?rsd"/>
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="https://www.techandme.se/wp-includes/wlwmanifest.xml"/>
+<link rel='prev' title='Complete install instructions Nextcloud' href='https://www.techandme.se/complete-install-instructions-nextcloud/'/>
+<link rel='next' title='Completley remove Ubuntu Desktop from a Ubuntu Server' href='https://www.techandme.se/completley-remove-ubuntu-desktop-from-a-ubuntu-server/'/>
+<meta name="generator" content="WordPress 4.8"/>
+<link rel="canonical" href="https://www.techandme.se/install-rutorrent-plex-on-a-headless-ubuntu-server-16-04-part-1/"/>
+<link rel='shortlink' href='https://www.techandme.se/?p=4940'/>
+<link rel="alternate" type="application/json+oembed" href="https://www.techandme.se/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fwww.techandme.se%2Finstall-rutorrent-plex-on-a-headless-ubuntu-server-16-04-part-1%2F"/>
+<link rel="alternate" type="text/xml+oembed" href="https://www.techandme.se/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fwww.techandme.se%2Finstall-rutorrent-plex-on-a-headless-ubuntu-server-16-04-part-1%2F&#038;format=xml"/>
+<style type="text/css" data-source="Social Pug"></style><meta name="twitter:card" content="summary"/><meta property="og:url" content="https://www.techandme.se/install-rutorrent-plex-on-a-headless-ubuntu-server-16-04-part-1/"/><meta property="og:type" content="article"/><meta property="og:title" content="Install ruTorrent + Plex on a headless Ubuntu Server 16.04 (Part 1)"/><meta property="og:description" content="Which is the best media server you can find? There are many out there, and"/><meta property="og:image" content=""/>
+ 
+<style type="text/css"></style>
+ 
+<link rel="icon" href="https://www.techandme.se/wp-content/uploads/2015/09/cropped-favicon-32x32.gif" sizes="32x32"/>
+<link rel="icon" href="https://www.techandme.se/wp-content/uploads/2015/09/cropped-favicon-192x192.gif" sizes="192x192"/>
+<link rel="apple-touch-icon-precomposed" href="https://www.techandme.se/wp-content/uploads/2015/09/cropped-favicon-180x180.gif"/>
+<meta name="msapplication-TileImage" content="https://www.techandme.se/wp-content/uploads/2015/09/cropped-favicon-270x270.gif"/>
+ 
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-71744238-1', 'auto');
+  ga('require', 'displayfeatures');
+  ga('send', 'pageview');
+</script>
+ 
+ 
+<script>
+    (function(h,o,t,j,a,r){
+        h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
+        h._hjSettings={hjid:182550,hjsv:5};
+        a=o.getElementsByTagName('head')[0];
+        r=o.createElement('script');r.async=1;
+        r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+        a.appendChild(r);
+    })(window,document,'//static.hotjar.com/c/hotjar-','.js?sv=');
+</script>
+</head>
+<body class="post-template-default single single-post postid-4940 single-format-standard no-featured-image">
+<div class="navigation">
+<div class="section-inner">
+<ul class="main-menu">
+<li id="menu-item-5210" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children has-children menu-item-5210"><a href="https://www.techandme.se/blog/">Blog</a>
+<ul class="sub-menu">
+<li id="menu-item-3510" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-3510"><a href="https://www.techandme.se/category/random/">Random (category)</a></li>
+<li id="menu-item-4281" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children has-children menu-item-4281"><a href="https://www.techandme.se/category/virtual-machines/">Virtual Machines</a>
+<ul class="sub-menu">
+<li id="menu-item-4911" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-4911"><a href="https://www.techandme.se/category/nextcloud/">Nextcloud VM (category)</a></li>
+<li id="menu-item-4278" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-4278"><a href="https://www.techandme.se/category/pre-configured-owncloud-vm/">ownCloud VM (category)</a></li>
+<li id="menu-item-4279" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-4279"><a href="https://www.techandme.se/category/pre-configured-wordpress-vm/">WordPress VM (category)</a></li>
+<li id="menu-item-4276" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-4276"><a href="https://www.techandme.se/category/minecraft-server-vm/">MineCraft Server VM (category)</a></li>
+<li id="menu-item-5220" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-5220"><a href="https://www.techandme.se/category/access-manager/">Access Manager VM (category)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li id="menu-item-3623" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children has-children menu-item-3623"><a href="https://shop.techandme.se">Shop</a>
+<ul class="sub-menu">
+<li id="menu-item-3591" class="menu-item menu-item-type-post_type menu-item-object-post menu-item-3591"><a href="https://www.techandme.se/netdrive/">NetDrive</a></li>
+</ul>
+</li>
+<li id="menu-item-4277" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-4277"><a href="https://www.techandme.se/category/owncloud/">ownCloud</a></li>
+<li id="menu-item-5211" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-5211"><a href="https://www.techandme.se/category/nextcloud/">Nextcloud</a></li>
+<li id="menu-item-4271" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children has-children menu-item-4271"><a href="https://www.techandme.se/category/download/">Download</a>
+<ul class="sub-menu">
+<li id="menu-item-4912" class="menu-item menu-item-type-post_type menu-item-object-post menu-item-has-children has-children menu-item-4912"><a href="https://www.techandme.se/nextcloud-vm/">Nextcloud VM</a>
+<ul class="sub-menu">
+<li id="menu-item-5215" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-5215"><a href="https://shop.techandme.se/index.php/product-category/hosting/">Host your VM</a></li>
+</ul>
+</li>
+<li id="menu-item-4300" class="menu-item menu-item-type-post_type menu-item-object-post menu-item-has-children has-children menu-item-4300"><a href="https://www.techandme.se/pre-configured-owncloud-installaton/">ownCloud VM</a>
+<ul class="sub-menu">
+<li id="menu-item-5218" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-5218"><a href="https://shop.techandme.se/index.php/product-category/hosting/">Host your VM</a></li>
+</ul>
+</li>
+<li id="menu-item-4299" class="menu-item menu-item-type-post_type menu-item-object-post menu-item-has-children has-children menu-item-4299"><a href="https://www.techandme.se/pre-configured-wordpress-vm/">WordPress VM</a>
+<ul class="sub-menu">
+<li id="menu-item-5219" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-5219"><a href="https://shop.techandme.se/index.php/product-category/hosting/">Host your VM</a></li>
+</ul>
+</li>
+<li id="menu-item-5383" class="menu-item menu-item-type-post_type menu-item-object-post menu-item-5383"><a href="https://www.techandme.se/nextberry-rpi/">NextBerry RPI</a></li>
+<li id="menu-item-4301" class="menu-item menu-item-type-post_type menu-item-object-post menu-item-4301"><a href="https://www.techandme.se/minecraft-server-vm/">MineCraft Server VM</a></li>
+<li id="menu-item-4302" class="menu-item menu-item-type-post_type menu-item-object-post menu-item-4302"><a href="https://www.techandme.se/access-manager-vm/">Access Manager VM</a></li>
+<li id="menu-item-4642" class="menu-item menu-item-type-post_type menu-item-object-post menu-item-4642"><a href="https://www.techandme.se/teamspeak-vm/">Teamspeak VM</a></li>
+<li id="menu-item-4573" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-4573"><a href="https://cloud.techandme.se/index.php/s/t1skMePZOst3RVx">Debian Deepin 15.3 Desktop OS</a></li>
+</ul>
+</li>
+<li id="menu-item-4273" class="menu-item menu-item-type-taxonomy menu-item-object-category current-post-ancestor current-menu-parent current-post-parent menu-item-has-children has-children menu-item-4273"><a href="https://www.techandme.se/category/guides/">Guides</a>
+<ul class="sub-menu">
+<li id="menu-item-4289" class="menu-item menu-item-type-taxonomy menu-item-object-category current-post-ancestor current-menu-parent current-post-parent menu-item-4289"><a href="https://www.techandme.se/category/linux/">Linux</a></li>
+<li id="menu-item-4290" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-4290"><a href="https://www.techandme.se/category/windows/">Windows</a></li>
+</ul>
+</li>
+<li id="menu-item-5221" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-5221"><a href="https://shop.techandme.se/index.php/product-category/support/">Support</a></li>
+<li id="menu-item-4291" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children has-children menu-item-4291"><a href="https://www.techandme.se/category/contact/">Contact</a>
+<ul class="sub-menu">
+<li id="menu-item-3519" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3519"><a href="https://www.techandme.se/thank_you">Help us!</a></li>
+<li id="menu-item-4359" class="menu-item menu-item-type-post_type menu-item-object-post menu-item-4359"><a href="https://www.techandme.se/feedback/">Feedback</a></li>
+</ul>
+</li>
+</ul>  
+<div class="menu-social"><ul id="menu-social-items" class="menu-items"><li id="menu-item-3578" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3578"><a href="https://www.facebook.com/technme/"><span class="screen-reader-text">Facebook</span></a></li>
+<li id="menu-item-2127" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-2127"><a href="https://twitter.com/TechAndMe_se"><span class="screen-reader-text">Twitter</span></a></li>
+<li id="menu-item-3577" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3577"><a href="https://www.youtube.com/channel/UCjdccARt0JOKn5HSwaJ5Zdw"><span class="screen-reader-text">Youtube</span></a></li>
+<li id="menu-item-3469" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3469"><a href="https://github.com/enoch85"><span class="screen-reader-text">GitHub</span></a></li>
+<li id="menu-item-2128" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-2128"><a title="E-mail " href="/cdn-cgi/l/email-protection#462227282f232a063223252e2728222b23683523791533242c2325327b1223252e6374762728226374760b23"><span class="screen-reader-text">E-mail</span></a></li>
+</ul></div>
+<div class="clear"></div>
+</div>  
+<div class="mobile-menu-container">
+<ul class="mobile-menu">
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children has-children menu-item-5210"><a href="https://www.techandme.se/blog/">Blog</a>
+<ul class="sub-menu">
+<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-3510"><a href="https://www.techandme.se/category/random/">Random (category)</a></li>
+<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children has-children menu-item-4281"><a href="https://www.techandme.se/category/virtual-machines/">Virtual Machines</a>
+<ul class="sub-menu">
+<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-4911"><a href="https://www.techandme.se/category/nextcloud/">Nextcloud VM (category)</a></li>
+<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-4278"><a href="https://www.techandme.se/category/pre-configured-owncloud-vm/">ownCloud VM (category)</a></li>
+<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-4279"><a href="https://www.techandme.se/category/pre-configured-wordpress-vm/">WordPress VM (category)</a></li>
+<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-4276"><a href="https://www.techandme.se/category/minecraft-server-vm/">MineCraft Server VM (category)</a></li>
+<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-5220"><a href="https://www.techandme.se/category/access-manager/">Access Manager VM (category)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children has-children menu-item-3623"><a href="https://shop.techandme.se">Shop</a>
+<ul class="sub-menu">
+<li class="menu-item menu-item-type-post_type menu-item-object-post menu-item-3591"><a href="https://www.techandme.se/netdrive/">NetDrive</a></li>
+</ul>
+</li>
+<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-4277"><a href="https://www.techandme.se/category/owncloud/">ownCloud</a></li>
+<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-5211"><a href="https://www.techandme.se/category/nextcloud/">Nextcloud</a></li>
+<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children has-children menu-item-4271"><a href="https://www.techandme.se/category/download/">Download</a>
+<ul class="sub-menu">
+<li class="menu-item menu-item-type-post_type menu-item-object-post menu-item-has-children has-children menu-item-4912"><a href="https://www.techandme.se/nextcloud-vm/">Nextcloud VM</a>
+<ul class="sub-menu">
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-5215"><a href="https://shop.techandme.se/index.php/product-category/hosting/">Host your VM</a></li>
+</ul>
+</li>
+<li class="menu-item menu-item-type-post_type menu-item-object-post menu-item-has-children has-children menu-item-4300"><a href="https://www.techandme.se/pre-configured-owncloud-installaton/">ownCloud VM</a>
+<ul class="sub-menu">
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-5218"><a href="https://shop.techandme.se/index.php/product-category/hosting/">Host your VM</a></li>
+</ul>
+</li>
+<li class="menu-item menu-item-type-post_type menu-item-object-post menu-item-has-children has-children menu-item-4299"><a href="https://www.techandme.se/pre-configured-wordpress-vm/">WordPress VM</a>
+<ul class="sub-menu">
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-5219"><a href="https://shop.techandme.se/index.php/product-category/hosting/">Host your VM</a></li>
+</ul>
+</li>
+<li class="menu-item menu-item-type-post_type menu-item-object-post menu-item-5383"><a href="https://www.techandme.se/nextberry-rpi/">NextBerry RPI</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-post menu-item-4301"><a href="https://www.techandme.se/minecraft-server-vm/">MineCraft Server VM</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-post menu-item-4302"><a href="https://www.techandme.se/access-manager-vm/">Access Manager VM</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-post menu-item-4642"><a href="https://www.techandme.se/teamspeak-vm/">Teamspeak VM</a></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-4573"><a href="https://cloud.techandme.se/index.php/s/t1skMePZOst3RVx">Debian Deepin 15.3 Desktop OS</a></li>
+</ul>
+</li>
+<li class="menu-item menu-item-type-taxonomy menu-item-object-category current-post-ancestor current-menu-parent current-post-parent menu-item-has-children has-children menu-item-4273"><a href="https://www.techandme.se/category/guides/">Guides</a>
+<ul class="sub-menu">
+<li class="menu-item menu-item-type-taxonomy menu-item-object-category current-post-ancestor current-menu-parent current-post-parent menu-item-4289"><a href="https://www.techandme.se/category/linux/">Linux</a></li>
+<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-4290"><a href="https://www.techandme.se/category/windows/">Windows</a></li>
+</ul>
+</li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-5221"><a href="https://shop.techandme.se/index.php/product-category/support/">Support</a></li>
+<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children has-children menu-item-4291"><a href="https://www.techandme.se/category/contact/">Contact</a>
+<ul class="sub-menu">
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3519"><a href="https://www.techandme.se/thank_you">Help us!</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-post menu-item-4359"><a href="https://www.techandme.se/feedback/">Feedback</a></li>
+</ul>
+</li>
+</ul>  
+<div class="menu-social"><ul id="menu-social-items" class="menu-items"><li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3578"><a href="https://www.facebook.com/technme/"><span class="screen-reader-text">Facebook</span></a></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-2127"><a href="https://twitter.com/TechAndMe_se"><span class="screen-reader-text">Twitter</span></a></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3577"><a href="https://www.youtube.com/channel/UCjdccARt0JOKn5HSwaJ5Zdw"><span class="screen-reader-text">Youtube</span></a></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3469"><a href="https://github.com/enoch85"><span class="screen-reader-text">GitHub</span></a></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-2128"><a title="E-mail " href="/cdn-cgi/l/email-protection#b2d6d3dcdbd7def2c6d7d1dad3dcd6dfd79cc1d78de1c7d0d8d7d1c68fe6d7d1da978082d3dcd6978082ffd7"><span class="screen-reader-text">E-mail</span></a></li>
+</ul></div>
+</div>  
+</div>  
+<div class="title-section">
+<div class="bg-image master" style="background-image: url(https://www.techandme.se/wp-content/uploads/2015/12/bbbackground-1200-1024x683.jpg);"></div>
+<div class="bg-shader master"></div>
+<div class="section-inner">
+<div class="toggle-container">
+<a class="nav-toggle" title="Click to view the navigation" href="#">
+<div class="bars">
+<div class="bar"></div>
+<div class="bar"></div>
+<div class="bar"></div>
+<div class="clear"></div>
+</div>
+<p>
+<span class="menu">Menu</span>
+<span class="close">Close</span>
+</p>
+<div class="clear"></div>
+</a>
+</div>  
+<h1 class="blog-title">
+<a href="https://www.techandme.se" title="Tech and Me &mdash; Making tech easier" rel="home">Tech and Me</a>
+</h1>
+<h3 class="blog-subtitle">Making tech easier</h3>
+</div>
+</div>
+<div class="wrapper">
+<div class="wrapper-inner section-inner thin">
+<div class="content">
+<div id="post-4940" class="post-4940 post type-post status-publish format-standard hentry category-guides category-htpc category-linux">
+<div class="post-inner">
+<div class="post-header">
+<p class="post-date">5 July, 2016</p>
+<h1 class="post-title">Install ruTorrent + Plex on a headless Ubuntu Server 16.04 (Part 1)</h1>
+</div>  
+<div class="post-content">
+<style>#donation_buttons td{border:medium none;background:inherit!important;}#donation_buttons table{border:medium none;margin:auto;width:auto;}</style>
+<p>Which is the best media server you can find? There are many out there, and the two most common are Kodi (XMBC) and Plex Media Server. With Plex you get a &#8220;Plug n&#8217; Play&#8221; media center which is really easy to install. It provides a neat Web GUI and makes it very easy to share you movies and music amongst friends and family. It&#8217;s also very easy to set up secure external access so that you can enjoy watching a movie when you&#8217;re on the train for instance. Kodi on the other hand has far more settings, and are good if you want to tweak everything to the max, though (afaik) it&#8217;s not that easy to administer external access. The choice is of course yours in the end, but we like Plex, and have been using it for some years now so we&#8217;ll simply continue to do that in this setup.</p>
+<p><strong>DISCLAMER:</strong> Downloading movies, music, and series are illegal depending on the laws in your country. We do not recommend anyone to break the law!</p>
+<h6>Web GUI + RSS = hard nut to crack</h6>
+<p>In our previous setup we had a regular Windows machine with Plex + a client that managed the downloads via RSS installed. It worked OK, but since we care about privacy we wanted to move away from Windows, especially now when we have a headless ESXi Host that makes it possible to go Linux all the way. Though there aren&#8217;t many alternatives when you start looking around. What we needed was a torrent client that is managed via a Web GUI as there are no GUI in Ubuntu Server, and at the same time be able to handle RSS in that Web GUI. There are so many different torrent clients, but when you want to have a Web GUI, the options are few. Basically you can choose between uTorrent, Transmission, Deluge, Vuze, and ruTorrent. Then the next issue is; manage RSS via the Web GUI, well, then there is only ruTorrent left. Just to figure that out took a while.</p>
+<p><a href="https://www.feralhosting.com/faq/view?question=34" target="_blank" rel="Click in the picture to get a guide on how to setup RSS Filters "><img class="alignnone wp-image-4946 size-full" title="Click in the picture to get a guide on how to setup RSS Filters " src="https://www.techandme.se/wp-content/uploads/2016/07/DeepinScreenshot20160705163330.png" alt="DeepinScreenshot20160705163330" width="686" height="358" srcset="https://www.techandme.se/wp-content/uploads/2016/07/DeepinScreenshot20160705163330.png 686w, https://www.techandme.se/wp-content/uploads/2016/07/DeepinScreenshot20160705163330-300x157.png 300w, https://www.techandme.se/wp-content/uploads/2016/07/DeepinScreenshot20160705163330-552x288.png 552w" sizes="(max-width: 686px) 100vw, 686px"/></a></p>
+<p>Now, ruTorrent isn&#8217;t Plug n&#8217; Play, you will need some Linux skills to set it up. it took us a while to succeed, but when we did, what a relief! It was exactly what we where looking for! ruTorrent does it ALL, you don&#8217;t even have to enter your private tracker because with ruTorrent you can search directly in the Web GUI and add the torrents from there, very convenient. The best part is that you can manage your RSS feed directly in the Web GUI as well with precise setting to download exactly what you are looking for. To make it easer for you, here is a guide that you can follow.</p>
+<h4><strong>Install rTorrent + ruTorrent</strong></h4>
+<p>In most guides we&#8217;ve seen the writer compiles most of the dependencies. In this guide we won&#8217;t compile anything as Ubuntu Server 16.04 have all the dependencies built in. This ensures that you always have the latest and updated dependencies, and when a new version comes out, you just update as usual with apt-get.</p>
+<p><a href="https://www.techandme.se/wp-content/uploads/2016/07/DeepinScreenshot20160705163153.png"><img class="alignnone wp-image-4945 size-full" src="https://www.techandme.se/wp-content/uploads/2016/07/DeepinScreenshot20160705163153.png" alt="DeepinScreenshot20160705163153" width="1912" height="997" srcset="https://www.techandme.se/wp-content/uploads/2016/07/DeepinScreenshot20160705163153.png 1912w, https://www.techandme.se/wp-content/uploads/2016/07/DeepinScreenshot20160705163153-300x156.png 300w, https://www.techandme.se/wp-content/uploads/2016/07/DeepinScreenshot20160705163153-768x400.png 768w, https://www.techandme.se/wp-content/uploads/2016/07/DeepinScreenshot20160705163153-1024x534.png 1024w, https://www.techandme.se/wp-content/uploads/2016/07/DeepinScreenshot20160705163153-1140x594.png 1140w, https://www.techandme.se/wp-content/uploads/2016/07/DeepinScreenshot20160705163153-552x288.png 552w" sizes="(max-width: 1912px) 100vw, 1912px"/></a></p>
+<ol>
+<li>
+<h6>Install ubuntu server 16.04</h6>
+<p>We will use Ubuntu Server as OS for this install as this will run headless. Make sure to not install anything on the server except OpenSSH as we will install everything in this guide instead. It&#8217;s easier to keep track of what are installed and what&#8217;s not. In the end you&#8217;d want a server with a minimal attack surface.</p>
+<p>In this example we will use &#8220;plex&#8221; as the user in our system.</li>
+<li>
+<h6>Install Rtorrent</h6>
+<p>Most of the previous guides we found compile Rtorrent from scratch, but why make it hard on yourself when all you need to do is:</p>
+<pre>$~: sudo apt-get install rtorrent -y</pre>
+</li>
+<li>
+<h6>Install Apache + PHP 7</h6>
+<p>Apache and PHP is needed later to be able to reach the Web GUI. In the following guides we will set up Apache to be able to reach it externally so that you can add torrents from anywhere in the world.</p>
+<pre>$~: sudo apt-get install php php7.0-cli php7.0-json php7.0-curl php7.0-cgi php7.0-mbstring libapache2-mod-php libapache2-mod-scgi apache2 -y</pre>
+<h6></h6>
+</li>
+<li>
+<h6>INSTALL packages for plugins</h6>
+<p><img class="alignnone wp-image-4944 size-full" src="https://www.techandme.se/wp-content/uploads/2016/07/DeepinScreenshot20160705163303.png" alt="DeepinScreenshot20160705163303" width="602" height="463" srcset="https://www.techandme.se/wp-content/uploads/2016/07/DeepinScreenshot20160705163303.png 602w, https://www.techandme.se/wp-content/uploads/2016/07/DeepinScreenshot20160705163303-300x231.png 300w, https://www.techandme.se/wp-content/uploads/2016/07/DeepinScreenshot20160705163303-552x425.png 552w" sizes="(max-width: 602px) 100vw, 602px"/></p>
+<p>This is needed to be able to run certain plugins. One of them automatically extract files once they&#8217;re downloaded e.g.</p>
+<pre>$~: sudo apt-get install unrar unzip ffmpeg mediainfo -y</pre>
+</li>
+<li>
+<h6>Install ruTorrent</h6>
+<p>To be able to run ruTorrent with PHP 7 we have to use the latest master from Github. This is considered to be the development edition, but the latest stable release of ruTorrent was one year ago, which means that it won&#8217;t work on Ubuntu 16.04 as it only provides PHP7. Anyway, we tested this, and there are no issues. Though we can&#8217;t guarantee that it will work every time. It&#8217;s always recomended to use stable versions. Let&#8217;s just hope that 3.8 is released soon. You can get the latest stable release <a href="https://bintray.com/novik65/generic/ruTorrent/view" target="_blank">here</a>.</p>
+<pre>$~: cd /var/www/html</pre>
+<pre>$~: sudo apt-get install git -y &amp;&amp; sudo git clone https://github.com/Novik/ruTorrent.git &amp;&amp; sudo apt-get purge git -y</pre>
+<pre>$~: sudo chown -R plex:www-data ruTorrent/ &amp;&amp; sudo chmod -R 770 ruTorrent/</pre>
+</li>
+<li>
+<h6>Create .rtorrent.rc</h6>
+<p>rTorrent can be configured easily by placing a config file named &#8220;.rtorrent.rc&#8221; in the home dir of the plex user. An example of such a file can be found <a href="http://pastebin.com/raw.php?i=YEpTJjR6" target="_blank">here</a>. Tweak the file to your needs (do NOT skip this part) and make sure it contains the following:</p>
+<pre>scgi_port = 127.0.0.1:5000</pre>
+<p>Create the file like this:</p>
+<pre>$~: nano /home/plex/.rtorrent.rc</pre>
+</li>
+<li>
+<h6>Configure some basic settings</h6>
+<p><span style="text-decoration: underline;">Session</span></p>
+<pre>$~: mkdir /home/plex/.rtorrent.session</pre>
+<p>This saves the session in memory. Don&#8217;t forget to remove the hash (#) in .rtorrent.rc</p>
+<pre>session = /home/plex/.rtorrent.session</pre>
+<p><span style="text-decoration: underline;">HTTPRCP</span><br/>
+Add the following to your ruTorrent plugins.ini file (<em>/var/www/html/ruTorrent/conf/plugins.ini</em>) to enable the HTTPRPC plugin and disable the RPC plugin.</p>
+<pre>[httprpc]
+enabled = yes
+[rpc]
+enabled = no</pre>
+</li>
+<li>
+<h6>Restart Apache2</h6>
+<pre>$~: sudo service apache2 restart</pre>
+</li>
+<li>
+<h6>Install Screen</h6>
+<p>To install screen simply just type this:</p>
+<pre>$~: sudo apt-get install screen -y</pre>
+<p>Screen is a terminal multiplexer. Or simply said, a utility to run multiple sessions at the same time. That way you can start rTorrent as a detached session and use terminal for other things while rTorrent keeps running in the background. Here is a small list of commands to use when using rTorrent with screen. Please remember to run the following commands as the &#8216;plex&#8217; user, or the user that you will run rTorrent under.</p>
+<p><strong>Start rTorrent detached</strong></p>
+<pre>screen -S rtorrent -d -m rtorrent</pre>
+<p><strong>Resume detached session</strong></p>
+<pre>screen -S rtorrent -r</pre>
+<p><strong>Quit detached rTorrent session</strong></p>
+<pre>screen -S rtorrent -X xon</pre>
+<p><strong>Detach current session from this terminal</strong></p>
+<pre>Ctrl+a d</pre>
+<p><strong>Quit current rTorrent session</strong></p>
+<pre>Ctrl+a q</pre>
+</li>
+<li>
+<h6>Enable rtorrent as a service</h6>
+<p><strong>Option 1</strong></p>
+<p>Start with a init.d script (this will make ruTorrent stop if you login with the same user via ssh)</p>
+<pre>$~: sudo wget https://raw.githubusercontent.com/mjsilva/rtorrent-screen-debian-init-script/master/rtorrent -P /etc/init.d/ &amp;&amp; sudo chmod +x /etc/init.d/rtorrent &amp;&amp; sudo update-rc.d rtorrent defaults 99</pre>
+<p>If for some reason it fails to start, you have to delete the lock file in sessions before you reboot like this:</p>
+<pre>$~: rm /home/plex/.rtorrent.session/rtorrent.lock</pre>
+<p><strong>Option 2:</strong></p>
+<p>Start as a service on login</p>
+<pre>$~: sudo nano /etc/systemd/user/rt.service</pre>
+<pre>[Unit]
+Description=rTorrent
+After=network.target
+
+[Service]
+Type=forking
+KillMode=none
+ExecStart=/usr/bin/screen -d -m -fa -S rtorrent /usr/bin/rtorrent
+ExecStop=/usr/bin/killall -w -s 2 /usr/bin/rtorrent
+WorkingDirectory=%h
+
+[Install]
+WantedBy=default.target
+</pre>
+<p>Start at boot time:</p>
+<pre>$~: systemctl --user enable rt
+</pre>
+<p>Start manually:</p>
+<pre>$~: systemctl --user start rt</pre>
+<p>Stop:</p>
+<pre>$~: systemctl --user stop rt</pre>
+</li>
+<li>
+<h6>Now we&#8217;re all set with the installation of the torrent client</h6>
+<p>That was the hard part, in the next guide we will install Plex and configure it. If you want to check one of the many tutorials out there on how to use ruTorrent, <a href="https://wikidev.xirvik.com/dokuwiki/doku.php?id=tutorial_en_rutorrent" target="_blank">check this out</a>.</p>
+<h4>You find the next guide <a href="https://www.techandme.se/install-rutorrent-plex-on-a-headless-ubuntu-server-16-04-part-2/">here</a>.</h4>
+</li>
+</ol>
+<hr/>
+<div class="page-sidebar widget" id="donation_buttons"><form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank"><input type="hidden" name="business" value="shop@techandme.se"><input type="hidden" name="bn" value="mbjtechnolabs_SP"><input type="hidden" name="cmd" value="_donations"><input type="hidden" name="item_name" value="Tech and Me - Donation"><input type="hidden" name="item_number" value="www.techandme.se"><table><tbody><tr><td><label for="Please send us a donation to help us with the costs to run this site.">Please send us a donation to help us with the costs to run this site.</label></td></tr></tbody></table><table><tbody><tr><td><input style="margin-top:10px;" type="image" name="submit" border="0" src="https://www.paypalobjects.com/webstatic/en_US/btn/btn_donate_pp_142x27.png" alt="PayPal - The safer, easier way to pay online"></td></tr></tbody></table><input type="hidden" name="currency_code" value="USD"><input type="hidden" name="notify_url" value="https://www.techandme.se/?Donation_Button&#038;action=ipn_handler"><input type="hidden" name="return" value="https://www.techandme.se/thank_you/"></form></div>
+<hr/>
+<form id="sbscrbr-form" method="post" action="#sbscrbr-form" class="subscrbr-sign-up-form"><p class="sbscrbr-label-wrap">Subscribe to new posts by email, and keep updated with the latest news. An email will be sent when a new post is published.</p>
+<p class="sbscrbr-email-wrap">
+<input type="text" name="sbscrbr_email" value="" placeholder="Please enter your e-mail here"/>
+</p>
+<p class="sbscrbr-unsubscribe-wrap">
+<label for="sbscrbr-checkbox">
+<input id="sbscrbr-checkbox" type="checkbox" name="sbscrbr_unsubscribe" value="yes" style="vertical-align: middle;"/> Unsubscribe</label>
+</p><div class="gglcptch gglcptch_v2"><div id="gglcptch_recaptcha_691815189" class="gglcptch_recaptcha"></div>
+<noscript>
+<div style="width: 302px;">
+<div style="width: 302px; height: 422px; position: relative;">
+<div style="width: 302px; height: 422px; position: absolute;">
+<iframe src="https://www.google.com/recaptcha/api/fallback?hl=en&k=6LdCoRMTAAAAACZQu8E0Y_VlN0hLTnpJCcpGxcCU" frameborder="0" scrolling="no" style="width: 302px; height:422px; border-style: none;"></iframe>
+</div>
+</div>
+<div style="border-style: none; bottom: 12px; left: 25px; margin: 0px; padding: 0px; right: 25px; background: #f9f9f9; border: 1px solid #c1c1c1; border-radius: 3px; height: 60px; width: 300px;">
+<textarea id="g-recaptcha-response" name="g-recaptcha-response" class="g-recaptcha-response" style="width: 250px !important; height: 40px !important; border: 1px solid #c1c1c1 !important; margin: 10px 25px !important; padding: 0px !important; resize: none !important;"></textarea>
+</div>
+</div>
+</noscript></div><p class="sbscrbr-submit-block" style="position: relative;">
+<input type="submit" value="Subscribe" name="sbscrbr_submit_email" class="submit"/>
+<input type="hidden" value="sbscrbr_shortcode_1" name="sbscrbr_form_id"/>
+</p>
+</form>
+<div class="clear"></div>
+</div>  
+</div>  
+<div class="post-meta bottom">
+<div class="tab-selector">
+<ul>
+<li>
+<a class="active tab-comments-toggle" href="#">
+<div class="genericon genericon-comment"></div>
+<span>Comments</span>
+</a>
+</li>
+<li>
+<a class="tab-post-meta-toggle" href="#">
+<div class="genericon genericon-summary"></div>
+<span>Post info</span>
+</a>
+</li>
+<li>
+<a class="tab-author-meta-toggle" href="#">
+<div class="genericon genericon-user"></div>
+<span>Author info</span>
+</a>
+</li>
+<div class="clear"></div>
+</ul>
+</div>
+<div class="post-meta-tabs">
+<div class="post-meta-tabs-inner">
+<div class="tab-post-meta tab">
+<ul class="post-info-items fright">
+<li>
+<div class="genericon genericon-user"></div>
+<a href="https://www.techandme.se/author/danielhansson01/" title="Posts by Daniel Hansson" rel="author">Daniel Hansson</a> </li>
+<li>
+<div class="genericon genericon-time"></div>
+<a href="https://www.techandme.se/install-rutorrent-plex-on-a-headless-ubuntu-server-16-04-part-1/" title="Install ruTorrent + Plex on a headless Ubuntu Server 16.04 (Part 1)">
+5 July, 2016 </a>
+</li>
+<li>
+<div class="genericon genericon-category"></div>
+<a href="https://www.techandme.se/category/guides/" rel="category tag">Guides</a>, <a href="https://www.techandme.se/category/htpc/" rel="category tag">HTPC</a>, <a href="https://www.techandme.se/category/linux/" rel="category tag">Linux</a> </li>
+</ul>
+<div class="post-nav fleft">
+<a class="post-nav-prev" title="Previous post: Complete install instructions Nextcloud" href="https://www.techandme.se/complete-install-instructions-nextcloud/">
+<p>Previous post</p>
+<h4>Complete install instructions Nextcloud</h4>
+</a>
+<a class="post-nav-next" title="Next post: Completley remove Ubuntu Desktop from a Ubuntu Server" href="https://www.techandme.se/completley-remove-ubuntu-desktop-from-a-ubuntu-server/">
+<p>Next post</p>
+<h4>Completley remove Ubuntu Desktop from a Ubuntu Server</h4>
+</a>
+</div>
+<div class="clear"></div>
+</div>  
+<div class="tab-author-meta tab">
+<a href="https://www.techandme.se/author/danielhansson01/" class="author-avatar"><img alt='' src='https://secure.gravatar.com/avatar/03d60787d27abbd9bc24b0e237935cb9?s=256&#038;d=mm&#038;r=pg' srcset='https://secure.gravatar.com/avatar/03d60787d27abbd9bc24b0e237935cb9?s=512&amp;d=mm&amp;r=pg 2x' class='avatar avatar-256 photo' height='256' width='256'/></a>
+<div class="author-meta-inner">
+<h3 class="author-name"><a href="https://www.techandme.se/author/danielhansson01/" title="Posts by Daniel Hansson" rel="author">Daniel Hansson</a></h3>
+<p class="author-position">
+Administrator
+</p>
+<p class="author-description">
+The sole owner of Tech and Me. </p>
+</div>  
+<div class="author-content">
+<div class="one-half author-posts">
+<h4 class="content-by">Posts by Daniel Hansson</h4>
+<ul>
+<li>
+<a href="https://www.techandme.se/share-lets-encrypt-ssl-certificates-between-hosts/">
+<div class="post-icon">
+<div class="genericon genericon-standard"></div> </div>
+<h5 class="title">Share Let&#8217;s Encrypt SSL certificates between hosts</h5>
+<p class="meta">7 June, 2017</p>
+<div class="clear"></div>
+</a>
+</li>
+<li>
+<a href="https://www.techandme.se/important-notice-add-your-own-smtp-settings-in-nextcloud/">
+<div class="post-icon">
+<div class="genericon genericon-standard"></div> </div>
+<h5 class="title">[Important notice] Add your own SMTP settings in Nextcloud</h5>
+<p class="meta">7 June, 2017</p>
+<div class="clear"></div>
+</a>
+</li>
+<li>
+<a href="https://www.techandme.se/hyper-v-generation-2-and-ubuntu-server-16-04/">
+<div class="post-icon">
+<div class="genericon genericon-standard"></div> </div>
+<h5 class="title">Hyper-V Generation 2 and Ubuntu Server 16.04</h5>
+<p class="meta">17 May, 2017</p>
+<div class="clear"></div>
+</a>
+</li>
+<li>
+<a href="https://www.techandme.se/how-to-install-vmware-workstation-12-on-linux-4-10-kernel/">
+<div class="post-icon">
+<div class="genericon genericon-standard"></div> </div>
+<h5 class="title">How to install VMware Workstation 12 on Linux 4.10 kernel</h5>
+<p class="meta">17 April, 2017</p>
+<div class="clear"></div>
+</a>
+</li>
+<li>
+<a href="https://www.techandme.se/setup-multiple-accounts-with-ddclient-and-cloudflare/">
+<div class="post-icon">
+<div class="genericon genericon-standard"></div> </div>
+<h5 class="title">Setup multiple accounts with DDclient and Cloudflare</h5>
+<p class="meta">14 April, 2017</p>
+<div class="clear"></div>
+</a>
+</li>
+</ul>
+</div>  
+<div class="one-half author-comments">
+<h4 class="content-by">Comments by Daniel Hansson</h4>
+<ul>
+<li>
+<a href="https://www.techandme.se/install-rutorrent-plex-on-a-headless-ubuntu-server-16-04-part-1/#comment-94" title='Posted on 13 May, 2015 to Manual Installation'>
+<div class="post-icon">
+<div class="genericon genericon-comment"></div>
+</div>
+<h5 class="title">Manual Installation</h5>
+<p class="excerpt">Yes, you can allocate a whole disk in VMware as extra ...</p>
+</a>
+</li>
+<li>
+<a href="https://www.techandme.se/install-rutorrent-plex-on-a-headless-ubuntu-server-16-04-part-1/#comment-74" title='Posted on 7 May, 2015 to Not enough space?'>
+<div class="post-icon">
+<div class="genericon genericon-comment"></div>
+</div>
+<h5 class="title">Not enough space?</h5>
+<p class="excerpt">Hi Thomas,
+The guide is for Linux, not Windows. It's ...</p>
+</a>
+</li>
+<li>
+<a href="https://www.techandme.se/install-rutorrent-plex-on-a-headless-ubuntu-server-16-04-part-1/#comment-72" title='Posted on 6 May, 2015 to ownCloud VM'>
+<div class="post-icon">
+<div class="genericon genericon-comment"></div>
+</div>
+<h5 class="title">ownCloud VM</h5>
+<p class="excerpt">Hi Eduardo,
+Thank you for those kind words.
+I haven't ...</p>
+</a>
+</li>
+<li>
+<a href="https://www.techandme.se/install-rutorrent-plex-on-a-headless-ubuntu-server-16-04-part-1/#comment-64" title='Posted on 21 April, 2015 to ownCloud VM'>
+<div class="post-icon">
+<div class="genericon genericon-comment"></div>
+</div>
+<h5 class="title">ownCloud VM</h5>
+<p class="excerpt">Hi!
+I describe how to do that in the full guide. Please ...</p>
+</a>
+</li>
+<li>
+<a href="https://www.techandme.se/install-rutorrent-plex-on-a-headless-ubuntu-server-16-04-part-1/#comment-62" title='Posted on 21 April, 2015 to User and Password ownCloud'>
+<div class="post-icon">
+<div class="genericon genericon-comment"></div>
+</div>
+<h5 class="title">User and Password ownCloud</h5>
+<p class="excerpt">Hi!
+In the startup script you are promoted to change ...</p>
+</a>
+</li>
+</ul>
+</div>  
+<div class="clear"></div>
+</div>  
+</div>  
+<div class="tab-comments tab">
+<div id="disqus_thread">
+<div id="dsq-content">
+<ul id="dsq-comments">
+<li class="comment even thread-even depth-1" id="dsq-comment-1480">
+<div id="dsq-comment-header-1480" class="dsq-comment-header">
+<cite id="dsq-cite-1480">
+<span id="dsq-author-user-1480">Cody Fleming</span>
+</cite>
+</div>
+<div id="dsq-comment-body-1480" class="dsq-comment-body">
+<div id="dsq-comment-message-1480" class="dsq-comment-message"><p>Step 4 I get this<br/>
+sudo apt-get install unrar unzip ffmpeg mediainfo -y<br/>
+Reading package lists&#8230; Done<br/>
+Building dependency tree<br/>
+Reading state information&#8230; Done<br/>
+Package unrar is not available, but is referred to by another package.<br/>
+This may mean that the package is missing, has been obsoleted, or<br/>
+is only available from another source</p>
+<p>E: Package &#8216;unrar&#8217; has no installation candidate</p>
+</div>
+</div>
+<ul class="children">
+<li class="comment odd alt depth-2" id="dsq-comment-1481">
+<div id="dsq-comment-header-1481" class="dsq-comment-header">
+<cite id="dsq-cite-1481">
+<a id="dsq-author-user-1481" href="https://www.techandme.se" target="_blank" rel="nofollow">Daniel Hansson</a>
+</cite>
+</div>
+<div id="dsq-comment-body-1481" class="dsq-comment-body">
+<div id="dsq-comment-message-1481" class="dsq-comment-message"><p>Did you run sudo apt update before?</p>
+</div>
+</div>
+</li> 
+<li class="comment even depth-2" id="dsq-comment-1508">
+<div id="dsq-comment-header-1508" class="dsq-comment-header">
+<cite id="dsq-cite-1508">
+<span id="dsq-author-user-1508">Roy Tomeij</span>
+</cite>
+</div>
+<div id="dsq-comment-body-1508" class="dsq-comment-body">
+<div id="dsq-comment-message-1508" class="dsq-comment-message"><p>You will need to add &#8220;multiverse&#8221; to your sources file before doing an apt update (it includes non-free software, which doesn&#8217;t mean it costs money; just a more restrictive license).</p>
+</div>
+</div>
+</li> 
+</ul> 
+</li> 
+<li class="comment odd alt thread-odd thread-alt depth-1" id="dsq-comment-1415">
+<div id="dsq-comment-header-1415" class="dsq-comment-header">
+<cite id="dsq-cite-1415">
+<span id="dsq-author-user-1415">Fokusas Fokusas</span>
+</cite>
+</div>
+<div id="dsq-comment-body-1415" class="dsq-comment-body">
+<div id="dsq-comment-message-1415" class="dsq-comment-message"><p>I am trying to make start rtorrent at startup, to enable it like a service. I set everything exactly like in 10.2, but it not works for me. I am using Ubuntu 16.04 server. When i restart pc and connect to ssh rtorrent starts, but when i disconect from this ssh session rtorrent stops. Using command screen -S rtorrent -d -m rtorrent works but i have to write it manualy, but its not an option.</p>
+</div>
+</div>
+<ul class="children">
+<li class="comment even depth-2" id="dsq-comment-1416">
+<div id="dsq-comment-header-1416" class="dsq-comment-header">
+<cite id="dsq-cite-1416">
+<span id="dsq-author-user-1416">Fokusas Fokusas</span>
+</cite>
+</div>
+<div id="dsq-comment-body-1416" class="dsq-comment-body">
+<div id="dsq-comment-message-1416" class="dsq-comment-message"><p>finally found it. For me works this solution: <a href="https://jes.sc/kb/rTorrent+ruTorrent-Seedbox-Guide.php#Automatically-Start-rTorrent-on-System-Boot" rel="nofollow">https://jes.sc/kb/rTorrent+ruTorrent-Seedbox-Guide.php#Automatically-Start-rTorrent-on-System-Boot</a></p>
+</div>
+</div>
+<ul class="children">
+<li class="comment odd alt depth-3" id="dsq-comment-1417">
+<div id="dsq-comment-header-1417" class="dsq-comment-header">
+<cite id="dsq-cite-1417">
+<a id="dsq-author-user-1417" href="https://www.techandme.se" target="_blank" rel="nofollow">Daniel Hansson</a>
+</cite>
+</div>
+<div id="dsq-comment-body-1417" class="dsq-comment-body">
+<div id="dsq-comment-message-1417" class="dsq-comment-message"><p>Glad you found it, though it&#8217;s strange it didn&#8217;t work as it&#8217;t the exact same script&#8230; <a href="https://raw.githubusercontent.com/mjsilva/rtorrent-screen-debian-init-script/master/rtorrent" rel="nofollow">https://raw.githubusercontent.com/mjsilva/rtorrent-screen-debian-init-script/master/rtorrent</a></p>
+</div>
+</div>
+</li> 
+</ul> 
+</li> 
+</ul> 
+</li> 
+<li class="comment even thread-even depth-1" id="dsq-comment-1390">
+<div id="dsq-comment-header-1390" class="dsq-comment-header">
+<cite id="dsq-cite-1390">
+<span id="dsq-author-user-1390">Krystal</span>
+</cite>
+</div>
+<div id="dsq-comment-body-1390" class="dsq-comment-body">
+<div id="dsq-comment-message-1390" class="dsq-comment-message"><p>Hm, I followed the guide, but when I tried to access ruTorrent internally on my network, it didn&#8217;t work. Going to 192.168.1.83 (the internal IP address for the ubuntu server) DOES bring up the default welcome page for Apache 2, so Apache is working. But if I go to 192.168.1.83/rutorrent, there is nothing there. It just says &#8220;Not Found The requested URL /rutorrent was not found on this server. Apache/2.4.18 (Ubuntu) Server at 192.168.1.83 Port 80&#8221;. Doing ps aux | grep rto confirms that rTorrent is definitely running, so I&#8217;m not sure what I have done wrong.</p>
+</div>
+</div>
+<ul class="children">
+<li class="comment odd alt depth-2" id="dsq-comment-1391">
+<div id="dsq-comment-header-1391" class="dsq-comment-header">
+<cite id="dsq-cite-1391">
+<a id="dsq-author-user-1391" href="https://www.techandme.se" target="_blank" rel="nofollow">Daniel Hansson</a>
+</cite>
+</div>
+<div id="dsq-comment-body-1391" class="dsq-comment-body">
+<div id="dsq-comment-message-1391" class="dsq-comment-message"><p>Have you setup a conf file for ruTorrent in /etc/apache2/sites-available?</p>
+</div>
+</div>
+</li> 
+</ul> 
+</li> 
+<li class="comment even thread-odd thread-alt depth-1" id="dsq-comment-1334">
+<div id="dsq-comment-header-1334" class="dsq-comment-header">
+<cite id="dsq-cite-1334">
+<span id="dsq-author-user-1334">THEMETRUSTnet</span>
+</cite>
+</div>
+<div id="dsq-comment-body-1334" class="dsq-comment-body">
+<div id="dsq-comment-message-1334" class="dsq-comment-message"><p>hello.<br/>
+I stoped at Step 5,.<br/>
+when type last command line , output<br/>
+&#8220;chown: cannot access &#8216;ruTorrent/&#8217;: No such file or directory&#8221;</p>
+</div>
+</div>
+<ul class="children">
+<li class="comment odd alt depth-2" id="dsq-comment-1336">
+<div id="dsq-comment-header-1336" class="dsq-comment-header">
+<cite id="dsq-cite-1336">
+<a id="dsq-author-user-1336" href="https://www.techandme.se" target="_blank" rel="nofollow">Daniel Hansson</a>
+</cite>
+</div>
+<div id="dsq-comment-body-1336" class="dsq-comment-body">
+<div id="dsq-comment-message-1336" class="dsq-comment-message"><p>It works here, you must have done something wrong. Please try again. You can double check the folder name with &#8220;ls -l&#8221;.</p>
+</div>
+</div>
+</li> 
+</ul> 
+</li> 
+<li class="comment even thread-even depth-1" id="dsq-comment-1243">
+<div id="dsq-comment-header-1243" class="dsq-comment-header">
+<cite id="dsq-cite-1243">
+<span id="dsq-author-user-1243">Dario R.</span>
+</cite>
+</div>
+<div id="dsq-comment-body-1243" class="dsq-comment-body">
+<div id="dsq-comment-message-1243" class="dsq-comment-message"><p>Why use killall in the systdemd script. It is simpler to just send a ctrl-q command via screen.</p>
+</div>
+</div>
+</li> 
+<li class="comment odd alt thread-odd thread-alt depth-1" id="dsq-comment-1231">
+<div id="dsq-comment-header-1231" class="dsq-comment-header">
+<cite id="dsq-cite-1231">
+<span id="dsq-author-user-1231">Shalvin Nitesh Chand</span>
+</cite>
+</div>
+<div id="dsq-comment-body-1231" class="dsq-comment-body">
+<div id="dsq-comment-message-1231" class="dsq-comment-message"><p>hi when i try to install rtorrent it says:</p>
+<p><a class="__cf_email__" href="/cdn-cgi/l/email-protection" data-cfemail="fb8994948fbb889e9e9f999483">[email&#160;protected]</a><script data-cfhash='f9e31' type="text/javascript">/* <![CDATA[ */!function(t,e,r,n,c,a,p){try{t=document.currentScript||function(){for(t=document.getElementsByTagName('script'),e=t.length;e--;)if(t[e].getAttribute('data-cfhash'))return t[e]}();if(t&&(c=t.previousSibling)){p=t.parentNode;if(a=c.getAttribute('data-cfemail')){for(e='',r='0x'+a.substr(0,2)|0,n=2;a.length-n;n+=2)e+='%'+('0'+('0x'+a.substr(n,2)^r).toString(16)).slice(-2);p.replaceChild(document.createTextNode(decodeURIComponent(e)),c)}p.removeChild(t)}}catch(u){}}()/* ]]> */</script>:~# sudo apt-get install rtorrent -y</p>
+<p>Reading package lists&#8230; Done</p>
+<p>Building dependency tree&#8230; Done</p>
+<p>E: Unable to locate package rtorrent</p>
+<p>pliz help</p>
+</div>
+</div>
+<ul class="children">
+<li class="comment even depth-2" id="dsq-comment-1232">
+<div id="dsq-comment-header-1232" class="dsq-comment-header">
+<cite id="dsq-cite-1232">
+<a id="dsq-author-user-1232" href="https://www.techandme.se" target="_blank" rel="nofollow">Daniel Hansson</a>
+</cite>
+</div>
+<div id="dsq-comment-body-1232" class="dsq-comment-body">
+<div id="dsq-comment-message-1232" class="dsq-comment-message"><p>Is this a Ubuntu Machine? Try apt-get update first.</p>
+</div>
+</div>
+</li> 
+</ul> 
+</li> 
+<li class="comment odd alt thread-even depth-1" id="dsq-comment-1199">
+<div id="dsq-comment-header-1199" class="dsq-comment-header">
+<cite id="dsq-cite-1199">
+<a id="dsq-author-user-1199" href="https://www.techandme.se" target="_blank" rel="nofollow">Daniel Hansson</a>
+</cite>
+</div>
+<div id="dsq-comment-body-1199" class="dsq-comment-body">
+<div id="dsq-comment-message-1199" class="dsq-comment-message"><p>It is at the site you linked, but you didn&#8217;t find it&#8230; Here you go: <a href="https://bintray.com/novik65/generic/download_file?file_path=ruTorrent-3.7.zip" rel="nofollow">https://bintray.com/novik65/generic/download_file?file_path=ruTorrent-3.7.zip</a></p>
+</div>
+</div>
+</li> 
+<li class="comment even thread-odd thread-alt depth-1" id="dsq-comment-1196">
+<div id="dsq-comment-header-1196" class="dsq-comment-header">
+<cite id="dsq-cite-1196">
+<span id="dsq-author-user-1196">strokers</span>
+</cite>
+</div>
+<div id="dsq-comment-body-1196" class="dsq-comment-body">
+<div id="dsq-comment-message-1196" class="dsq-comment-message"><p>i have many errors like :<br/>
+rutracker_check: Plugin dont work. User rTorrent do not have access to an external program (php).</p>
+</div>
+</div>
+<ul class="children">
+<li class="comment odd alt depth-2" id="dsq-comment-1197">
+<div id="dsq-comment-header-1197" class="dsq-comment-header">
+<cite id="dsq-cite-1197">
+<a id="dsq-author-user-1197" href="https://www.techandme.se" target="_blank" rel="nofollow">Daniel Hansson</a>
+</cite>
+</div>
+<div id="dsq-comment-body-1197" class="dsq-comment-body">
+<div id="dsq-comment-message-1197" class="dsq-comment-message"><p>It may be that the current master on Github is failing. Try with a stable release instead.</p>
+</div>
+</div>
+</li> 
+</ul> 
+</li> 
+<li class="comment even thread-even depth-1" id="dsq-comment-1165">
+<div id="dsq-comment-header-1165" class="dsq-comment-header">
+<cite id="dsq-cite-1165">
+<span id="dsq-author-user-1165">klimagabi</span>
+</cite>
+</div>
+<div id="dsq-comment-body-1165" class="dsq-comment-body">
+<div id="dsq-comment-message-1165" class="dsq-comment-message"><p>perfect! it works! there is no problem in the description !!!<br/>
+Congratulations!</p>
+</div>
+</div>
+<ul class="children">
+<li class="comment odd alt depth-2" id="dsq-comment-1167">
+<div id="dsq-comment-header-1167" class="dsq-comment-header">
+<cite id="dsq-cite-1167">
+<a id="dsq-author-user-1167" href="https://www.techandme.se" target="_blank" rel="nofollow">Daniel Hansson</a>
+</cite>
+</div>
+<div id="dsq-comment-body-1167" class="dsq-comment-body">
+<div id="dsq-comment-message-1167" class="dsq-comment-message"><p>Thanks!</p>
+</div>
+</div>
+</li> 
+</ul> 
+</li> 
+<li class="comment even thread-odd thread-alt depth-1" id="dsq-comment-1073">
+<div id="dsq-comment-header-1073" class="dsq-comment-header">
+<cite id="dsq-cite-1073">
+<span id="dsq-author-user-1073">Masterpain</span>
+</cite>
+</div>
+<div id="dsq-comment-body-1073" class="dsq-comment-body">
+<div id="dsq-comment-message-1073" class="dsq-comment-message"><p>Having some problems with installation.</p>
+<p>Step 6<br/>
+scgi_port = 127.0.0.1:5000<br/>
+I get &#8220;-bash: scgi_port: command not found&#8221;</p>
+<p>Step 10 Option 2<br/>
+systemctl &#8211;user enable rt<br/>
+I get &#8220;Failed to connect to bus: No such file or directory&#8221;</p>
+</div>
+</div>
+<ul class="children">
+<li class="comment odd alt depth-2" id="dsq-comment-1074">
+<div id="dsq-comment-header-1074" class="dsq-comment-header">
+<cite id="dsq-cite-1074">
+<a id="dsq-author-user-1074" href="https://www.techandme.se" target="_blank" rel="nofollow">Daniel Hansson</a>
+</cite>
+</div>
+<div id="dsq-comment-body-1074" class="dsq-comment-body">
+<div id="dsq-comment-message-1074" class="dsq-comment-message"><p>Step 6, read the instructions again please. It&#8217;s not a command.</p>
+<p>Step 10, works here you must have missed something.</p>
+</div>
+</div>
+<ul class="children">
+<li class="comment even depth-3" id="dsq-comment-1075">
+<div id="dsq-comment-header-1075" class="dsq-comment-header">
+<cite id="dsq-cite-1075">
+<span id="dsq-author-user-1075">Masterpain</span>
+</cite>
+</div>
+<div id="dsq-comment-body-1075" class="dsq-comment-body">
+<div id="dsq-comment-message-1075" class="dsq-comment-message"><p>You&#8217;re right about Step 6. Yeah, I just dont know what I could be missing. You know I had to install Nano because I started from a fresh Ubuntu 16.04 install.</p>
+</div>
+</div>
+<ul class="children">
+<li class="comment odd alt depth-4" id="dsq-comment-1076">
+<div id="dsq-comment-header-1076" class="dsq-comment-header">
+<cite id="dsq-cite-1076">
+<a id="dsq-author-user-1076" href="https://www.techandme.se" target="_blank" rel="nofollow">Daniel Hansson</a>
+</cite>
+</div>
+<div id="dsq-comment-body-1076" class="dsq-comment-body">
+<div id="dsq-comment-message-1076" class="dsq-comment-message"><p>Install nano? That&#8217;s included in Ubuntu 16.04. Are you trying to do this on Desktop? This guide is for server.</p>
+</div>
+</div>
+<ul class="children">
+<li class="comment even depth-5" id="dsq-comment-1077">
+<div id="dsq-comment-header-1077" class="dsq-comment-header">
+<cite id="dsq-cite-1077">
+<span id="dsq-author-user-1077">Masterpain</span>
+</cite>
+</div>
+<div id="dsq-comment-body-1077" class="dsq-comment-body">
+<div id="dsq-comment-message-1077" class="dsq-comment-message"><p>On a rented VPS.</p>
+</div>
+</div>
+<ul class="children">
+<li class="comment odd alt depth-6" id="dsq-comment-1149">
+<div id="dsq-comment-header-1149" class="dsq-comment-header">
+<cite id="dsq-cite-1149">
+<a id="dsq-author-user-1149" href="https://www.techandme.se" target="_blank" rel="nofollow">Daniel Hansson</a>
+</cite>
+</div>
+<div id="dsq-comment-body-1149" class="dsq-comment-body">
+<div id="dsq-comment-message-1149" class="dsq-comment-message"><p>apt-get install nano</p>
+</div>
+</div>
+</li> 
+</ul> 
+</li> 
+</ul> 
+</li> 
+</ul> 
+</li> 
+<li class="comment even depth-3" id="dsq-comment-1078">
+<div id="dsq-comment-header-1078" class="dsq-comment-header">
+<cite id="dsq-cite-1078">
+<span id="dsq-author-user-1078">Jack M</span>
+</cite>
+</div>
+<div id="dsq-comment-body-1078" class="dsq-comment-body">
+<div id="dsq-comment-message-1078" class="dsq-comment-message"><p>Same issue and same message with Option 2 (Start as service)<br/>
+&#8220;systemctl &#8211;user start rt&#8221; returns: &#8220;Failed to connect to bus: No such file or directory&#8221;<br/>
+Tried restartarting and same issue<br/>
+Starting rTorrent detached and quit the detached session works fine.</p>
+<p>Additionally, is there a way to add authentication to rTorrent/ruTorrent? I&#8217;m planning to forward ruTorrent to be accesible from outsite my local network.</p>
+<p>Thanks for the great tutorial.</p>
+</div>
+</div>
+<ul class="children">
+<li class="comment odd alt depth-4" id="dsq-comment-1079">
+<div id="dsq-comment-header-1079" class="dsq-comment-header">
+<cite id="dsq-cite-1079">
+<a id="dsq-author-user-1079" href="https://www.techandme.se" target="_blank" rel="nofollow">Daniel Hansson</a>
+</cite>
+</div>
+<div id="dsq-comment-body-1079" class="dsq-comment-body">
+<div id="dsq-comment-message-1079" class="dsq-comment-message"><p>Okay, strange. Go for option 1, works for me at least. </p>
+<p>Here&#8217;s what you&#8217;re looking for: <a href="https://www.techandme.se/add-extra-security-to-your-rutorrent-remote-access/" rel="nofollow">https://www.techandme.se/add-extra-security-to-your-rutorrent-remote-access/</a></p>
+</div>
+</div>
+</li> 
+</ul> 
+</li> 
+</ul> 
+</li> 
+<li class="comment even depth-2" id="dsq-comment-1236">
+<div id="dsq-comment-header-1236" class="dsq-comment-header">
+<cite id="dsq-cite-1236">
+<span id="dsq-author-user-1236">Arun Golla</span>
+</cite>
+</div>
+<div id="dsq-comment-body-1236" class="dsq-comment-body">
+<div id="dsq-comment-message-1236" class="dsq-comment-message"><p>Try this for Step 10<br/>
+systemctl enable /etc/systemd/user/rt.service<br/>
+Works for me.</p>
+</div>
+</div>
+</li> 
+</ul> 
+</li> 
+</ul>
+</div>
+</div>
+</div>  
+</div>  
+</div>  
+</div>  
+<div class="post-nav-fixed">
+<a class="post-nav-prev" title="Previous post: Complete install instructions Nextcloud" href="https://www.techandme.se/complete-install-instructions-nextcloud/">
+<span class="hidden">Previous post</span>
+<span class="arrow">&laquo;</span>
+</a>
+<a class="post-nav-next" title="Next post: Completley remove Ubuntu Desktop from a Ubuntu Server" href="https://www.techandme.se/completley-remove-ubuntu-desktop-from-a-ubuntu-server/">
+<span class="hidden">Next post</span>
+<span class="arrow">&raquo;</span>
+</a>
+<div class="clear"></div>
+</div>  
+<div class="widget-area">
+<div class="column column-1 one-third" role="complementary">
+<div class="widget widget_text"><div class="widget-content"><h3 class="widget-title">Search Posts</h3> <div class="textwidget"></div>
+</div><div class="clear"></div></div><div class="widget garfunkel_search_widget"><div class="widget-content">
+<form method="get" class="search-form" action="https://www.techandme.se/">
+<label for="search-field" class="genericon genericon-search"></label>
+<input type="search" value="" placeholder="Search form" name="s" class="search-field" id="search-field"/>
+</form>
+</div><div class="clear"></div></div><div class="widget widget_garfunkel_recent_posts"><div class="widget-content">
+<ul>
+<li>
+<a href="https://www.techandme.se/share-lets-encrypt-ssl-certificates-between-hosts/" title="Share Let&#8217;s Encrypt SSL certificates between hosts">
+<div class="post-icon">
+<div class="genericon genericon-standard"></div>
+</div>
+<div class="inner">
+<p class="title">Share Let&#8217;s Encrypt SSL certificates between hosts</p>
+<p class="meta">7 June, 2017</p>
+</div>
+<div class="clear"></div>
+</a>
+</li>
+<li>
+<a href="https://www.techandme.se/important-notice-add-your-own-smtp-settings-in-nextcloud/" title="[Important notice] Add your own SMTP settings in Nextcloud">
+<div class="post-icon">
+<div class="genericon genericon-standard"></div>
+</div>
+<div class="inner">
+<p class="title">[Important notice] Add your own SMTP settings in Nextcloud</p>
+<p class="meta">7 June, 2017</p>
+</div>
+<div class="clear"></div>
+</a>
+</li>
+<li>
+<a href="https://www.techandme.se/3-latest-onlyoffice-updates-automated-onlyoffice-installation-on-owncloud-and-more/" title="3 Latest ONLYOFFICE Updates: Automated ONLYOFFICE Installation on ownCloud and more">
+<div class="post-icon">
+<div class="genericon genericon-standard"></div>
+</div>
+<div class="inner">
+<p class="title">3 Latest ONLYOFFICE Updates: Automated ONLYOFFICE Installation on ownCloud and more</p>
+<p class="meta">24 May, 2017</p>
+</div>
+<div class="clear"></div>
+</a>
+</li>
+<li>
+<a href="https://www.techandme.se/hyper-v-generation-2-and-ubuntu-server-16-04/" title="Hyper-V Generation 2 and Ubuntu Server 16.04">
+<div class="post-icon">
+<div class="genericon genericon-standard"></div>
+</div>
+<div class="inner">
+<p class="title">Hyper-V Generation 2 and Ubuntu Server 16.04</p>
+<p class="meta">17 May, 2017</p>
+</div>
+<div class="clear"></div>
+</a>
+</li>
+<li>
+<a href="https://www.techandme.se/how-to-install-vmware-workstation-12-on-linux-4-10-kernel/" title="How to install VMware Workstation 12 on Linux 4.10 kernel">
+<div class="post-icon">
+<div class="genericon genericon-standard"></div>
+</div>
+<div class="inner">
+<p class="title">How to install VMware Workstation 12 on Linux 4.10 kernel</p>
+<p class="meta">17 April, 2017</p>
+</div>
+<div class="clear"></div>
+</a>
+</li>
+</ul>
+</div><div class="clear"></div></div>
+</div> 
+<div class="column column-2 one-third" role="complementary">
+<div class="widget widget_sbscrbr_widget"><div class="widget-content"><h3 class="widget-title">Subscribe!</h3> <form id="sbscrbr-form-sbscrbr_widget-5" method="post" action="#sbscrbr-form-sbscrbr_widget-5" id="subscrbr-form-sbscrbr_widget-5" class="subscrbr-sign-up-form" style="position: relative;">
+<p class="sbscrbr-label-wrap">Subscribe to new posts by email, and keep updated with the latest news. An email will be sent when a new post is published.</p> <p class="sbscrbr-email-wrap">
+<input type="text" name="sbscrbr_email" value="" placeholder="Please enter your email"/>
+</p>
+<p class="sbscrbr-unsubscribe-wrap">
+<label for="sbscrbr-sbscrbr_widget-5">
+<input id="sbscrbr-sbscrbr_widget-5" type="checkbox" name="sbscrbr_unsubscribe" value="yes" style="vertical-align: middle;"/>
+unsubscribe </label>
+</p>
+<div class="gglcptch gglcptch_v2"><div id="gglcptch_recaptcha_1095316809" class="gglcptch_recaptcha"></div>
+<noscript>
+<div style="width: 302px;">
+<div style="width: 302px; height: 422px; position: relative;">
+<div style="width: 302px; height: 422px; position: absolute;">
+<iframe src="https://www.google.com/recaptcha/api/fallback?hl=en&k=6LdCoRMTAAAAACZQu8E0Y_VlN0hLTnpJCcpGxcCU" frameborder="0" scrolling="no" style="width: 302px; height:422px; border-style: none;"></iframe>
+</div>
+</div>
+<div style="border-style: none; bottom: 12px; left: 25px; margin: 0px; padding: 0px; right: 25px; background: #f9f9f9; border: 1px solid #c1c1c1; border-radius: 3px; height: 60px; width: 300px;">
+<textarea id="g-recaptcha-response" name="g-recaptcha-response" class="g-recaptcha-response" style="width: 250px !important; height: 40px !important; border: 1px solid #c1c1c1 !important; margin: 10px 25px !important; padding: 0px !important; resize: none !important;"></textarea>
+</div>
+</div>
+</noscript></div> <p class="sbscrbr-submit-block" style="position: relative;">
+<input type="submit" value="Subscribe" name="sbscrbr_submit_email" class="submit"/>
+<input type="hidden" value="sbscrbr_widget-5" name="sbscrbr_form_id"/>
+</p>
+</form>
+</div><div class="clear"></div></div>
+</div> 
+<div class="column column-3 one-third" role="complementary">
+<div class="widget widget_weblizar_twitter"><div class="widget-content"><h3 class="widget-title">Latest Tweets</h3> <div style="display:block;width:100%;float:left;overflow:hidden">
+<a class="twitter-timeline" data-dnt="true" href="https://twitter.com/TechAndMe_se" min-width="" height="600" data-theme="light" data-lang="" data-link-color="#CC0000"></a>
+<script>
+				!function(d,s,id) {
+					var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}
+				} (document,"script","twitter-wjs");
+			</script>
+</div>
+</div><div class="clear"></div></div>
+</div> 
+<div class="clear"></div>
+</div>  
+</div>  
+</div>  
+<div class="clear"></div>
+</div>  
+</div>  
+<div class="credits">
+<p>
+&copy; 2017 <a href="https://www.techandme.se" title="Tech and Me">Tech and Me </p>
+<p>
+<a target="_blank" href="https://uptime.statuscake.com/?TestID=othJDgctzb" title="Website Uptime Monitoring"><img src="https://app.statuscake.com/button/index.php?Track=Co9ajElTPw&Days=30&Design=3"/></a>
+</p>
+<p>
+<p>
+<font color="white">This site is IPv6 Ready</font>
+</p>
+</div>  
+<div id="cookie-law-info-bar"><span>This website uses cookies to improve your experience. We'll assume you're ok with this, but you can opt-out if you wish.<a href="#" id="cookie_action_close_header" class="medium cli-plugin-button cli-plugin-main-button">Accept</a> <a href="http://ec.europa.eu/ipg/basics/legal/cookies/index_en.htm" id="CONSTANT_OPEN_URL" target="_blank" class="cli-plugin-main-link">Read More</a></span></div>
+<script type="text/javascript">
+			//<![CDATA[
+			jQuery(document).ready(function() {
+				cli_show_cookiebar({
+					settings: '{"animate_speed_hide":"500","animate_speed_show":"500","background":"#fff","border":"#ffffff","border_on":true,"button_1_button_colour":"#000","button_1_button_hover":"#000000","button_1_link_colour":"#fff","button_1_as_button":true,"button_2_button_colour":"#333","button_2_button_hover":"#292929","button_2_link_colour":"#444","button_2_as_button":false,"font_family":"Helvetica, Arial, sans-serif","header_fix":false,"notify_animate_hide":true,"notify_animate_show":false,"notify_div_id":"#cookie-law-info-bar","notify_position_horizontal":"right","notify_position_vertical":"bottom","scroll_close":false,"scroll_close_reload":false,"showagain_tab":false,"showagain_background":"#fff","showagain_border":"#000","showagain_div_id":"#cookie-law-info-again","showagain_x_position":"100px","text":"#000","show_once_yn":true,"show_once":"10000"}'
+				});
+			});
+			//]]>
+		</script>
+<div id="dpsp-floating-sidebar" class=" dpsp-position-left dpsp-shape-rectangular  dpsp-show-on-mobile dpsp-button-style-1 dpsp-has-button-background "><ul class="dpsp-networks-btns-wrapper dpsp-networks-btns-sidebar"><li><a rel="nofollow" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fwww.techandme.se%2Finstall-rutorrent-plex-on-a-headless-ubuntu-server-16-04-part-1%2F&t=Install+ruTorrent+%2B+Plex+on+a+headless+Ubuntu+Server+16.04+%28Part+1%29" class="dpsp-network-btn dpsp-facebook dpsp-no-label dpsp-first"><span class="dpsp-network-label-wrapper"></span></a></li><li><a rel="nofollow" href="https://twitter.com/intent/tweet?text=Install+ruTorrent+%2B+Plex+on+a+headless+Ubuntu+Server+16.04+%28Part+1%29&url=https%3A%2F%2Fwww.techandme.se%2Finstall-rutorrent-plex-on-a-headless-ubuntu-server-16-04-part-1%2F" class="dpsp-network-btn dpsp-twitter dpsp-no-label"><span class="dpsp-network-label-wrapper"></span></a></li><li><a rel="nofollow" href="https://plus.google.com/share?url=https%3A%2F%2Fwww.techandme.se%2Finstall-rutorrent-plex-on-a-headless-ubuntu-server-16-04-part-1%2F" class="dpsp-network-btn dpsp-google-plus dpsp-no-label"><span class="dpsp-network-label-wrapper"></span></a></li><li><a rel="nofollow" href="#" class="dpsp-network-btn dpsp-pinterest dpsp-no-label dpsp-last"><span class="dpsp-network-label-wrapper"></span></a></li></ul></div><script type='text/javascript' src='https://www.techandme.se/wp-content/plugins/gp-back-to-top/js/gp-bttp.js?ver=2.0'></script>
+<script type='text/javascript' src='https://www.techandme.se/wp-content/themes/garfunkel/js/imagesloaded.pkgd.js?ver=4.8'></script>
+<script type='text/javascript' src='https://www.techandme.se/wp-includes/js/imagesloaded.min.js?ver=3.2.0'></script>
+<script type='text/javascript' src='https://www.techandme.se/wp-includes/js/masonry.min.js?ver=3.3.2'></script>
+<script type='text/javascript' src='https://www.techandme.se/wp-content/themes/garfunkel/js/flexslider.min.js?ver=4.8'></script>
+<script type='text/javascript' src='https://www.techandme.se/wp-content/themes/garfunkel/js/global.js?ver=4.8'></script>
+<script type='text/javascript' src='https://www.techandme.se/wp-includes/js/comment-reply.min.js?ver=4.8'></script>
+<script type='text/javascript' src='https://www.techandme.se/wp-includes/js/wp-embed.min.js?ver=4.8'></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var embedVars = {"disqusConfig":{"platform":"wordpress@4.8","language":""},"disqusIdentifier":"4940 https:\/\/www.techandme.se\/?p=4940","disqusShortname":"en0ch","disqusTitle":"Install ruTorrent + Plex on a headless Ubuntu Server 16.04 (Part 1)","disqusUrl":"https:\/\/www.techandme.se\/install-rutorrent-plex-on-a-headless-ubuntu-server-16-04-part-1\/","options":{"manualSync":false},"postId":"4940"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='https://www.techandme.se/wp-content/plugins/disqus-comment-system/media/js/disqus.js?ver=4.8'></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var countVars = {"disqusShortname":"en0ch"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='https://www.techandme.se/wp-content/plugins/disqus-comment-system/media/js/count.js?ver=4.8'></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var sbscrbr_js_var = {"preloaderIconPath":"https:\/\/www.techandme.se\/wp-content\/plugins\/subscriber\/images\/preloader.gif"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='https://www.techandme.se/wp-content/plugins/subscriber/js/form_script.js?ver=4.8'></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var gglcptch_pre = {"messages":{"in_progress":"Please wait until Google reCAPTCHA is loaded.","timeout":"Failed to load Google reCAPTCHA. Please check your internet connection and reload this page."}};
+/* ]]> */
+</script>
+<script type='text/javascript' src='https://www.techandme.se/wp-content/plugins/google-captcha-pro/js/pre-api-script.js?ver=1.30'></script>
+<script type='text/javascript' data-cfasync="false" async="async" defer="defer" src='https://www.google.com/recaptcha/api.js?onload=gglcptch_onload_callback&#038;render=explicit&#038;hl=en&#038;ver=1.30'></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var gglcptch = {"options":{"version":"v2","sitekey":"6LdCoRMTAAAAACZQu8E0Y_VlN0hLTnpJCcpGxcCU","theme":"light","size":"normal","lang":"en","error":"<strong>Warning<\/strong>:&nbsp;More than one reCAPTCHA has been found in the current form. Please remove all unnecessary reCAPTCHA fields to make it work properly."},"vars":{"ajaxurl":"https:\/\/www.techandme.se\/wp-admin\/admin-ajax.php","error_msg":"Error:&nbsp;You have entered an incorrect reCAPTCHA value.","nonce":"7bb5ec83ee","visibility":false,"excluded_forms":""}};
+/* ]]> */
+</script>
+<script type='text/javascript' src='https://www.techandme.se/wp-content/plugins/google-captcha-pro/js/script.js?ver=1.30'></script>
+<script>/* <![CDATA[ */(function(d,s,a,i,j,r,l,m,t){try{l=d.getElementsByTagName('a');t=d.createElement('textarea');for(i=0;l.length-i;i++){try{a=l[i].href;s=a.indexOf('/cdn-cgi/l/email-protection');m=a.length;if(a&&s>-1&&m>28){j=28+s;s='';if(j<m){r='0x'+a.substr(j,2)|0;for(j+=2;j<m&&a.charAt(j)!='X';j+=2)s+='%'+('0'+('0x'+a.substr(j,2)^r).toString(16)).slice(-2);j++;s=decodeURIComponent(s)+a.substr(j,m-j)}t.innerHTML=s.replace(/</g,'&lt;').replace(/\>/g,'&gt;');l[i].href='mailto:'+t.value}}catch(e){}}}catch(e){}})(document);/* ]]> */</script></body>
+</html>

@@ -1,0 +1,302 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  
+  
+
+  
+
+
+  <head>
+    <title>
+      UserGuide/Service/systemd – Deluge
+    </title>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <!--[if IE]><script type="text/javascript">
+      if (/^#__msie303:/.test(window.location.hash))
+        window.location.replace(window.location.hash.replace(/^#__msie303:/, '#'));
+    </script><![endif]-->
+        <link rel="search" href="/search" />
+        <link rel="help" href="/wiki/TracGuide" />
+        <link rel="alternate" href="/wiki/UserGuide/Service/systemd?format=txt" type="text/x-trac-wiki" title="Plain Text" />
+        <link rel="up" href="/wiki/UserGuide/Service" title="View parent page" />
+        <link rel="start" href="/wiki" />
+        <link rel="stylesheet" href="/chrome/common/css/trac.css" type="text/css" /><link rel="stylesheet" href="/chrome/common/css/wiki.css" type="text/css" />
+        <link rel="shortcut icon" href="/chrome/site/deluge-icon.png" type="image/png" />
+        <link rel="icon" href="/chrome/site/deluge-icon.png" type="image/png" />
+      <link type="application/opensearchdescription+xml" rel="search" href="/search/opensearch" title="Search Deluge" />
+      <script type="text/javascript" charset="utf-8" src="/chrome/common/js/jquery.js"></script>
+      <script type="text/javascript" charset="utf-8" src="/chrome/common/js/babel.js"></script>
+      <script type="text/javascript" charset="utf-8" src="/chrome/common/js/trac.js"></script>
+      <script type="text/javascript" charset="utf-8" src="/chrome/common/js/search.js"></script>
+      <script type="text/javascript" charset="utf-8" src="/chrome/common/js/folding.js"></script>
+    <script type="text/javascript">
+      jQuery(document).ready(function($) {
+        $("#content").find("h1,h2,h3,h4,h5,h6").addAnchor(_("Link to this section"));
+        $("#content").find(".wikianchor").each(function() {
+          $(this).addAnchor(babel.format(_("Link to #%(id)s"), {id: $(this).attr('id')}));
+        });
+        $(".foldable").enableFolding(true, true);
+      });
+    </script>
+    <link rel="stylesheet" type="text/css" href="http://deluge-torrent.org/deluge_stormy_day.css" />
+    <link rel="stylesheet" type="text/css" href="http://deluge-torrent.org/deluge_stormy_day_trac.css" />
+  </head>
+  <body>
+  <div id="banner">
+	<!-- copied from deluge_header_nav.html -->
+	<script type="text/javascript">
+		$(function(){
+		if ( location.hostname.match('forum.deluge-torrent.org') )
+			{
+			$('ul#deluge-navbar li a[href="http://forum.deluge-torrent.org/"]').attr('class', 'currenttab');
+			}
+		else if ( location.hostname.match('dev.deluge-torrent.org') )
+			{
+			var path = location.pathname.split("/");
+			selected_tab = path[1].match('wiki') ? path[2] : 'roadmap';
+			$('ul#deluge-navbar li a[href$="' + selected_tab + '"]').attr('class', 'currenttab');
+			}
+		});
+	</script>
+	<div id="deluge-header">
+		<div id="deluge-header-inner">
+			<div id="delugelogo">
+				<h1 id="delugetext"><a href="http://dev.deluge-torrent.org/">Deluge</a></h1>
+			</div>
+			<ul id="deluge-navbar">
+			<li><a href="http://dev.deluge-torrent.org/wiki/Download">Download</a></li>
+			<li><a href="http://dev.deluge-torrent.org/wiki/Plugins">Plugins</a></li>
+			<li><a href="http://forum.deluge-torrent.org/">Forum</a></li>
+			<li><a href="http://dev.deluge-torrent.org/wiki/UserGuide">Support</a></li>
+			<li><a href="http://dev.deluge-torrent.org/roadmap">Bugs</a></li>
+			<li><a href="http://dev.deluge-torrent.org/wiki/Development">Development</a></li>
+			</ul>
+		</div>
+	</div>
+      <div id="siteheader-search">
+        <div id="metanav" class="nav">
+    <ul>
+      <li class="first"><a href="/login">Login</a></li><li><a href="/prefs">Preferences</a></li><li><a href="/about">About Trac</a></li><li class="last"><a href="/register">Register</a></li>
+    </ul>
+  </div>
+      <form id="search" action="/search" method="get">
+        <div>
+          <label for="proj-search">Search:</label>
+          <input type="text" id="proj-search" name="q" size="18" value="" />
+          <input type="submit" value="Search" />
+        </div>
+      </form>
+      </div>
+      <div id="mainnav-deluge">
+        <div id="mainnav" class="nav">
+    <ul>
+      <li class="first active"><a href="/wiki">Home</a></li><li><a href="/timeline">Timeline</a></li><li><a href="/roadmap">Roadmap</a></li><li><a href="http://git.deluge-torrent.org/deluge/">Browse Source</a></li><li><a href="/report/1">View Tickets</a></li><li class="last"><a href="/search">Search</a></li>
+    </ul>
+  </div>
+      </div>
+  </div>
+    <div id="banner">
+      <div id="header">
+        <a id="logo" href="http://deluge-torrent.org/"><img src="http://www.deluge-torrent.org/images/spacer.gif" alt="" /></a>
+      </div>
+    </div>
+    <div id="main">
+      <div id="ctxtnav" class="nav">
+        <h2>Context Navigation</h2>
+        <ul>
+          <li class="first"><a href="/wiki/UserGuide/Service">Up</a></li><li><a href="/wiki/WikiStart">Start Page</a></li><li><a href="/wiki/TitleIndex">Index</a></li><li class="last"><a href="/wiki/UserGuide/Service/systemd?action=history">History</a></li>
+        </ul>
+        <hr />
+      </div>
+    <div id="content" class="wiki">
+      <div class="wikipage searchable">
+        
+          <div id="wikipage" class="trac-content"><h1 id="systemdScripts">systemd Scripts</h1>
+<p>
+<strong>Note:</strong> Improvements to propagate from <a class="wiki" href="/wiki/UserGuide/Service/Upstart">Upstart</a> still: deluge-web starting upon deluged starting and filesystems are mounted e.g. <tt>local-fs.target</tt> and <tt>remote-fs.target</tt>.
+</p>
+<h2 id="VerifyDelugeInstallion">Verify Deluge Installion</h2>
+<p>
+Ensure Deluge daemon <tt>deluged</tt> and Web UI <tt>deluge-web</tt> are <a class="wiki" href="/wiki/Installing/Linux">installed</a>. 
+</p>
+<p>
+Use <tt>which deluged</tt> or <tt>which deluge-web</tt> to check installation path. 
+</p>
+<p>
+If they are not installed in the usual <tt>/usr/bin</tt> modify the service file <a class="missing wiki">ExecStart?</a> lines to point to the correct location (e.g. <tt>/usr/local/bin/deluged</tt>).
+</p>
+<h2 id="UserManagement">User Management</h2>
+<p>
+For security it is best to run a service with a specific user and group. You can create one using the following command:
+</p>
+<pre class="wiki">sudo adduser --system  --gecos "Deluge Service" --disabled-password --group --home /var/lib/deluge deluge
+</pre><ul><li>This creates a new system user and group named <tt>deluge</tt> with no login access and home directory: <tt>/var/lib/deluge</tt>
+</li></ul><p>
+Add to the <tt>deluge</tt> group any users you wish to be able to easily manage or access files downloaded through Deluge, for example:
+</p>
+<pre class="wiki">sudo adduser &lt;username&gt; deluge
+</pre><h2 id="Migrationfrominit.dorUpstartscripts">Migration from init.d or Upstart scripts</h2>
+<p>
+Remove any old init.d files named deluge in <tt>/etc/init.d/</tt> like this:
+</p>
+<pre class="wiki">sudo /etc/init.d/deluge-daemon stop
+sudo rm /etc/init.d/deluge-daemon
+sudo update-rc.d deluge-daemon remove
+</pre><p>
+Remove old upstart scripts like this:
+</p>
+<pre class="wiki">sudo stop deluged
+sudo stop deluge-web
+sudo rm /etc/init/deluge-web.conf
+sudo rm /etc/init/deluged.conf
+</pre><h2 id="DelugeDaemondelugedService">Deluge Daemon (deluged) Service</h2>
+<p>
+Create the file <tt>/etc/systemd/system/deluged.service</tt> containing the following:
+</p>
+<p>
+</p><div class="code"><pre>[Unit]
+Description=Deluge Bittorrent Client Daemon
+After=network-online.target
+[Service]
+Type=simple
+User=deluge
+Group=deluge
+UMask=007
+ExecStart=/usr/bin/deluged -d
+Restart=on-failure
+# Configures the time to wait before service is stopped forcefully.
+TimeoutStopSec=300
+[Install]
+WantedBy=multi-user.target
+</pre></div><p>
+</p>
+<ul><li>You may wish to modify the above <tt>umask</tt> as it applies to any files downloaded by deluged.
+<ul><li>007 grants full access to the user and members of the group deluged is running as (in this case deluge) and prevents access from all other accounts.
+</li><li>022 grants full access to the user deluged is running as and only read access to other accounts.
+</li><li>000 grants full access to all accounts.
+</li></ul></li></ul><blockquote>
+<p>
+Refer to <a class="ext-link" href="http://en.wikipedia.org/wiki/Umask#Octal_umasks"><span class="icon">​</span>Wikipedia</a> for details of possible values and their effects. Deluged must be stopped and started instead of just restarted after changes. If you enable logging, as described later in this page, the umasks specified here also affect the permissions of newly created logs.
+</p>
+</blockquote>
+<p>
+Now enable it to start up on boot, start the service and verify it is running:
+</p>
+<pre class="wiki">systemctl enable /etc/systemd/system/deluged.service
+systemctl start deluged
+systemctl status deluged
+</pre><h2 id="DelugeWebUIdeluge-webService">Deluge Web UI (deluge-web) Service</h2>
+<p>
+Create the file <tt>/etc/systemd/system/deluge-web.service</tt> containing the following:
+</p>
+<p>
+</p><div class="code"><pre>[Unit]
+Description=Deluge Bittorrent Client Web Interface
+After=network-online.target
+[Service]
+Type=simple
+User=deluge
+Group=deluge
+UMask=027
+ExecStart=/usr/bin/deluge-web
+Restart=on-failure
+[Install]
+WantedBy=multi-user.target
+</pre></div><p>
+</p>
+<p>
+Now enable it to start up on boot, start the service and verify it is running:
+</p>
+<pre class="wiki">systemctl enable /etc/systemd/system/deluge-web.service
+systemctl start deluge-web
+systemctl status deluge-web
+</pre><h2 id="Logging">Logging</h2>
+<p>
+Create a log directory for Deluge and give the service user (e.g. <tt>deluge</tt>), full access:
+</p>
+<pre class="wiki">sudo mkdir -p /var/log/deluge
+sudo chown -R deluge:deluge /var/log/deluge
+sudo chmod -R 750 /var/log/deluge
+</pre><ul><li>The deluge log directory is now configured so that user <tt>deluge</tt> has full access, group <tt>deluge</tt> read only and everyone else denied access. The <tt>umask</tt> specified in the services sets the permission of new log files.
+</li></ul><p>
+Enable logging in the service files by editing the <tt>ExecStart</tt> line, appending <tt>-l</tt> and <tt>-L</tt> options:
+</p>
+<pre class="wiki">ExecStart=/usr/bin/deluged -d -l /var/log/deluge/daemon.log -L warning
+</pre><pre class="wiki">ExecStart=/usr/bin/deluge-web -l /var/log/deluge/web.log -L warning
+</pre><ul><li>See <a class="wiki" href="/wiki/Troubleshooting#EnableDelugeLogging">Deluge Logging</a> for all available log-levels.
+</li></ul><p>
+Restart the services:
+</p>
+<pre class="wiki">systemctl restart deluged
+systemctl restart deluge-web
+</pre><h3 id="LogRotation">Log Rotation</h3>
+<p>
+To enable log rotation create <tt>/etc/logrotate.d/deluge</tt> with the following code:
+</p>
+<pre class="wiki">/var/log/deluge/*.log {
+        rotate 4
+        weekly
+        missingok
+        notifempty
+        compress
+        delaycompress
+        sharedscripts
+        postrotate
+                systemctl restart deluged &gt;/dev/null 2&gt;&amp;1 || true
+                systemctl restart deluge-web &gt;/dev/null 2&gt;&amp;1 || true
+        endscript
+}
+</pre><h2 id="Startdelugedonlyifmountexists">Start <tt>deluged</tt> only if mount exists</h2>
+<p>
+If you have a usb disk drive or network drive that may not be immediately available to the <tt>deluged</tt>. The following additions wait for those mountpoints before starting <tt>deluged</tt>.
+</p>
+<p>
+Ensure you have added the correct drive details to <tt>fstab</tt> or equivalent so they are mounted at boot. List the available drive mounts like so:
+</p>
+<pre class="wiki">systemctl -t mount
+</pre><p>
+Modify the <tt>[Unit]</tt> section of the <tt>deluged.service</tt> script. Changing <tt>xyz.mount</tt> for the mount from the above command:
+</p>
+<pre class="wiki">[Unit]
+Description=Deluge Bittorrent Client Daemon
+# Unit starts after network and specified mounts are available.
+After=network-online.target xyz.mount
+Requires=xyz.mount
+# Unit is stopped when any of these mounts disappear.
+BindsTo=xyz.mount
+</pre><p>
+Reference: <a class="ext-link" href="https://www.freedesktop.org/software/systemd/man/systemd.unit.html#RequiresMountsFor="><span class="icon">​</span>systemd.unit</a>
+</p>
+</div>
+          
+          <div class="trac-modifiedby">
+            <span><a href="/wiki/UserGuide/Service/systemd?action=diff&amp;version=14" title="Version 14 by Cas: use files from git">Last modified</a> <a class="timeline" href="/timeline?from=2017-03-20T20%3A38%3A38Z&amp;precision=second" title="See timeline at 03/20/2017 08:38:38 PM">2 months ago</a></span>
+            <span class="trac-print">Last modified on 03/20/2017 08:38:38 PM</span>
+          </div>
+        
+        
+      </div>
+      
+
+    </div>
+    <script type="text/javascript">
+        jQuery.loadStyleSheet("/pygments/trac.css", "text/css");
+    </script>
+    <div id="altlinks">
+      <h3>Download in other formats:</h3>
+      <ul>
+        <li class="last first">
+          <a rel="nofollow" href="/wiki/UserGuide/Service/systemd?format=txt">Plain Text</a>
+        </li>
+      </ul>
+    </div>
+    </div>
+    <div id="footer" lang="en" xml:lang="en"><hr />
+      <a id="tracpowered" href="http://trac.edgewall.org/"><img src="/chrome/common/trac_logo_mini.png" height="30" width="107" alt="Trac Powered" /></a>
+      <p class="left">Powered by <a href="/about"><strong>Trac 1.0.9</strong></a><br />
+        By <a href="http://www.edgewall.org/">Edgewall Software</a>.</p>
+      <p class="right">Visit the Trac open source project at<br /><a href="http://trac.edgewall.org/">http://trac.edgewall.org/</a></p>
+    </div>
+  </body>
+</html>

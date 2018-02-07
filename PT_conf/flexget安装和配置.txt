@@ -1,0 +1,61 @@
+sudo apt-get install python-pip; sudo pip install --upgrade setuptools; sudo pip install flexget
+mkdir .flexget; cd .flexget; nano config.yml
+###########################################################################################################################################
+tasks:
+  hdchina:
+    rss: https://hdchina.org/torrentrss.php?rows=10&tea15=1&linktype=dl&passkey=5433d94147cc1125739f3343fe44495e
+    regexp:
+      accept:
+        - HDChina
+    download: /home/yellow/rss/
+  hdctv:
+    rss: https://hdchina.org/torrentrss.php?rows=10&tea15=1&tea16=1&tea10=1&isize=1&linktype=dl&passkey=5433d94147cc1125739f3343fe44495e
+    regexp:
+      accept:
+        - HDCTV\[\d{2,}\.\d{2}\s[Gg][Bb]\]
+        - HDCTV\[\d\.\d{2}\s[Gg][Bb]\]
+    download: /home/yellow/rss/
+  chdbits:
+    rss: https://chdbits.co/torrentrss.php?rows=10&isize=1&search=CHDBits&search_mode=1&linktype=dl&passkey=4e4a560266d8972c51049fc84d00d2df
+    regexp:
+      accept:
+        - CHDBits
+    download: /home/yellow/rss/
+  cmct:
+    rss: https://hdcmct.org/torrentrss.php?rows=10&https=1&linktype=dl&passkey=5fcb5c0bdd7c8f135159b00baada7582
+    regexp:
+      accept:
+        - CMCT
+    download: /home/yellow/rss/
+  TTG:
+    rss: https://totheglory.im/putrss.php?par=dnZ2NTMsNTR8fHw5NmNlYjE0Yjg5MDA5NWFhYmYzNTdhMDZkM2Q2MTg2Nnp6&ssl=yes
+    regexp:
+      accept:
+        - TTG
+    download: /home/yellow/rss/
+  ttg_1080_720:
+    rss: https://totheglory.im/putrss.php?par=dnZ2NTIsNTN8fHw5NmNlYjE0Yjg5MDA5NWFhYmYzNTdhMDZkM2Q2MTg2Nnp6&ssl=yes
+    regexp:
+      accept:
+        - WiKi
+        - TTG
+    download: /home/yellow/rss/
+  npuer:
+    rss: https://totheglory.im/putrss.php?par=dnZ2NjMsNjksNzAsNzMsNzYsNzQsNzUsODcsODgsOTksOTAsNTcsNTgsMTAzLDEwMSw2MHx8fDk2Y2ViMTRiODkwMDk1YWFiZjM1N2EwNmQzZDYxODY2eno=&ssl=yes
+    regexp:
+      accept:
+        - npuer
+        - NGB
+    download: /home/yellow/rss/
+  sweety:
+    rss: https://tp.m-team.cc/torrentrss.php?https=1&rows=10&search=sweety&search_mode=1&linktype=dl&passkey=ed582c0e54523aff12a79c018ae7eaaa
+    regexp:
+      accept:
+        - /HDCTV\[\d{2,}\.\d{2}\s[Gg][Bb]\]/
+    download: /home/yellow/rss/
+###########################################################################################################################################
+mkdir /home/yellow/rss; flexget --test execute
+crontab -e; 
+###########################################################################################################################################
+*/5	*	*	*	*	/usr/local/bin/flexget execute
+###########################################################################################################################################

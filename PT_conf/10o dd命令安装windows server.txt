@@ -1,0 +1,48 @@
+登录op的控制面板，在boot mode里选rescue mode，然后选了ubuntu 16.04LTS，然后点下面的boot，然后尝试SSH连接，要等几分钟才能连上
+
+http://www.hostloc.com/thread-360364-1-1.html
+1.后台切换到救援模式
+2.登陆SSH
+3.获取root权限
+1）sudo passwd root
+2)输入救援密码
+3）更改root密码
+4）登陆root
+4.下载DD包
+Windows Server 2016 Standard Evaluation (180 Days):
+wget -O- 'https://mirror.joodle.nl/WS2016Evaluation-Kimsufi.gz' | gunzip | dd of=/dev/sda
+16106127360 bytes (16 GB, 15 GiB) copied, 1522,89 s, 10,6 MB/s
+Username: Administrator
+Password: Password147
+注意：此版本采用kms激活但却连不到服务器，导致不能激活，每2小时就会关机一次
+Windows Server 2012 R2:
+wget -O- 'https://mirror.joodle.nl/WS2012R2-Joodle-Template.gz' | gunzip | dd of=/dev/sda
+Windows Server 2008 R2 Webserver:
+wget -O- 'https://mirror.joodle.nl/WS2008R2-Joodle-Template.gz' | gunzip | dd of=/dev/sda
+Windows Server 2008 R2 Standard:
+wget -O- 'https://mirror.joodle.nl/WS2008R2Standard-Joodle-Template.gz' | gunzip | dd of=/dev/sda
+Windows Server 2008 R2 Enterprise:
+wget -O- 'https://mirror.joodle.nl/WS2008R2Enterprise-Joodle-Template.gz' | gunzip | dd of=/dev/sda
+Windows Server 2008 R2 Datacenter:
+wget -O- 'https://mirror.joodle.nl/WS2008R2Datacenter-Joodle-Template.gz' | gunzip | dd of=/dev/sda
+Windows 7 Ultimate Edition:
+wget -O- 'https://mirror.joodle.nl/WS7-Joodle-Template.gz' | gunzip | dd of=/dev/sda
+Windows 10 Pro:
+wget -O- 'https://mirror.joodle.nl/WS10Pro-Joodle-Template.gz' | gunzip | dd of=/dev/sda
+Windows 8.1:
+wget -O- 'https://mirror.joodle.nl/WS8.1-Joodle-Template.gz' | gunzip | dd of=/dev/sda
+
+5.下载完成后切换到正常模式，等可以ping通IP就可以远程桌面了
+
+6. 改默认密码
+
+7.激活
+ 确定版本名称，应当为ServerStandardEval：
+DISM /online /Get-CurrentEdition
+ 相应地转换为零售版，使用以下key，注意去掉Eval：
+DISM /online /Set-Edition:ServerStandard /ProductKey:WC2BQ-8NRM3-FDDYY-2BFGV-KHKQY /AcceptEula
+ 转换完成后会显示为Windows Server 2016 Standard。注意重启后ping不通是正常的，直接进行远程连接即可。
+ 重启后添加kms服务器：
+slmgr /skms kms.shuax.com
+slmgr /ato
+ 此时windows会很快提示已激活状态。

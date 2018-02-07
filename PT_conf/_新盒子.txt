@@ -1,0 +1,11 @@
+1. 根据rt安装笔记检查io性能
+2. Ubuntu从14.04升级到16.04.txt
+3. 安装BBR
+4. 配置IPv6
+5. 安装rtorrent，配置rss(不能仅安装rutorrent，这样无法配置rss)
+6. 安装qBittorrent
+7. 限速
+8. 安装流量统计工具
+
+OneProvider 11o:
+./ipv6-dhclient-script.sh 2001:bc8:32d7:2d00::1 56 00:03:00:01:73:10:c7:db:47:3a

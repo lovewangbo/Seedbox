@@ -1,0 +1,45 @@
+https://github.com/qbittorrent/qBittorrent/wiki/Compiling-qBittorrent-on-Debian-and-Ubuntu
+General required dependencies
+ sudo apt-get install build-essential pkg-config automake libtool git
+ sudo apt-get install libboost-dev libboost-system-dev libboost-chrono-dev libboost-random-dev libssl-dev
+Qt libraries
+ sudo apt-get install qtbase5-dev qttools5-dev-tools libqt5svg5-dev
+Python (Run time only dependency, for the search engine)
+ sudo apt-get install python3
+
+
+
+
+
+
+sudo find / -name libtorrent-rasterbar.so.9
+
+ whereis qbittorrent-nox
+qbittorrent-nox: /usr/bin/qbittorrent-nox /usr/local/bin/qbittorrent-nox /usr/share/man/man1/qbittorrent-nox.1
+yellow@10o2T-2:~/tmp/qbittorrent-4.0.2$
+
+lddtree /usr/local/bin/qbittorrent-nox
+qbittorrent-nox => /usr/local/bin/qbittorrent-nox (interpreter => /lib64/ld-linux-x86-64.so.2)
+    libz.so.1 => /lib/x86_64-linux-gnu/libz.so.1
+    libtorrent-rasterbar.so.9 => /usr/local/lib/libtorrent-rasterbar.so.9
+        libssl.so.1.0.0 => /lib/x86_64-linux-gnu/libssl.so.1.0.0
+        libcrypto.so.1.0.0 => /lib/x86_64-linux-gnu/libcrypto.so.1.0.0
+            libdl.so.2 => /lib/x86_64-linux-gnu/libdl.so.2
+    libboost_system.so.1.58.0 => /usr/lib/x86_64-linux-gnu/libboost_system.so.1.58.0
+    libQt5Network.so.5 => /usr/lib/x86_64-linux-gnu/libQt5Network.so.5
+        libproxy.so.1 => /usr/lib/x86_64-linux-gnu/libproxy.so.1
+    libQt5Xml.so.5 => /usr/lib/x86_64-linux-gnu/libQt5Xml.so.5
+    libQt5Core.so.5 => /usr/lib/x86_64-linux-gnu/libQt5Core.so.5
+        libicui18n.so.55 => /usr/lib/x86_64-linux-gnu/libicui18n.so.55
+        libicuuc.so.55 => /usr/lib/x86_64-linux-gnu/libicuuc.so.55
+            libicudata.so.55 => /usr/lib/x86_64-linux-gnu/libicudata.so.55
+        libpcre16.so.3 => /usr/lib/x86_64-linux-gnu/libpcre16.so.3
+        libglib-2.0.so.0 => /lib/x86_64-linux-gnu/libglib-2.0.so.0
+            libpcre.so.3 => /lib/x86_64-linux-gnu/libpcre.so.3
+        librt.so.1 => /lib/x86_64-linux-gnu/librt.so.1
+    libpthread.so.0 => /lib/x86_64-linux-gnu/libpthread.so.0
+    libstdc++.so.6 => /usr/lib/x86_64-linux-gnu/libstdc++.so.6
+    libm.so.6 => /lib/x86_64-linux-gnu/libm.so.6
+    libgcc_s.so.1 => /lib/x86_64-linux-gnu/libgcc_s.so.1
+    libc.so.6 => /lib/x86_64-linux-gnu/libc.so.6
+    ld-linux-x86-64.so.2 => /lib64/ld-linux-x86-64.so.2

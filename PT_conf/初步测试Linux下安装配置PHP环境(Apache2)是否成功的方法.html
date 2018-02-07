@@ -1,0 +1,371 @@
+﻿
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh">
+<head>
+<title>Linux下安装配置PHP环境(Apache2)_服务器应用_Linux公社-Linux系统门户网站</title>
+<meta http-equiv="content-type" content="text/html;charset=utf-8"/>
+<link rel="icon" href="../../favicon.ico" type="image/x-icon"/>
+<link rel="shortcut icon" href="../../favicon.ico" type="image/x-icon"/>
+<meta name="description" content="在Linux环境下配置安装PHP环境(Apache2)，参考了一些别人的配置方法，遇到问题上网查。下面就是安装步骤："/>
+<meta name="keywords" content="PHP环境配置,Linux下安装配置PHP环境(Apache2),服务器,Linux服务器,Apache,Hadoop,集群,分布式,Nginx,Tomcat,分布式系统"/>
+<link rel="canonical" href="http://www.linuxidc.com/Linux/2015-05/118062.htm"/>
+<meta name="generator" content="Linux公社"/>
+<meta name="generator" content="Linux"/>
+<link rel="stylesheet" href="../../style/systems/style.css" type="text/css"/>
+<meta name="generator" content="专业的Linux网站"/>
+<script type="text/javascript" src="../../inc/jquery.js"></script>
+<script type="text/javascript" src="../../inc/iwms.js"></script>
+<script type="text/javascript">iwms.urlPrefix="../../";</script>
+
+<script type="text/javascript" src="../../inc/show.js"></script>
+</head>
+<body>
+<div class="topBar">
+	<div class="twidth">
+	
+	<div style="float:right">
+		<script type="text/javascript" src="../../inc/language.js"></script>
+	</div>
+	
+	<div id="topUser">你好，游客 <a href="#" onclick="iwms.logPop()">登录</a>
+	<a href="../../memberreg.aspx" rel="nofollow">注册</a>
+	<a href="../../search.aspx" rel="nofollow">搜索</a>
+	</div>
+	</div>
+</div>
+<div class="twidth">
+<div id="sitehead">
+<div class="l"></div>
+<div class="r"></div>
+<div class="m">
+	<table width="100%">
+	<tr align="center"><td width="160">
+	<a href="http://www.linuxidc.com/"><img style="filter: chroma(color=#FFFFFF);" src="../../pic/logo.jpg" alt="Linux公社" width="155" height="53" border="0" /></a>
+	</td><td>
+	<div align="center"><script type="text/javascript" src="/linuxfile/linux.js"></script></div>
+	</td>
+	</tr></table>
+</div>
+</div>
+<div id="navbar">
+<div class="l"></div>
+<div class="r"></div>
+<div class="m">
+	<a href="../../index.htm" class="first">首页</a><a href="../../it/">Linux新闻</a><a href="../../Linuxit/">Linux教程</a><a href="../../MySql/">数据库技术</a><a href="../../RedLinux/">Linux编程</a><a href="../../Apache/" class="thisclass">服务器应用</a><a href="../../Unix/">Linux安全</a><a href="../../download/">Linux下载</a><a href="../../Linuxrz/">Linux认证</a><a href="../../theme/">Linux主题</a><a href="../../Linuxwallpaper/">Linux壁纸</a><a href="../../linuxsoft/">Linux软件</a><a href="../../digi/">数码</a><a href="../../mobile/">手机</a><a href="../../diannao/">电脑</a>
+
+</div>
+</div>
+
+<div id="navsub">
+<div class="l"></div>
+<div class="r"></div>
+<div class="m">
+	<a href="../../index.htm">首页</a> → <a href="../../Apache/">服务器应用</a>
+</div>
+</div>
+<div class="linuxe1"><script type="text/javascript" src="/linuxfile/linuxe1.js"></script></div>
+<div class="linux1"><script type="text/javascript" src="/linuxfile/linux1.js"></script></div>
+<div class="linuxa"><script type="text/javascript" src="/linuxfile/linuxa.js"></script></div>
+<div class="linuxa1"><script type="text/javascript" src="/linuxfile/linuxa1.js"></script></div>
+<table id="middle" width="100%" cellspacing="0" cellpadding="0" style="table-layout:fixed">
+<tr valign="top"><td>
+
+	<div class="mframe mR">
+	<div class="tl"></div>
+	<div class="tr"></div>
+	<div class="tm">
+		<div class="moreR">
+			背景：<script type="text/javascript">WriteBg()</script>
+		</div>
+		<span class="tt">阅读新闻</span>
+	</div>
+	<div class="wrapper">
+	<div class="ml"></div>
+	<div class="mr"></div>
+	<div class="mm" id="bodyTd">
+		<div id="printBody" style="word-break:break-all;">
+			<div style="text-align:center"><h1 class="aTitle">Linux下安装配置PHP环境(Apache2)</h1></div>
+			
+			<table width="97%" align="center">
+				<tr>
+				<td width="140">[日期：2015-05-27]</td>
+				<td align="center">来源：Linux社区&nbsp;
+				作者：georgewangii</td>
+				<td width="160" align="right">[字体：<a href="javascript:ContentSize(16)">大</a> <a href="javascript:ContentSize(0)">中</a> <a href="javascript:ContentSize(12)">小</a>]
+				</td></tr>
+			</table>
+<div id="li_all">
+<div id="li_1"><script type="text/javascript" src="/linuxfile/linux201.js"></script></div>
+<div id="li_2"><script type="text/javascript" src="/linuxfile/linux2.js"></script></div>
+</div>
+			<div id="content"><p>在Linux环境下配置安装PHP环境(Apache2)，参考了一些别人的配置方法，遇到问题上网查。下面就是安装步骤：</p>
+<p>一、安装Apache2.2.22<br />1、到官网下载&nbsp; http://httpd.apache.org/download.cgi&nbsp; &nbsp;<br />2、解压<br />&nbsp; &nbsp;tar&nbsp; -zxvf httpd-2.2.22.tar.gz<br />3、建立目标文件夹（注意以下所有操作都时在root用户下执行的）<br />&nbsp; &nbsp;mkdir /usr/local/apache2<br />&nbsp; &nbsp;也就是说等下安装的apache2要安装到这个文件夹里面<br />4、配置<br />&nbsp; &nbsp;回到原来解压之后产生的文件夹<br />&nbsp; &nbsp;./configure --prefix=/usr/local/apache2 --enable-module=shared<br />&nbsp; &nbsp;要加上后面的参数，否则无法使用php，-enable-module=shared表示Apache可以动态的加载模块</p>
+<p>这一步，出现了很多问题：</p>
+<p>第一个错误为：</p>
+<pre><code>checking for APR... no
+configure: error: APR not found.  Please read the documentation.<br />解决方法：<br /></code></pre>
+<blockquote>download the latest versions of both APR and APR-Util from&nbsp;<a href="http://apr.apache.org/">Apache APR</a>, unpack them into ./srclib/apr and ./srclib/apr-util (be sure the domain names do not have version numbers; for example, the APR distribution must be under ./srclib/apr/)</blockquote>
+<p>then do</p>
+<pre><code>./configure --with-included-apr</code><br />原文章地址：<a href="http://stackoverflow.com/questions/9436860/apache-httpd-setup-and-installatio">http://stackoverflow.com/questions/9436860/apache-httpd-setup-and-installatio<br /></a>另外一种解决方法为：<br />分别安装APR和APR-util，安装方法为：首先下载这两个文件，然后解压，进入解压后目录，然后把APR和APR-util分别安装到/usr/local/文件夹的apr和apr-util文件夹下。APR的具体安装方法为：<br />[root@localhost 52lamp]# tar -zxvf apr-1.4.2.tar.gz //unzip -o apr-1.4.2.zip<br />[root@localhost 52lamp]# cd apr-1.4.2<br />[root@localhost apr-1.4.2]# ./configure --prefix=/usr/local/apr<br />[root@localhost apr-1.4.2]# make<br />[root@localhost apr-1.4.2]# make install<br />安装Apr-util 在./confiure --prefix=/usr/local/apr-util --with-apr=/usr/local/apr<br />其他步骤类似。<a href="http://stackoverflow.com/questions/9436860/apache-httpd-setup-and-installatio"><br /><br /></a>第二个错误为：no acceptable C compiler found in $Path<br />直接运行 yum install gcc，安装Gcc即可<br />第三个问题为：pcre-config for libpcre not found<br />解决方法就是 下载prce安装包，和APR类似，安装到/usr/local/pcre文件夹下面即可。PS:<a href="http://www.linuxidc.com/topicnews.aspx?tid=5" target="_blank" title="Fedora">Fedora</a>下安装c++编译器g++的命令为：yum install gcc-c++ 。<br />5、编译<br />&nbsp;  &nbsp;make&nbsp; &nbsp; <br />6、安装<br />&nbsp; &nbsp; make install &nbsp;<br />7、启动，重启和停止 ，先切换到安装完成后的目录/usr/local/apache2/bin<br />&nbsp; &nbsp; ./apachectl -k start<br />&nbsp; &nbsp; ./apachectl -k restart<br />&nbsp; &nbsp; ./apachectl -k stop &nbsp;<br />8、配置文件(满足最基本的配置)<br />&nbsp; &nbsp;  编辑 /usr/local/apache2/conf/httpd.conf 文件 &nbsp; &nbsp; <br />&nbsp; &nbsp;  找到：<br />&nbsp; &nbsp; AddType&nbsp; application/x-compress .Z<br />&nbsp; &nbsp; AddType application/x-gzip .gz .tgz<br />&nbsp; &nbsp; 在后面添加：<br />&nbsp; &nbsp; AddType application/x-httpd-php .php（使Apcche支持PHP）<br />&nbsp; &nbsp; AddType application/x-httpd-php-source .php5&nbsp; &nbsp;<br />&nbsp; &nbsp; 找到：<br />&nbsp; &nbsp; &lt;IfModule dir_module&gt;<br />&nbsp; &nbsp; DirectoryIndex index.html<br />&nbsp; &nbsp; &lt;/IfModule&gt;<br />&nbsp; &nbsp; 添加：<br />&nbsp; &nbsp; &lt;IfModule dir_module&gt;<br />&nbsp; &nbsp; DirectoryIndex index.html index.php<br />&nbsp; &nbsp; &lt;/IfModule&gt;&nbsp; &nbsp; <br />&nbsp; &nbsp; 找到：<br />&nbsp; &nbsp; ＃ServerName www.example.com:80<br />&nbsp; &nbsp; 修改为：<br />&nbsp; &nbsp; ServerName 127.0.0.1:80或者ServerName localhost:80<br />&nbsp; &nbsp; 记得要去掉前面的&ldquo;＃&rdquo;&nbsp; &nbsp; <br />9、测试<br />&nbsp; &nbsp; 在浏览器里输入http://127.0.0.1<br />&nbsp; &nbsp; 如果出现It Works!说明成功。这是我的测试结果:O(&cap;_&cap;)O哈哈~</pre>
+<p><img src="../../upload/2015_05/150527060849481.jpg" alt="" /></p>
+<p>10、修改默认的Web站点目录</p>
+<p>&nbsp; &nbsp; 默认的目录为&nbsp; "/usr/local/apache2/htdocs"，修改apache的配置文件httpd.conf，比如在新建一个 /home/gyw/WebSite的目录作为apache的站点目录</p>
+<p>&nbsp; &nbsp; 找到DocumentRoot这一行修改为：DocumentRoot "/home/gyw/WebSite"</p>
+<p>&nbsp; 找到 &lt;Directory&gt; 这一行修改为：&lt;Directory "/home/gyw/WebSite"&gt;&nbsp;</p>
+<p>测试:修改到文件夹出现错误:</p>
+<p class="title content-title">&ldquo;You don't have permission to access /index.html on this server.&rdquo;</p>
+<p class="title content-title">解决方法:</p>
+<p class="title content-title">更改文件权限；chmod 755 index.html</p>
+<p class="title content-title">打开apache配置文件httpd.conf，找到这么一段：<br />&lt;Directory /&gt;<br />&nbsp; &nbsp; Options FollowSymLinks<br />&nbsp; &nbsp; AllowOverride None<br />&nbsp; &nbsp; Order deny,allow<br />&nbsp; &nbsp; deny from all<br />&nbsp; &nbsp; Satisfy all<br />&lt;/Directory&gt;</p>
+<p class="title content-title">测试结果如下：</p>
+<p class="title content-title"><img src="../../upload/2015_05/150527060849482.jpg" alt="" /></p>
+<pre>&nbsp;</pre>
+<p>&nbsp; 二、安装PHP&nbsp;<br />1、 下载<br />&nbsp; &nbsp; http://www.php.net/downloads.php<br />2、解压<br />&nbsp; &nbsp; tar -zxvf php-5.3.16.tar.gz<br />3、建立目标文件夹<br />&nbsp; &nbsp; mkdir /usr/local/php<br />&nbsp; &nbsp; 也就是说等下安装的php要安装到这个文件夹里面<br />4、配置<br />&nbsp; &nbsp; 回到原来解压后的文件夹<br />&nbsp; &nbsp; ./configure --prefix=/usr/local/php&nbsp; --with-apxs2=/usr/local/apache/bin/apxs</p>
+<p>&nbsp; &nbsp; 注意这里有一个-with-apxs2=/usr/local/apache/bin/apxs选项，其中apxs是在安装Apache时产生的，<code>apxs</code>是一个为Apache HTTP服务器编译和安装扩展模块的工具，使之可以用由<code class="module"><a href="http://lamp.linux.gov.cn/Apache/ApacheMenu/mod/mod_so.html">mod_so</a></code>提供的<code class="directive"><a href="http://lamp.linux.gov.cn/Apache/ApacheMenu/mod/mod_so.html#loadmodule">LoadModule</a></code>指令在运行时加载到Apache服务器中。我的理解是通过这个工具把PHP模块动态加载到Apache中</p>
+<p>出现错误:configure: error: xml2-config not found. Please check your libxml2 installation.</p>
+<p>运行yum install libxml2，然后再运行yum install libxml2-devel安装完毕后，重新运行上面的./configure命令。</p>
+<p>5、编译<br />&nbsp; &nbsp; make&nbsp; &nbsp;<br />6、测试编译<br />&nbsp; &nbsp; make test&nbsp; &nbsp;<br />7、安装<br />&nbsp; &nbsp; make install</p>
+<p>8、配置文件</p>
+<p>&nbsp; &nbsp; cp /usr/local/src/php-5.3.16/php.ini-development&nbsp; /usr/local/php/lib/php.ini<br />&nbsp; &nbsp; 把原来位于源代码里面的php.ini-development拷贝到/usr/local/php/lib/php.ini下，并且重命名为php.ini</p>
+<p>9.重启apache<br />10、测试<br />&nbsp; &nbsp; 在apache的htdocs下建立一个php文件test.php，里面的内容如下：<br />&nbsp; &nbsp; &lt;?php<br />&nbsp; &nbsp; phpinfo();<br />&nbsp; &nbsp; ?&gt;<br />&nbsp; &nbsp; 然后在浏览器里输入http://127.0.0.1/test.php<br />&nbsp; &nbsp; 如果出现php的相关配置，成功，如果什么都没有输入，说明失败，重新以上步骤或者查找原因</p>
+<p>如果决定在安装后改变配置选项，只需重复最后的三步configure, make, 以及 make install，然后需要重新启动 Apache 使新模块生效。Apache不需要重新编译。</p>
+<p>测试结果如下图:</p>
+<p><img style="width: 987px;" src="../../upload/2015_05/150527060849483.jpg" alt="" /></p>
+<div><img alt="" /></div>
+<pre>&nbsp;三、安装MySql</pre>
+<p>1、下载<br />&nbsp; &nbsp; 到官网下载mysql-5.1.65.tar.gz（注意是源码包）<br />2、解压<br />&nbsp; &nbsp; tar -zxvf mysql-5.1.65.tar.gz<br />3、建立目标文件夹<br />&nbsp; &nbsp; mkdir /usr/local/mysql<br />&nbsp; &nbsp; 也就是说等下安装的mysql要安装到这个文件夹里面<br />4、配置<br />&nbsp; &nbsp; ./configure --prefix=/usr/local/mysql/&nbsp;</p>
+<p><strong>在./configure</strong><strong>时出现错误：error: No curses/termcap library found</strong></p>
+<p>下载安装相应软件包</p>
+<p>yum list|grep ncurses</p>
+<p>yum -y install ncurses-devel</p>
+<p>yum install ncurses-devel</p>
+<p>5、编译<br />&nbsp; &nbsp; make<br />6、安装<br />&nbsp; &nbsp; make install</p>
+<p>7、启动<br />&nbsp; &nbsp; MySQL服务并不会自动启动，还需要先初始化MySQL数据库，操作如下：<br />&nbsp; &nbsp; cd /usr/local/mysql/bin<br />&nbsp; &nbsp; sudo ./mysql_install_db --user=root<br />&nbsp; &nbsp; 注意，这里最后的root是指可以操作数据库的用户，可以是当前用户，也可以新建用户，与linux上的root用户是两回事，可以自己取一个名字<br />&nbsp; &nbsp; ./mysqld_safe --user=root &amp;&nbsp;这条命令负责启动mysql服务的守护进程，此外最后的&amp;时必须的，因为希望守护进程在后台运行<br />&nbsp; &nbsp; 这里的root就是刚才的那个<br />8、为根用户创建密码<br />&nbsp; &nbsp; &nbsp; &nbsp; ./mysqladmin -u root password &lsquo;123456&rsquo;<br />&nbsp; &nbsp; &nbsp; &nbsp; 如果root已经设置过密码，采用如下方法<br />&nbsp; &nbsp; &nbsp; &nbsp; ./mysqladmin -u root password oldpass &lsquo;123456&rsquo;&nbsp; &nbsp; &nbsp; &nbsp; <br />9、测试<br />&nbsp; &nbsp; mysql -u root -p<br />&nbsp; &nbsp; 会提示输入密码，就用刚才设置的密码<br />&nbsp; &nbsp; 123456<br />&nbsp; &nbsp; 如果出现mysql&gt;，说明连接成功了,下面通过命令 创建一个数据库、建一个表，增加一条记录，为后面的测试准备</p>
+<p>&nbsp; &nbsp;mysql&gt; create database gywtest;<br />&nbsp; mysql&gt; use gywtest;</p>
+<p>&nbsp; mysql&gt; create table student(id int(4) not null primary key auto_increment,stuname char(20));</p>
+<p>&nbsp; mysql&gt; insert into student(stuname) values('Tom');</p>
+<p>&nbsp; 注意每条命令后面有个分号，如果上面的都成功，后面就可以用这个测试。</p>
+<p>&nbsp;四、将PHP与MySql结合起来</p>
+<p>&nbsp;1、重新配置PHP，改变配置选项，只需重复PHP安装时的最后的三步configure, make, 以及 make install，然后需要重新启动 Apache 使新模块生效，Apache不需要重新编译。</p>
+<p>&nbsp;2、配置</p>
+<p>./configure --prefix=/usr/local/php&nbsp; --with-apxs2=/usr/local/apache2/bin/apxs --with-mysqli=/usr/local/mysql/bin/mysql_config&nbsp; 注意mysql_config 的路径<br />3、编译 make</p>
+<p>4、安装 make installe</p>
+<p>5、测试 写一个页面test.php,放在apache的web目录下，测试上面用命令创建的数据库</p>
+<p>&nbsp; &nbsp; &lt;?php&nbsp;<br />&nbsp; $mysqli=new mysqli();<br />&nbsp; $mysqli-&gt;connect('localhost','root','123456','gywtest');<br />&nbsp; // 创建查询<br />&nbsp; $sqlstr='select * from student';<br />&nbsp; //发送查询给MySql<br />&nbsp; $result=$mysqli-&gt;query($sqlstr);<br />&nbsp; &nbsp; while($row=$result-&gt;fetch_object())<br />&nbsp; &nbsp; {&nbsp;<br />&nbsp; &nbsp; &nbsp; $name=$row-&gt;stuname;<br />&nbsp; &nbsp; &nbsp; echo $name;<br />&nbsp; &nbsp; }<br />?&gt;</p>
+<p>Fatal error: Class 'mysqli' not found in /home/lufangtao/Project/DB.php on line 3</p>
+<p>解决方法：</p>
+<p>/usr/local/php/bin/phpize 这里回车运行</p>
+<p>出错：</p>
+<p>Cannot find config.m4.&nbsp;<br />Make sure that you run './phpize' in the top level source directory of the module</p>
+<p>解决方法：</p>
+<p>PHP源码包文件夹下的EXT文件夹就是放置着目前版本的可用扩展，CD进去看看都有哪些你需要的？应该看到mysqli文件夹了吧~~~</p>
+<p>在当前目录下执行phpize</p>
+<p>[root@localhost mysqli]#/usr/local/php/bin/phpize</p>
+<p>Configuring for:</p>
+<p>PHP Api Version:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 20090626</p>
+<p>Zend Modeule Api No:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 20090626</p>
+<p>Zend Extension Api No:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 220090626</p>
+<p>Cannot find autoconf. Please check your autoconf installation and the<br />$PHP_AUTOCONF environment variable. Then, rerun this script.</p>
+<p>解决方法：</p>
+<p>yum install autoconf再次运行上面的命令即可。</p>
+<p>[root@localhost mysqli]#./configure &ndash;prefix=/opt/mysqli &ndash;with-php-config=/opt/php/bin/php-config &ndash;with-mysqli=/opt/mysql/bin/mysql_config</p>
+<p>[root@localhost mysqli]#make</p>
+<p>[root@localhost mysqli]#make install</p>
+<p>安装完成后会有提示扩展所在目录路径，如：</p>
+<p>/opt/php/lib/php/extensions/no-debug-zts-20090626php</p>
+<p>所需的mysqli.so便会在此目录下，接下来修改/opt/php/etc/下的php.ini文件，加入mysqli扩展，即加入如下一行：</p>
+<p>extension=/opt/php/lib/php/extensions/no-debug-zts-20090626/mysqli.so</p>
+<p>这里还是会出现错误：</p>
+<p>解决不用扩展连接MySQL的方法。</p>
+<p>最终还是没有解决MySQLi连接的问题，但是可以使用MySQL数据库了，下面是测试程序</p>
+<div class="linuxidc_code">
+<pre>&lt;?php
+
+$link=mysql_connect('localhost','root','123456');
+
+if(!$link) echo "F!";
+
+else echo "S!";
+
+mysql_select_db("students") or die("Could not select database");
+$query="SELECT * FROM student;";
+$result=mysql_query($query) or die("Query failed");
+print "&lt;table&gt;\n";
+
+ while ($line = mysql_fetch_array($result, MYSQL_ASSOC)) {        <br />print "\t&lt;tr&gt;\n";      <br />  foreach ($line as $col_value) {    <br />        print "\t\t&lt;td&gt;$col_value&lt;/td&gt;\n";       <br /> }       <br /> print "\t&lt;/tr&gt;\n";    }   <br /> print "&lt;/table&gt;\n";
+
+
+
+    /* 释放资源 */
+
+
+
+mysql_free_result($result);
+mysql_close();
+
+?&gt;
+~  </pre>
+</div>
+<p>&nbsp;</p>
+<p><img src="../../upload/2015_05/150527060849484.jpg" alt="" /></p>
+<p>在 <a href="http://www.linuxidc.com/topicnews.aspx?tid=14" target="_blank" title="CentOS">CentOS</a> 7.x / Fedora 21 上面体验 PHP 7.0&nbsp; <a href="../../Linux/2015-05/117960.htm">http://www.linuxidc.com/Linux/2015-05/117960.htm</a></p>
+<p>CentOS 6.3 安装LNMP (PHP 5.4,MyySQL5.6) <a href="../../Linux/2013-04/82069.htm">http://www.linuxidc.com/Linux/2013-04/82069.htm</a></p>
+<p>在部署LNMP的时候遇到Nginx启动失败的2个问题 <a href="../../Linux/2013-03/81120.htm">http://www.linuxidc.com/Linux/2013-03/81120.htm</a></p>
+<p><a href="http://www.linuxidc.com/topicnews.aspx?tid=2" target="_blank" title="Ubuntu">Ubuntu</a>安装Nginx php5-fpm MySQL(LNMP环境搭建) <a href="../../Linux/2012-10/72458.htm">http://www.linuxidc.com/Linux/2012-10/72458.htm</a></p>
+<p>《细说PHP》高清扫描PDF+光盘源码+全套教学视频 <a href="../../Linux/2014-03/97536.htm">http://www.linuxidc.com/Linux/2014-03/97536.htm</a></p>
+<p>CentOS 6中配置PHP的LNMP的开发环境&nbsp; <a href="../../Linux/2013-12/93869.htm">http://www.linuxidc.com/Linux/2013-12/93869.htm</a></p>
+<p><span style="color: #ff0000;"><strong>PHP 的详细介绍</strong></span>：<a title="PHP" href="../../Linux/2014-01/95069.htm">请点这里</a><br /><span style="color: #ff0000;"><strong>PHP 的下载地址</strong></span>：<a href="../../down.aspx?id=1175" target="_blank">请点这里</a></p>
+<p><span style="font-size: small;"><strong>本文永久更新链接地址</strong></span>：<a href="../../Linux/2015-05/118062.htm">http://www.linuxidc.com/Linux/2015-05/118062.htm</a></p><a href="http://www.linuxidc.com" target="_blank"><img src="/linuxfile/logo.gif" alt="linux" width="15" height="17" /></div>
+<div class="linux3"><script type="text/javascript" src="/linuxfile/linux3.js"></script></div>
+<div class="linux302"><script type="text/javascript" src="/linuxfile/linux302.js"></script></div>		
+			
+			
+		</div>
+<div class="linuxfx"><script type="text/javascript" src="/linuxfile/fx.js"></script></div>	
+<div class="linux8"><script type="text/javascript" src="/linuxfile/linux8.js"></script></div>
+<div class="linux801"><script type="text/javascript" src="/linuxfile/linux801.js"></script></div>
+		<div class="nearNews">
+			<div class="prevNews"><a href="../../Linux/2015-05/118044.htm">ASP.NET 5 (vNext) Linux部署</a></div>
+			<div class="nextNews"><a href="../../Linux/2015-05/118080.htm">使用Ansible批量管理远程服务器</a></div>
+		</div>
+	</div>
+	</div>
+	<div class="bl"></div>
+	<div class="br"></div>
+	<div class="bm"></div>
+	</div>
+<div class="linux809"><script type="text/javascript" src="/linuxfile/linux809.js"></script></div>
+	<div class="mframe mR">
+	<div class="tl"></div>
+	<div class="tr"></div>
+	<div class="tm">
+		<span class="tt">相关资讯</span> &nbsp; &nbsp; &nbsp;
+		<a href="../../search.aspx?where=nkey&amp;keyword=25" target="_blank">PHP</a>&nbsp; <a href="../../search.aspx?where=nkey&amp;keyword=36498" target="_blank">PHP环境配置</a>&nbsp; 
+	</div>
+	<div class="wrapper">
+	<div class="ml"></div>
+	<div class="mr"></div>
+	<div class="mm">
+		<table width='100%'><tr><td width='50%' valign='top'><ul class='nl'><li><a href="../../Linux/2017-01/139231.htm"  target="_blank"  title="PHP ext/standard/var.c拒绝服务漏洞(CVE-2016-9936)">PHP ext/standard/var.c拒绝服务漏</a>&nbsp; <span class="gray">(<span class="time">今 13:12</span>)</span></li>
+<li><a href="../../Linux/2015-09/122984.htm"  target="_blank"  title="PHP 性能分析与实验：性能的微观分析">PHP 性能分析与实验：性能的微观分</a>&nbsp; <span class="gray">(09/13/2015 20:49:27)</span></li>
+<li><a href="../../Linux/2015-08/121172.htm"  target="_blank" >PHP 和 Node.js 的对决</a>&nbsp; <span class="gray">(08/06/2015 08:51:28)</span></li>
+</ul></td><td width='50%' valign='top'><ul class='nl'><li><a href="../../Linux/2015-12/125890.htm"  target="_blank" >PHP代码规范的10个好习惯</a>&nbsp; <span class="gray">(12/05/2015 08:20:04)</span></li>
+<li><a href="../../Linux/2015-08/121909.htm"  target="_blank"  title="PHP 性能分析与实验：性能的宏观分析">PHP 性能分析与实验：性能的宏观分</a>&nbsp; <span class="gray">(08/19/2015 19:48:24)</span></li>
+<li><a href="../../Linux/2015-07/120784.htm"  target="_blank"  title="在 Linux 命令行中使用和执行 PHP 代码（二）">在 Linux 命令行中使用和执行 PHP </a>&nbsp; <span class="gray">(07/30/2015 10:07:32)</span></li>
+</ul></td></tr></table>
+	</div>
+	</div>
+	<div class="bl"></div>
+	<div class="br"></div>
+	<div class="bm"></div>
+	</div>
+<div class="linux808"><script type="text/javascript" src="/linuxfile/linux808.js"></script></div>
+	
+	<div class="mframe mR">
+	<div class="tl"></div>
+	<div class="tr"></div>
+	<div class="tm">
+		<span class="tt">本文评论</span>
+		 	　　<a href="../../remark.aspx?id=118062" target="_blank">查看全部评论</a> <span class="gray">(0)</span>
+	</div>
+	<div class="wrapper">
+	<div class="ml"></div>
+	<div class="mr"></div>
+	<div class="mm">
+		<table width="100%" style="margin:6px">		
+		<tr><td width="50%">
+			<form action="" name="fmRemarkSt" onsubmit="return remark.post(this);">
+			<input type="hidden" value="1" name="face"/>
+			表情： <img src="../../pic/b.gif" alt="表情" class="face1" style="cursor:pointer;vertical-align:middle" onclick="remark.dispFace(this)" onmouseout="remark.hideFace()"/>
+			姓名： <input type="text" name="username" value="" maxlength="15" style="width:60px" class="inputbg"/>
+			<input type="checkbox" id="rmAnonymitySt" onclick="remark.anony(this)"/><label for="rmAnonymitySt">匿名</label>
+			字数 <input type="text" id="bodyLen" size="3" readonly="readonly" style="border-width:0;background:transparent;vertical-align:middle" value="0"/>
+			<br/>
+			<textarea name="body" cols="40" rows="4" onkeydown="remark.dispLen(this)" onkeyup="remark.handle(event,this);remark.dispLen(this)" style="width:39em;height:100px;margin:3px 0;overflow-y:auto"></textarea>
+				<br/>
+		　　　<input type="checkbox" checked="checked" id="rmAgreeSt"/><label for="rmAgreeSt">同意评论声明</label>
+		　　　<button type="submit" style="width:50px">发表</button>
+			</form><br>
+			评论声明
+			<ul style="list-style-type:square;margin:5px 0 0 1em;padding:0">
+			<li>尊重网上道德，遵守中华人民共和国的各项有关法律法规</li>
+			<li>承担一切因您的行为而直接或间接导致的民事或刑事法律责任</li>
+			<li>本站管理人员有权保留或删除其管辖留言中的任意内容</li>
+			<li>本站有权在网站内转载或引用您的评论</li>
+			<li>参与本评论即表明您已经阅读并接受上述条款</li>
+			</ul>
+		</td>
+		<td width="50%"><div class="linux799"><script type="text/javascript" src="/linuxfile/linux799.js"></script></div></td></tr>
+		</table>
+		<script type="text/javascript" src="../../inc/remark.js"></script>
+		<script type="text/javascript">
+			remark.maxSize=500;
+			remark.minSize=2;
+			remark.sourceEle=$(document.fmRemarkSt).find("button").get(0);
+			iwms.vCode="D2BDA41E";
+			iwms.user.name.length==0 ? $i("rmAnonymitySt").click() : $i("rmAnonymitySt").form.username.value=iwms.user.name;
+		</script>
+		<div class="reCont" id="reContainer"></div>
+	</div>
+	</div>
+	<div class="bl"></div>
+	<div class="br"></div>
+	<div class="bm"></div>
+	</div>
+	
+</td><td width="300" valign="top">
+<div class="linux901"><script type="text/javascript" src="/linuxfile/linux901.js"></script></div>
+<div class="linux902"><script type="text/javascript" src="/linuxfile/linux902.js"></script></div>
+<div class="linux903"><script type="text/javascript" src="/linuxfile/linux903.js"></script></div>
+<div class="linux905"><script type="text/javascript" src="/linuxfile/linux905.js"></script></div>
+	
+	<div class="lframe">
+	<div class="tl"></div>
+	<div class="tr"></div>
+	<div class="tm">
+		<span class="tt">最新资讯</span>
+	</div>
+	<div class="wrapper">
+	<div class="ml"></div>
+	<div class="mr"></div>
+	<div class="mm">
+		<ul class="nl">
+<li><a href="../../Linux/2017-01/139231.htm" target="_blank" title="PHP ext/standard/var.c拒绝服务漏洞(CVE-2016-9936)">PHP ext/standard/var.c拒绝服务漏洞(CVE-</a></li>
+<li><a href="../../Linux/2017-01/139230.htm" target="_blank" title="PHP gdImageFillToBorder函数拒绝服务漏洞(CVE-2016-9933)">PHP gdImageFillToBorder函数拒绝服务漏洞(</a></li>
+<li><a href="../../Linux/2017-01/139229.htm" target="_blank">PHP __wakeup拒绝服务漏洞(CVE-2016-9138)</a></li>
+<li><a href="../../Linux/2017-01/139228.htm" target="_blank">PHP CURLFile 拒绝服务漏洞(CVE-2016-9137)</a></li>
+<li><a href="../../Linux/2017-01/139227.htm" target="_blank" title="PHP ext/wddx/wddx.c拒绝服务漏洞(CVE-2016-9934)">PHP ext/wddx/wddx.c拒绝服务漏洞(CVE-2016</a></li>
+<li><a href="../../Linux/2017-01/139226.htm" target="_blank" title="Forza Horizon 3开发商不小心将推送给开发者的更新推送给了玩家">Forza Horizon 3开发商不小心将推送给开发</a></li>
+<li><a href="../../Linux/2017-01/139225.htm" target="_blank">Android是2016年漏洞发现最多的产品</a></li>
+<li><a href="../../Linux/2017-01/139224.htm" target="_blank">虚拟机VMware下CentOS 6.5无法访问外网解决</a></li>
+<li><a href="../../Linux/2017-01/139223.htm" target="_blank">Linux poll函数深入理解</a></li>
+<li><a href="../../Linux/2017-01/139222.htm" target="_blank">利用select实现IO多路复用TCP服务端</a></li>
+</ul>
+	</div>
+	</div>
+	<div class="bl"></div>
+	<div class="br"></div>
+	<div class="bm"></div>
+	</div>
+	<div class="u70"><script type="text/javascript" src="/linuxfile/u70.js"></script></div>
+	<div class="u80"><script type="text/javascript" src="/linuxfile/u80.js"></script></div>
+	<div class="u90"><script type="text/javascript" src="/linuxfile/u90.js"></script></div>
+	<div class="space"></div>
+	<div id="pin">
+	<script type="text/javascript" src="/linuxfile/pin.js"></script>
+	</div>
+</td></tr>
+</table>
+<div class="linux906"><script type="text/javascript" src="/linuxfile/linux906.js"></script></div>
+<div id="footer">
+<a href="http://www.linuxidc.com/aboutus.htm">Linux公社简介</a> - <a href="http://www.linuxidc.com/adsense.htm">广告服务</a> - <a href="http://www.linuxidc.com/sitemap.aspx">网站地图</a> - <a href="http://www.linuxidc.com/help.htm">帮助信息</a> - <a href="http://www.linuxidc.com/contactus.htm">联系我们</a><br />本站（LinuxIDC）所刊载文章不代表同意其说法或描述，仅为提供更多信息，也不构成任何建议。<br /><script type="text/javascript" src="/linuxfile/qq.js"></script><br />
+<script type="text/javascript" src="/linuxfile/foot.js"></script><br />Copyright &copy; 2006-2016　<a href="http://www.linuxidc.com/">Linux公社</a>　All rights reserved 沪ICP备15008072号-1号
+	<script type="text/javascript">iwms.aId=118062;$(function(){iwms.imgCont=$i('content');iwms.imgResize();InitContStyle();iwms.getVars();})</script>
+	
+</div>
+</div>
+<script type="text/javascript" src="/linuxren/linuxren1.js"></script>
+<script type="text/javascript" src="/linuxren/linuxren2.js"></script>
+<script type="text/javascript" src="/linuxren/linuxren3.js"></script>
+</body>
+</html>

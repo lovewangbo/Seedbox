@@ -1,0 +1,111 @@
+   17  qt --version
+   18  qt5
+   19  qbittorrent
+   20  ls
+   21  ls
+   22  cd ..
+   23  ls
+   24  cd ~
+   25  screen -r
+   26  rtorrent
+   27  apt-get install libboost-dev libboost-system-dev build-essential
+   28  apt-get install python
+   29  apt-get install build-essential perl python git
+   30  apt-get install "^libxcb.'''" libx11-xcb-dev libglu1-mesa-dev libxrender-dev
+   31  apt-get install libx11-xcb-dev libglu1-mesa-dev libxrender-dev
+   32  git clone git://code.qt.io/qt/qt5.git qt5
+   33  cd qt5/
+   34  git checkout stable
+   35  ls
+   36  git checkout stable
+   37  perl init-repository --no-webkit
+   38  apt-get install build-essential libgl1-mesa-dev
+   39  perl init-repository
+   40  cd ..
+   41  ls
+   42  rm -rf qt5
+   43  apt-get install g++
+   44  ls
+   45  git clone git://code.qt.io/qt/qt5.git
+   46  cd qt5
+   47  git checkout 5.9
+   48  ls
+   49  ./init-repository
+   50  ./init-repository -help
+   51  perl init-repository --module-subset=default
+   52  perl init-repository -f --module-subset=default
+   53  cd ..
+   54  rm -rf qt5/
+   55  apt-get install qt5-default qttools5-dev-tools
+   56  wget http://saimei.ftp.acc.umu.se/mirror/qt.io/qtproject/archive/qt/5.9/5.9.1/qt-opensource-linux-x64-5.9.1.run
+   57  ls
+   58  ./qt-opensource-linux-x64-5.9.1.run
+   59  mkdir qt5
+   60  mv qt-opensource-linux-x64-5.9.1.run qt5/
+   61  cd qt5/
+   62  ls
+   63  ./qt-opensource-linux-x64-5.9.1.run
+   64  qt-opensource-linux-x64-5.9.1.run
+   65  ./~/qt5/qt-opensource-linux-x64-5.9.1.run
+   66  cd ..
+   67  cd
+   68  cd ..
+   69  ls
+   70  cd root/
+   71  ls
+   72  cd qt5
+   73  ./root/qt5/qt-opensource-linux-x64-5.9.1.run
+   74  /root/qt5/qt-opensource-linux-x64-5.9.1.run
+   75  ls
+   76  ll
+   77  ll
+   78  chmod +x qt-opensource-linux-x64-5.9.1.run
+   79  ./qt-opensource-linux-x64-5.9.1.run
+   80  apt-get search qt5
+   81  apt-get install qt5-make
+   82  apt-get install qt5-qmake
+   83  vi /etc/apt/sources.list
+   84  apt-get update
+   85  apt-get upgrade
+   86  cd ..
+   87   git clone https://github.com/arvidn/libtorrent.git
+   88  git checkout RC_1_1
+   89  ./autotool.sh
+   90  ls
+   91  cd libtorrent/
+   92  git checkout RC_1_1
+   93  ./autotool.sh
+   94   ./configure --disable-debug --enable-encryption --prefix=/usr --with-libgeoip=system CXXFLAGS=-std=c++11
+   95  make -j4
+   96  make clean
+   97  make
+   98  apt-get install libboost-dev libboost-system-dev build-essential
+   99   ./configure --disable-debug --enable-encryption --prefix=/usr --with-libgeoip=system CXXFLAGS=-std=c++11
+  100  apt-get install libboost-system-dev
+  101  apt-get install libboost-filesystem-dev libboost-thread-dev
+  102   ./configure --disable-debug --enable-encryption --prefix=/usr --with-libgeoip=system CXXFLAGS=-std=c++11
+  103  apt-get update
+  104  apt-get install qtbase5-dev qttools5-dev-tools
+  105  apt-get install python
+  106  apt-get install libboost-system-dev libboost-chrono-dev libboost-random-dev libssl-dev libgeoip-dev
+  107  apt-get install git pkg-config automake libtool
+  108  ./configure --disable-debug --enable-encryption --prefix=/usr --with-libgeoip=system CXXFLAGS=-std=c++11
+  109  make -j4
+  110  make install
+  111  cd ..
+  112  wget https://sourceforge.net/projects/qbittorrent/files/qbittorrent/qbittorrent-3.3.13/qbittorrent-3.3.13.tar.gz
+  113  tar -xvzf qbittorrent-3.3.13.tar.gz
+  114  rm -rf qt5/
+  115  cd qbittorrent-3.3.13/
+  116  ls
+  117   ./configure --prefix=/usr --disable-gui
+  118  make -j4
+  119  make isntall
+  120  make intall
+  121  make install
+  122  cd ..
+  123  vi /etc/systemd/system/qbittorrent.service
+  124  systemctl daemon-reload
+  125  qbittorrent-nox
+  126  systemctl start qbittorrent
+  127  systemctl enable qbittorrent
