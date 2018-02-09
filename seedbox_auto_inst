@@ -25,6 +25,7 @@ iperf3 -c ping.online.net
 
 su
 apt-get update
+apt-get upgrade
 
 # 2. 若版本为14.04，先升级到16.04【否则安装不了BBR】
 su
@@ -71,13 +72,17 @@ mkdir -p ~/tmp/$TODAY; cd ~/tmp/$TODAY
 wget https://raw.githubusercontent.com/lovewangbo/rTorrent/master/rtorrent_ipv6_v3.1
 chmod +x rtorrent_ipv6_*
 sudo ./rtorrent_ipv6_*
+echo -e "\ninclude /usr/local/lib/\n"  >> /etc/ld.so.conf
+ldconfig
 whereis rtorrent
 ldd /usr/local/bin/rtorrent 
 
 echo -n "Which user of system will run rtorrent:"
 read -e rtorrent_user;
-RTORRENT_USER=rtorrent_user;
+
+RTORRENT_USER=$rtorrent_user;
 adduser $RTORRENT_USER;
+
 HOMEDIR=$(cat /etc/passwd | grep "$RTORRENT_USER": | cut -d: -f6)
 
 cd $HOMEDIR; wget -O $HOMEDIR/.rtorrent.rc https://raw.githubusercontent.com/lovewangbo/rTorrent/master/.rtorrent.rc; chown "$RTORRENT_USER"."$RTORRENT_USER" $HOMEDIR/.rtorrent.rc; sed -i "s@HOMEDIRHERE@$HOMEDIR@g" $HOMEDIR/.rtorrent.rc; 
@@ -98,10 +103,13 @@ apt-get install -y php php7.0-cli php7.0-json php7.0-curl php7.0-cgi php7.0-mbst
 apt-get install git; cd /var/www/html; git clone https://github.com/Novik/ruTorrent.git; 
 chown -R $RTORRENT_USER:www-data ruTorrent/ && chmod -R 770 ruTorrent/;
 echo -e "\n\n[httprpc]\nenabled = yes\n[rpc]\nenabled = no"  >> /var/www/html/ruTorrent/conf/plugins.ini
+
 echo -n "Input Web user id to log in:"
 read -e rutorrent_user;
-RUT_WEB_USER=rutorrent_user;
+
+RUT_WEB_USER=$rutorrent_user;
 htpasswd -c /etc/apache2/.htpasswd $RUT_WEB_USER;
+
 sed -i '/^<\/VirtualHost>$/i\\n\t<Directory "/var/www/html/ruTorrent">\n\t\tAuthType Basic\n\t\tAuthName "Restricted Content"\n\t\tAuthUserFile /etc/apache2/.htpasswd\n\t\tRequire valid-user\n\t</Directory>\n' /etc/apache2/sites-enabled/000-default.conf
 service apache2 restart
 # http://xxx.xxx.xxx.xxx/ruTorrent/
@@ -176,11 +184,28 @@ cd ..
 
 echo -n "Which user of system will run qbittorrent? It should be the same as rtorrent for convinient RSS"
 read -e qb_user;
-QB_USER=qb_user;
-HOMEDIR=$(cat /etc/passwd | grep "$RTORRENT_USER": | cut -d: -f6)
+
+QB_USER=$qb_user;
+HOMEDIR=$(cat /etc/passwd | grep "$QB_USER": | cut -d: -f6)
+echo -n "qbittorrent web ui port:"
+read -e qb_web_port;
+
+QB_WEB_PORT=qb_web_port;
+echo -n "qbittorrent web username:"
+read -e qb_web_user;
+
+QB_WEB_USER=qb_web_user;
+echo -n "qbittorrent web password:"
+read -e qb_web_passwd;
+
+QB_WEB_PASSWD=qb_web_passwd;
 sudo mkdir -p $HOMEDIR/.config/qBittorrent/
-sudo wget -O $HOMEDIR/.config/qBittorrent/qBittorrent.conf https://raw.githubusercontent.com/lovewangbo/qbittorrent/master/qBittorrent.conf
+#sudo wget -O $HOMEDIR/.config/qBittorrent/qBittorrent.conf https://raw.githubusercontent.com/lovewangbo/qbittorrent/master/qBittorrent.conf
+sudo wget -O $HOMEDIR/.config/qBittorrent/qBittorrent.conf https://raw.githubusercontent.com/lovewangbo/seedbox/master/conf/qBittorrent.conf
 sudo chown "$QB_USER"."$QB_USER" $HOMEDIR/.config/qBittorrent/qBittorrent.conf
+sed -i "s@WEBPORTHERE@$QB_WEB_PORT@g" $HOMEDIR/.config/qBittorrent/qBittorrent.conf;
+sed -i "s@WEBUSERHERE@$QB_WEB_USER@g" $HOMEDIR/.config/qBittorrent/qBittorrent.conf;
+sed -i "s@WEBPASSWDHERE@$QB_WEB_PASSWD@g" $HOMEDIR/.config/qBittorrent/qBittorrent.conf;
 sudo wget -O /etc/systemd/system/qbittorrent.service https://raw.githubusercontent.com/lovewangbo/seedbox/master/templates/qbittorrent.service
 sudo sed -i "s@QB_USEERS_HERE@$QB_USER@g" /etc/systemd/system/qbittorrent.service
 
