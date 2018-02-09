@@ -63,7 +63,7 @@ ping6 ipv6.google.com
 
 # 安装rTorrent和ruTorrent
 su
-
+# 可以安装二进制包，不支持ipv6
 apt-get install rtorrent;
 # 也可自行编译安装支持IPv6的版本
 TODAY=`date +%Y-%m-%d`; TODAY=$(date +%Y-%m-%d);
