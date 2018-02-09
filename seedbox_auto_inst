@@ -51,6 +51,7 @@ su
 cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime; date;
 
 su
+## Online, OneProvider, Kimsufi
 git clone https://github.com/lovewangbo/ipv6-dhclient-script.git;cd ipv6-dhclient-script;chmod +x ipv6-dhclient-script.sh
 DEFAULT_INTERFACE=`ip route get 8.8.8.8 | awk '{print $5; exit}'` #获取网卡名称
 echo -n "Input your IPV6 address:"
@@ -61,6 +62,17 @@ echo -n "Input your IPV6 DUID:"
 read -e IPV6_DUID
 ./ipv6-dhclient-script.sh $DEFAULT_INTERFACE $IPV6_ADDRESS $IPV6_SUBNET $IPV6_DUID
 ping6 ipv6.google.com
+## ikoula
+ipv6="2a00:c70:1:x:xx:xxx:xxxx:2 96 2a00:c70:1:x:xx:xxx::1"
+BLOCK_ADDR=`echo -n $ipv6 | awk '{print $1; exit}'`
+BLOCK_SUBNET=`echo -n $ipv6 | awk '{print $2; exit}'`
+GATE_WAY=`echo -n $ipv6 | awk '{print $3; exit}'`
+DEFAULT_INTERFACE=`ip route get 8.8.8.8 | awk '{print $5; exit}'` #获取网卡名称
+wget -q https://raw.githubusercontent.com/lovewangbo/ipv6-dhclient-script/master/templates/Debian/etc_network_interfaces_ikoula
+sed -e "s/{{INTERFACE}}/$DEFAULT_INTERFACE/g" -e "s/{{BLOCK_ADDR}}/$BLOCK_ADDR/g" -e "s/{{BLOCK_SUBNET}}/$BLOCK_SUBNET/g" -e "s/{{GATE_WAY}}/$GATE_WAY/g" etc_network_interfaces_ikoula
+mv etc_network_interfaces_ikoula /etc/network/interfaces
+##End
+
 
 # 安装rTorrent和ruTorrent
 su
