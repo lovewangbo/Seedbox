@@ -190,22 +190,23 @@ HOMEDIR=$(cat /etc/passwd | grep "$QB_USER": | cut -d: -f6)
 echo -n "qbittorrent web ui port:"
 read -e qb_web_port;
 
-QB_WEB_PORT=qb_web_port;
+QB_WEB_PORT=$qb_web_port;
 echo -n "qbittorrent web username:"
 read -e qb_web_user;
 
-QB_WEB_USER=qb_web_user;
+QB_WEB_USER=$qb_web_user;
 echo -n "qbittorrent web password:"
 read -e qb_web_passwd;
 
-QB_WEB_PASSWD=qb_web_passwd;
+QB_WEB_PASSWD=$qb_web_passwd;
+QB_WEB_PASSWD_HASH=`echo -n $QB_WEB_PASSWD | md5sum | awk '{print $1}'`;
 sudo mkdir -p $HOMEDIR/.config/qBittorrent/
 #sudo wget -O $HOMEDIR/.config/qBittorrent/qBittorrent.conf https://raw.githubusercontent.com/lovewangbo/qbittorrent/master/qBittorrent.conf
 sudo wget -O $HOMEDIR/.config/qBittorrent/qBittorrent.conf https://raw.githubusercontent.com/lovewangbo/seedbox/master/conf/qBittorrent.conf
 sudo chown "$QB_USER"."$QB_USER" $HOMEDIR/.config/qBittorrent/qBittorrent.conf
-sed -i "s@WEBPORTHERE@$QB_WEB_PORT@g" $HOMEDIR/.config/qBittorrent/qBittorrent.conf;
-sed -i "s@WEBUSERHERE@$QB_WEB_USER@g" $HOMEDIR/.config/qBittorrent/qBittorrent.conf;
-sed -i "s@WEBPASSWDHERE@$QB_WEB_PASSWD@g" $HOMEDIR/.config/qBittorrent/qBittorrent.conf;
+sed -n 's@\(WebUI\\Port=\)8080@\1'"$QB_WEB_PORT"'@gp' $HOMEDIR/.config/qBittorrent/qBittorrent.conf;
+sed -n 's@\(WebUI\\Username=\)admin@\1'"$QB_WEB_USER"'@gp' $HOMEDIR/.config/qBittorrent/qBittorrent.conf;
+sed -n 's/\(WebUI\\Password_ha1=@ByteArray(\)f6fdffe48c908deb0f4c3bd36c032e72/\1'"$QB_WEB_PASSWD_HASH"'/gp' $HOMEDIR/.config/qBittorrent/qBittorrent.conf;
 sudo wget -O /etc/systemd/system/qbittorrent.service https://raw.githubusercontent.com/lovewangbo/seedbox/master/templates/qbittorrent.service
 sudo sed -i "s@QB_USEERS_HERE@$QB_USER@g" /etc/systemd/system/qbittorrent.service
 
@@ -213,6 +214,7 @@ systemctl enable qbittorrent
 systemctl status qbittorrent
 systemctl start qbittorrent
 systemctl status qbittorrent
+systemctl stop qbittorrent
 
 #my_server_ip=127.0.0.1
 #my_server_port=
