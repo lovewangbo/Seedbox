@@ -67,14 +67,16 @@ su
 apt-get install rtorrent;
 # 也可自行编译安装支持IPv6的版本
 TODAY=`date +%Y-%m-%d`; TODAY=$(date +%Y-%m-%d);
-mkdir -p $TODAY; cd $TODAY
-wget https://raw.githubusercontent.com/lovewangbo/rTorrent/master/rtorrent_ipv6_v3.0
+mkdir -p ~/tmp/$TODAY; cd ~/tmp/$TODAY
+wget https://raw.githubusercontent.com/lovewangbo/rTorrent/master/rtorrent_ipv6_v3.1
 chmod +x rtorrent_ipv6_*
 sudo ./rtorrent_ipv6_*
 whereis rtorrent
 ldd /usr/local/bin/rtorrent 
 
-RTORRENT_USER="jack"; 
+echo -n "Which user of system will run rtorrent:"
+read -e rtorrent_user;
+RTORRENT_USER=rtorrent_user;
 adduser $RTORRENT_USER;
 HOMEDIR=$(cat /etc/passwd | grep "$RTORRENT_USER": | cut -d: -f6)
 
@@ -96,7 +98,9 @@ apt-get install -y php php7.0-cli php7.0-json php7.0-curl php7.0-cgi php7.0-mbst
 apt-get install git; cd /var/www/html; git clone https://github.com/Novik/ruTorrent.git; 
 chown -R $RTORRENT_USER:www-data ruTorrent/ && chmod -R 770 ruTorrent/;
 echo -e "\n\n[httprpc]\nenabled = yes\n[rpc]\nenabled = no"  >> /var/www/html/ruTorrent/conf/plugins.ini
-RUT_WEB_USER="jack";
+echo -n "Input Web user id to log in:"
+read -e rutorrent_user;
+RUT_WEB_USER=rutorrent_user;
 htpasswd -c /etc/apache2/.htpasswd $RUT_WEB_USER;
 sed -i '/^<\/VirtualHost>$/i\\n\t<Directory "/var/www/html/ruTorrent">\n\t\tAuthType Basic\n\t\tAuthName "Restricted Content"\n\t\tAuthUserFile /etc/apache2/.htpasswd\n\t\tRequire valid-user\n\t</Directory>\n' /etc/apache2/sites-enabled/000-default.conf
 service apache2 restart
@@ -169,11 +173,16 @@ make clean && make -j$(nproc);
 sudo make install;
 #sudo checkinstall;
 cd ..
+
+echo -n "Which user of system will run qbittorrent? It should be the same as rtorrent for convinient RSS"
+read -e qb_user;
+QB_USER=qb_user;
+HOMEDIR=$(cat /etc/passwd | grep "$RTORRENT_USER": | cut -d: -f6)
 sudo mkdir -p $HOMEDIR/.config/qBittorrent/
 sudo wget -O $HOMEDIR/.config/qBittorrent/qBittorrent.conf https://raw.githubusercontent.com/lovewangbo/qbittorrent/master/qBittorrent.conf
-sudo chown "$RTORRENT_USER"."$RTORRENT_USER" $HOMEDIR/.config/qBittorrent/qBittorrent.conf
+sudo chown "$QB_USER"."$QB_USER" $HOMEDIR/.config/qBittorrent/qBittorrent.conf
 sudo wget -O /etc/systemd/system/qbittorrent.service https://raw.githubusercontent.com/lovewangbo/seedbox/master/templates/qbittorrent.service
-sudo sed -i "s@QB_USEERS_HERE@$RTORRENT_USER@g" /etc/systemd/system/qbittorrent.service
+sudo sed -i "s@QB_USEERS_HERE@$QB_USER@g" /etc/systemd/system/qbittorrent.service
 
 systemctl enable qbittorrent
 systemctl status qbittorrent
