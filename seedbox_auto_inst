@@ -74,13 +74,15 @@ mkdir -p $TODAY; cd $TODAY
 wget https://raw.githubusercontent.com/lovewangbo/rTorrent/master/rtorrent_ipv6_v3.0
 chmod +x rtorrent_ipv6_*
 sudo ./rtorrent_ipv6_*
+whereis rtorrent
+ldd /usr/local/bin/rtorrent 
+
 cd $HOMEDIR; wget -O $HOMEDIR/.rtorrent.rc https://raw.githubusercontent.com/lovewangbo/rTorrent/master/.rtorrent.rc; chown "$RTORRENT_USER"."$RTORRENT_USER" $HOMEDIR/.rtorrent.rc; sed -i "s@HOMEDIRHERE@$HOMEDIR@g" $HOMEDIR/.rtorrent.rc; 
 mkdir $HOMEDIR/.rtorrent-session; chown "$RTORRENT_USER"."$RTORRENT_USER" $HOMEDIR/.rtorrent-session; 
 mkdir $HOMEDIR/Downloads; chown "$RTORRENT_USER"."$RTORRENT_USER" $HOMEDIR/Downloads;
 apt-get install -y tmux
 wget -O /etc/systemd/system/rtorrent.service https://raw.githubusercontent.com/lovewangbo/seedbox/master/templates/rtorrent.service
 sed -i "s@RT_USER_HERE@$RTORRENT_USER@g" /etc/systemd/system/rtorrent.service
-
 systemctl enable rtorrent
 systemctl status rtorrent
 systemctl start rtorrent
