@@ -63,31 +63,20 @@ ping6 ipv6.google.com
 
 # 安装rTorrent和ruTorrent
 su
-
 RTORRENT_USER="jack"; 
 adduser $RTORRENT_USER;
 HOMEDIR=$(cat /etc/passwd | grep "$RTORRENT_USER": | cut -d: -f6)
 
 apt-get install rtorrent;
 # 也可自行编译安装支持IPv6的版本
-cd ~/tmp
+TODAY=`date +%Y-%m-%d`; TODAY=$(date +%Y-%m-%d);
+mkdir -p $TODAY; cd $TODAY
 wget https://raw.githubusercontent.com/lovewangbo/rTorrent/master/rtorrent_ipv6_v3.0
 chmod +x rtorrent_ipv6_*
 sudo ./rtorrent_ipv6_*
-cd ~
-
-apt-get install -y php php7.0-cli php7.0-json php7.0-curl php7.0-cgi php7.0-mbstring libapache2-mod-php libapache2-mod-scgi apache2; apt-get install -y unrar unzip ffmpeg mediainfo; cd /var/www/html;
-apt-get install git && git clone https://github.com/Novik/ruTorrent.git; 
-chown -R $RTORRENT_USER:www-data ruTorrent/ && chmod -R 770 ruTorrent/;
 cd $HOMEDIR; wget -O $HOMEDIR/.rtorrent.rc https://raw.githubusercontent.com/lovewangbo/rTorrent/master/.rtorrent.rc; chown "$RTORRENT_USER"."$RTORRENT_USER" $HOMEDIR/.rtorrent.rc; sed -i "s@HOMEDIRHERE@$HOMEDIR@g" $HOMEDIR/.rtorrent.rc; 
 mkdir $HOMEDIR/.rtorrent-session; chown "$RTORRENT_USER"."$RTORRENT_USER" $HOMEDIR/.rtorrent-session; 
 mkdir $HOMEDIR/Downloads; chown "$RTORRENT_USER"."$RTORRENT_USER" $HOMEDIR/Downloads;
-echo -e "\n\n[httprpc]\nenabled = yes\n[rpc]\nenabled = no"  >> /var/www/html/ruTorrent/conf/plugins.ini
-RUT_WEB_USER="jack";
-htpasswd -c /etc/apache2/.htpasswd $RUT_WEB_USER;
-sed -i '/^<\/VirtualHost>$/i\\n\t<Directory "/var/www/html/ruTorrent">\n\t\tAuthType Basic\n\t\tAuthName "Restricted Content"\n\t\tAuthUserFile /etc/apache2/.htpasswd\n\t\tRequire valid-user\n\t</Directory>\n' /etc/apache2/sites-enabled/000-default.conf
-service apache2 restart
-# http://xxx.xxx.xxx.xxx/ruTorrent/
 apt-get install -y tmux
 wget -O /etc/systemd/system/rtorrent.service https://raw.githubusercontent.com/lovewangbo/seedbox/master/templates/rtorrent.service
 sed -i "s@RT_USER_HERE@$RTORRENT_USER@g" /etc/systemd/system/rtorrent.service
@@ -95,11 +84,20 @@ sed -i "s@RT_USER_HERE@$RTORRENT_USER@g" /etc/systemd/system/rtorrent.service
 systemctl enable rtorrent
 systemctl status rtorrent
 systemctl start rtorrent
+systemctl status rtorrent
 ps -ef | grep rtorrent
 #systemctl disable rtorrent
 #systemctl stop rtorrent
-#systemctl status rtorrent
-ps -ef | grep rtorrent
+
+apt-get install -y php php7.0-cli php7.0-json php7.0-curl php7.0-cgi php7.0-mbstring libapache2-mod-php libapache2-mod-scgi apache2; apt-get install -y unrar unzip ffmpeg mediainfo;
+apt-get install git; cd /var/www/html; git clone https://github.com/Novik/ruTorrent.git; 
+chown -R $RTORRENT_USER:www-data ruTorrent/ && chmod -R 770 ruTorrent/;
+echo -e "\n\n[httprpc]\nenabled = yes\n[rpc]\nenabled = no"  >> /var/www/html/ruTorrent/conf/plugins.ini
+RUT_WEB_USER="jack";
+htpasswd -c /etc/apache2/.htpasswd $RUT_WEB_USER;
+sed -i '/^<\/VirtualHost>$/i\\n\t<Directory "/var/www/html/ruTorrent">\n\t\tAuthType Basic\n\t\tAuthName "Restricted Content"\n\t\tAuthUserFile /etc/apache2/.htpasswd\n\t\tRequire valid-user\n\t</Directory>\n' /etc/apache2/sites-enabled/000-default.conf
+service apache2 restart
+# http://xxx.xxx.xxx.xxx/ruTorrent/
 
 
 # 安装qBittorrent
@@ -112,11 +110,14 @@ apt-get install -y python3
 ####安装二进制包，v1.0.7，非C++11编译，已知不兼容qb v4.0.3，但可兼容v3.3.14
 apt-get install -y libtorrent-rasterbar-dev
 ####编译安装最新版本，也可指定版本
+TODAY=`date +%Y-%m-%d`; TODAY=$(date +%Y-%m-%d);
+mkdir -p ~/tmp/$TODAY; cd ~/tmp/$TODAY
 git clone https://github.com/arvidn/libtorrent.git
 cd libtorrent
+#git checkout $(git tag | grep libtorrent-1_0_ | sort -t _ -n -k 3 | tail -n 1)
 git checkout $(git tag | grep libtorrent-1_1_ | sort -t _ -n -k 3 | tail -n 1)
 ./autotool.sh
-.configure -disable-debug --enable-encryption --with-libgeoip=system CXXFLAGS=-std=c++11
+./configure -disable-debug --enable-encryption --with-libgeoip=system CXXFLAGS=-std=c++11
 make clean && make -j$(nproc);
 #checkinstall
 sudo make install
@@ -125,14 +126,15 @@ sudo ldconfig
 pkg-config --list-all | grep libtorrent
 dpkg -l | grep libtorrent-rasterbar
 ####libtorrent安装完毕
+cd ..
 
 TODAY=`date +%Y-%m-%d`; TODAY=$(date +%Y-%m-%d);
 mkdir -p ~/tmp/$TODAY; cd ~/tmp/$TODAY
 git clone https://github.com/qbittorrent/qBittorrent
+cd qBittorrent;
 #以下二选一
 #########
 # 3.3.11原版本不能跳过校验，需merge若干commits
-cd qBittorrent;
 git checkout release-3.3.11
   # 增加快速发种选项
 git cherry-pick db3158c
@@ -204,8 +206,8 @@ systemctl start shadowsocks;
 
 # 限速
 DEFAULT_INTERFACE=`ip route get 8.8.8.8 | awk '{print $5; exit}'` #获取网卡名称
-tc qdisc add dev $DEFAULT_INTERFACE root tbf rate 50mbit latency 70ms burst 10kb # 正确的写法	
-tc qdisc add dev $DEFAULT_INTERFACE root tbf rate 50mbit latency 50ms burst 1000 # 错误的写法
+tc qdisc add dev $DEFAULT_INTERFACE root tbf rate 45mbit latency 70ms burst 10kb # 正确的写法	
+#tc qdisc add dev $DEFAULT_INTERFACE root tbf rate 50mbit latency 50ms burst 1000 # 错误的写法
 tc qdisc del dev $DEFAULT_INTERFACE root
 tc qdisc show dev $DEFAULT_INTERFACE
 
