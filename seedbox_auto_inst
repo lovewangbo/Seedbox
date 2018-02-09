@@ -63,9 +63,6 @@ ping6 ipv6.google.com
 
 # 安装rTorrent和ruTorrent
 su
-RTORRENT_USER="jack"; 
-adduser $RTORRENT_USER;
-HOMEDIR=$(cat /etc/passwd | grep "$RTORRENT_USER": | cut -d: -f6)
 
 apt-get install rtorrent;
 # 也可自行编译安装支持IPv6的版本
@@ -76,6 +73,10 @@ chmod +x rtorrent_ipv6_*
 sudo ./rtorrent_ipv6_*
 whereis rtorrent
 ldd /usr/local/bin/rtorrent 
+
+RTORRENT_USER="jack"; 
+adduser $RTORRENT_USER;
+HOMEDIR=$(cat /etc/passwd | grep "$RTORRENT_USER": | cut -d: -f6)
 
 cd $HOMEDIR; wget -O $HOMEDIR/.rtorrent.rc https://raw.githubusercontent.com/lovewangbo/rTorrent/master/.rtorrent.rc; chown "$RTORRENT_USER"."$RTORRENT_USER" $HOMEDIR/.rtorrent.rc; sed -i "s@HOMEDIRHERE@$HOMEDIR@g" $HOMEDIR/.rtorrent.rc; 
 mkdir $HOMEDIR/.rtorrent-session; chown "$RTORRENT_USER"."$RTORRENT_USER" $HOMEDIR/.rtorrent-session; 
@@ -208,8 +209,8 @@ systemctl start shadowsocks;
 
 # 限速
 DEFAULT_INTERFACE=`ip route get 8.8.8.8 | awk '{print $5; exit}'` #获取网卡名称
-tc qdisc add dev $DEFAULT_INTERFACE root tbf rate 45mbit latency 70ms burst 10kb # 正确的写法	
-#tc qdisc add dev $DEFAULT_INTERFACE root tbf rate 50mbit latency 50ms burst 1000 # 错误的写法
+tc qdisc add dev $DEFAULT_INTERFACE root tbf rate 450mbit latency 70ms burst 10kb # 正确的写法	
+#tc qdisc add dev $DEFAULT_INTERFACE root tbf rate 500mbit latency 50ms burst 1000 # 错误的写法
 tc qdisc del dev $DEFAULT_INTERFACE root
 tc qdisc show dev $DEFAULT_INTERFACE
 
