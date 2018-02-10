@@ -53,15 +53,15 @@ cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime; date;
 su
 ## Online, OneProvider, Kimsufi
 git clone https://github.com/lovewangbo/ipv6-dhclient-script.git;cd ipv6-dhclient-script;chmod +x ipv6-dhclient-script.sh
-echo -n "IPV6_ADDRESS IPV6_SUBNET IPV6_DUID:"
+echo "IPV6_ADDRESS IPV6_SUBNET IPV6_DUID"
+echo "2001:bc8:x:xx::1 56 00:03:xx:xx:xx:xx:xx:xx:xx:xx"
 read IPV6_ADDRESS IPV6_SUBNET IPV6_DUID
-# 2001:bc8:x:xx::1 56 00:03:xx:xx:xx:xx:xx:xx:xx:xx
 DEFAULT_INTERFACE=`ip route get 8.8.8.8 | awk '{print $5; exit}'` #获取网卡名称
 ./ipv6-dhclient-script.sh $DEFAULT_INTERFACE $IPV6_ADDRESS $IPV6_SUBNET $IPV6_DUID
 ping6 ipv6.google.com
 ## ikoula
-# 2a00:c70:1:x:xx:xxx:xxxx:2 96 2a00:c70:1:x:xx:xxx::1
-echo -n "IPV6_ADDRESS IPV6_SUBNET GATE_WAY:"
+echo "IPV6_ADDRESS  IPV6_SUBNET GATE_WAY"
+echo "2a00:c70:1:x:xx:xxx:xxxx:2 96 2a00:c70:1:x:xx:xxx::1"
 read IPV6_ADDRESS IPV6_SUBNET GATE_WAY
 DEFAULT_INTERFACE=`ip route get 8.8.8.8 | awk '{print $5; exit}'` #获取网卡名称
 wget -q https://raw.githubusercontent.com/lovewangbo/ipv6-dhclient-script/master/templates/Debian/etc_network_interfaces_ikoula
@@ -111,7 +111,6 @@ apt-get install -y php php7.0-cli php7.0-json php7.0-curl php7.0-cgi php7.0-mbst
 apt-get install git; cd /var/www/html; git clone https://github.com/Novik/ruTorrent.git; 
 chown -R $RTORRENT_USER:www-data ruTorrent/ && chmod -R 770 ruTorrent/;
 echo -e "\n\n[httprpc]\nenabled = yes\n[rpc]\nenabled = no"  >> /var/www/html/ruTorrent/conf/plugins.ini
-
 echo -n "Input Web user id to log in:"
 read -e rutorrent_user;
 
@@ -190,8 +189,8 @@ sudo make install;
 #sudo checkinstall;
 cd ..
 
-echo -e "qb_user\tweb_port\tWeb_user\tWeb_passwd"
-echo -e "jack   \t8899    \tadmin   \tadminadmin"
+echo -e "qb_user  web_port  Web_user  Web_passwd"
+echo -e "jack     8899      admin     adminadmin"
 read QB_USER QB_WEB_PORT QB_WEB_USER QB_WEB_PASSWD
 QB_WEB_PASSWD_HASH=`echo -n $QB_WEB_PASSWD | md5sum | awk '{print $1}'`;
 sudo mkdir -p $HOMEDIR/.config/qBittorrent/
@@ -225,8 +224,8 @@ apt-get install -y python-gevent python-pip;
 pip install shadowsocks;
 apt-get install -y python-m2crypto;
 mkdir -p /etc/shadowsocks;
-echo -e "server port\tpasswd"
-echo -e "8080       \tadminadmin"
+echo -e "server port  passwd:"
+echo -e "8080         adminadmin"
 read my_server_port my_server_passwd
 sudo wget -O /etc/shadowsocks/config.json https://raw.githubusercontent.com/lovewangbo/seedbox/master/templates/shadowsocks/config.json
 sudo sed -i "s@my_server_ip@${my_server_ip}@g" /etc/shadowsocks/config.json
