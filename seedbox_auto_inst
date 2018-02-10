@@ -107,10 +107,12 @@ cd rtorrent/
 make clean && make -j$(nproc);
 make install
 
-echo -e "\ninclude /usr/local/lib/\n"  >> /etc/ld.so.conf
+su
+if [[ -z $(cat /etc/ld.so.conf | grep "/usr/local/lib/$") ]]; then
+  echo -e "\ninclude /usr/local/lib/\n"  >> /etc/ld.so.conf
+fi
 ldconfig
-whereis rtorrent
-ldd /usr/local/bin/rtorrent 
+ldd `whereis rtorrent | awk '{print $2}'`
 
 echo -n "Which user of system will run rtorrent:"
 read -e rtorrent_user;
@@ -252,24 +254,24 @@ sudo systemctl stop qbittorrent
 
 
 # 安装Shadowsocks
-su
 echo "Now install shadowsocks:"
 python --version
 echo "Python should be 2.6/2.7, and your python version is:"
-apt-get install -y python-gevent python-pip;
-pip install shadowsocks;
-apt-get install -y python-m2crypto;
-mkdir -p /etc/shadowsocks;
-echo -e "server port  passwd:"
+sudo apt-get install -y python-gevent python-pip;
+sudo pip install shadowsocks;
+sudo apt-get install -y python-m2crypto;
+echo -e "server_port  passwd:"
 echo -e "8080         adminadmin"
 read my_server_port my_server_passwd
-sudo wget -O /etc/shadowsocks/config.json https://raw.githubusercontent.com/lovewangbo/seedbox/master/templates/shadowsocks/config.json
-sudo sed -i "s@my_server_ip@${my_server_ip}@g" /etc/shadowsocks/config.json
-sudo sed -i "s@my_server_port@${my_server_port}@g" /etc/shadowsocks/config.json
-sudo sed -i "s@mypassword@${my_server_passwd}@g" /etc/shadowsocks/config.json
-wget -O /etc/systemd/system/shadowsocks.service https://raw.githubusercontent.com/lovewangbo/seedbox/master/templates/shadowsocks/shadowsocks.service
-systemctl enable shadowsocks;
-systemctl start shadowsocks;
+wget -qO shadowsocks_config.json https://raw.githubusercontent.com/lovewangbo/seedbox/master/templates/shadowsocks/config.json
+sed -i "s@my_server_ip@${my_server_ip}@g" shadowsocks_config.json
+sed -i "s@my_server_port@${my_server_port}@g" shadowsocks_config.json
+sed -i "s@mypassword@${my_server_passwd}@g" shadowsocks_config.json
+sudo mv shadowsocks_config.json /etc/shadowsocks/config.json
+mkdir -p /etc/shadowsocks;
+sudo wget -O /etc/systemd/system/shadowsocks.service https://raw.githubusercontent.com/lovewangbo/seedbox/master/templates/shadowsocks/shadowsocks.service
+sudo systemctl enable shadowsocks;
+sudo systemctl start shadowsocks;
 
 # 限速
 DEFAULT_INTERFACE=`ip route get 8.8.8.8 | awk '{print $5; exit}'` #获取网卡名称
