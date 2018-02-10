@@ -119,7 +119,6 @@ RTORRENT_USER=$rtorrent_user;
 adduser $RTORRENT_USER;
 
 HOMEDIR=$(cat /etc/passwd | grep "$RTORRENT_USER": | cut -d: -f6)
-
 cd $HOMEDIR; wget -O $HOMEDIR/.rtorrent.rc https://raw.githubusercontent.com/lovewangbo/rTorrent/master/.rtorrent.rc; chown "$RTORRENT_USER"."$RTORRENT_USER" $HOMEDIR/.rtorrent.rc; sed -i "s@HOMEDIRHERE@$HOMEDIR@g" $HOMEDIR/.rtorrent.rc; 
 mkdir $HOMEDIR/.rtorrent-session; chown "$RTORRENT_USER"."$RTORRENT_USER" $HOMEDIR/.rtorrent-session; 
 mkdir $HOMEDIR/Downloads; chown "$RTORRENT_USER"."$RTORRENT_USER" $HOMEDIR/Downloads;
@@ -150,14 +149,14 @@ service apache2 restart
 
 
 # 安装qBittorrent
-apt-get install -y build-essential pkg-config automake libtool git
-apt-get install -y libboost-dev libboost-system-dev libboost-chrono-dev libboost-random-dev libssl-dev
-apt-get install -y qtbase5-dev qttools5-dev-tools libqt5svg5-dev
-apt-get install -y python3
+sudo apt-get install -y build-essential pkg-config automake libtool git
+sudo apt-get install -y libboost-dev libboost-system-dev libboost-chrono-dev libboost-random-dev libssl-dev
+sudo apt-get install -y qtbase5-dev qttools5-dev-tools libqt5svg5-dev
+sudo apt-get install -y python3
 ####libtorrent安装开始
 #以下二选一
 ####安装二进制包，v1.0.7，非C++11编译，已知不兼容qb v4.0.3，但可兼容v3.3.14
-apt-get install -y libtorrent-rasterbar-dev
+sudo apt-get install -y libtorrent-rasterbar-dev
 ####编译安装最新版本，也可指定版本
 TODAY=`date +%Y-%m-%d`; TODAY=$(date +%Y-%m-%d);
 mkdir -p ~/tmp/$TODAY; cd ~/tmp/$TODAY
@@ -170,6 +169,7 @@ git checkout $(git tag | grep libtorrent-1_1_ | sort -t _ -n -k 3 | tail -n 1)
 make clean && make -j$(nproc);
 #checkinstall
 sudo make install
+ldd `whereis qbittorrent-nox | awk '{print $2}'`
 sudo ldconfig
 #########
 pkg-config --list-all | grep libtorrent
@@ -214,28 +214,37 @@ cat src/base/bittorrent/session.cpp | grep "qBittorrent v"
 make clean && make -j$(nproc);
 sudo make install;
 #sudo checkinstall;
+ldd `whereis qbittorrent-nox | awk '{print $2}'`
 cd ..
 
 echo -e "qb_user  web_port  Web_user  Web_passwd"
 echo -e "jack     8899      admin     adminadmin"
 read QB_USER QB_WEB_PORT QB_WEB_USER QB_WEB_PASSWD
 QB_WEB_PASSWD_HASH=`echo -n $QB_WEB_PASSWD | md5sum | awk '{print $1}'`;
+HOMEDIR=$(cat /etc/passwd | grep "$QB_USER": | cut -d: -f6)
 sudo mkdir -p $HOMEDIR/.config/qBittorrent/
-#sudo wget -O $HOMEDIR/.config/qBittorrent/qBittorrent.conf https://raw.githubusercontent.com/lovewangbo/qbittorrent/master/qBittorrent.conf
-sudo wget -O $HOMEDIR/.config/qBittorrent/qBittorrent.conf https://raw.githubusercontent.com/lovewangbo/seedbox/master/conf/qBittorrent.conf
+#sudo wget -qO $HOMEDIR/.config/qBittorrent/qBittorrent.conf https://raw.githubusercontent.com/lovewangbo/qbittorrent/master/qBittorrent.conf
+wget -qO qBittorrent.conf https://raw.githubusercontent.com/lovewangbo/seedbox/master/conf/qBittorrent.conf
+sed -i 's@\(Downloads\\SavePath=\)\/home\/QBUSERHERE@\1'"$HOMEDIR"'@g' qBittorrent.conf;
+#sed -i 's@\(WebUI\\Port=\)8080@\1'"$QB_WEB_PORT"'@g' qBittorrent.conf;
+sed -i 's@\(WebUI\\Username=\)admin@\1'"$QB_WEB_USER"'@g' qBittorrent.conf;
+sed -i 's/\(WebUI\\Password_ha1=@ByteArray(\)f6fdffe48c908deb0f4c3bd36c032e72/\1'"$QB_WEB_PASSWD_HASH"'/g' qBittorrent.conf;
 sudo chown "$QB_USER"."$QB_USER" $HOMEDIR/.config/qBittorrent/qBittorrent.conf
-sed -i 's@\(Downloads\\SavePath=\)\/home\/QBUSERHERE@\1'"$HOMEDIR"'@g' $HOMEDIR/.config/qBittorrent/qBittorrent.conf;
-sed -i 's@\(WebUI\\Port=\)8080@\1'"$QB_WEB_PORT"'@g' $HOMEDIR/.config/qBittorrent/qBittorrent.conf;
-sed -i 's@\(WebUI\\Username=\)admin@\1'"$QB_WEB_USER"'@g' $HOMEDIR/.config/qBittorrent/qBittorrent.conf;
-sed -i 's/\(WebUI\\Password_ha1=@ByteArray(\)f6fdffe48c908deb0f4c3bd36c032e72/\1'"$QB_WEB_PASSWD_HASH"'/g' $HOMEDIR/.config/qBittorrent/qBittorrent.conf;
-sudo wget -O /etc/systemd/system/qbittorrent.service https://raw.githubusercontent.com/lovewangbo/seedbox/master/templates/qbittorrent.service
-sudo sed -i "s@QB_USEERS_HERE@$QB_USER@g" /etc/systemd/system/qbittorrent.service
+sudo mv qBittorrent.conf $HOMEDIR/.config/qBittorrent/qBittorrent.conf;
 
-systemctl enable qbittorrent
+QB_PATH_NAME=`whereis qbittorrent-nox | awk '{print $2}'`;
+#QB_PATH_NAME=$(whereis qbittorrent-nox | awk '{print $2}');#也可写成
+wget -qO qbittorrent.service https://raw.githubusercontent.com/lovewangbo/seedbox/master/templates/qbittorrent.service
+sed -i 's@{{QB_USER}}@'"$QB_USER"'@g' qbittorrent.service;
+sed -i 's@{{QB_PATH_NAME}}@'"$QB_PATH_NAME"'@g' qbittorrent.service;
+sed -i 's@{{QB_WEB_PORT}}@'"$QB_WEB_PORT"'@g' qbittorrent.service;
+sudo mv qbittorrent.service /etc/systemd/system/qbittorrent.service;
+
+sudo systemctl enable qbittorrent
 systemctl status qbittorrent
-systemctl start qbittorrent
+sudo systemctl start qbittorrent
 systemctl status qbittorrent
-systemctl stop qbittorrent
+sudo systemctl stop qbittorrent
 
 #my_server_ip=127.0.0.1
 #my_server_port=
