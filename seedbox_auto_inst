@@ -70,8 +70,10 @@ mv etc_network_interfaces_ikoula /etc/network/interfaces
 ##End
 
 
+
 # 安装rTorrent和ruTorrent
 su
+
 # 可以安装二进制包，不支持ipv6
 apt-get install rtorrent;
 # 也可自行编译安装支持IPv6的版本
@@ -107,18 +109,25 @@ cd rtorrent/
 make clean && make -j$(nproc);
 make install
 
-su
 if [[ -z $(cat /etc/ld.so.conf | grep "/usr/local/lib/$") ]]; then
-  echo -e "\ninclude /usr/local/lib/\n"  >> /etc/ld.so.conf
+  #echo -e "\ninclude /usr/local/lib/\n"  >> /etc/ld.so.conf
+  sudo sed -i '$a\include \/usr\/local\/lib\/' /etc/ld.so.conf
 fi
-ldconfig
+sudo ldconfig
 ldd `whereis rtorrent | awk '{print $2}'`
 
-echo -n "Which user of system will run rtorrent:"
-read -e rtorrent_user;
 
-RTORRENT_USER=$rtorrent_user;
-adduser $RTORRENT_USER;
+#确定运行rt软件的账户
+read -p "Add user account to run rtorrent/qbittorrent:" BT_USER
+if [[ -z $(cat /etc/passwd | grep "^$BT_USER:") ]]; then
+  sudo adduser $BT_USER
+  #sudo userdel $BT_USER
+  sudo usermod -s /bin/false $BT_USER
+  #sudo usermod -s /bin/bash $BT_USER
+  #或直接编辑/etc/passwd文件，将用户shell从false改成bash
+fi
+HOMEDIR=$(cat /etc/passwd | grep "$BT_USER": | cut -d: -f6)
+RTORRENT_USER=$BT_USER
 
 HOMEDIR=$(cat /etc/passwd | grep "$RTORRENT_USER": | cut -d: -f6)
 cd $HOMEDIR; wget -O $HOMEDIR/.rtorrent.rc https://raw.githubusercontent.com/lovewangbo/rTorrent/master/.rtorrent.rc; chown "$RTORRENT_USER"."$RTORRENT_USER" $HOMEDIR/.rtorrent.rc; sed -i "s@HOMEDIRHERE@$HOMEDIR@g" $HOMEDIR/.rtorrent.rc; 
@@ -150,6 +159,7 @@ service apache2 restart
 # http://xxx.xxx.xxx.xxx/ruTorrent/
 
 
+
 # 安装qBittorrent
 sudo apt-get install -y build-essential pkg-config automake libtool git
 sudo apt-get install -y libboost-dev libboost-system-dev libboost-chrono-dev libboost-random-dev libssl-dev
@@ -171,6 +181,11 @@ git checkout $(git tag | grep libtorrent-1_0_ | sort -t _ -n -k 3 | tail -n 1)
 make clean && make -j$(nproc);
 #checkinstall
 sudo make install
+
+if [[ -z $(cat /etc/ld.so.conf | grep "/usr/local/lib/$") ]]; then
+  #echo -e "\ninclude /usr/local/lib/\n"  >> /etc/ld.so.conf
+  sudo sed -i '$a\include \/usr\/local\/lib\/' /etc/ld.so.conf
+fi
 ldd `whereis qbittorrent-nox | awk '{print $2}'`
 sudo ldconfig
 #########
@@ -219,23 +234,34 @@ sudo make install;
 ldd `whereis qbittorrent-nox | awk '{print $2}'`
 cd ..
 
-echo -e "qb_user  web_port  Web_user  Web_passwd"
-echo -e "jack     8899      admin     adminadmin"
-read QB_USER QB_WEB_PORT QB_WEB_USER QB_WEB_PASSWD
+#确定运行qb软件的账户
+read -p "Add user account to run rtorrent/qbittorrent:" BT_USER
+if [[ -z $(cat /etc/passwd | grep "^$BT_USER:") ]]; then
+  sudo adduser $BT_USER
+  #sudo userdel $BT_USER
+  sudo usermod -s /bin/false $BT_USER
+  #sudo usermod -s /bin/bash $BT_USER
+  #或直接编辑/etc/passwd文件，将用户shell从false改成bash
+fi
+HOMEDIR=$(cat /etc/passwd | grep "$BT_USER": | cut -d: -f6)
+QB_USER=$BT_USER
+
+echo -e "web_port  Web_user  Web_passwd"
+echo -e "8899      admin     adminadmin"
+read QB_WEB_PORT QB_WEB_USER QB_WEB_PASSWD
 QB_WEB_PASSWD_HASH=`echo -n $QB_WEB_PASSWD | md5sum | awk '{print $1}'`;
-HOMEDIR=$(cat /etc/passwd | grep "$QB_USER": | cut -d: -f6)
-sudo mkdir -p $HOMEDIR/.config/qBittorrent/
 #sudo wget -qO $HOMEDIR/.config/qBittorrent/qBittorrent.conf https://raw.githubusercontent.com/lovewangbo/qbittorrent/master/qBittorrent.conf
 wget -qO qBittorrent.conf https://raw.githubusercontent.com/lovewangbo/seedbox/master/conf/qBittorrent.conf
-sed -i 's@\(Downloads\\SavePath=\)\/home\/QBUSERHERE@\1'"$HOMEDIR"'@g' qBittorrent.conf;
-#sed -i 's@\(WebUI\\Port=\)8080@\1'"$QB_WEB_PORT"'@g' qBittorrent.conf;
-sed -i 's@\(WebUI\\Username=\)admin@\1'"$QB_WEB_USER"'@g' qBittorrent.conf;
-sed -i 's/\(WebUI\\Password_ha1=@ByteArray(\)f6fdffe48c908deb0f4c3bd36c032e72/\1'"$QB_WEB_PASSWD_HASH"'/g' qBittorrent.conf;
+sed -i 's@\(Downloads\\SavePath=\)\/home\/QBUSERHERE@\1'"$HOMEDIR"'@g' qBittorrent.conf
+#sed -i 's@\(WebUI\\Port=\)8080@\1'"$QB_WEB_PORT"'@g' qBittorrent.conf
+sed -i 's@\(WebUI\\Username=\)admin@\1'"$QB_WEB_USER"'@g' qBittorrent.conf
+sed -i 's/\(WebUI\\Password_ha1=@ByteArray(\)f6fdffe48c908deb0f4c3bd36c032e72/\1'"$QB_WEB_PASSWD_HASH"'/g' qBittorrent.conf
 sudo chown "$QB_USER"."$QB_USER" $HOMEDIR/.config/qBittorrent/qBittorrent.conf
-sudo mv qBittorrent.conf $HOMEDIR/.config/qBittorrent/qBittorrent.conf;
+sudo mkdir -p $HOMEDIR/.config/qBittorrent/
+sudo mv qBittorrent.conf $HOMEDIR/.config/qBittorrent/qBittorrent.conf
 
-QB_PATH_NAME=`whereis qbittorrent-nox | awk '{print $2}'`;
-#QB_PATH_NAME=$(whereis qbittorrent-nox | awk '{print $2}');#也可写成
+QB_PATH_NAME=`whereis qbittorrent-nox | awk '{print $2}'`
+#QB_PATH_NAME=$(whereis qbittorrent-nox | awk '{print $2}') #也可写成
 wget -qO qbittorrent.service https://raw.githubusercontent.com/lovewangbo/seedbox/master/templates/qbittorrent.service
 sed -i 's@{{QB_USER}}@'"$QB_USER"'@g' qbittorrent.service;
 sed -i 's@{{QB_PATH_NAME}}@'"$QB_PATH_NAME"'@g' qbittorrent.service;
