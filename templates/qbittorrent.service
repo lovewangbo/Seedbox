@@ -4,7 +4,7 @@ After=network.target
 
 [Service]
 User=QB_USEERS_HERE
-ExecStart=/usr/local/bin/qbittorrent-nox --webui-port=7788
+ExecStart={{QB_PATH_NAME}} --webui-port={{QB_WEB_PORT}}
 
 [Install]
 WantedBy=multi-user.target
