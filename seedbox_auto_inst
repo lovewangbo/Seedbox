@@ -53,20 +53,16 @@ cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime; date;
 su
 ## Online, OneProvider, Kimsufi
 git clone https://github.com/lovewangbo/ipv6-dhclient-script.git;cd ipv6-dhclient-script;chmod +x ipv6-dhclient-script.sh
+echo -n "IPV6_ADDRESS IPV6_SUBNET IPV6_DUID:"
+read IPV6_ADDRESS IPV6_SUBNET IPV6_DUID
+# 2001:bc8:x:xx::1 56 00:03:xx:xx:xx:xx:xx:xx:xx:xx
 DEFAULT_INTERFACE=`ip route get 8.8.8.8 | awk '{print $5; exit}'` #获取网卡名称
-echo -n "Input your IPV6 address:"
-read -e IPV6_ADDRESS
-echo -n "Input your IPV6 subnet:"
-read -e IPV6_SUBNET
-echo -n "Input your IPV6 DUID:"
-read -e IPV6_DUID
 ./ipv6-dhclient-script.sh $DEFAULT_INTERFACE $IPV6_ADDRESS $IPV6_SUBNET $IPV6_DUID
 ping6 ipv6.google.com
 ## ikoula
-ipv6="2a00:c70:1:x:xx:xxx:xxxx:2 96 2a00:c70:1:x:xx:xxx::1"
-BLOCK_ADDR=`echo -n $ipv6 | awk '{print $1; exit}'`
-BLOCK_SUBNET=`echo -n $ipv6 | awk '{print $2; exit}'`
-GATE_WAY=`echo -n $ipv6 | awk '{print $3; exit}'`
+# 2a00:c70:1:x:xx:xxx:xxxx:2 96 2a00:c70:1:x:xx:xxx::1
+echo -n "IPV6_ADDRESS IPV6_SUBNET GATE_WAY:"
+read IPV6_ADDRESS IPV6_SUBNET GATE_WAY
 DEFAULT_INTERFACE=`ip route get 8.8.8.8 | awk '{print $5; exit}'` #获取网卡名称
 wget -q https://raw.githubusercontent.com/lovewangbo/ipv6-dhclient-script/master/templates/Debian/etc_network_interfaces_ikoula
 sed -e "s/{{INTERFACE}}/$DEFAULT_INTERFACE/g" -e "s/{{BLOCK_ADDR}}/$BLOCK_ADDR/g" -e "s/{{BLOCK_SUBNET}}/$BLOCK_SUBNET/g" -e "s/{{GATE_WAY}}/$GATE_WAY/g" etc_network_interfaces_ikoula
@@ -194,23 +190,9 @@ sudo make install;
 #sudo checkinstall;
 cd ..
 
-echo -n "Which user of system will run qbittorrent? It should be the same as rtorrent for convinient RSS"
-read -e qb_user;
-
-QB_USER=$qb_user;
-HOMEDIR=$(cat /etc/passwd | grep "$QB_USER": | cut -d: -f6)
-echo -n "qbittorrent web ui port:"
-read -e qb_web_port;
-
-QB_WEB_PORT=$qb_web_port;
-echo -n "qbittorrent web username:"
-read -e qb_web_user;
-
-QB_WEB_USER=$qb_web_user;
-echo -n "qbittorrent web password:"
-read -e qb_web_passwd;
-
-QB_WEB_PASSWD=$qb_web_passwd;
+echo -e "qb_user\tweb_port\tWeb_user\tWeb_passwd"
+echo -e "jack   \t8899    \tadmin   \tadminadmin"
+read QB_USER QB_WEB_PORT QB_WEB_USER QB_WEB_PASSWD
 QB_WEB_PASSWD_HASH=`echo -n $QB_WEB_PASSWD | md5sum | awk '{print $1}'`;
 sudo mkdir -p $HOMEDIR/.config/qBittorrent/
 #sudo wget -O $HOMEDIR/.config/qBittorrent/qBittorrent.conf https://raw.githubusercontent.com/lovewangbo/qbittorrent/master/qBittorrent.conf
@@ -243,11 +225,9 @@ apt-get install -y python-gevent python-pip;
 pip install shadowsocks;
 apt-get install -y python-m2crypto;
 mkdir -p /etc/shadowsocks;
-read -p
-echo -n "Input the port to use: "
-read -e my_server_port
-echo -n "Input the password to verify: "
-read -e my_server_passwd
+echo -e "server port\tpasswd"
+echo -e "8080       \tadminadmin"
+read my_server_port my_server_passwd
 sudo wget -O /etc/shadowsocks/config.json https://raw.githubusercontent.com/lovewangbo/seedbox/master/templates/shadowsocks/config.json
 sudo sed -i "s@my_server_ip@${my_server_ip}@g" /etc/shadowsocks/config.json
 sudo sed -i "s@my_server_port@${my_server_port}@g" /etc/shadowsocks/config.json
