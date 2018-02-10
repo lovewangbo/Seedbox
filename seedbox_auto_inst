@@ -77,9 +77,36 @@ apt-get install rtorrent;
 # 也可自行编译安装支持IPv6的版本
 TODAY=`date +%Y-%m-%d`; TODAY=$(date +%Y-%m-%d);
 mkdir -p ~/tmp/$TODAY; cd ~/tmp/$TODAY
-wget https://raw.githubusercontent.com/lovewangbo/rTorrent/master/rtorrent_ipv6_v3.1
-chmod +x rtorrent_ipv6_*
-sudo ./rtorrent_ipv6_*
+# 原安装脚本
+#wget https://raw.githubusercontent.com/lovewangbo/rTorrent/master/rtorrent_ipv6_v3.1
+#chmod +x rtorrent_ipv6_*
+#sudo ./rtorrent_ipv6_*
+# 原安装脚本的精炼版
+curl -L http://sourceforge.net/projects/xmlrpc-c/files/Xmlrpc-c%20Super%20Stable/1.33.18/xmlrpc-c-1.33.18.tgz/download -o xmlrpc-c.tgz
+tar zxvf xmlrpc-c.tgz
+mv xmlrpc-c-1.* xmlrpc
+cd xmlrpc/
+./configure --disable-cplusplus
+make clean && make -j$(nproc);
+sudo make install
+cd ..
+
+git clone https://github.com/rakshasa/libtorrent.git
+cd libtorrent
+./autogen.sh 
+./configure 
+make clean && make -j$(nproc);
+sudo make install
+cd ..
+
+apt-get install libncurses5-dev libcurl4-openssl-dev
+git clone https://github.com/rakshasa/rtorrent.git
+cd rtorrent/
+./autogen.sh
+./configure --with-xmlrpc-c --enable-ipv6
+make clean && make -j$(nproc);
+make install
+
 echo -e "\ninclude /usr/local/lib/\n"  >> /etc/ld.so.conf
 ldconfig
 whereis rtorrent
