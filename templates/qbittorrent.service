@@ -3,7 +3,7 @@ Description=qBittorrent Daemon Service
 After=network.target
 
 [Service]
-User=QB_USEERS_HERE
+User={{QB_USEER}}
 ExecStart={{QB_PATH_NAME}} --webui-port={{QB_WEB_PORT}}
 
 [Install]
