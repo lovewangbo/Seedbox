@@ -77,8 +77,9 @@ su
 # 可以安装二进制包，不支持ipv6
 apt-get install rtorrent;
 # 也可自行编译安装支持IPv6的版本
+cd ~/tmp
 TODAY=`date +%Y-%m-%d`; TODAY=$(date +%Y-%m-%d);
-mkdir -p ~/tmp/$TODAY; cd ~/tmp/$TODAY
+mkdir -p $TODAY; cd $TODAY
 # 原安装脚本
 #wget https://raw.githubusercontent.com/lovewangbo/rTorrent/master/rtorrent_ipv6_v3.1
 #chmod +x rtorrent_ipv6_*
@@ -170,8 +171,9 @@ sudo apt-get install -y python3
 ####安装二进制包，v1.0.7，非C++11编译，已知不兼容qb v4.0.3，但与qb v3.3.14工作得很好
 sudo apt-get install -y libtorrent-rasterbar-dev
 ####编译安装指定版本
+cd ~/tmp
 TODAY=`date +%Y-%m-%d`; TODAY=$(date +%Y-%m-%d);
-mkdir -p ~/tmp/$TODAY; cd ~/tmp/$TODAY
+mkdir -p $TODAY; cd $TODAY
 git clone https://github.com/arvidn/libtorrent.git
 cd libtorrent
 git checkout $(git tag | grep libtorrent-1_0_ | sort -t _ -n -k 3 | tail -n 1)
@@ -191,9 +193,15 @@ if [[ -z $(cat /etc/ld.so.conf | grep "/usr/local/lib/$") ]]; then
 fi
 sudo ldconfig
 #########
+# 用automake工具编译安装的用以下命令可查到：
 pkg-config --list-all | grep libtorrent
+# 用apt-get install命令安装的用以下命令可查到，可以用dpkg -P卸载：
 dpkg -l | grep libtorrent-rasterbar
-####libtorrent安装完毕
+####libtorrent安装完毕。
+#似乎只涉及删除一个库文件即可：
+ /bin/bash ../libtool   --mode=uninstall rm -f '/usr/local/lib/libtorrent-rasterbar.la'
+libtool: uninstall: rm -f /usr/local/lib/libtorrent-rasterbar.la /usr/local/lib/libtorrent-rasterbar.so.9.0.0 /usr/local/lib/libtorrent-rasterbar.so.9 /usr/local/lib/libtorrent-rasterbar.so /usr/local/lib/libtorrent-rasterbar.a
+##
 cd ..
 
 TODAY=`date +%Y-%m-%d`; TODAY=$(date +%Y-%m-%d);
@@ -263,7 +271,7 @@ sudo mkdir -p $HOMEDIR/.config/qBittorrent/
 sudo mv qBittorrent.conf $HOMEDIR/.config/qBittorrent/qBittorrent.conf
 
 QB_PATH_NAME=`whereis qbittorrent-nox | awk '{print $2}'`
-#QB_PATH_NAME=$(whereis qbittorrent-nox | awk '{print $2}') #也可写成
+#QB_PATH_NAME=$(whereis qbittorrent-nox | awk '{print $2}') #也可
 wget -qO qbittorrent.service https://raw.githubusercontent.com/lovewangbo/seedbox/master/templates/qbittorrent.service
 sed -i 's@{{QB_USER}}@'"$QB_USER"'@g' qbittorrent.service;
 sed -i 's@{{QB_PATH_NAME}}@'"$QB_PATH_NAME"'@g' qbittorrent.service;
