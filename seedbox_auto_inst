@@ -167,15 +167,17 @@ sudo apt-get install -y qtbase5-dev qttools5-dev-tools libqt5svg5-dev
 sudo apt-get install -y python3
 ####libtorrent安装开始
 #以下二选一
-####安装二进制包，v1.0.7，非C++11编译，已知不兼容qb v4.0.3，但可兼容v3.3.14
+####安装二进制包，v1.0.7，非C++11编译，已知不兼容qb v4.0.3，但与qb v3.3.14工作得很好
 sudo apt-get install -y libtorrent-rasterbar-dev
-####编译安装最新版本，也可指定版本
+####编译安装指定版本
 TODAY=`date +%Y-%m-%d`; TODAY=$(date +%Y-%m-%d);
 mkdir -p ~/tmp/$TODAY; cd ~/tmp/$TODAY
 git clone https://github.com/arvidn/libtorrent.git
 cd libtorrent
-# 较老版本的qb，如v3.3.x与libtorrent 1.1.x似乎存在兼容性问题
 git checkout $(git tag | grep libtorrent-1_0_ | sort -t _ -n -k 3 | tail -n 1)
+# 若apt-get autoremove过，可能被清理掉而缺少Geoip库，具体情形未知
+# sudo apt-get install libgeoip-dev
+# 较老版本的qb，如v3.3.x与libtorrent 1.1.x存在兼容性问题。已知有mt的IPV6支持的问题
 #git checkout $(git tag | grep libtorrent-1_1_ | sort -t _ -n -k 3 | tail -n 1)
 ./autotool.sh
 ./configure -disable-debug --enable-encryption --with-libgeoip=system CXXFLAGS=-std=c++11
@@ -274,6 +276,7 @@ systemctl status qbittorrent
 sudo systemctl start qbittorrent
 systemctl status qbittorrent
 sudo systemctl stop qbittorrent
+sudo systemctl disable qbittorrent
 
 #my_server_ip=127.0.0.1
 #my_server_port=
