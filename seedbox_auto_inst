@@ -189,7 +189,6 @@ if [[ -z $(cat /etc/ld.so.conf | grep "/usr/local/lib/$") ]]; then
   #echo -e "\ninclude /usr/local/lib/\n"  >> /etc/ld.so.conf
   sudo sed -i '$a\include \/usr\/local\/lib\/' /etc/ld.so.conf
 fi
-ldd `whereis qbittorrent-nox | awk '{print $2}'`
 sudo ldconfig
 #########
 pkg-config --list-all | grep libtorrent
