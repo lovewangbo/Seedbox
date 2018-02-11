@@ -141,6 +141,7 @@ systemctl enable rtorrent
 systemctl status rtorrent
 systemctl start rtorrent
 systemctl status rtorrent
+systemctl list-unit-files | grep torrent
 ps -ef | grep rtorrent
 #systemctl disable rtorrent
 #systemctl stop rtorrent
@@ -284,6 +285,7 @@ sudo systemctl start qbittorrent
 systemctl status qbittorrent
 sudo systemctl stop qbittorrent
 sudo systemctl disable qbittorrent
+systemctl list-unit-files | grep torrent
 
 #my_server_ip=127.0.0.1
 #my_server_port=
