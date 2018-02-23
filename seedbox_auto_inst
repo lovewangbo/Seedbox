@@ -55,14 +55,30 @@ su
 git clone https://github.com/lovewangbo/ipv6-dhclient-script.git;cd ipv6-dhclient-script;chmod +x ipv6-dhclient-script.sh
 echo "IPV6_ADDRESS IPV6_SUBNET IPV6_DUID"
 echo "2001:bc8:x:xx::1 56 00:03:xx:xx:xx:xx:xx:xx:xx:xx"
-read IPV6_ADDRESS IPV6_SUBNET IPV6_DUID
+if [[ -z $IPV6_ADDRESS ]]; then
+  read IPV6_ADDRESS
+fi
+if [[ -z $IPV6_SUBNET ]]; then
+  read IPV6_SUBNET
+fi
+if [[ -z $IPV6_DUID ]]; then
+  read IPV6_DUID
+fi
 DEFAULT_INTERFACE=`ip route get 8.8.8.8 | awk '{print $5; exit}'` #获取网卡名称
 ./ipv6-dhclient-script.sh $DEFAULT_INTERFACE $IPV6_ADDRESS $IPV6_SUBNET $IPV6_DUID
 ping6 ipv6.google.com
 ## ikoula
 echo "IPV6_ADDRESS  IPV6_SUBNET GATE_WAY"
 echo "2a00:c70:1:x:xx:xxx:xxxx:2 96 2a00:c70:1:x:xx:xxx::1"
-read IPV6_ADDRESS IPV6_SUBNET GATE_WAY
+if [[ -z $IPV6_ADDRESS ]]; then
+  read IPV6_ADDRESS
+fi
+if [[ -z $IPV6_SUBNET ]]; then
+  read IPV6_SUBNET
+fi
+if [[ -z $GATE_WAY ]]; then
+  read GATE_WAY
+fi
 DEFAULT_INTERFACE=`ip route get 8.8.8.8 | awk '{print $5; exit}'` #获取网卡名称
 wget -q https://raw.githubusercontent.com/lovewangbo/ipv6-dhclient-script/master/templates/Debian/etc_network_interfaces_ikoula
 sed -e "s/{{INTERFACE}}/$DEFAULT_INTERFACE/g" -e "s/{{BLOCK_ADDR}}/$BLOCK_ADDR/g" -e "s/{{BLOCK_SUBNET}}/$BLOCK_SUBNET/g" -e "s/{{GATE_WAY}}/$GATE_WAY/g" etc_network_interfaces_ikoula
@@ -119,7 +135,9 @@ ldd `whereis rtorrent | awk '{print $2}'`
 
 
 #确定运行rt软件的账户
-read -p "Add user account to run rtorrent/qbittorrent:" BT_USER
+if [[ -z $BT_USER ]]; then
+  read -p "Add user account to run rtorrent/qbittorrent:" BT_USER
+fi
 if [[ -z $(cat /etc/passwd | grep "^$BT_USER:") ]]; then
   sudo adduser $BT_USER
   #sudo userdel $BT_USER
@@ -129,8 +147,8 @@ if [[ -z $(cat /etc/passwd | grep "^$BT_USER:") ]]; then
 fi
 HOMEDIR=$(cat /etc/passwd | grep "$BT_USER": | cut -d: -f6)
 RTORRENT_USER=$BT_USER
+echo $HOMEDIR
 
-HOMEDIR=$(cat /etc/passwd | grep "$RTORRENT_USER": | cut -d: -f6)
 cd $HOMEDIR; wget -O $HOMEDIR/.rtorrent.rc https://raw.githubusercontent.com/lovewangbo/rTorrent/master/.rtorrent.rc; chown "$RTORRENT_USER"."$RTORRENT_USER" $HOMEDIR/.rtorrent.rc; sed -i "s@HOMEDIRHERE@$HOMEDIR@g" $HOMEDIR/.rtorrent.rc; 
 mkdir $HOMEDIR/.rtorrent-session; chown "$RTORRENT_USER"."$RTORRENT_USER" $HOMEDIR/.rtorrent-session; 
 mkdir $HOMEDIR/Downloads; chown "$RTORRENT_USER"."$RTORRENT_USER" $HOMEDIR/Downloads;
@@ -249,8 +267,9 @@ ldd `whereis qbittorrent-nox | awk '{print $2}'`
 cd ..
 
 #确定运行qb软件的账户
-read -p "Add user account to run rtorrent/qbittorrent:" BT_USER
-
+if [[ -z $BT_USER ]]; then
+  read -p "Add user account to run rtorrent/qbittorrent:" BT_USER
+fi
 if [[ -z $(cat /etc/passwd | grep "^$BT_USER:") ]]; then
   sudo adduser $BT_USER
   #sudo userdel $BT_USER
@@ -260,10 +279,19 @@ if [[ -z $(cat /etc/passwd | grep "^$BT_USER:") ]]; then
 fi
 HOMEDIR=$(cat /etc/passwd | grep "$BT_USER": | cut -d: -f6)
 QB_USER=$BT_USER
+echo $HOMEDIR
 
 echo -e "web_port  Web_user  Web_passwd"
 echo -e "8080      admin     adminadmin"
-read QB_WEB_PORT QB_WEB_USER QB_WEB_PASSWD
+if [[ -z $QB_WEB_PORT ]]; then
+  read QB_WEB_PORT
+fi
+if [[ -z $QB_WEB_USER ]]; then
+  read QB_WEB_USER
+fi
+if [[ -z $QB_WEB_PASSWD ]]; then
+  read QB_WEB_PASSWD
+fi
 
 QB_WEB_PASSWD_HASH=`echo -n $QB_WEB_PASSWD | md5sum | awk '{print $1}'`;
 #sudo wget -qO $HOMEDIR/.config/qBittorrent/qBittorrent.conf https://raw.githubusercontent.com/lovewangbo/qbittorrent/master/qBittorrent.conf
@@ -306,7 +334,12 @@ sudo pip install shadowsocks;
 sudo apt-get install -y python-m2crypto;
 echo -e "server_port  passwd:"
 echo -e "8080         adminadmin"
-read my_server_port my_server_passwd
+if [[ -z $my_server_port ]]; then
+  read my_server_port
+fi
+if [[ -z $my_server_passwd ]]; then
+  read my_server_passwd
+fi
 wget -qO shadowsocks_config.json https://raw.githubusercontent.com/lovewangbo/seedbox/master/templates/shadowsocks/config.json
 sed -i "s@my_server_ip@${my_server_ip}@g" shadowsocks_config.json
 sed -i "s@my_server_port@${my_server_port}@g" shadowsocks_config.json
