@@ -169,8 +169,10 @@ sudo apt-get install -y qtbase5-dev qttools5-dev-tools libqt5svg5-dev
 sudo apt-get install -y python3
 ####libtorrent安装开始
 #以下二选一
-####安装二进制包，v1.0.7，非C++11编译，已知不兼容qb v4.0.3，但与qb v3.3.14工作得很好
+
+####安装二进制包，若为v1.0.7则非C++11编译，经测试不兼容qb v4.0.3（编译时报命名空间错误），但可与qb v3.3.14兼容
 sudo apt-get install -y libtorrent-rasterbar-dev
+
 ####编译安装指定版本
 cd ~/tmp
 TODAY=`date +%Y-%m-%d`; TODAY=$(date +%Y-%m-%d);
@@ -194,9 +196,10 @@ if [[ -z $(cat /etc/ld.so.conf | grep "/usr/local/lib/$") ]]; then
 fi
 sudo ldconfig
 #########
+
 # 用automake工具编译安装的用以下命令可查到：
-pkg-config --list-all | grep libtorrent
-# 用apt-get install命令安装的用以下命令可查到，可以用dpkg -P卸载：
+pkg-config --list-all | grep libtorrent-rasterbar
+# 用apt-get install命令安装的还可用以下命令可查到，可以用dpkg -P卸载：
 dpkg -l | grep libtorrent-rasterbar
 ####libtorrent安装完毕。
 #似乎只涉及删除一个库文件即可：
@@ -247,6 +250,7 @@ cd ..
 
 #确定运行qb软件的账户
 read -p "Add user account to run rtorrent/qbittorrent:" BT_USER
+
 if [[ -z $(cat /etc/passwd | grep "^$BT_USER:") ]]; then
   sudo adduser $BT_USER
   #sudo userdel $BT_USER
@@ -258,8 +262,9 @@ HOMEDIR=$(cat /etc/passwd | grep "$BT_USER": | cut -d: -f6)
 QB_USER=$BT_USER
 
 echo -e "web_port  Web_user  Web_passwd"
-echo -e "8899      admin     adminadmin"
+echo -e "8080      admin     adminadmin"
 read QB_WEB_PORT QB_WEB_USER QB_WEB_PASSWD
+
 QB_WEB_PASSWD_HASH=`echo -n $QB_WEB_PASSWD | md5sum | awk '{print $1}'`;
 #sudo wget -qO $HOMEDIR/.config/qBittorrent/qBittorrent.conf https://raw.githubusercontent.com/lovewangbo/qbittorrent/master/qBittorrent.conf
 wget -qO qBittorrent.conf https://raw.githubusercontent.com/lovewangbo/seedbox/master/conf/qBittorrent.conf
@@ -267,9 +272,9 @@ sed -i 's@\(Downloads\\SavePath=\)\/home\/QBUSERHERE@\1'"$HOMEDIR"'@g' qBittorre
 #sed -i 's@\(WebUI\\Port=\)8080@\1'"$QB_WEB_PORT"'@g' qBittorrent.conf
 sed -i 's@\(WebUI\\Username=\)admin@\1'"$QB_WEB_USER"'@g' qBittorrent.conf
 sed -i 's/\(WebUI\\Password_ha1=@ByteArray(\)f6fdffe48c908deb0f4c3bd36c032e72/\1'"$QB_WEB_PASSWD_HASH"'/g' qBittorrent.conf
-sudo chown "$QB_USER"."$QB_USER" $HOMEDIR/.config/qBittorrent/qBittorrent.conf
 sudo mkdir -p $HOMEDIR/.config/qBittorrent/
 sudo mv qBittorrent.conf $HOMEDIR/.config/qBittorrent/qBittorrent.conf
+sudo chown -R "$QB_USER"."$QB_USER" $HOMEDIR/.config/
 
 QB_PATH_NAME=`whereis qbittorrent-nox | awk '{print $2}'`
 #QB_PATH_NAME=$(whereis qbittorrent-nox | awk '{print $2}') #也可
