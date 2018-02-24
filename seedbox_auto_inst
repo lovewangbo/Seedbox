@@ -192,6 +192,8 @@ sudo apt-get install -y python3
 sudo apt-get install -y libtorrent-rasterbar-dev
 
 ####编译安装指定版本
+# 较老版本的qb，如v3.3.x与libtorrent 1.1.x存在兼容性问题。
+# 较新版本的qb，已知v4.0.4与mt的IPV6 tracker存在兼容问题：Address family not supported by protocol "" (3)
 cd ~/tmp
 TODAY=`date +%Y-%m-%d`; TODAY=$(date +%Y-%m-%d);
 mkdir -p $TODAY; cd $TODAY
@@ -200,7 +202,6 @@ cd libtorrent
 git checkout $(git tag | grep libtorrent-1_0_ | sort -t _ -n -k 3 | tail -n 1)
 # 若apt-get autoremove过，可能被清理掉而缺少Geoip库，具体情形未知
 # sudo apt-get install libgeoip-dev
-# 较老版本的qb，如v3.3.x与libtorrent 1.1.x存在兼容性问题。已知有mt的IPV6支持的问题
 #git checkout $(git tag | grep libtorrent-1_1_ | sort -t _ -n -k 3 | tail -n 1)
 ./autotool.sh
 ./configure -disable-debug --enable-encryption --with-libgeoip=system CXXFLAGS=-std=c++11
